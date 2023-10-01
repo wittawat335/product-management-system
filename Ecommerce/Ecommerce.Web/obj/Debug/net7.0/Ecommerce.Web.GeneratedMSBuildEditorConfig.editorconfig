@@ -16,6 +16,18 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web
 build_property._RazorSourceGeneratorDebug = 
 
+[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Authen/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aGVuXExvZ2luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Authen/_LoginScript.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aGVuXF9Mb2dpblNjcmlwdC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Authen/_LoginStyle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aGVuXF9Mb2dpblN0eWxlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
