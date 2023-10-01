@@ -1,0 +1,15 @@
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\bin\Debug\net7.0\Ecommerce.Core.deps.json
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\bin\Debug\net7.0\Ecommerce.Core.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\bin\Debug\net7.0\Ecommerce.Core.pdb
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\bin\Debug\net7.0\Ecommerce.Domain.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\bin\Debug\net7.0\Ecommerce.Domain.pdb
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.csproj.AssemblyReference.cache
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.GeneratedMSBuildEditorConfig.editorconfig
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.AssemblyInfoInputs.cache
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.AssemblyInfo.cs
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.csproj.CoreCompileInputs.cache
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.csproj.CopyComplete
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\refint\Ecommerce.Core.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.pdb
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\ref\Ecommerce.Core.dll
