@@ -1,4 +1,5 @@
-﻿<script src="~/Login_v1/vendor/jquery/jquery-3.2.1.min.js"></script>
+﻿@using Ecommerce.Web.Commons;
+<script src="~/Login_v1/vendor/jquery/jquery-3.2.1.min.js"></script>
 <script src="~/Login_v1/vendor/bootstrap/js/popper.js"></script>
 <script src="~/Login_v1/vendor/bootstrap/js/bootstrap.min.js"></script>
 <script src="~/Login_v1/vendor/select2/select2.min.js"></script>
@@ -16,4 +17,20 @@
 		$('#loginform').show();
 		$('#registerform').hide();
 	}
+    function Login() {
+        var url = '@Url.Content(Constants.UrlAction.Authen.Login)';
+        var data = {
+            "userName": $('#txtUserName').val(),
+            "password": $('#txtPassword').val()
+        };
+        $.post(url, data, function (response) {
+            if (response.isSuccess) {
+                //swalMessage('success', response.message);
+                window.location.href = response.returnUrl;
+            }
+            else {
+                Swal.fire(response.message);
+            }
+        });
+    }
 </script>

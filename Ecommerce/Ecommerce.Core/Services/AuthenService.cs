@@ -97,6 +97,7 @@ namespace Ecommerce.Core.Services
                 response.message = Constants.StatusMessage.LoginSuccess;
                 response.isSuccess = Constants.Status.True;
                 response.value = loginResponse;
+                response.returnUrl = "Home/Index";
             }
             catch (Exception ex)
             {
