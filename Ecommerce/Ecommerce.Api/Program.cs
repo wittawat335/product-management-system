@@ -1,25 +1,29 @@
-var builder = WebApplication.CreateBuilder(args);
+using Ecommerce.Api.Extentions;
+using Ecommerce.Core;
+using Ecommerce.Core.Common;
+using Ecommerce.Infrastructure;
 
-// Add services to the container.
+var builder = WebApplication.CreateBuilder(args);
+var cor = builder.Configuration[Constants.AppSettings.CorsPolicy].ToString();
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+builder.Services.AddInfrastructure(builder.Configuration); //DBsettting
+builder.Services.AddAppSetting(builder.Configuration);
+builder.Services.AddService();
+builder.Services.AuthenticationConfig(builder.Configuration);
+builder.Services.ConfigureCorsPolicy(builder.Configuration); // addCors
 
-// Configure the HTTP request pipeline.
+var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
+app.UseCors(cor);
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
