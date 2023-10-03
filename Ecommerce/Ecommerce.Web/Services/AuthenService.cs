@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using Microsoft.Extensions.Options;
 using Ecommerce.Web.Commons;
+using System.Net.Http.Json;
 
 namespace Ecommerce.Web.Services
 {
@@ -62,6 +63,36 @@ namespace Ecommerce.Web.Services
         public void LogOut()
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<Response<Register>> Register(Register request)
+        {
+            var response = new Response<Register>();
+            var path = _setting.BaseApiUrl + "Authen/Register";
+            try
+            {
+                using (var client = new HttpClient(_httpClient))
+                {
+                    client.BaseAddress = new Uri(path);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    HttpResponseMessage result = await client.PostAsJsonAsync<Register>(path, request);
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string data = result.Content.ReadAsStringAsync().Result;
+                        response = JsonConvert.DeserializeObject<Response<Register>>(data);
+                    }
+                    else
+                        response.message = Constants.MessageError.CallAPI;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+
+            return response;
         }
 
         public void SetSessionValue(Session session)

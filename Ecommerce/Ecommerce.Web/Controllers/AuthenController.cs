@@ -20,9 +20,11 @@ namespace Ecommerce.Web.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Login(Login model)
+        public async Task<IActionResult> Login(Login req)
         {
-            var result = await _service.Login(model);
+            var result = await _service.Login(req);
+            result.returnUrl = Url.Content(result.returnUrl);
+
             return Json(result);
         }
 
@@ -36,9 +38,10 @@ namespace Ecommerce.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register()
+        public async Task<IActionResult> Register(Register req)
         {
-            return View();
+            var result = await _service.Register(req);
+            return Json(result);
         }
     }
 }
