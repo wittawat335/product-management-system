@@ -21,6 +21,7 @@ namespace Ecommerce.Core
         {   //Scoped : จะถูกสร้างใหม่ทุกครั้งที่ Client Request (1 Connection = 1 Client Request)
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddScoped<IAuthenService, AuthenService>();
+            services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICommonService, CommonService>();
         }
 

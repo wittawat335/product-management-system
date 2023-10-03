@@ -17,7 +17,11 @@ public partial class Product
 
     public decimal Price { get; set; }
 
+    public string Description { get; set; }
+
     public string Status { get; set; }
 
     public DateTime? CreateDate { get; set; }
+
+    public virtual Category Category { get; set; }
 }
