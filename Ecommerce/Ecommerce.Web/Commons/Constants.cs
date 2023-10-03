@@ -19,10 +19,8 @@
         }
         public struct UrlAction
         {
-            public struct Authen
-            {
-                public const string Login = "~/Authen/Login";
-            }
+            public const string Login = "~/Authen/Login";
+            public const string Register = "~/Authen/Register";
             public struct Product
             {
                 public const string GetList = "~/Product/GetList";
