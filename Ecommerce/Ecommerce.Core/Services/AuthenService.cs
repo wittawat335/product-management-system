@@ -89,6 +89,7 @@ namespace Ecommerce.Core.Services
                     signingCredentials: signIn);
 
                 loginResponse.token = new JwtSecurityTokenHandler().WriteToken(token);
+                loginResponse.userName = user.Username;
                 loginResponse.userId = user.UserId.ToString();
                 loginResponse.fullName = user.FullName;
                 loginResponse.position = user.Position.PositionName;
