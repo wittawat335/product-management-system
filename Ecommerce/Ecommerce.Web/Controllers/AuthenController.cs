@@ -23,7 +23,7 @@ namespace Ecommerce.Web.Controllers
         public async Task<IActionResult> Login(Login model)
         {
             var result = await _service.Login(model);
-            return new JsonResult(result);
+            return Json(result);
         }
 
         public IActionResult Logout()

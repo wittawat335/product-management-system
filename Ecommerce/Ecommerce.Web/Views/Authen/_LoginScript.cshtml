@@ -9,7 +9,7 @@
 	$('.js-tilt').tilt({
 		scale: 1.1
 	})
-	function changeToRegisterForm(){
+	function changeToRegisterForm() {
 		$('#loginform').hide();
 		$('#registerform').show();
 	}
@@ -19,13 +19,9 @@
 	}
     function Login() {
         var url = '@Url.Content(Constants.UrlAction.Authen.Login)';
-        var data = {
-            "userName": $('#txtUserName').val(),
-            "password": $('#txtPassword').val()
-        };
+        var data = {"userName": $('#txtUserName').val(), "password": $('#txtPassword').val()};
         $.post(url, data, function (response) {
             if (response.isSuccess) {
-                //swalMessage('success', response.message);
                 window.location.href = response.returnUrl;
             }
             else {
