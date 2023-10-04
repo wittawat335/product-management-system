@@ -22,6 +22,11 @@ namespace Ecommerce.Web.Controllers
             return View();
         }
 
+        public IActionResult Test()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> GetList(Product filter = null)
         {
             var response = await _productService.GetListAsync(_setting.BaseApiUrl + "Product/GetList", filter);

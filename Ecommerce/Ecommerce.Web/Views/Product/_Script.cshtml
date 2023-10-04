@@ -3,10 +3,6 @@
     var urlDelete = '@Url.Content(Constants.UrlAction.Product.Delete)';
     $(function () {
         GetList();
-        // $("#dtProduct").DataTable({
-        //     "responsive": true, "lengthChange": false, "autoWidth": false,
-        //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        // }).buttons().container().appendTo('#dtProduct_wrapper .col-md-6:eq(0)');
     });
     function GetList() {
         $.ajax({
@@ -18,56 +14,60 @@
         })
     }
     function OnSuccess(response) {
-        console.log(response);
         $('#dtResult').DataTable({
             bDestroy: true,
             bProcessing: true,
             bLenghtChange: true,
             lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
-            bfilter: true,
+            searching: false, //ช่อง search
+            responsive: true,           
+            autoWidth: false,
+            bfilter: true, 
             bSort: true,
             bPaginate: true,
+            lengthChange: false, //ปุ่มจำนวนแสดงข้อมูล
+            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"], //แผงปุ่ม export
             data: response.value,
             columns: [
                 {
-                    data: 'ProductName',
+                    data: 'productName',
                     render: function (data, type, row, meta) {
                         return row.productName
                     }
                 },
                 {
-                    data: 'CategoryName',
+                    data: 'categoryName',
                     render: function (data, type, row, meta) {
                         return row.categoryName
                     }
                 },
                 {
-                    data: 'Image',
+                    data: 'image',
                     render: function (data, type, row, meta) {
                         return row.image
                     }
                 },
                 {
-                    data: 'Stock',
+                    data: 'stock',
                     render: function (data, type, row, meta) {
                         return row.stock
                     }
                 },
                 {
-                    data: 'Price',
+                    data: 'price',
                     render: function (data, type, row, meta) {
                         return row.price
                     }
                 },
                 {
-                    data: 'Description',
+                    data: 'description',
                     render: function (data, type, row, meta) {
                         return row.description
                     }
                 },
            
                 {
-                    data: 'Status',
+                    data: 'status',
                     render: function (data, type, row, meta) {
                         if (row.status === 'A') {
                             return '<span class="badge bg-success">'
@@ -85,14 +85,14 @@
                     }
                 },
                 {
-                    data: 'CreateDate',
+                    data: 'createDate',
                     render: function (data, type, row, meta) {
                         return row.createDate
                     }
                 },
                 {
-                    data: 'null',
-                    render: function (data, type, row, meta) {
+                    data: 'productId',
+                    render: function (row) {
                         return '<a class="btn btn-success" onclick=PopupDetail("' + row.productId + '","View");>'
                             + '<i class="fas fa-eye"></i></a>'
                             + '<a class="btn btn-warning" onclick=PopupDetail("' + row.productId + '","Edit");>'
@@ -102,6 +102,6 @@
                     }
                 }
             ]
-        });
+        }).buttons().container().appendTo('#dtResult_wrapper .col-md-6:eq(0)');
     }
 </script>
