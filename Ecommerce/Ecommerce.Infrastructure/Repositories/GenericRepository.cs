@@ -14,7 +14,7 @@ namespace Ecommerce.Infrastructure.Repositories
             _context = context;
         }
 
-        public IQueryable<T> AsQueryable(Expression<Func<T, bool>> filter = null, int? skip = null, int? take = null)
+        public async Task<IQueryable<T>> AsQueryable(Expression<Func<T, bool>> filter = null, int? skip = null, int? take = null)
         {
             try
             {
@@ -114,6 +114,7 @@ namespace Ecommerce.Infrastructure.Repositories
         {
             await _context.Set<T>().AddRangeAsync(model);
         }
+
         #endregion
     }
 }

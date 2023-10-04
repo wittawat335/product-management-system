@@ -5,6 +5,6 @@ namespace Ecommerce.Core.Services.Interfaces
 {
     public interface IProductService
     {
-        Response<List<ProductDTO>> GetList();
+        Task<Response<List<ProductDTO>>> GetList(ProductDTO filter = null);
     }
 }

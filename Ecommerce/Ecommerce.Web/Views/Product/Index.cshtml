@@ -1,4 +1,5 @@
-﻿   <!-- Content Header (Page header) -->
+﻿@model Product
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -12,10 +13,9 @@
                 </ol>
             </div>
         </div>
-    </div><!-- /.container-fluid -->
+    </div>
 </section>
-
-<!-- Main content -->
+   <!-- DataTable -->
 <section class="content">
     <div class="container-fluid">
         <div class="row">
@@ -24,35 +24,31 @@
                     <div class="card-header">
                         <h3 class="card-title">DataTable with default features</h3>
                     </div>
-                    <!-- /.card-header -->
                     <div class="card-body">
-                        <table id="dtProduct" class="table table-bordered table-striped">
+                        <table id="dtResult" class="table table-bordered table-striped">
                             <thead>
-                                <tr>
+                                <tr style="text-align:center">
                                     <th>ชื่อสินค้า</th>
                                     <th>ประเภทสินค้า</th>
                                     <th>รูปภาพ</th>
                                     <th>จำนวนที่มี</th>
                                     <th>ราคา</th>
+                                    <th>รายละเอียด</th>
                                     <th>สถานะ</th>
                                     <th>วันที่บันทึก</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
                         </table>
                     </div>
-                    <!-- /.card-body -->
                 </div>
-                <!-- /.card -->
             </div>
-            <!-- /.col -->
         </div>
-        <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
 </section>
 @section Scripts{
     @{
-        await Html.RenderPartialAsync("_Script");
+        await Html.RenderPartialAsync("_Script", Model);
     }
 }

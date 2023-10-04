@@ -1,5 +1,5 @@
-﻿using Ecommerce.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Http;
+﻿using Ecommerce.Core.DTOs;
+using Ecommerce.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Api.Controllers
@@ -15,10 +15,16 @@ namespace Ecommerce.Api.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public IActionResult GetList()
+        [HttpGet("GetList")]
+        public async Task<IActionResult> GetList()
         {
-            return Ok(_service.GetList());
+            return Ok(await _service.GetList());
+        }
+
+        [HttpPost("GetList")]
+        public async Task<IActionResult> GetList(ProductDTO filter)
+        {
+            return Ok(await _service.GetList(filter));
         }
     }
 }

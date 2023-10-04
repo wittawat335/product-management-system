@@ -9,7 +9,6 @@ namespace Ecommerce.Domain.RepositoryContracts
 {
     public interface IGenericRepository<T> where T : class
     {
-        IQueryable<T> AsQueryable(Expression<Func<T, bool>> filter = null, int? skip = null, int? take = null);
         T Get(Expression<Func<T, bool>> filter);
         T Find(string code);
         void Insert(T model);
@@ -21,6 +20,7 @@ namespace Ecommerce.Domain.RepositoryContracts
         void SaveChanges();
 
         #region Async
+        Task<IQueryable<T>> AsQueryable(Expression<Func<T, bool>> filter = null, int? skip = null, int? take = null);
         Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null, int? skip = null, int? take = null);
         Task<T> GetAsync(Expression<Func<T, bool>> filter);
         Task<T> FindAsync(string code);

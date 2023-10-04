@@ -6,7 +6,6 @@ using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
 
 namespace Ecommerce.Core.Services
 {
@@ -21,13 +20,22 @@ namespace Ecommerce.Core.Services
             _mapper = mapper;
         }
 
-        public Response<List<ProductDTO>> GetList()
+        public async Task<Response<List<ProductDTO>>> GetList(ProductDTO filter = null)
         {
             var response = new Response<List<ProductDTO>>();
             try
             {
-                var productList = _repository.AsQueryable();
+                var productList = await _repository.AsQueryable();
                 var result = productList.Include(x => x.Category).ToList();
+                if (filter != null)
+                {
+                    if (filter.ProductName != null && filter.ProductName != "string")
+                        result = result.Where(x => x.ProductName.Contains(filter.ProductName)).ToList();
+                    if (filter.CategoryName != null && filter.CategoryName != "string")
+                        result = result.Where(x => x.Category.CategoryName.Contains(filter.CategoryName)).ToList();
+                    if (filter.Status != null && filter.Status != "string")
+                        result = result.Where(x => x.Status.Contains(filter.Status)).ToList();
+                }
                 response.value = _mapper.Map<List<ProductDTO>>(result);
                 response.isSuccess = Constants.Status.True;
             }

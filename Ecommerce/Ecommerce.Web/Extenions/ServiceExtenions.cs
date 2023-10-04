@@ -34,6 +34,7 @@ namespace Ecommerce.Web.Extenions
             services.AddTransient(typeof(IBaseApiService<>), typeof(BaseApiService<>));
             services.AddScoped<ICommonService, CommonService>();
             services.AddScoped<IAuthenService, AuthenService>();
+            services.AddScoped<IProductService, ProductService>();
         }
     }
 }

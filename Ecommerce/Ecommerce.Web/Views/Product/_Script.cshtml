@@ -1,8 +1,107 @@
-﻿<script>
+﻿@using Ecommerce.Web.Commons;
+<script>
+    var urlDelete = '@Url.Content(Constants.UrlAction.Product.Delete)';
     $(function () {
-        $("#dtProduct").DataTable({
-            "responsive": true, "lengthChange": false, "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#dtProduct_wrapper .col-md-6:eq(0)');
+        GetList();
+        // $("#dtProduct").DataTable({
+        //     "responsive": true, "lengthChange": false, "autoWidth": false,
+        //     "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+        // }).buttons().container().appendTo('#dtProduct_wrapper .col-md-6:eq(0)');
     });
+    function GetList() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Content(Constants.UrlAction.Product.GetList)',
+            dataType: "json",
+            data: {},
+            success: OnSuccess
+        })
+    }
+    function OnSuccess(response) {
+        console.log(response);
+        $('#dtResult').DataTable({
+            bDestroy: true,
+            bProcessing: true,
+            bLenghtChange: true,
+            lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
+            bfilter: true,
+            bSort: true,
+            bPaginate: true,
+            data: response.value,
+            columns: [
+                {
+                    data: 'ProductName',
+                    render: function (data, type, row, meta) {
+                        return row.productName
+                    }
+                },
+                {
+                    data: 'CategoryName',
+                    render: function (data, type, row, meta) {
+                        return row.categoryName
+                    }
+                },
+                {
+                    data: 'Image',
+                    render: function (data, type, row, meta) {
+                        return row.image
+                    }
+                },
+                {
+                    data: 'Stock',
+                    render: function (data, type, row, meta) {
+                        return row.stock
+                    }
+                },
+                {
+                    data: 'Price',
+                    render: function (data, type, row, meta) {
+                        return row.price
+                    }
+                },
+                {
+                    data: 'Description',
+                    render: function (data, type, row, meta) {
+                        return row.description
+                    }
+                },
+           
+                {
+                    data: 'Status',
+                    render: function (data, type, row, meta) {
+                        if (row.status === 'A') {
+                            return '<span class="badge bg-success">'
+                                + '' + 'ใช้งาน' + ''
+                                + '</span>'
+                        }
+                        else if (row.status === 'I') {
+                            return '<span class="badge bg-dark">'
+                                + '' + 'ไม่ได้ใช้งาน' + ''
+                                + '</span> '
+                        }
+                        else {
+                            return "";
+                        }
+                    }
+                },
+                {
+                    data: 'CreateDate',
+                    render: function (data, type, row, meta) {
+                        return row.createDate
+                    }
+                },
+                {
+                    data: 'null',
+                    render: function (data, type, row, meta) {
+                        return '<a class="btn btn-success" onclick=PopupDetail("' + row.productId + '","View");>'
+                            + '<i class="fas fa-eye"></i></a>'
+                            + '<a class="btn btn-warning" onclick=PopupDetail("' + row.productId + '","Edit");>'
+                            + '<i class="fas fa-pen"></i></a>'
+                            + '<a class="btn btn-danger" onclick=Delete("' + row.productId + '","' + row.productName + '","' + urlDelete + '");>'
+                            + '<i class="fas fa-trash"></a>'
+                    }
+                }
+            ]
+        });
+    }
 </script>
