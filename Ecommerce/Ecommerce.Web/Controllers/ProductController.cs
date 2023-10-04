@@ -27,6 +27,13 @@ namespace Ecommerce.Web.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult _PopUpDialog(string id, string action)
+        {
+            var model = new Product();
+            return PartialView(model);
+        }
+
         public async Task<IActionResult> GetList(Product filter = null)
         {
             var response = await _productService.GetListAsync(_setting.BaseApiUrl + "Product/GetList", filter);

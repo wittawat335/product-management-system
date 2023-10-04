@@ -48,6 +48,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxUZXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Product/_PopUpDialog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxfUG9wVXBEaWFsb2cuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Product/_Script.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxfU2NyaXB0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -62,6 +66,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Shared/_LayoutScript.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRTY3JpcHQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Shared/_Modal.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Nb2RhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Shared/_Sidebar.cshtml]

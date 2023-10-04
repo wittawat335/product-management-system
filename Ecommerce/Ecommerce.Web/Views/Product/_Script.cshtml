@@ -104,4 +104,9 @@
             ]
         }).buttons().container().appendTo('#dtResult_wrapper .col-md-6:eq(0)');
     }
+    function openPopup(id, action) {
+        var data = { "id": id, "action": action };
+        action = action == "New" ? "เพิ่มสินค้า" : "แก้ไขสินค้า";
+        modalPOST(action, "@Url.Content(Constants.UrlAction.Product.PopUpDialog)", data, 50);
+    };
 </script>

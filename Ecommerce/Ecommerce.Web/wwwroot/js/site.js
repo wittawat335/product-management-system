@@ -36,8 +36,8 @@
     };
 });
 
-function modalPOST(caption, controller, action, data, isFull, med) {
-    var url = '/' + controller + '/' + action;
+function modalPOST(caption, path, data, isFull) {
+    var url = path;
     $.post(url, data, function (result) {
         $('#modalDialog > .modal-dialog > .modal-content > .modal-body').html(result);
         showModal(caption, isFull);
@@ -47,11 +47,10 @@ function modalPOST(caption, controller, action, data, isFull, med) {
 function modalPOSTV2(caption, path, data, isFull) {
     var url = path;
     $.post(url, data, function (result) {
-        $('#modalDialog > .modal-dialog > .modal-content > .modal-body').html(result);
-        showModal(caption, isFull);
+        $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-body').html(result);
+        showModalLv2(caption, isFull);
     });
 }
-
 function showModal(caption, isFull, med) {
 
     $('#modalDialog > .modal-dialog').removeClass('modal-full');
@@ -123,11 +122,60 @@ function showModal(caption, isFull, med) {
     $('#modalDialog > .modal-dialog > .modal-content > .modal-header > .modal-title').text(caption);
     $('#modalDialog').modal('show');
 }
+function showModalLv2(caption, isFull) {
+    if (typeof (isFull) === "boolean") {
+        if (isFull)
+            $('#modalDialogLv2 > .modal-dialog').addClass('modal-full');
+        else
+            $('#modalDialogLv2 > .modal-dialog').removeClass('modal-full');
+    } else {
+        if (typeof (isFull) === "number") {
+            var x = isFull;
+            switch (true) {
+                case (x >= 20 && x < 30):
+                    $('#modalDialog > .modal-dialog').addClass('modal-20');
+                    break;
+                case (x >= 30 && x < 40):
+                    $('#modalDialog > .modal-dialog').addClass('modal-30');
+                    break;
+                case (x >= 40 && x < 50):
+                    $('#modalDialog > .modal-dialog').addClass('modal-40');
+                    break;
+                case (x >= 50 && x < 60):
+                    $('#modalDialog > .modal-dialog').addClass('modal-50');
+                    break;
+                case (x >= 60 && x < 70):
+                    $('#modalDialog > .modal-dialog').addClass('modal-60');
+                    break;
+                case (x >= 70 && x < 80):
+                    $('#modalDialog > .modal-dialog').addClass('modal-70');
+                    break;
+                case (x >= 80 && x < 90):
+                    $('#modalDialog > .modal-dialog').addClass('modal-80');
+                    break;
+                case (x >= 90):
+                    $('#modalDialog > .modal-dialog').addClass('modal-90');
+                    break;
+                default:
+                    $('#modalDialog > .modal-dialog').addClass('modal-full');
+                    break;
+            }
+        }
+    }
+    $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-header > .modal-title').text(caption);
+    $('#modalDialogLv2').modal('show');
+}
 
 function closeModal() {
     $('#modalDialog > .modal-dialog > .modal-content > .modal-body').html('');
     $('#modalDialog > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modalDialog').modal('hide');
+}
+
+function clearModalLv2() {
+    $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-body').html('');
+    $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
+    $('#modalDialogLv2').modal('hide');
 }
 
 function ClearValueByDiv(div) {

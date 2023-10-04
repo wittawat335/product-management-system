@@ -1,0 +1,50 @@
+﻿@model Product
+<form id="frmDetail" role="form" method="post">
+    <div class="form-group">
+        <label asp-for="ProductName" class="form-label"></label>
+        <input asp-for="ProductName" class="form-control" type="text" maxlength="20" />
+    </div>
+    @* <div class="form-group mt-2">
+    <label asp-for="ca" class="form-label"></label>
+    @Html.DropDownListFor(m => m.masterDTO.MASTER_TYPE,
+    new SelectList(Model.listMaster, Constants.MasterTypeDDl.Code, Constants.MasterTypeDDl.Text),
+    @Constants.SelectOption.SelectOne, new { @class = "form-control",
+    })
+    </div>
+    <div class="form-group mt-2">
+    <label asp-for="masterDTO.MASTER_NAME_TH"
+    class="form-label">
+    </label>
+    <input asp-for="masterDTO.MASTER_NAME_TH"
+    class="form-control"
+    type="text"
+    maxlength="100" />
+    </div>
+    <div class="form-group mt-2">
+    <label asp-for="masterDTO.MASTER_NAME_EN"
+    class="form-label">
+    </label>
+    <input asp-for="masterDTO.MASTER_NAME_EN"
+    class="form-control"
+    type="text"
+    maxlength="100" />
+    </div>
+    <div class="form-group mt-2 mb-3">
+    <label asp-for="masterDTO.MASTER_STATUS"
+    class="form-label">
+    </label>
+    <select asp-for="masterDTO.MASTER_STATUS"
+    class="form-control"
+    asp-items="@(new SelectList
+    (common.GetListStatus(), Constants.StatusListDDl.Code, Constants.StatusListDDl.Text))"
+    required>
+    </select>
+    </div> *@
+    <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+        <button type="button" class="btn btn-primary">บันทึก</button>
+    </div>
+
+    <div style="display: none">
+    </div>
+</form>
