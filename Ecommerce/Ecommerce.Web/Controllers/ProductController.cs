@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Web.Extenions.Class;
 using Ecommerce.Web.Models;
+using Ecommerce.Web.Services;
 using Ecommerce.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -25,6 +26,12 @@ namespace Ecommerce.Web.Controllers
         public IActionResult Test()
         {
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetImage(string productId)
+        {
+            return Json(await _productService.GetAsyncById(_setting.BaseApiUrl + string.Format("Product/GetImage/{0}", productId)));
         }
 
         [HttpPost]

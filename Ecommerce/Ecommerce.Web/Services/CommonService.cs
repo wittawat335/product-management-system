@@ -1,6 +1,8 @@
 ﻿using Ecommerce.Web.Commons;
+using Ecommerce.Web.Extenions.Class;
 using Ecommerce.Web.Models;
 using Ecommerce.Web.Services.Interfaces;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Ecommerce.Web.Services
@@ -8,6 +10,7 @@ namespace Ecommerce.Web.Services
     public class CommonService : ICommonService
     {
         private readonly IHttpContextAccessor _contextAccessor;
+
 
         public CommonService(IHttpContextAccessor contextAccessor)
         {

@@ -4,6 +4,38 @@
         <label asp-for="ProductName" class="form-label"></label>
         <input asp-for="ProductName" class="form-control" type="text" maxlength="20" />
     </div>
+    <div class="form-group">
+        <label asp-for="CategoryId" class="form-label"></label>
+        <input asp-for="ProductName" class="form-control" type="text" maxlength="20" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Image" class="form-label"></label>
+        <div class="input-group">
+            <div class="custom-file">
+                <input asp-for="Image" type="file" class="custom-file-input" />
+                <label class="custom-file-label" for="Image">เลือกไฟล์</label>
+            </div>
+            <div class="input-group-append">
+                <span class="input-group-text">อัพไฟล์</span>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Stock" class="form-label"></label>
+        <input asp-for="Stock" class="form-control" type="number" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control" type="number" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description" class="form-label"></label>
+        <input asp-for="Description" class="form-control" type="text" maxlength="20" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Status" class="form-label"></label>
+        <input asp-for="Status" class="form-control" type="text" maxlength="20" />
+    </div>
     @* <div class="form-group mt-2">
     <label asp-for="ca" class="form-label"></label>
     @Html.DropDownListFor(m => m.masterDTO.MASTER_TYPE,
@@ -42,9 +74,8 @@
     </div> *@
     <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-        <button type="button" class="btn btn-primary">บันทึก</button>
+        <button type="button" class="btn btn-info">บันทึก</button>
     </div>
-
     <div style="display: none">
     </div>
 </form>

@@ -4,6 +4,7 @@
     {
         public string ProductId { get; set; }
         public string ProductName { get; set; }
+        public string CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string Image { get; set; }
         public int Stock { get; set; }

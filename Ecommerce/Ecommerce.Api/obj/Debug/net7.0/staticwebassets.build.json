@@ -1,11 +1,37 @@
 {
   "Version": 1,
-  "Hash": "elvQNrYl/SvtL+5/FQUSkNUGpHO3mB5xaa27r1QMv1A=",
+  "Hash": "vrr85ujw6UdqzvkmlV6OjzPHboc77PLhEO9aOvxXQ3Q=",
   "Source": "Ecommerce.Api",
   "BasePath": "_content/Ecommerce.Api",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "Ecommerce.Api\\wwwroot",
+      "Source": "Ecommerce.Api",
+      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Api\\wwwroot\\",
+      "BasePath": "_content/Ecommerce.Api",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Api\\wwwroot\\Upload\\product\\a6377e50-a417-4c1f-936d-00bc9d8bc2d8\\a6377e50-a417-4c1f-936d-00bc9d8bc2d8.png",
+      "SourceId": "Ecommerce.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Api\\wwwroot\\",
+      "BasePath": "_content/Ecommerce.Api",
+      "RelativePath": "Upload/product/a6377e50-a417-4c1f-936d-00bc9d8bc2d8/a6377e50-a417-4c1f-936d-00bc9d8bc2d8.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\Upload\\product\\a6377e50-a417-4c1f-936d-00bc9d8bc2d8\\a6377e50-a417-4c1f-936d-00bc9d8bc2d8.png"
+    }
+  ]
 }

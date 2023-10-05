@@ -3,6 +3,18 @@
     var urlDelete = '@Url.Content(Constants.UrlAction.Product.Delete)';
     $(function () {
         GetList();
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox({
+                alwaysShowClose: true
+            });
+        });
+
+        $('.filter-container').filterizr({ gutterPixels: 3 });
+        $('.btn[data-filter]').on('click', function () {
+            $('.btn[data-filter]').removeClass('active');
+            $(this).addClass('active');
+        });
     });
     function GetList() {
         $.ajax({
@@ -20,9 +32,9 @@
             bLenghtChange: true,
             lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
             searching: false, //ช่อง search
-            responsive: true,           
+            responsive: true,
             autoWidth: false,
-            bfilter: true, 
+            bfilter: true,
             bSort: true,
             bPaginate: true,
             lengthChange: false, //ปุ่มจำนวนแสดงข้อมูล
@@ -44,7 +56,13 @@
                 {
                     data: 'image',
                     render: function (data, type, row, meta) {
-                        return row.image
+                        return'<div class="filter-container p-0 row text-center">'
+                            + '<div class="filtr-item col-sm-2">'
+                            + '<a href="' + row.image + '" data-toggle="lightbox" data-title="' + row.productName + '">'
+                            + '<img src="' + row.image + '" alt="' + row.productName + '" width="50" height="50" />'
+                            + '</a>'
+                            + '</div>'
+                            + '</div>'
                     }
                 },
                 {
@@ -65,7 +83,6 @@
                         return row.description
                     }
                 },
-           
                 {
                     data: 'status',
                     render: function (data, type, row, meta) {
@@ -104,6 +121,7 @@
             ]
         }).buttons().container().appendTo('#dtResult_wrapper .col-md-6:eq(0)');
     }
+
     function openPopup(id, action) {
         var data = { "id": id, "action": action };
         action = action == "New" ? "เพิ่มสินค้า" : "แก้ไขสินค้า";
