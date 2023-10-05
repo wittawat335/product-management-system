@@ -10,7 +10,7 @@
             });
         });
 
-        $('.filter-container').filterizr({ gutterPixels: 3 });
+        //$('.filter-container').filterizr({ gutterPixels: 3 });
         $('.btn[data-filter]').on('click', function () {
             $('.btn[data-filter]').removeClass('active');
             $(this).addClass('active');
@@ -56,12 +56,10 @@
                 {
                     data: 'image',
                     render: function (data, type, row, meta) {
-                        return'<div class="filter-container p-0 row text-center">'
-                            + '<div class="filtr-item col-sm-2">'
+                        return '<div class="filtr-item col-sm-2">'
                             + '<a href="' + row.image + '" data-toggle="lightbox" data-title="' + row.productName + '">'
                             + '<img src="' + row.image + '" alt="' + row.productName + '" width="50" height="50" />'
                             + '</a>'
-                            + '</div>'
                             + '</div>'
                     }
                 },

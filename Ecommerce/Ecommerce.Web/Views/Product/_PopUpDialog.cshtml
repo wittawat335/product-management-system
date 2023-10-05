@@ -13,7 +13,7 @@
         <div class="input-group">
             <div class="custom-file">
                 <input asp-for="Image" type="file" class="custom-file-input" />
-                <label class="custom-file-label" for="Image">เลือกไฟล์</label>
+                <label asp-for="Image" class="custom-file-label">เลือกไฟล์</label>
             </div>
             <div class="input-group-append">
                 <span class="input-group-text">อัพไฟล์</span>
@@ -30,11 +30,15 @@
     </div>
     <div class="form-group">
         <label asp-for="Description" class="form-label"></label>
-        <input asp-for="Description" class="form-control" type="text" maxlength="20" />
+        <textarea asp-for="Description" class="form-control" rows="3" placeholder="ใส่รายละเอียด ..."></textarea>
     </div>
-    <div class="form-group">
+    <div class="form-group mb-3">
         <label asp-for="Status" class="form-label"></label>
-        <input asp-for="Status" class="form-control" type="text" maxlength="20" />
+        <select asp-for="Status" class="form-control" style="width: 100%;">
+            <option selected="selected">กรุณาเลือก</option>
+            <option value="A">ใช้งาน</option>
+            <option value="I">ไม่ได้ใช้งาน</option>
+        </select>
     </div>
     @* <div class="form-group mt-2">
     <label asp-for="ca" class="form-label"></label>
@@ -79,3 +83,8 @@
     <div style="display: none">
     </div>
 </form>
+<script>
+    $(function () {
+        bsCustomFileInput.init();
+    });
+</script>
