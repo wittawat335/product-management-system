@@ -7,6 +7,6 @@ namespace Ecommerce.Web.Services.Interfaces
         Task<Response<List<Product>>> GetList(string url, Product filter);
         Task<List<Product>> Select2Product(string url, string query);
         Task<Product> Detail(string id, string action);
-        Task<Response<Product>> Save(Product model);
+        Task<Response<Product>> Save(ProductViewModel model);
     }
 }

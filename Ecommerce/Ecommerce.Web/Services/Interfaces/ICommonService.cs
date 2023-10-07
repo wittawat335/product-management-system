@@ -1,4 +1,4 @@
-﻿using Ecommerce.Web.Models;
+﻿using Ecommerce.Web.Models.Authen;
 
 namespace Ecommerce.Web.Services.Interfaces
 {

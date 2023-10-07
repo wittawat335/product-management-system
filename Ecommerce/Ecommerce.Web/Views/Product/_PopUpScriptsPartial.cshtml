@@ -1,0 +1,13 @@
+﻿@using Ecommerce.Web.Commons;
+@model ProductViewModel;
+<script>
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+        CheckAction();
+    });
+
+    function CheckAction() {
+        if ('@Model.Action' == '@Constants.Action.View')
+            SetReadOnlyByDiv('frmDetail', true);
+    }
+</script>

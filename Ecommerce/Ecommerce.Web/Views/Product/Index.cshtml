@@ -1,4 +1,5 @@
-﻿@model Product
+﻿@using Ecommerce.Web.Models;
+@model Product
 @{
     ViewData["Title"] = "หน้าหลัก";
 }
@@ -112,7 +113,7 @@
                                     <th>วันที่บันทึก</th>
                                     <th>
                                         <a class="btn btn-info"
-                                           onclick="openPopup('','New')">
+                                           onclick="openPopup('','Add')">
                                             เพิ่มสินค้า
                                         </a>
                                     </th>

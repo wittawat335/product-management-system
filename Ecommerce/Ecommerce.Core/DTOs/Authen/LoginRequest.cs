@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ecommerce.Core.DTOs
+namespace Ecommerce.Core.DTOs.Authen
 {
     public class LoginRequest
     {

@@ -21,225 +21,248 @@ namespace Ecommerce.Api.Controllers
         [HttpGet("GetList")]
         public async Task<IActionResult> GetList()
         {
-            var response = await _service.GetList();
-            return Ok(response);
+            return Ok(await _service.GetList());
         }
 
-        [HttpPost("GetList")]
-        public async Task<IActionResult> GetList(ProductDTO filter)
+        [HttpPost("Search")]
+        public async Task<IActionResult> Search(ProductDTO filter)
         {
             return Ok(await _service.GetList(filter));
         }
 
-        [HttpPut("UploadImage")]
-        public async Task<IActionResult> UploadImage(IFormFile formFile, string productId)
+        [HttpGet("GetProduct/{id}")]
+        public async Task<IActionResult> GetProduct(string id)
         {
-            var response = new Response<string>();
-            try
-            {
-                string Filepath = GetFilepath(productId);
-                if (!System.IO.Directory.Exists(Filepath))
-                {
-                    System.IO.Directory.CreateDirectory(Filepath);
-                }
-
-                string imagepath = Filepath + "\\" + productId + ".png";
-                if (System.IO.File.Exists(imagepath))
-                {
-                    System.IO.File.Delete(imagepath);
-                }
-                using (FileStream stream = System.IO.File.Create(imagepath))
-                {
-                    await formFile.CopyToAsync(stream);
-                    response.isSuccess = true;
-                    response.message = "upload successfully";
-                }
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-            }
-            return Ok(response);
+            return Ok(await _service.Get(id));
         }
 
-        [HttpPut("MultiUploadImage")]
-        public async Task<IActionResult> MultiUploadImage(IFormFileCollection filecollection, string productId)
+        [HttpPost("Add")]
+        public async Task<IActionResult> Add(ProductDTO request)
         {
-            var response = new Response<string>();
-            int passcount = 0; int errorcount = 0;
-            try
-            {
-                string Filepath = GetFilepath(productId);
-                if (!System.IO.Directory.Exists(Filepath))
-                {
-                    System.IO.Directory.CreateDirectory(Filepath);
-                }
-                foreach (var file in filecollection)
-                {
-                    string imagepath = Filepath + "\\" + file.FileName;
-                    if (System.IO.File.Exists(imagepath))
-                    {
-                        System.IO.File.Delete(imagepath);
-                    }
-                    using (FileStream stream = System.IO.File.Create(imagepath))
-                    {
-                        await file.CopyToAsync(stream);
-                        passcount++;
-
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                errorcount++;
-                response.message = ex.Message;
-            }
-            response.isSuccess = true;
-            response.message = passcount + " Files uploaded &" + errorcount + " files failed";
-
-            return Ok(response);
+            return Ok(await _service.Add(request));
         }
 
-        [HttpGet("GetImage/{productId}")]
-        public async Task<IActionResult> GetImage(string productId)
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update(ProductDTO request)
         {
-            string Imageurl = string.Empty;
-            string hosturl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
-            try
-            {
-                string Filepath = GetFilepath(productId);
-                string imagepath = Filepath + "\\" + productId + ".png";
-                if (System.IO.File.Exists(imagepath))
-                {
-                    Imageurl = hosturl + "/images/product/" + productId + "/" + productId + ".png";
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            catch (Exception ex)
-            {
-            }
-            return Ok(Imageurl);
-
+            return Ok(await _service.Update(request));
         }
 
-        [HttpGet("GetMultiImage")]
-        public async Task<IActionResult> GetMultiImage(string productId)
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(string id)
         {
-            List<string> Imageurl = new List<string>();
-            string hosturl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
-            try
-            {
-                string Filepath = GetFilepath(productId);
-
-                if (System.IO.Directory.Exists(Filepath))
-                {
-                    DirectoryInfo directoryInfo = new DirectoryInfo(Filepath);
-                    FileInfo[] fileInfos = directoryInfo.GetFiles();
-                    foreach (FileInfo fileInfo in fileInfos)
-                    {
-                        string filename = fileInfo.Name;
-                        string imagepath = Filepath + "\\" + filename;
-                        if (System.IO.File.Exists(imagepath))
-                        {
-                            string _Imageurl = hosturl + "/images/product/" + productId + "/" + filename;
-                            Imageurl.Add(_Imageurl);
-                        }
-                    }
-                }
-
-            }
-            catch (Exception ex)
-            {
-            }
-            return Ok(Imageurl);
+            return Ok();
         }
 
-        [HttpGet("DownloadImage")]
-        public async Task<IActionResult> DownloadImage(string productId)
-        {
-            try
-            {
-                string Filepath = GetFilepath(productId);
-                string imagepath = Filepath + "\\" + productId + ".png";
-                if (System.IO.File.Exists(imagepath))
-                {
-                    MemoryStream stream = new MemoryStream();
-                    using (FileStream fileStream = new FileStream(imagepath, FileMode.Open))
-                    {
-                        await fileStream.CopyToAsync(stream);
-                    }
-                    stream.Position = 0;
-                    return File(stream, "image/png", productId + ".png");
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            catch (Exception ex)
-            {
-                return NotFound();
-            }
-        }
+        //[HttpPut("UploadImage")]
+        //public async Task<IActionResult> UploadImage(IFormFile formFile, string productId)
+        //{
+        //    var response = new Response<string>();
+        //    try
+        //    {
+        //        string Filepath = GetFilepath(productId);
+        //        if (!System.IO.Directory.Exists(Filepath))
+        //        {
+        //            System.IO.Directory.CreateDirectory(Filepath);
+        //        }
 
-        [HttpGet("RemoveImage")]
-        public async Task<IActionResult> RemoveImage(string productId)
-        {
-            try
-            {
-                string Filepath = GetFilepath(productId);
-                string imagepath = Filepath + "\\" + productId + ".png";
-                if (System.IO.File.Exists(imagepath))
-                {
-                    System.IO.File.Delete(imagepath);
-                    return Ok("pass");
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            catch (Exception ex)
-            {
-                return NotFound();
-            }
-        }
+        //        string imagepath = Filepath + "\\" + productId + ".png";
+        //        if (System.IO.File.Exists(imagepath))
+        //        {
+        //            System.IO.File.Delete(imagepath);
+        //        }
+        //        using (FileStream stream = System.IO.File.Create(imagepath))
+        //        {
+        //            await formFile.CopyToAsync(stream);
+        //            response.isSuccess = true;
+        //            response.message = "upload successfully";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        response.message = ex.Message;
+        //    }
+        //    return Ok(response);
+        //}
 
-        [HttpGet("MultiRemoveImage")]
-        public async Task<IActionResult> MultiRemoveImage(string productId)
-        {
-            try
-            {
-                string Filepath = GetFilepath(productId);
-                if (System.IO.Directory.Exists(Filepath))
-                {
-                    DirectoryInfo directoryInfo = new DirectoryInfo(Filepath);
-                    FileInfo[] fileInfos = directoryInfo.GetFiles();
-                    foreach (FileInfo fileInfo in fileInfos)
-                    {
-                        fileInfo.Delete();
-                    }
-                    return Ok("pass");
-                }
-                else
-                {
-                    return NotFound();
-                }
-            }
-            catch (Exception ex)
-            {
-                return NotFound();
-            }
-        }
+        //[HttpPut("MultiUploadImage")]
+        //public async Task<IActionResult> MultiUploadImage(IFormFileCollection filecollection, string productId)
+        //{
+        //    var response = new Response<string>();
+        //    int passcount = 0; int errorcount = 0;
+        //    try
+        //    {
+        //        string Filepath = GetFilepath(productId);
+        //        if (!System.IO.Directory.Exists(Filepath))
+        //        {
+        //            System.IO.Directory.CreateDirectory(Filepath);
+        //        }
+        //        foreach (var file in filecollection)
+        //        {
+        //            string imagepath = Filepath + "\\" + file.FileName;
+        //            if (System.IO.File.Exists(imagepath))
+        //            {
+        //                System.IO.File.Delete(imagepath);
+        //            }
+        //            using (FileStream stream = System.IO.File.Create(imagepath))
+        //            {
+        //                await file.CopyToAsync(stream);
+        //                passcount++;
 
-        [NonAction]
-        private string GetFilepath(string productId)
-        {
-            return this._environment.WebRootPath + "\\images\\product\\" + productId;
-        }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        errorcount++;
+        //        response.message = ex.Message;
+        //    }
+        //    response.isSuccess = true;
+        //    response.message = passcount + " Files uploaded &" + errorcount + " files failed";
+
+        //    return Ok(response);
+        //}
+
+        //[HttpGet("GetImage/{productId}")]
+        //public async Task<IActionResult> GetImage(string productId)
+        //{
+        //    string Imageurl = string.Empty;
+        //    string hosturl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+        //    try
+        //    {
+        //        string Filepath = GetFilepath(productId);
+        //        string imagepath = Filepath + "\\" + productId + ".png";
+        //        if (System.IO.File.Exists(imagepath))
+        //        {
+        //            Imageurl = hosturl + "/images/product/" + productId + "/" + productId + ".png";
+        //        }
+        //        else
+        //        {
+        //            return NotFound();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //    return Ok(Imageurl);
+
+        //}
+
+        //[HttpGet("GetMultiImage")]
+        //public async Task<IActionResult> GetMultiImage(string productId)
+        //{
+        //    List<string> Imageurl = new List<string>();
+        //    string hosturl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+        //    try
+        //    {
+        //        string Filepath = GetFilepath(productId);
+
+        //        if (System.IO.Directory.Exists(Filepath))
+        //        {
+        //            DirectoryInfo directoryInfo = new DirectoryInfo(Filepath);
+        //            FileInfo[] fileInfos = directoryInfo.GetFiles();
+        //            foreach (FileInfo fileInfo in fileInfos)
+        //            {
+        //                string filename = fileInfo.Name;
+        //                string imagepath = Filepath + "\\" + filename;
+        //                if (System.IO.File.Exists(imagepath))
+        //                {
+        //                    string _Imageurl = hosturl + "/images/product/" + productId + "/" + filename;
+        //                    Imageurl.Add(_Imageurl);
+        //                }
+        //            }
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //    }
+        //    return Ok(Imageurl);
+        //}
+
+        //[HttpGet("DownloadImage")]
+        //public async Task<IActionResult> DownloadImage(string productId)
+        //{
+        //    try
+        //    {
+        //        string Filepath = GetFilepath(productId);
+        //        string imagepath = Filepath + "\\" + productId + ".png";
+        //        if (System.IO.File.Exists(imagepath))
+        //        {
+        //            MemoryStream stream = new MemoryStream();
+        //            using (FileStream fileStream = new FileStream(imagepath, FileMode.Open))
+        //            {
+        //                await fileStream.CopyToAsync(stream);
+        //            }
+        //            stream.Position = 0;
+        //            return File(stream, "image/png", productId + ".png");
+        //        }
+        //        else
+        //        {
+        //            return NotFound();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return NotFound();
+        //    }
+        //}
+
+        //[HttpGet("RemoveImage")]
+        //public async Task<IActionResult> RemoveImage(string productId)
+        //{
+        //    try
+        //    {
+        //        string Filepath = GetFilepath(productId);
+        //        string imagepath = Filepath + "\\" + productId + ".png";
+        //        if (System.IO.File.Exists(imagepath))
+        //        {
+        //            System.IO.File.Delete(imagepath);
+        //            return Ok("pass");
+        //        }
+        //        else
+        //        {
+        //            return NotFound();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return NotFound();
+        //    }
+        //}
+
+        //[HttpGet("MultiRemoveImage")]
+        //public async Task<IActionResult> MultiRemoveImage(string productId)
+        //{
+        //    try
+        //    {
+        //        string Filepath = GetFilepath(productId);
+        //        if (System.IO.Directory.Exists(Filepath))
+        //        {
+        //            DirectoryInfo directoryInfo = new DirectoryInfo(Filepath);
+        //            FileInfo[] fileInfos = directoryInfo.GetFiles();
+        //            foreach (FileInfo fileInfo in fileInfos)
+        //            {
+        //                fileInfo.Delete();
+        //            }
+        //            return Ok("pass");
+        //        }
+        //        else
+        //        {
+        //            return NotFound();
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return NotFound();
+        //    }
+        //}
+
+        //[NonAction]
+        //private string GetFilepath(string productId)
+        //{
+        //    return this._environment.WebRootPath + "\\images\\product\\" + productId;
+        //}
 
     }
 }

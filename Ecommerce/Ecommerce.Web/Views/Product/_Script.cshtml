@@ -56,11 +56,16 @@
                 {
                     data: 'image',
                     render: function (data, type, row, meta) {
-                        return '<div class="filtr-item col-sm-2">'
-                            + '<a href="' + row.image + '" data-toggle="lightbox" data-title="' + row.productName + '">'
-                            + '<img src="~/images/product/' + row.image + '" alt="' + row.productName + '" width="50" height="50" />'
-                            + '</a>'
-                            + '</div>'
+                        if (row.image != null) {
+                            var imageUrl = '@Url.Content("~/images/product/")' + row.image;
+                            return '<div class="filtr-item col-sm-2">'
+                                + '<a href="' + imageUrl + '" data-toggle="lightbox" data-title="' + row.productName + '">'
+                                + '<img src="'+imageUrl+'" alt="' + row.productName + '" width="50" height="50" />'
+                                + '</a>'
+                                + '</div>'
+                        }
+                        else 
+                            return '<img src="@Url.Content("~/images/no_photo.jpg")" width="50" height="50"/>'
                     }
                 },
                 {
@@ -110,7 +115,7 @@
                     render: function (row) {
                         return '<a class="btn btn-success" onclick=PopupDetail("' + row.productId + '","View");>'
                             + '<i class="fas fa-eye"></i></a>'
-                            + '<a class="btn btn-warning" onclick=PopupDetail("' + row.productId + '","Edit");>'
+                            + '<a class="btn btn-warning" onclick=PopupDetail("' + row.productId + '","Update");>'
                             + '<i class="fas fa-pen"></i></a>'
                             + '<a class="btn btn-danger" onclick=Delete("' + row.productId + '","' + row.productName + '","' + urlDelete + '");>'
                             + '<i class="fas fa-trash"></a>'
@@ -122,7 +127,7 @@
 
     function openPopup(id, action) {
         var data = { "id": id, "action": action };
-        action = action == "New" ? "เพิ่มสินค้า" : "แก้ไขสินค้า";
+        action = action == "Add" ? "เพิ่มสินค้า" : "แก้ไขสินค้า";
         modalPOST(action, "@Url.Content(Constants.UrlAction.Product.PopUpDialog)", data, 50);
     };
 </script>

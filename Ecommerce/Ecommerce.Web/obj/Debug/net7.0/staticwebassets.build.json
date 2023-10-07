@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "7kJ4rowK/dvhJExsAaewt/yDMPxSEKo9+QMWKnA5fjM=",
+  "Hash": "21pC4RGKc5eDaX9hZkgJVNuU8ijkzAMEBG4WPD2oOjA=",
   "Source": "Ecommerce.Web",
   "BasePath": "_content/Ecommerce.Web",
   "Mode": "Default",
@@ -1222,6 +1222,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\no_photo.jpg"
+    },
+    {
+      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\001 (1).png",
+      "SourceId": "Ecommerce.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\",
+      "BasePath": "_content/Ecommerce.Web",
+      "RelativePath": "images/product/001 (1).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\product\\001 (1).png"
     },
     {
       "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\js\\site.js",

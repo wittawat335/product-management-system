@@ -16,7 +16,7 @@ namespace Ecommerce.Web.Services
             _commonService = commonService;
         }
 
-        public async Task<Response<List<T>>> GetListAsync(string path, T filter = null)
+        public async Task<Response<List<T>>> GetListAsync(string path)
         {
             var session = _commonService.GetSessionValue();
             var response = new Response<List<T>>();
@@ -25,12 +25,7 @@ namespace Ecommerce.Web.Services
                 using (var client = new HttpClient(_httpClient))
                 {
                     client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.token);
-                    HttpResponseMessage result = new HttpResponseMessage();
-                    if (filter != null)
-                        result = await client.PostAsJsonAsync(path, filter);
-                    else
-                        result = await client.GetAsync(path);
-
+                    HttpResponseMessage result = await client.GetAsync(path);
                     if (result.IsSuccessStatusCode)
                     {
                         string data = result.Content.ReadAsStringAsync().Result;

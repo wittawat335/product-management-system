@@ -22,6 +22,7 @@ namespace Ecommerce.Core
             services.AddAutoMapper(typeof(AutoMapperProfile));
             services.AddScoped<IAuthenService, AuthenService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICommonService, CommonService>();
         }
 

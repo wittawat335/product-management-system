@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ecommerce.Core.DTOs
+﻿namespace Ecommerce.Web.Models.Authen
 {
-    public class LoginResponse
+    public class Session
     {
         public string userId { get; set; } = string.Empty;
         public string userName { get; set; } = string.Empty;

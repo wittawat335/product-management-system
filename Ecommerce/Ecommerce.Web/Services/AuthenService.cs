@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using Microsoft.Extensions.Options;
 using Ecommerce.Web.Commons;
 using System.Net.Http.Json;
+using Ecommerce.Web.Models.Authen;
 
 namespace Ecommerce.Web.Services
 {

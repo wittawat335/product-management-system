@@ -1,6 +1,6 @@
 ﻿using Ecommerce.Core.Common;
 
-namespace Ecommerce.Core.DTOs
+namespace Ecommerce.Core.DTOs.Authen
 {
     public class RegisterRequest
     {

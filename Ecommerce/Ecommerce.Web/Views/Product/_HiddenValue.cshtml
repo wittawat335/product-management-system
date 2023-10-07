@@ -1,0 +1,8 @@
+﻿@using Ecommerce.Web.Commons;
+@model ProductViewModel
+@if (Model.Action == Constants.Action.Update)
+{
+    <input type="text" name="Product.ProductId" value='@Model.Product.ProductId' />
+}
+
+<input type="text" name="Action" value='@Model.Action' />

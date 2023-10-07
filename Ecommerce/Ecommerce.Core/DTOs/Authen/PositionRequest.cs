@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ecommerce.Core.DTOs
+namespace Ecommerce.Core.DTOs.Authen
 {
     public class PositionRequest
     {

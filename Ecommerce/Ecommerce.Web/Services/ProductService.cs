@@ -54,9 +54,33 @@ namespace Ecommerce.Web.Services
             return response;
         }
 
-        public Task<Response<Product>> Save(Product model)
+        public async Task<Response<Product>> Save(ProductViewModel model)
         {
-            throw new NotImplementedException();
+            var response = new Response<Product>();
+            try
+            {
+                if (model != null)
+                {
+                    switch (model.Action)
+                    {
+                        case Constants.Action.Add:
+                            response = await _productService.InsertAsync(_setting.BaseApiUrl + "Product/Add", model.Product);
+                            break;
+                        case Constants.Action.Update:
+                            response = await _productService.PutAsync(_setting.BaseApiUrl + "Product/Update", model.Product);
+                            break;
+                        default:
+                            response.message = Constants.MessageError.CallAPI;
+                            break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+
+            return response;
         }
 
         public Task<List<Product>> Select2Product(string url, string query)

@@ -15,7 +15,6 @@
         return (parms);
         return o;
     };
-
     $.fn.serializeObject = function () {
         var o = {};
         var disabledInput = this.find(':input:disabled').removeAttr('disabled')
@@ -35,7 +34,18 @@
         return o;
     };
 });
-
+function formSave(formId, url) {
+    var data = $('#' + formId).serializeObject();
+    $.post(url, data, function (response) {
+        console.log(response);
+        if (response.isSuccess) {
+            swalMessage('success', response.message);
+            closeModal();
+            GetList();
+        }
+        else swalMessage('error', response.message);
+    });
+}
 function modalPOST(caption, path, data, isFull) {
     var url = path;
     $.post(url, data, function (result) {
@@ -43,7 +53,6 @@ function modalPOST(caption, path, data, isFull) {
         showModal(caption, isFull);
     });
 }
-
 function modalPOSTV2(caption, path, data, isFull) {
     var url = path;
     $.post(url, data, function (result) {
@@ -165,25 +174,21 @@ function showModalLv2(caption, isFull) {
     $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-header > .modal-title').text(caption);
     $('#modalDialogLv2').modal('show');
 }
-
 function closeModal() {
     $('#modalDialog > .modal-dialog > .modal-content > .modal-body').html('');
     $('#modalDialog > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modalDialog').modal('hide');
 }
-
 function clearModalLv2() {
     $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-body').html('');
     $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modalDialogLv2').modal('hide');
 }
-
 function ClearValueByDiv(div) {
     $('#' + div + ' input').val("");
     $('#' + div + ' select').val("");
     $('#' + div + ' textarea').val(" ");
 }
-
 function SwalProgressBar(icon, message) {
     const Toast = Swal.mixin({
         toast: true,
@@ -202,3 +207,93 @@ function SwalProgressBar(icon, message) {
         title: message
     })
 }
+function swalMessage(icon, message) {
+    Swal.fire({
+        icon: icon,
+        title: message,
+        showConfirmButton: false,
+        timer: 1000
+    });
+}
+function confirmMessage() {
+    Swal.fire({
+        title: "System error - Do you want error message?",
+        icon: 'info',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Yes',
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "../Error/Index";
+        }
+    });
+}
+function confirmDelete(code, name, url) {
+    Swal.fire({
+        title: 'Do you want to delete' + ' ' + ' " ' + name + ' " ' + ' ' + '?',
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Yes',
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Delete(code, url);
+        }
+    });
+}
+function Delete(code, url) {
+    var url = url;
+    var data = { "code": code };
+
+    $.post(url, data, function (result) {
+        if (result.status) {
+            swalMessage('success', result.message);
+            closeModal();
+            GetList();
+        }
+        else {
+            swalMessage('error', result.message);
+        }
+    });
+}
+function SetReadOnlyByDiv(div, x) {
+    if (x) {
+        $('#' + div).find('input[name],select[name],textarea[name]').not('input[type=hidden]').removeAttr('disabled').removeAttr('readonly')
+            .attr('disabled', 'disabled').attr('readonly', 'readonly');
+    }
+    else {
+        $('#' + div).find('input[name],select[name],textarea[name]').not('input[type=hidden]').removeAttr('disabled').removeAttr('readonly');
+    }
+}
+function SetReadOnly(div, x) {
+    if (!x) {
+        $('#' + div).removeAttr('disabled').removeAttr('readonly')
+            .attr('disabled', 'disabled').attr('readonly', 'readonly');
+    }
+    else {
+        $('#' + div).removeAttr('disabled').removeAttr('readonly');
+    }
+}
+function SetReqByDiv(div, x) {
+    if (x) {
+        $('#' + div + ' input,select').removeAttr('required').attr('required', 'required');
+    }
+    else {
+        $('#' + div + ' input,select').removeAttr('required');
+    }
+}
+function SetReq(div, x) {
+    if (x) {
+        $('#' + div).removeAttr('required').attr('required', 'required');
+    }
+    else {
+
+        $('#' + div).removeAttr('required');
+        $('#' + div).closest('div.form-group').removeClass('has-error has-danger');
+    }
+}
+

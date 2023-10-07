@@ -1,4 +1,4 @@
-﻿using Ecommerce.Core.DTOs;
+﻿using Ecommerce.Core.DTOs.Authen;
 using Ecommerce.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;

@@ -1,55 +1,64 @@
-﻿@model Product
-<form id="frmDetail" role="form" method="post">
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Models;
+@model ProductViewModel
+<form id="frmDetail" role="form" method="post" asp-action="Save" enctype="multipart/form-data">
     <div class="form-group">
-        <label asp-for="ProductName" class="form-label"></label>
-        <input asp-for="ProductName" class="form-control" type="text" maxlength="20" />
+        <label asp-for="Product.ProductName" class="form-label"></label>
+        <input asp-for="Product.ProductName" class="form-control" type="text" maxlength="20" />
     </div>
     <div class="form-group">
-        <label asp-for="CategoryId" class="form-label"></label>
-        <input asp-for="ProductName" class="form-control" type="text" maxlength="20" />
+        <label asp-for="Product.CategoryId" class="form-label"></label>
+        <select asp-for="Product.CategoryId"
+                class="form-control"
+                asp-items="@(new SelectList (Model.listCategory, "CategoryId", "CategoryName"))">
+            <option disabled selected>@Constants.SelectOption.SelectOne</option>
+        </select>
     </div>
     <div class="form-group">
-        <label asp-for="Stock" class="form-label"></label>
-        <input asp-for="Stock" class="form-control" type="number" />
+        <label asp-for="Product.Stock" class="form-label"></label>
+        <input asp-for="Product.Stock" class="form-control" type="number" />
     </div>
     <div class="form-group">
-        <label asp-for="Price" class="form-label"></label>
-        <input asp-for="Price" class="form-control" type="number" />
+        <label asp-for="Product.Price" class="form-label"></label>
+        <input asp-for="Product.Price" class="form-control" type="number" />
     </div>
     <div class="form-group">
-        <label asp-for="Description" class="form-label"></label>
-        <textarea asp-for="Description" class="form-control" rows="3" placeholder="ใส่รายละเอียด ..."></textarea>
+        <label asp-for="Product.Description" class="form-label"></label>
+        <textarea asp-for="Product.Description" class="form-control" rows="3" placeholder="ใส่รายละเอียด ..."></textarea>
     </div>
     <div class="form-group mb-3">
-        <label asp-for="Status" class="form-label"></label>
-        <select asp-for="Status" class="form-control" style="width: 100%;">
+        <label asp-for="Product.Status" class="form-label"></label>
+        <select asp-for="Product.Status" class="form-control" style="width: 100%;">
             <option selected="selected">กรุณาเลือก</option>
             <option value="A">ใช้งาน</option>
             <option value="I">ไม่ได้ใช้งาน</option>
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="Image" class="form-label"></label>
+        <label asp-for="Product.ImageFile" class="form-label"></label>
         <div class="input-group">
             <div class="custom-file">
-                <input asp-for="Image" 
-                type="file" 
-                class="custom-file-input" 
-                onchange="document.getElementById('imagePrv').src = window.URL.createObjectURL(this.files[0])" />
-                <label asp-for="Image" class="custom-file-label">เลือกไฟล์</label>
+                <input asp-for="Product.ImageFile" type="file" class="custom-file-input"
+                       onchange="document.getElementById('imagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                <label class="custom-file-label">เลือกไฟล์</label>
             </div>
         </div>
-        <img id="imagePrv" src="~/images/no_photo.jpg" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px; margin-left:120px;"/>
+        <img id="imagePrv" src="~/images/no_photo.jpg" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px; margin-left:150px;" />
     </div>
     <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-        <button type="button" class="btn btn-info">บันทึก</button>
+        <button type="submit"
+                class="btn btn-info"
+                onclick="">
+            บันทึก
+        </button>
     </div>
     <div style="display: none">
+        @{
+            await Html.RenderPartialAsync("_HiddenValue", Model);
+        }
     </div>
 </form>
-<script>
-    $(function () {
-        bsCustomFileInput.init();
-    });
-</script>
+@{
+    await Html.RenderPartialAsync("_PopUpScriptsPartial", Model);
+}
