@@ -111,7 +111,7 @@ namespace Ecommerce.Api.Controllers
                 string imagepath = Filepath + "\\" + productId + ".png";
                 if (System.IO.File.Exists(imagepath))
                 {
-                    Imageurl = hosturl + "/Upload/product/" + productId + "/" + productId + ".png";
+                    Imageurl = hosturl + "/images/product/" + productId + "/" + productId + ".png";
                 }
                 else
                 {
@@ -144,7 +144,7 @@ namespace Ecommerce.Api.Controllers
                         string imagepath = Filepath + "\\" + filename;
                         if (System.IO.File.Exists(imagepath))
                         {
-                            string _Imageurl = hosturl + "/Upload/product/" + productId + "/" + filename;
+                            string _Imageurl = hosturl + "/images/product/" + productId + "/" + filename;
                             Imageurl.Add(_Imageurl);
                         }
                     }
@@ -238,7 +238,7 @@ namespace Ecommerce.Api.Controllers
         [NonAction]
         private string GetFilepath(string productId)
         {
-            return this._environment.WebRootPath + "\\Upload\\product\\" + productId;
+            return this._environment.WebRootPath + "\\images\\product\\" + productId;
         }
 
     }

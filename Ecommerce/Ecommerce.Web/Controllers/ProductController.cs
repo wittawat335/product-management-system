@@ -10,12 +10,14 @@ namespace Ecommerce.Web.Controllers
     public class ProductController : Controller
     {
         private readonly IBaseApiService<Product> _productService;
+        private readonly IWebHostEnvironment _environment;
         private readonly AppSetting _setting;
 
-        public ProductController(IBaseApiService<Product> productService, IOptions<AppSetting> options)
+        public ProductController(IBaseApiService<Product> productService, IOptions<AppSetting> options, IWebHostEnvironment environment)
         {
             _productService = productService;
             _setting = options.Value;
+            _environment = environment;
         }
 
         public IActionResult Index()
@@ -45,6 +47,12 @@ namespace Ecommerce.Web.Controllers
         {
             var response = await _productService.GetListAsync(_setting.BaseApiUrl + "Product/GetList", filter);
             return Json(response);
+        }
+
+        [NonAction]
+        private string GetFilepath(string productId)
+        {
+            return this._environment.WebRootPath + "\\upload\\images/product\\" + productId;
         }
     }
 }

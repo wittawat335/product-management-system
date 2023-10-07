@@ -41,6 +41,10 @@
       "PackagePath": "staticwebassets\\Upload\\product\\ef41f80b-d53e-4222-aa90-7ba66d71c821\\ef41f80b-d53e-4222-aa90-7ba66d71c821.png"
     },
     {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Api\\wwwroot\\images\\no_photo.jpg",
+      "PackagePath": "staticwebassets\\images\\no_photo.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.Ecommerce.Api.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },

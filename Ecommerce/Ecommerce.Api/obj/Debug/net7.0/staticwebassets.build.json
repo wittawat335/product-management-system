@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "OXX/yYVqhr7bwSIO6PbkPjd3MZtb8QbySuik82kzhdw=",
+  "Hash": "5XNzuo9HB7iMixxsbuUtijeUSPj6cr5U+LfbqfEEkRc=",
   "Source": "Ecommerce.Api",
   "BasePath": "_content/Ecommerce.Api",
   "Mode": "Default",
@@ -16,6 +16,23 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Api\\wwwroot\\images\\no_photo.jpg",
+      "SourceId": "Ecommerce.Api",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Api\\wwwroot\\",
+      "BasePath": "_content/Ecommerce.Api",
+      "RelativePath": "images/no_photo.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\no_photo.jpg"
+    },
     {
       "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Api\\wwwroot\\Upload\\product\\098b99c4-5a94-4725-bdb5-d2318cdcb0bf\\098b99c4-5a94-4725-bdb5-d2318cdcb0bf.png",
       "SourceId": "Ecommerce.Api",

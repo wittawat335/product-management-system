@@ -9,18 +9,6 @@
         <input asp-for="ProductName" class="form-control" type="text" maxlength="20" />
     </div>
     <div class="form-group">
-        <label asp-for="Image" class="form-label"></label>
-        <div class="input-group">
-            <div class="custom-file">
-                <input asp-for="Image" type="file" class="custom-file-input" />
-                <label asp-for="Image" class="custom-file-label">เลือกไฟล์</label>
-            </div>
-            <div class="input-group-append">
-                <span class="input-group-text">อัพไฟล์</span>
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
         <label asp-for="Stock" class="form-label"></label>
         <input asp-for="Stock" class="form-control" type="number" />
     </div>
@@ -40,42 +28,19 @@
             <option value="I">ไม่ได้ใช้งาน</option>
         </select>
     </div>
-    @* <div class="form-group mt-2">
-    <label asp-for="ca" class="form-label"></label>
-    @Html.DropDownListFor(m => m.masterDTO.MASTER_TYPE,
-    new SelectList(Model.listMaster, Constants.MasterTypeDDl.Code, Constants.MasterTypeDDl.Text),
-    @Constants.SelectOption.SelectOne, new { @class = "form-control",
-    })
+    <div class="form-group">
+        <label asp-for="Image" class="form-label"></label>
+        <div class="input-group">
+            <div class="custom-file">
+                <input asp-for="Image" 
+                type="file" 
+                class="custom-file-input" 
+                onchange="document.getElementById('imagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                <label asp-for="Image" class="custom-file-label">เลือกไฟล์</label>
+            </div>
+        </div>
+        <img id="imagePrv" src="" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px; margin-left:120px;"/>
     </div>
-    <div class="form-group mt-2">
-    <label asp-for="masterDTO.MASTER_NAME_TH"
-    class="form-label">
-    </label>
-    <input asp-for="masterDTO.MASTER_NAME_TH"
-    class="form-control"
-    type="text"
-    maxlength="100" />
-    </div>
-    <div class="form-group mt-2">
-    <label asp-for="masterDTO.MASTER_NAME_EN"
-    class="form-label">
-    </label>
-    <input asp-for="masterDTO.MASTER_NAME_EN"
-    class="form-control"
-    type="text"
-    maxlength="100" />
-    </div>
-    <div class="form-group mt-2 mb-3">
-    <label asp-for="masterDTO.MASTER_STATUS"
-    class="form-label">
-    </label>
-    <select asp-for="masterDTO.MASTER_STATUS"
-    class="form-control"
-    asp-items="@(new SelectList
-    (common.GetListStatus(), Constants.StatusListDDl.Code, Constants.StatusListDDl.Text))"
-    required>
-    </select>
-    </div> *@
     <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
         <button type="button" class="btn btn-info">บันทึก</button>
