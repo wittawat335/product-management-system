@@ -49,10 +49,34 @@ namespace Ecommerce.Web.Controllers
             return Json(response);
         }
 
+        private string UploadFile(Product model)
+        {
+            string fileName = null;
+
+            if (model.Image != null)
+            {
+                string uploadFolder = Path.Combine(_environment.WebRootPath, "images\\product");
+                if (!Directory.Exists(uploadFolder))
+                    Directory.CreateDirectory(uploadFolder);
+
+                fileName = model.ProductId;
+                string filePath = Path.Combine(uploadFolder, fileName);
+                if (System.IO.File.Exists(filePath))
+                    System.IO.File.Delete(filePath);
+
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ImageFile.CopyTo(fileStream);
+                }
+            }
+
+            return fileName;
+        }
+
         [NonAction]
         private string GetFilepath(string productId)
         {
-            return this._environment.WebRootPath + "\\upload\\images/product\\" + productId;
+            return _environment.WebRootPath + "\\upload\\images\\product\\" + productId;
         }
     }
 }
