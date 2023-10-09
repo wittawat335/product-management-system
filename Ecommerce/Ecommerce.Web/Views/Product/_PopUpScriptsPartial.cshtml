@@ -10,4 +10,39 @@
         if ('@Model.Action' == '@Constants.Action.View')
             SetReadOnlyByDiv('frmDetail', true);
     }
+
+    function Save() {
+        var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
+        $('#@Html.IdFor(m => m.Product.Image)').val(filename);
+        var url = '@Url.Content(Constants.UrlAction.Product.Save)';
+        var data = $('#frmDetail').serializeObject();
+        $.post(url, data, function (response) {
+            if (response.isSuccess) 
+                UploadImage(response);
+            else swalMessage('error', response.message);
+        });
+    }
+
+    function UploadImage(response) {
+        const formData = new FormData(document.forms.item(0));
+        let file = $('#FileName').prop("files")[0];
+        formData.append('file', file);
+        formData.append('productId', response.value.productId);
+        formData.append('message', response.message);
+        $.ajax({
+            url: '@Url.Content(Constants.UrlAction.Product.SaveImage)',
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: (response) => {
+                if (response.isSuccess) {
+                    swalMessage('success', response.message);
+                    closeModal();
+                    GetList();
+                }
+            }
+        });
+    }
 </script>

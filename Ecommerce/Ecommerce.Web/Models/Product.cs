@@ -13,7 +13,7 @@ namespace Ecommerce.Web.Models
         public string CategoryName { get; set; }
         [Display(Name = "รูปภาพสินค้า")]
         public string Image { get; set; }
-        public IFormFile ImageFile { get; set; }
+        //public IFormFile ImageFile { get; set; }
         [Display(Name = "จำนวนสินค้าที่มี(ชิ้น)")]
         public int Stock { get; set; }
         [Display(Name = "ราคาสินค้า(บาท)")]

@@ -57,7 +57,7 @@
                     data: 'image',
                     render: function (data, type, row, meta) {
                         if (row.image != null) {
-                            var imageUrl = '@Url.Content("~/images/product/")' + row.image;
+                            var imageUrl = '@Url.Content("~/images/product/")'+ row.productId + "/" + row.image;
                             return '<div class="filtr-item col-sm-2">'
                                 + '<a href="' + imageUrl + '" data-toggle="lightbox" data-title="' + row.productName + '">'
                                 + '<img src="'+imageUrl+'" alt="' + row.productName + '" width="50" height="50" />'
@@ -113,10 +113,10 @@
                 {
                     data: 'productId',
                     render: function (row) {
-                        return '<a class="btn btn-success" onclick=PopupDetail("' + row.productId + '","View");>'
-                            + '<i class="fas fa-eye"></i></a>'
+                        return '<a class="btn btn-info" onclick=PopupDetail("' + row.productId + '","View");>'
+                            + '<i class="fas fa-eye"></i></a> | '
                             + '<a class="btn btn-warning" onclick=PopupDetail("' + row.productId + '","Update");>'
-                            + '<i class="fas fa-pen"></i></a>'
+                            + '<i class="fas fa-pen"></i></a> | '
                             + '<a class="btn btn-danger" onclick=Delete("' + row.productId + '","' + row.productName + '","' + urlDelete + '");>'
                             + '<i class="fas fa-trash"></a>'
                     }

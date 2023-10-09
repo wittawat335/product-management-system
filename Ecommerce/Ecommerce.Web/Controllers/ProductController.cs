@@ -72,32 +72,38 @@ namespace Ecommerce.Web.Controllers
 
 
         [HttpPost]
-        public async Task<IActionResult> Save(ProductViewModel model)
+        public IActionResult SaveImage(IFormFile file, string productId, string message)
         {
-            if (model.Product.ImageFile != null)
-                model.Product.Image = UploadFile(model.Product);
+            var response = new Response<string>();
+            if (file != null && productId != null)
+                UploadFile(file, productId);
 
-            var response = await _service.Save(model);
-
-            return RedirectToAction(nameof(Index));
+            response.isSuccess = true;
+            response.message = message;
+            return Json(response);
         }
 
-        private string UploadFile(Product model)
+        [HttpPost]
+        public async Task<IActionResult> Save(ProductViewModel model)
         {
-            string uploadFolder = Path.Combine(_environment.WebRootPath, "images\\product");
+            var response = await _service.Save(model);
+            return Json(response);
+        }
+
+        private void UploadFile(IFormFile image, string productId)
+        {
+            string uploadFolder = Path.Combine(_environment.WebRootPath, "images\\product\\" + productId);
             if (!Directory.Exists(uploadFolder))
                 Directory.CreateDirectory(uploadFolder);
 
-            string filePath = Path.Combine(uploadFolder, model.ImageFile.FileName);
+            string filePath = Path.Combine(uploadFolder, image.FileName);
             if (System.IO.File.Exists(filePath))
                 System.IO.File.Delete(filePath);
 
             using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
-                model.ImageFile.CopyTo(fileStream);
+                image.CopyTo(fileStream);
             }
-
-            return model.ImageFile.FileName;
         }
     }
 }

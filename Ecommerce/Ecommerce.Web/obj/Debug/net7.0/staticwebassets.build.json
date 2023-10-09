@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "21pC4RGKc5eDaX9hZkgJVNuU8ijkzAMEBG4WPD2oOjA=",
+  "Hash": "ETA2vK+fPtPEG57pRUlyzCclwJSwQFOIvUNWXDAfXS0=",
   "Source": "Ecommerce.Web",
   "BasePath": "_content/Ecommerce.Web",
   "Mode": "Default",
@@ -1224,12 +1224,12 @@
       "OriginalItemSpec": "wwwroot\\images\\no_photo.jpg"
     },
     {
-      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\001 (1).png",
+      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\39db6fec-d2a0-48a0-aeb7-6126ff9f1701\\12626-c.png",
       "SourceId": "Ecommerce.Web",
       "SourceType": "Discovered",
       "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\",
       "BasePath": "_content/Ecommerce.Web",
-      "RelativePath": "images/product/001 (1).png",
+      "RelativePath": "images/product/39db6fec-d2a0-48a0-aeb7-6126ff9f1701/12626-c.png",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1238,7 +1238,24 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\product\\001 (1).png"
+      "OriginalItemSpec": "wwwroot\\images\\product\\39db6fec-d2a0-48a0-aeb7-6126ff9f1701\\12626-c.png"
+    },
+    {
+      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\55ccceda-19c3-41b5-8471-3f60604ab525\\001 (1).png",
+      "SourceId": "Ecommerce.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\",
+      "BasePath": "_content/Ecommerce.Web",
+      "RelativePath": "images/product/55ccceda-19c3-41b5-8471-3f60604ab525/001 (1).png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\product\\55ccceda-19c3-41b5-8471-3f60604ab525\\001 (1).png"
     },
     {
       "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\js\\site.js",

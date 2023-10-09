@@ -1,7 +1,8 @@
 ﻿@using Ecommerce.Web.Commons;
 @using Ecommerce.Web.Models;
 @model ProductViewModel
-<form id="frmDetail" role="form" method="post" asp-action="Save" enctype="multipart/form-data">
+
+<form id="frmDetail" enctype="multipart/form-data">
     <div class="form-group">
         <label asp-for="Product.ProductName" class="form-label"></label>
         <input asp-for="Product.ProductName" class="form-control" type="text" maxlength="20" />
@@ -35,10 +36,10 @@
         </select>
     </div>
     <div class="form-group">
-        <label asp-for="Product.ImageFile" class="form-label"></label>
+        <label asp-for="Product.Image" class="form-label"></label>
         <div class="input-group">
             <div class="custom-file">
-                <input asp-for="Product.ImageFile" type="file" class="custom-file-input"
+                <input id="FileName" type="file" class="custom-file-input"
                        onchange="document.getElementById('imagePrv').src = window.URL.createObjectURL(this.files[0])" />
                 <label class="custom-file-label">เลือกไฟล์</label>
             </div>
@@ -47,9 +48,10 @@
     </div>
     <div class="modal-footer justify-content-between">
         <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-        <button type="submit"
+        <button id="btnSave"
+                type="button"
                 class="btn btn-info"
-                onclick="">
+                onclick="Save()">
             บันทึก
         </button>
     </div>

@@ -69,8 +69,7 @@ namespace Ecommerce.Core.Services
             var response = new Response<Product>();
             try
             {
-                _repository.Insert(_mapper.Map<Product>(model));
-                await _repository.SaveChangesAsync();
+                response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Product>(model));
                 response.isSuccess = Constants.Status.True;
                 response.message = Constants.StatusMessage.AddSuccessfully;
             }

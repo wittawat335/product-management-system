@@ -26,6 +26,7 @@
                 public const string GetList = "~/Product/GetList";
                 public const string PopUpDialog = "~/Product/_PopUpDialog";
                 public const string Save = "~/Product/Save";
+                public const string SaveImage = "~/Product/SaveImage";
                 public const string Delete = "~/Product/Delete";
                 public const string select2Product = "~/Product/select2Product";
             }
