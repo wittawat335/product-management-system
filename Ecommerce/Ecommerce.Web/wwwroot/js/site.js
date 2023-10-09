@@ -262,11 +262,11 @@ function Delete(code, url) {
 }
 function SetReadOnlyByDiv(div, x) {
     if (x) {
-        $('#' + div).find('input[name],select[name],textarea[name]').not('input[type=hidden]').removeAttr('disabled').removeAttr('readonly')
+        $('#' + div).find('input[name],select[name],textarea[name],input[type=file]').not('input[type=hidden]').removeAttr('disabled').removeAttr('readonly')
             .attr('disabled', 'disabled').attr('readonly', 'readonly');
     }
     else {
-        $('#' + div).find('input[name],select[name],textarea[name]').not('input[type=hidden]').removeAttr('disabled').removeAttr('readonly');
+        $('#' + div).find('input[name],select[name],textarea[name],input[type=file]').not('input[type=hidden]').removeAttr('disabled').removeAttr('readonly');
     }
 }
 function SetReadOnly(div, x) {

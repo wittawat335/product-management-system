@@ -121,7 +121,7 @@ namespace Ecommerce.Core.Services
                         response.message = Constants.StatusMessage.InvaildPassword;
                 }
                 else if (user != null && user.Status == Constants.Status.Inactive)
-                    response.message = Constants.StatusMessage.InActive;
+                    response.message = Constants.StatusMessage.UserInActive;
                 else
                     response.message = Constants.StatusMessage.NotFoundUser;
             }

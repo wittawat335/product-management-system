@@ -28,10 +28,10 @@ namespace Ecommerce.Core.Common
             public const string DuplicatePosition = "Position is Duplicate";
             public const string Cannot_Update_Data = "Cannot Update Data";
             public const string Cannot_Map_Data = "Cannot Map Data";
-            public const string InActive = "This username is inactive";
-            public const string AddSuccessfully = "Add successfully";
-            public const string UpdateSuccessfully = "Update successfully";
-            public const string DeleteSuccessfully = "Delete successfully";
+            public const string UserInActive = "บัญชีนี้ถูกระงับการใช้งาน";
+            public const string AddSuccessfully = "เพิ่มขัอมูลสินค้าเรียบร้อย";
+            public const string UpdateSuccessfully = "แก้ไขขัอมูลสินค้าเรียบร้อย";
+            public const string DeleteSuccessfully = "ลบขัอมูลสินค้าเรียบร้อย";
         }
         public struct Status
         {

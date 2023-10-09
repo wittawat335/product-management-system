@@ -54,7 +54,7 @@ namespace Ecommerce.Web.Controllers
             try
             {
                 if (!string.IsNullOrEmpty(id))
-                    response = await _productService.GetAsyncById(_setting.BaseApiUrl + string.Format("Product/GetProduct/GetProduct?id={0}", id));
+                    response = await _productService.GetAsyncById(_setting.BaseApiUrl + string.Format("Product/GetProduct/{0}", id));
 
                 var listCategory = await _categoryService.GetListAsync(_setting.BaseApiUrl + "Category/GetListActive");
                 model.Product = response.value;

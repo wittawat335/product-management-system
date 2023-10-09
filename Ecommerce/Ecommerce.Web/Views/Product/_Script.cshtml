@@ -10,7 +10,6 @@
             });
         });
 
-        //$('.filter-container').filterizr({ gutterPixels: 3 });
         $('.btn[data-filter]').on('click', function () {
             $('.btn[data-filter]').removeClass('active');
             $(this).addClass('active');
@@ -26,6 +25,7 @@
         })
     }
     function OnSuccess(response) {
+        console.log(response);
         $('#dtResult').DataTable({
             bDestroy: true,
             bProcessing: true,
@@ -112,12 +112,12 @@
                 },
                 {
                     data: 'productId',
-                    render: function (row) {
-                        return '<a class="btn btn-info" onclick=PopupDetail("' + row.productId + '","View");>'
+                    render: function (data, type, row, meta) {
+                        return '<a class="btn btn-info" onclick=openPopup("' + row.productId + '","View");>'
                             + '<i class="fas fa-eye"></i></a> | '
-                            + '<a class="btn btn-warning" onclick=PopupDetail("' + row.productId + '","Update");>'
+                            + '<a class="btn btn-warning" onclick=openPopup("' + row.productId + '","Update");>'
                             + '<i class="fas fa-pen"></i></a> | '
-                            + '<a class="btn btn-danger" onclick=Delete("' + row.productId + '","' + row.productName + '","' + urlDelete + '");>'
+                            + '<a class="btn btn-danger" onclick=confirmDelete("' + row.productId + '","' + row.productName + '","' + urlDelete + '");>'
                             + '<i class="fas fa-trash"></a>'
                     }
                 }
@@ -127,6 +127,7 @@
 
     function openPopup(id, action) {
         var data = { "id": id, "action": action };
+        console.log(data);
         action = action == "Add" ? "เพิ่มสินค้า" : "แก้ไขสินค้า";
         modalPOST(action, "@Url.Content(Constants.UrlAction.Product.PopUpDialog)", data, 50);
     };

@@ -7,8 +7,11 @@
     });
 
     function CheckAction() {
-        if ('@Model.Action' == '@Constants.Action.View')
+        if ('@Model.Action' == '@Constants.Action.View') {
             SetReadOnlyByDiv('frmDetail', true);
+            // if(@Model.Product.Image != null)
+            //     $('#FileName').val(@Model.Product.Image);
+        }
     }
 
     function Save() {
