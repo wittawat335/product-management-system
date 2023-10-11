@@ -3,30 +3,29 @@
 <script>
     $(document).ready(function () {
         bsCustomFileInput.init();
-        CheckAction();
+        checkAction();
     });
 
-    function CheckAction() {
+    function checkAction() {
         if ('@Model.Action' == '@Constants.Action.View') {
-            SetReadOnlyByDiv('frmDetail', true);
-            // if(@Model.Product.Image != null)
-            //     $('#FileName').val(@Model.Product.Image);
+            setReadOnlyByDiv('frmDetail', true);
+          
         }
     }
 
-    function Save() {
+    function save() {
         var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
         $('#@Html.IdFor(m => m.Product.Image)').val(filename);
         var url = '@Url.Content(Constants.UrlAction.Product.Save)';
         var data = $('#frmDetail').serializeObject();
         $.post(url, data, function (response) {
             if (response.isSuccess) 
-                UploadImage(response);
+                uploadImage(response);
             else swalMessage('error', response.message);
         });
     }
 
-    function UploadImage(response) {
+    function uploadImage(response) {
         const formData = new FormData(document.forms.item(0));
         let file = $('#FileName').prop("files")[0];
         formData.append('file', file);
@@ -43,7 +42,7 @@
                 if (response.isSuccess) {
                     swalMessage('success', response.message);
                     closeModal();
-                    GetList();
+                    getList();
                 }
             }
         });

@@ -70,8 +70,11 @@ namespace Ecommerce.Core.Services
             try
             {
                 response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Product>(model));
-                response.isSuccess = Constants.Status.True;
-                response.message = Constants.StatusMessage.AddSuccessfully;
+                if (response.value != null)
+                {
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.AddSuccessfully;
+                }
             }
             catch (Exception ex)
             {
@@ -79,9 +82,29 @@ namespace Ecommerce.Core.Services
             }
             return response;
         }
-        public Task<Response<Product>> Update(ProductDTO model)
+        public async Task<Response<Product>> Update(ProductDTO model)
         {
-            throw new NotImplementedException();
+            var response = new Response<Product>();
+            try
+            {
+                var data = _repository.Get(x => x.ProductId == new Guid(model.ProductId));
+                if (data != null)
+                {
+                    response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
+                    if (response.value != null)
+                    {
+                        response.isSuccess = Constants.Status.True;
+                        response.message = Constants.StatusMessage.UpdateSuccessfully;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.isSuccess = false;
+                response.message = "Exception Occurs : " + ex.Message;
+            }
+
+            return response;
         }
         public Task<Response<Product>> Delete(string id)
         {

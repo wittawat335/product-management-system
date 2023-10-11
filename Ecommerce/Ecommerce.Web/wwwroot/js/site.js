@@ -34,14 +34,14 @@
         return o;
     };
 });
-function formSave(formId, url) {
+function saveForm(formId, url) {
     var data = $('#' + formId).serializeObject();
     $.post(url, data, function (response) {
         console.log(response);
         if (response.isSuccess) {
             swalMessage('success', response.message);
             closeModal();
-            GetList();
+            getList();
         }
         else swalMessage('error', response.message);
     });
@@ -184,12 +184,12 @@ function clearModalLv2() {
     $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modalDialogLv2').modal('hide');
 }
-function ClearValueByDiv(div) {
+function clearValueByDiv(div) {
     $('#' + div + ' input').val("");
     $('#' + div + ' select').val("");
     $('#' + div + ' textarea').val(" ");
 }
-function SwalProgressBar(icon, message) {
+function swalProgressBar(icon, message) {
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',
@@ -241,11 +241,11 @@ function confirmDelete(code, name, url) {
         cancelButtonText: 'No',
     }).then((result) => {
         if (result.isConfirmed) {
-            Delete(code, url);
+            sendDelete(code, url);
         }
     });
 }
-function Delete(code, url) {
+function sendDelete(code, url) {
     var url = url;
     var data = { "code": code };
 
@@ -260,7 +260,7 @@ function Delete(code, url) {
         }
     });
 }
-function SetReadOnlyByDiv(div, x) {
+function setReadOnlyByDiv(div, x) {
     if (x) {
         $('#' + div).find('input[name],select[name],textarea[name],input[type=file]').not('input[type=hidden]').removeAttr('disabled').removeAttr('readonly')
             .attr('disabled', 'disabled').attr('readonly', 'readonly');
@@ -269,7 +269,7 @@ function SetReadOnlyByDiv(div, x) {
         $('#' + div).find('input[name],select[name],textarea[name],input[type=file]').not('input[type=hidden]').removeAttr('disabled').removeAttr('readonly');
     }
 }
-function SetReadOnly(div, x) {
+function setReadOnly(div, x) {
     if (!x) {
         $('#' + div).removeAttr('disabled').removeAttr('readonly')
             .attr('disabled', 'disabled').attr('readonly', 'readonly');
@@ -278,7 +278,7 @@ function SetReadOnly(div, x) {
         $('#' + div).removeAttr('disabled').removeAttr('readonly');
     }
 }
-function SetReqByDiv(div, x) {
+function setReqByDiv(div, x) {
     if (x) {
         $('#' + div + ' input,select').removeAttr('required').attr('required', 'required');
     }
@@ -286,7 +286,7 @@ function SetReqByDiv(div, x) {
         $('#' + div + ' input,select').removeAttr('required');
     }
 }
-function SetReq(div, x) {
+function setReq(div, x) {
     if (x) {
         $('#' + div).removeAttr('required').attr('required', 'required');
     }
@@ -294,6 +294,40 @@ function SetReq(div, x) {
 
         $('#' + div).removeAttr('required');
         $('#' + div).closest('div.form-group').removeClass('has-error has-danger');
+    }
+}
+
+///////////////////////////////////  Vaildatetor ////////////////////////////////////////////////////////
+function numKey(evt, obj, mode, dec) {
+    // 8  backspace
+    // 9  tab
+    // 46 delete
+    // 37 left
+    // 39 right
+    // 45 minus
+    // 46 dot
+    var key = evt.which;
+    if (key >= 48 && key <= 57 || key == 8 || key == 9 || key == 37 || key == 39) {
+        return true;
+    }
+    else if (key == 45 && (mode != 'inteingerpos' && mode != 'doublepos')) {
+        var val = obj.value;
+        if (val.length == val.replace('-', '').length) {
+            obj.value = '-' + obj.value;
+            return false;
+        }
+        else
+            return false;
+    }
+    else if (key == 46 && (mode != 'integer' && mode != 'integerpos')) {
+        var val = obj.value;
+        if (val.length == val.replace('.', '').length)
+            return true;
+        else
+            return false;
+    }
+    else {
+        return false;
     }
 }
 

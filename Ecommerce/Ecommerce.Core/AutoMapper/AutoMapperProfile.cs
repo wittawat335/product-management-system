@@ -17,6 +17,7 @@ namespace Ecommerce.Core.AutoMapper
 
             CreateMap<Product, ProductDTO>()
                 .ForMember(x => x.CategoryName, opt => opt.MapFrom(origin => origin.Category.CategoryName))
+                .ForMember(x => x.Stock, opt => opt.MapFrom(origin => String.Format($"{origin.Stock:n}")))
                 .ForMember(x => x.Price, opt => opt.MapFrom(origin => String.Format($"{origin.Price:n}")))
                 .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
             CreateMap<ProductDTO, Product>()
@@ -24,6 +25,7 @@ namespace Ecommerce.Core.AutoMapper
                .ForMember(x => x.ProductId, opt => opt.MapFrom(origin => new Guid(origin.ProductId)))
                .ForMember(x => x.CategoryId, opt => opt.MapFrom(origin => new Guid(origin.CategoryId)))
                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now))
+               .ForMember(x => x.Stock, opt => opt.MapFrom(origin => Convert.ToDecimal(origin.Stock, new CultureInfo("en-US"))))
                .ForMember(x => x.Price, opt => opt.MapFrom(origin => Convert.ToDecimal(origin.Price, new CultureInfo("en-US"))));
 
             CreateMap<Category, CategoryDTO>()

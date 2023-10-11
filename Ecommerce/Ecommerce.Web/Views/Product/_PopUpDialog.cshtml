@@ -17,11 +17,11 @@
     </div>
     <div class="form-group">
         <label asp-for="Product.Stock" class="form-label"></label>
-        <input asp-for="Product.Stock" class="form-control" type="number" />
+        <input asp-for="Product.Stock" class="form-control" type="text" onkeypress="return NumKey(event,this,'integer',0);" />
     </div>
     <div class="form-group">
         <label asp-for="Product.Price" class="form-label"></label>
-        <input asp-for="Product.Price" class="form-control" type="number" />
+        <input asp-for="Product.Price" class="form-control" type="text" />
     </div>
     <div class="form-group">
         <label asp-for="Product.Description" class="form-label"></label>
@@ -37,7 +37,7 @@
     </div>
     <div class="form-group">
         <label asp-for="Product.Image" class="form-label"></label>
-        @if (Model.Product.Image == null)
+        @if(Model.Action == Constants.Action.Add)
         {
             <div class="input-group">
                 <div class="custom-file">
@@ -48,16 +48,30 @@
             </div>
             <img id="imagePrv" src="~/images/no_photo.jpg" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px; margin-left:150px;" />
         }
-        else 
+        else
         {
-            <div class="input-group">
-                <div class="custom-file">
-                    <input id="FileName" type="file" class="custom-file-input" value="@Model.Product.Image"
-                           onchange="document.getElementById('imagePrv').src = window.URL.createObjectURL(this.files[0])" />
-                    <label class="custom-file-label">@Model.Product.Image</label>
+            @if (Model.Product.Image == null)
+            {
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input id="FileName" type="file" class="custom-file-input"
+                               onchange="document.getElementById('imagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                        <label class="custom-file-label">เลือกไฟล์</label>
+                    </div>
                 </div>
-            </div>
-            <img id="imagePrv" src="~/images/product/@Model.Product.ProductId/@Model.Product.Image" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px; margin-left:150px;" />
+                <img id="imagePrv" src="~/images/no_photo.jpg" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px; margin-left:150px;" />
+            }
+            else
+            {
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input id="FileName" type="file" class="custom-file-input" value="@Model.Product.Image"
+                               onchange="document.getElementById('imagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                        <label class="custom-file-label">@Model.Product.Image</label>
+                    </div>
+                </div>
+                <img id="imagePrv" src="~/images/product/@Model.Product.ProductId/@Model.Product.Image" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px; margin-left:150px;" />
+            }
         }
     </div>
     <div class="modal-footer justify-content-between">
@@ -65,7 +79,7 @@
         <button id="btnSave"
                 type="button"
                 class="btn btn-info"
-                onclick="Save()">
+                onclick="save()">
             บันทึก
         </button>
     </div>

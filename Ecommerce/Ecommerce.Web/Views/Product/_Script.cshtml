@@ -1,8 +1,9 @@
 ﻿@using Ecommerce.Web.Commons;
 <script>
-    var urlDelete = '@Url.Content(Constants.UrlAction.Product.Delete)';
+    let urlDelete = '@Url.Content(Constants.UrlAction.Product.Delete)';
+
     $(function () {
-        GetList();
+        getList();
         $(document).on('click', '[data-toggle="lightbox"]', function (event) {
             event.preventDefault();
             $(this).ekkoLightbox({
@@ -15,17 +16,18 @@
             $(this).addClass('active');
         });
     });
-    function GetList() {
+
+    function getList() {
         $.ajax({
             type: "POST",
             url: '@Url.Content(Constants.UrlAction.Product.GetList)',
             dataType: "json",
             data: {},
-            success: OnSuccess
+            success: onSuccess
         })
     }
-    function OnSuccess(response) {
-        console.log(response);
+
+    function onSuccess(response) {
         $('#dtResult').DataTable({
             bDestroy: true,
             bProcessing: true,
@@ -126,9 +128,9 @@
     }
 
     function openPopup(id, action) {
-        var data = { "id": id, "action": action };
-        console.log(data);
+        let data = { "id": id, "action": action };
+        let url = '@Url.Content(Constants.UrlAction.Product.PopUpDialog)';
         action = action == "Add" ? "เพิ่มสินค้า" : "แก้ไขสินค้า";
-        modalPOST(action, "@Url.Content(Constants.UrlAction.Product.PopUpDialog)", data, 50);
+        modalPOST(action, url, data, 50);
     };
 </script>

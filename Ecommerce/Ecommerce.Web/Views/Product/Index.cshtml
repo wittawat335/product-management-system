@@ -76,7 +76,7 @@
                         </button>
                         <button type="reset"
                                 class="btn btn-secondary"
-                                onclick="ClearDataTable('dtResult')">
+                                onclick="clearDataTable('dtResult')">
                             ล้างขัอมูล
                         </button>
                     </div>
@@ -103,14 +103,14 @@
                         <table id="dtResult" class="table table-bordered table-striped">
                             <thead>
                                 <tr style="text-align:center">
-                                    <th>ชื่อสินค้า</th>
-                                    <th>ประเภทสินค้า</th>
-                                    <th>รูปภาพสินค้า</th>
-                                    <th>จำนวนสินค้าที่มี</th>
-                                    <th>ราคาสินค้า</th>
-                                    <th>รายละเอียดสินค้า</th>
-                                    <th>สถานะสินค้า</th>
-                                    <th>วันที่บันทึก</th>
+                                    <th>@Html.DisplayNameFor(m => m.ProductName)</th>
+                                    <th>@Html.DisplayNameFor(m => m.CategoryName)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Image)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Stock)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Price)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Description)</th>
+                                    <th>@Html.DisplayNameFor(m => m.Status)</th>
+                                    <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
                                     <th>
                                         <a class="btn btn-info"
                                            onclick="openPopup('','Add')">
@@ -129,6 +129,6 @@
 </section>
 @section Scripts{
     @{
-        await Html.RenderPartialAsync("_Script", Model);
+        await Html.RenderPartialAsync("_Script");
     }
 }

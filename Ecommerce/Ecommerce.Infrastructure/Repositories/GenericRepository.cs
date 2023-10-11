@@ -115,6 +115,13 @@ namespace Ecommerce.Infrastructure.Repositories
             await _context.Set<T>().AddRangeAsync(model);
         }
 
+        public async Task<T> UpdateAndSaveAsync(T model)
+        {
+            _context.Set<T>().Update(model);
+            await SaveChangesAsync();
+            return model;
+        }
+
         #endregion
     }
 }

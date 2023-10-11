@@ -25,7 +25,7 @@
         var data = { "userName": $('#txtUserName').val(), "password": $('#txtPassword').val() };
         $.post(url, data, function (response) {
             if (response.isSuccess) {
-                SwalProgressBar('success', response.message);
+                swalProgressBar('success', response.message);
                 window.location.href = response.returnUrl;
             }
             else
@@ -38,8 +38,8 @@
         var data = $('#registerform').serializeObject();
         $.post(url, data, function (response) {
             if (response.isSuccess) {
-                SwalProgressBar('success', response.message);
-                ClearValueByDiv('dvForm');
+                swalProgressBar('success', response.message);
+                clearValueByDiv('dvForm');
                 changeToLoginForm();
             }
         });

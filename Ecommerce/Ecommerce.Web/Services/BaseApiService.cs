@@ -1,7 +1,9 @@
 ﻿using Ecommerce.Web.Models;
 using Ecommerce.Web.Services.Interfaces;
 using Newtonsoft.Json;
+using System.Net.Http;
 using System.Net.Http.Headers;
+using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace Ecommerce.Web.Services
 {
@@ -132,9 +134,30 @@ namespace Ecommerce.Web.Services
             throw new NotImplementedException();
         }
 
-        public Task<Response<T>> PutAsync(string path, T request)
+        public async Task<Response<T>> PutAsync(string path, T request)
         {
-            throw new NotImplementedException();
+            var session = _commonService.GetSessionValue();
+            var response = new Response<T>();
+            try
+            {
+                using (var client = new HttpClient(_httpClient))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.token);
+                    HttpResponseMessage result = await client.PutAsJsonAsync(path, request);
+
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string data = result.Content.ReadAsStringAsync().Result;
+                        response = JsonConvert.DeserializeObject<Response<T>>(data);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+
+            return response;
         }
 
         public Task<Response<T>> DeleteAsync(string path)

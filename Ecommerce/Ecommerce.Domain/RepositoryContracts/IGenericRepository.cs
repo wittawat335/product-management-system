@@ -26,6 +26,7 @@ namespace Ecommerce.Domain.RepositoryContracts
         Task<T> FindAsync(string code);
         Task<T> InsertAsyncAndSave(T model);
         Task InsertListAsync(List<T> model);
+        Task<T> UpdateAndSaveAsync(T model);
         Task SaveChangesAsync();
 
         #endregion
