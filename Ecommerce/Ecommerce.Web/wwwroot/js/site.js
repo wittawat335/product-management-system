@@ -37,7 +37,6 @@
 function saveForm(formId, url) {
     var data = $('#' + formId).serializeObject();
     $.post(url, data, function (response) {
-        console.log(response);
         if (response.isSuccess) {
             swalMessage('success', response.message);
             closeModal();

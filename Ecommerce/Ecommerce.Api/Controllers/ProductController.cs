@@ -24,8 +24,8 @@ namespace Ecommerce.Api.Controllers
             return Ok(await _service.GetList());
         }
 
-        [HttpPost("Search")]
-        public async Task<IActionResult> Search(ProductDTO filter)
+        [HttpPost("GetList")]
+        public async Task<IActionResult> GetList(ProductDTO filter)
         {
             return Ok(await _service.GetList(filter));
         }

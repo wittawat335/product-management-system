@@ -4,9 +4,12 @@ namespace Ecommerce.Web.Services.Interfaces
 {
     public interface IProductService
     {
-        Task<Response<List<Product>>> GetList(string url, Product filter);
-        Task<List<Product>> Select2Product(string url, string query);
+        Task<Response<List<Product>>> GetListProduct(Product filter);
+        Task<Response<List<Category>>> GetListCategory();
+        Task<List<Product>> Select2Product(string query);
+        Task<List<Category>> Select2Category(string query);
         Task<Product> Detail(string id, string action);
         Task<Response<Product>> Save(ProductViewModel model);
+        //Task<Response<List<Product>>> Search(string url, Product filter);
     }
 }

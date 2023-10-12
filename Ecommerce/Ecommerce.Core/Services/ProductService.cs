@@ -28,11 +28,15 @@ namespace Ecommerce.Core.Services
                 var result = productList.Include(x => x.Category).ToList();
                 if (request != null)
                 {
-                    if (request.ProductName != null && request.ProductName != "string")
+                    if (request.ProductId != null)
+                        result = result.Where(x => x.ProductId == new Guid(request.ProductId)).ToList();
+                    if (request.ProductName != null)
                         result = result.Where(x => x.ProductName.Contains(request.ProductName)).ToList();
-                    if (request.CategoryName != null && request.CategoryName != "string")
+                    if (request.CategoryId != null)
+                        result = result.Where(x => x.CategoryId == new Guid(request.CategoryId)).ToList();
+                    if (request.CategoryName != null)
                         result = result.Where(x => x.Category.CategoryName.Contains(request.CategoryName)).ToList();
-                    if (request.Status != null && request.Status != "string")
+                    if (request.Status != null)
                         result = result.Where(x => x.Status.Contains(request.Status)).ToList();
                 }
                 response.value = _mapper.Map<List<ProductDTO>>(result);

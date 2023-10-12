@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "pS4sr0nI5Eetg31Mj0fgkT23zPLCCnkDuQDKkoh0de8=",
+  "Hash": "7kJ4rowK/dvhJExsAaewt/yDMPxSEKo9+QMWKnA5fjM=",
   "Source": "Ecommerce.Web",
   "BasePath": "_content/Ecommerce.Web",
   "Mode": "Default",
@@ -1222,23 +1222,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\no_photo.jpg"
-    },
-    {
-      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\a44e3761-ea3a-497a-91f8-b4f92f324f2d\\notebook01.png",
-      "SourceId": "Ecommerce.Web",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\",
-      "BasePath": "_content/Ecommerce.Web",
-      "RelativePath": "images/product/a44e3761-ea3a-497a-91f8-b4f92f324f2d/notebook01.png",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\product\\a44e3761-ea3a-497a-91f8-b4f92f324f2d\\notebook01.png"
     },
     {
       "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\js\\site.js",

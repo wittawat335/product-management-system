@@ -701,10 +701,6 @@
       "PackagePath": "staticwebassets\\images\\no_photo.jpg"
     },
     {
-      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\a44e3761-ea3a-497a-91f8-b4f92f324f2d\\notebook01.png",
-      "PackagePath": "staticwebassets\\images\\product\\a44e3761-ea3a-497a-91f8-b4f92f324f2d\\notebook01.png"
-    },
-    {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -35,9 +35,9 @@ namespace Ecommerce.Web.Controllers
             return View();
         }
 
-        public async Task<IActionResult> GetList()
+        public async Task<IActionResult> GetList(Product search)
         {
-            var response = await _productService.GetListAsync(_setting.BaseApiUrl + "Product/GetList");
+            var response = await _service.GetListProduct(search);
             return Json(response);
         }
 
@@ -81,7 +81,7 @@ namespace Ecommerce.Web.Controllers
         {
             var response = await _productService.DeleteAsync(_setting.BaseApiUrl + string.Format("Product/Delete/{0}", id));
             if (response.isSuccess)
-                DeleteFolder(id);
+                DeleteImageFolder(id);
 
             return Json(response);
         }
@@ -114,10 +114,22 @@ namespace Ecommerce.Web.Controllers
             }
         }
 
-        private void DeleteFolder(string productId)
+        private void DeleteImageFolder(string productId)
         {
             string path = Path.Combine(_environment.WebRootPath, "images\\product\\" + productId);
             if (Directory.Exists(path)) Directory.Delete(path, true);
+        }
+
+        public async Task<IActionResult> select2Product(string query)
+        {
+            var response = await _service.Select2Product(query);
+            return Json(response);
+        }
+
+        public async Task<IActionResult> select2Category(string query)
+        {
+            var response = await _service.Select2Category(query);
+            return Json(response);
         }
     }
 }

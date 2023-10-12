@@ -1,9 +1,8 @@
-﻿using Ecommerce.Web.Models;
+﻿using Ecommerce.Web.Commons;
+using Ecommerce.Web.Models;
 using Ecommerce.Web.Services.Interfaces;
 using Newtonsoft.Json;
-using System.Net.Http;
 using System.Net.Http.Headers;
-using static Microsoft.AspNetCore.Razor.Language.TagHelperMetadata;
 
 namespace Ecommerce.Web.Services
 {
@@ -171,6 +170,33 @@ namespace Ecommerce.Web.Services
             catch (Exception ex)
             {
                 response.message = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<Response<List<T>>> Search(string path, T request)
+        {
+            var session = _commonService.GetSessionValue();
+            var response = new Response<List<T>>();
+            try
+            {
+                using (var client = new HttpClient(_httpClient))
+                {
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.token);
+                    HttpResponseMessage result = await client.PostAsJsonAsync(path, request);
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string data = result.Content.ReadAsStringAsync().Result;
+                        response = JsonConvert.DeserializeObject<Response<List<T>>>(data);
+                    }
+                    else
+                        response.message = Constants.MessageError.CallAPI;
+                }
+            }
+            catch
+            {
+                throw;
             }
 
             return response;

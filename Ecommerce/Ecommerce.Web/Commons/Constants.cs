@@ -29,6 +29,7 @@
                 public const string SaveImage = "~/Product/SaveImage";
                 public const string Delete = "~/Product/Delete";
                 public const string select2Product = "~/Product/select2Product";
+                public const string select2Category = "~/Product/select2Category";
             }
             public struct Master
             {
