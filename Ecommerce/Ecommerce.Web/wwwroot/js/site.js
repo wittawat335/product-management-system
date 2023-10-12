@@ -18,7 +18,7 @@
     $.fn.serializeObject = function () {
         var o = {};
         var disabledInput = this.find(':input:disabled').removeAttr('disabled')
-        var a = this.find('input[name],select[name],textarea[name]').not('input[type=hidden]').serializeArray();
+        var a = this.find('input[name],select[name],textarea[name],input[type=file]').not('input[type=hidden]').serializeArray();
 
         $.each(a, function () {
             if (o[this.name]) {
@@ -234,15 +234,18 @@ function confirmMessage() {
         }
     });
 }
-function confirmDelete(id, name, url) {
+function confirmDelete(id, url, imageUrl) {
     Swal.fire({
-        title: 'Do you want to delete' + ' ' + ' " ' + name + ' " ' + ' ' + '?',
-        icon: 'warning',
+        title: 'คุณต้องการลบสินค้านี้ ?',
+        imageUrl: imageUrl,
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
         confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Yes',
+        confirmButtonText: 'ใช่',
         showCancelButton: true,
         cancelButtonColor: '#d33',
-        cancelButtonText: 'No',
+        cancelButtonText: 'ไม่ใช่',
     }).then((result) => {
         if (result.isConfirmed) {
             sendDelete(id, url);
@@ -256,7 +259,7 @@ function sendDelete(id, url) {
         if (result.isSuccess) {
             swalMessage('success', result.message);
             closeModal();
-            GetList();
+            getList();
         }
         else {
             swalMessage('error', result.message);

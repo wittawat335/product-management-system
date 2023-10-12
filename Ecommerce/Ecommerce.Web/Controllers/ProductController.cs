@@ -80,6 +80,9 @@ namespace Ecommerce.Web.Controllers
         public async Task<IActionResult> Delete(string id)
         {
             var response = await _productService.DeleteAsync(_setting.BaseApiUrl + string.Format("Product/Delete/{0}", id));
+            if (response.isSuccess)
+                DeleteFolder(id);
+
             return Json(response);
         }
 
@@ -109,6 +112,12 @@ namespace Ecommerce.Web.Controllers
             {
                 image.CopyTo(fileStream);
             }
+        }
+
+        private void DeleteFolder(string productId)
+        {
+            string path = Path.Combine(_environment.WebRootPath, "images\\product\\" + productId);
+            if (Directory.Exists(path)) Directory.Delete(path, true);
         }
     }
 }

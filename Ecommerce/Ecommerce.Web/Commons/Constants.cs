@@ -10,7 +10,7 @@
         public struct SelectOption
         {
             public static string SelectAll = "--- Select All ---";
-            public static string SelectOne = "--- Please Select ---";
+            public static string SelectOne = "--- กรุณาเลือก ---";
         }
         public struct SessionKey
         {

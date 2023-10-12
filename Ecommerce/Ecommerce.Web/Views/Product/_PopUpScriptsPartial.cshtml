@@ -7,17 +7,26 @@
     });
 
     function checkAction() {
-        if ('@Model.Action' == '@Constants.Action.View') {
-            setReadOnlyByDiv('frmDetail', true);
-          
+        let action = '@Model.Action';
+        switch (action) {
+            case '@Constants.Action.View':
+                setReadOnlyByDiv('frmDetail', true);
+                break;
+            case '@Constants.Action.Add':
+                $('#@Html.IdFor(m => m.Product.Status)').val('A');
+                break;
         }
     }
 
+    function setValueImage(){
+        let fileName = $('#fileName').val().replace(/C:\\fakepath\\/i, '');
+        if(fileName != null) $('#@Html.IdFor(m => m.Product.Image)').val(fileName);
+    }
+
     function save() {
-        var filename = $('input[type=file]').val().replace(/C:\\fakepath\\/i, '')
-        $('#@Html.IdFor(m => m.Product.Image)').val(filename);
-        var url = '@Url.Content(Constants.UrlAction.Product.Save)';
-        var data = $('#frmDetail').serializeObject();
+        setValueImage();
+        let url = '@Url.Content(Constants.UrlAction.Product.Save)';
+        let data = $('#frmDetail').serializeObject();
         $.post(url, data, function (response) {
             if (response.isSuccess) 
                 uploadImage(response);
@@ -27,7 +36,7 @@
 
     function uploadImage(response) {
         const formData = new FormData(document.forms.item(0));
-        let file = $('#FileName').prop("files")[0];
+        let file = $('#fileName').prop("files")[0];
         formData.append('file', file);
         formData.append('productId', response.value.productId);
         formData.append('message', response.message);
