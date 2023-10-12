@@ -37,7 +37,7 @@ namespace Ecommerce.Infrastructure.Repositories
         {
             return _context.Set<T>().FirstOrDefault(filter);
         }
-        public T Find(string code)
+        public T Find(Guid code)
         {
             return _context.Set<T>().Find(code);
         }

@@ -79,7 +79,7 @@ namespace Ecommerce.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            var response = await _productService.DeleteAsync(_setting.BaseApiUrl + string.Format("Product/{0}", id));
+            var response = await _productService.DeleteAsync(_setting.BaseApiUrl + string.Format("Product/Delete/{0}", id));
             return Json(response);
         }
 

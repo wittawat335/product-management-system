@@ -5,7 +5,7 @@ namespace Ecommerce.Domain.RepositoryContracts
     public interface IGenericRepository<T> where T : class
     {
         T Get(Expression<Func<T, bool>> filter);
-        T Find(string code);
+        T Find(Guid code);
         void Insert(T model);
         void InsertList(List<T> model);
         void Update(T model);

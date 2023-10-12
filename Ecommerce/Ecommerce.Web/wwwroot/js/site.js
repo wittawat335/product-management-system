@@ -234,7 +234,7 @@ function confirmMessage() {
         }
     });
 }
-function confirmDelete(code, name, url) {
+function confirmDelete(id, name, url) {
     Swal.fire({
         title: 'Do you want to delete' + ' ' + ' " ' + name + ' " ' + ' ' + '?',
         icon: 'warning',
@@ -245,16 +245,15 @@ function confirmDelete(code, name, url) {
         cancelButtonText: 'No',
     }).then((result) => {
         if (result.isConfirmed) {
-            sendDelete(code, url);
+            sendDelete(id, url);
         }
     });
 }
-function sendDelete(code, url) {
+function sendDelete(id, url) {
     var url = url;
-    var data = { "code": code };
-
+    var data = { "id": id };
     $.post(url, data, function (result) {
-        if (result.status) {
+        if (result.isSuccess) {
             swalMessage('success', result.message);
             closeModal();
             GetList();
