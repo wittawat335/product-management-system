@@ -203,4 +203,10 @@
             }
         });
     }
+
+    function resetform() {
+        $("#dtResult").dataTable().fnClearTable();
+        $("#@Html.IdFor(m => m.ProductId)").empty().trigger('change')
+        $("#@Html.IdFor(m => m.CategoryId)").empty().trigger('change')
+    }
 </script>

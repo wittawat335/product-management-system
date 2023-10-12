@@ -41,11 +41,6 @@ namespace Ecommerce.Web.Controllers
             return Json(response);
         }
 
-        public IActionResult Search(Product search)
-        {
-            return Json("");
-        }
-
         [HttpPost]
         public async Task<IActionResult> _PopUpDialog(string id, string action)
         {

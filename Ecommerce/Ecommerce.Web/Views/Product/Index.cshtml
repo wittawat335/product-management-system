@@ -31,97 +31,85 @@
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                         <i class="fas fa-minus"></i>
                     </button>
-                    @* <button type="button" class="btn btn-tool" data-card-widget="remove">
-                        <i class="fas fa-times"></i>
-                    </button> *@
                 </div>
             </div>
-             <form method="post">
-                <div class="card-body">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="ProductName"></label>
-                                <select asp-for="ProductId" class="form-control select2"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="CategoryName"></label>
-                                <select asp-for="CategoryId" class="form-control select2"></select>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label asp-for="Status"></label>
-                                <select asp-for="Status" class="form-control select2" style="width: 100%;">
-                                    <option selected="selected" value="">กรุณาเลือก</option>
-                                    <option value="A">ใช้งาน</option>
-                                    <option value="I">ไม่ได้ใช้งาน</option>
-                                </select>
-                            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ProductName"></label>
+                            <select asp-for="ProductId" class="form-control select2"></select>
                         </div>
                     </div>
-                    <div class="text-center mt-3">
-                        <button type="button"
-                                id="btnSearch"
-                                onclick="getList()"
-                                class="btn btn-primary">
-                            ค้นหา
-                        </button>
-                        <button type="reset"
-                                class="btn btn-secondary"
-                                onclick="">
-                            ล้างขัอมูล
-                        </button>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="CategoryName"></label>
+                            <select asp-for="CategoryId" class="form-control select2"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Status"></label>
+                            <select asp-for="Status" class="form-control select2" style="width: 100%;">
+                                <option selected="selected" value="">--- กรุณาเลือก ---</option>
+                                <option value="A">ใช้งาน</option>
+                                <option value="I">ไม่ได้ใช้งาน</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
-             </form>
-        </div>
-    </div>
-</section>
-<!-- DataTable -->
-<section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card card-default">
-                    <div class="card-header">
-                        <h3 class="card-title">ข้อมูลสินค้า</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <table id="dtResult" class="table table-bordered table-striped">
-                            <thead>
-                                <tr style="text-align:center">
-                                    <th>@Html.DisplayNameFor(m => m.ProductName)</th>
-                                    <th>@Html.DisplayNameFor(m => m.CategoryName)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Image)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Stock)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Price)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Description)</th>
-                                    <th>@Html.DisplayNameFor(m => m.Status)</th>
-                                    <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
-                                    <th>
-                                        <a class="btn btn-info"
-                                           onclick="openPopup('','@action','@urlPopUp','เพื่มสินค้า')">
-                                            เพิ่มสินค้า
-                                        </a>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
+                <div class="text-center mt-3">
+                    <button type="button"
+                            id="btnSearch"
+                            onclick="getList()"
+                            class="btn btn-primary">
+                        ค้นหา
+                    </button>
+                    <button type="reset"
+                            class="btn btn-secondary"
+                            onclick="resetform()">
+                        ล้างขัอมูล
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+    <!-------------------------------------------- DataTable --------------------------------------------------->
+    <div class="card card-default">
+        <div class="card-header">
+            <h3 class="card-title">รายการสินค้า</h3>
+            <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                    <i class="fas fa-minus"></i>
+                </button>
+            </div>
+        </div>
+        <div class="card-body">
+            <table id="dtResult" class="table table-bordered table-striped">
+                <thead>
+                    <tr style="text-align:center">
+                        <th>@Html.DisplayNameFor(m => m.ProductName)</th>
+                        <th>@Html.DisplayNameFor(m => m.CategoryName)</th>
+                        <th>@Html.DisplayNameFor(m => m.Image)</th>
+                        <th>@Html.DisplayNameFor(m => m.Stock)</th>
+                        <th>@Html.DisplayNameFor(m => m.Price)</th>
+                        <th>@Html.DisplayNameFor(m => m.Description)</th>
+                        <th>@Html.DisplayNameFor(m => m.Status)</th>
+                        <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
+                        <th>
+                            <a class="btn btn-info"
+                               onclick="openPopup('','@action','@urlPopUp','เพื่มสินค้า')">
+                                เพิ่มสินค้า
+                            </a>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
 </section>
+
 @section Scripts{
     @{
         await Html.RenderPartialAsync("_Script");

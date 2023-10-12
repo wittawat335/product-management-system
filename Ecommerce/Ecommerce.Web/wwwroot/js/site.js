@@ -190,8 +190,9 @@ function clearModalLv2() {
 function clearValueByDiv(div) {
     $('#' + div + ' input').val("");
     $('#' + div + ' select').val("");
-    $('#' + div + ' textarea').val(" ");
+    $('#' + div + ' textarea').val("");
 }
+
 function swalProgressBar(icon, message) {
     const Toast = Swal.mixin({
         toast: true,
