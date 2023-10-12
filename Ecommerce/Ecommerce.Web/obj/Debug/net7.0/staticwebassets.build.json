@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "ETA2vK+fPtPEG57pRUlyzCclwJSwQFOIvUNWXDAfXS0=",
+  "Hash": "iQRYVkEthFDykRJmkrm668qziX2IzUWlRY7x/Q7a4Og=",
   "Source": "Ecommerce.Web",
   "BasePath": "_content/Ecommerce.Web",
   "Mode": "Default",
@@ -1256,6 +1256,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\product\\55ccceda-19c3-41b5-8471-3f60604ab525\\001 (1).png"
+    },
+    {
+      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\c1e1e6c1-f20d-4d92-aaa6-10cc88ad1135\\—Pngtree—beautiful hologram -color  _3643167.png",
+      "SourceId": "Ecommerce.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\",
+      "BasePath": "_content/Ecommerce.Web",
+      "RelativePath": "images/product/c1e1e6c1-f20d-4d92-aaa6-10cc88ad1135/—Pngtree—beautiful hologram -color  _3643167.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\product\\c1e1e6c1-f20d-4d92-aaa6-10cc88ad1135\\—Pngtree—beautiful hologram -color  _3643167.png"
+    },
+    {
+      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\df16ab66-54fa-4879-b1e3-e27b3bb7bd66\\a6377e50-a417-4c1f-936d-00bc9d8bc2d8.png",
+      "SourceId": "Ecommerce.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\",
+      "BasePath": "_content/Ecommerce.Web",
+      "RelativePath": "images/product/df16ab66-54fa-4879-b1e3-e27b3bb7bd66/a6377e50-a417-4c1f-936d-00bc9d8bc2d8.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\product\\df16ab66-54fa-4879-b1e3-e27b3bb7bd66\\a6377e50-a417-4c1f-936d-00bc9d8bc2d8.png"
     },
     {
       "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\js\\site.js",

@@ -106,9 +106,25 @@ namespace Ecommerce.Core.Services
 
             return response;
         }
-        public Task<Response<Product>> Delete(string id)
+        public async Task<Response<Product>> Delete(string id)
         {
-            throw new NotImplementedException();
+            var response = new Response<Product>();
+            try
+            {
+                var data = _repository.Find(id);
+                if (data != null)
+                {
+                    _repository.Delete(data);
+                    await _repository.SaveChangesAsync();
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.DeleteSuccessfully;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+            return response;
         }
     }
 }

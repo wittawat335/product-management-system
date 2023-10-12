@@ -46,6 +46,10 @@ function saveForm(formId, url) {
         else swalMessage('error', response.message);
     });
 }
+function openPopup(id, action, url, caption) {
+    let data = { "id": id, "action": action };
+    modalPOST(caption, url, data, 50);
+};
 function modalPOST(caption, path, data, isFull) {
     var url = path;
     $.post(url, data, function (result) {

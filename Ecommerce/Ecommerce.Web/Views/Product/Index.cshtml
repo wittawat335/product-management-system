@@ -1,7 +1,10 @@
 ﻿@using Ecommerce.Web.Models;
+@using Ecommerce.Web.Commons;
 @model Product
 @{
     ViewData["Title"] = "หน้าหลัก";
+    var urlPopUp = Url.Content(Constants.UrlAction.Product.PopUpDialog);
+    var action = Constants.Action.Add;
 }
 <section class="content-header">
     <div class="container-fluid">
@@ -113,7 +116,7 @@
                                     <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
                                     <th>
                                         <a class="btn btn-info"
-                                           onclick="openPopup('','Add')">
+                                           onclick="openPopup('','@action','@urlPopUp','เพื่มสินค้า')">
                                             เพิ่มสินค้า
                                         </a>
                                     </th>

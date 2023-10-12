@@ -21,8 +21,7 @@ namespace Ecommerce.Api.Controllers
         [HttpGet("GetList")]
         public async Task<IActionResult> GetList()
         {
-            var response = await _service.GetList();
-            return Ok(response);
+            return Ok(await _service.GetList());
         }
 
         [HttpPost("Search")]
@@ -52,7 +51,7 @@ namespace Ecommerce.Api.Controllers
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            return Ok();
+            return Ok(await _service.Delete(id));
         }
 
         //[HttpPut("UploadImage")]

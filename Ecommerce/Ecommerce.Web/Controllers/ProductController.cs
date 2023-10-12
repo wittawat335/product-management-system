@@ -35,15 +35,15 @@ namespace Ecommerce.Web.Controllers
             return View();
         }
 
-        public IActionResult Test()
-        {
-            return View();
-        }
-
         public async Task<IActionResult> GetList()
         {
             var response = await _productService.GetListAsync(_setting.BaseApiUrl + "Product/GetList");
             return Json(response);
+        }
+
+        public IActionResult Search(Product search)
+        {
+            return Json("");
         }
 
         [HttpPost]
@@ -69,7 +69,19 @@ namespace Ecommerce.Web.Controllers
             return PartialView(model);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Save(ProductViewModel model)
+        {
+            var response = await _service.Save(model);
+            return Json(response);
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var response = await _productService.DeleteAsync(_setting.BaseApiUrl + string.Format("Product/{0}", id));
+            return Json(response);
+        }
 
         [HttpPost]
         public IActionResult SaveImage(IFormFile file, string productId, string message)
@@ -80,13 +92,6 @@ namespace Ecommerce.Web.Controllers
 
             response.isSuccess = true;
             response.message = message;
-            return Json(response);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Save(ProductViewModel model)
-        {
-            var response = await _service.Save(model);
             return Json(response);
         }
 
