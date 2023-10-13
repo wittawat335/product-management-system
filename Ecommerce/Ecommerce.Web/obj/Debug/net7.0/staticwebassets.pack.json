@@ -705,6 +705,14 @@
       "PackagePath": "staticwebassets\\images\\product\\098b99c4-5a94-4725-bdb5-d2318cdcb0bf\\memory01.jpg"
     },
     {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\55d0f4db-4271-4fdc-8dbf-98cdcc367a25\\keyboard01.webp",
+      "PackagePath": "staticwebassets\\images\\product\\55d0f4db-4271-4fdc-8dbf-98cdcc367a25\\keyboard01.webp"
+    },
+    {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\a18b3432-ba66-4866-89a4-8934c2d652b6\\monitor01.jfif",
+      "PackagePath": "staticwebassets\\images\\product\\a18b3432-ba66-4866-89a4-8934c2d652b6\\monitor01.jfif"
+    },
+    {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\ee8ea101-dbe6-4b2e-812c-e225af59b52f\\keyboard01.webp",
       "PackagePath": "staticwebassets\\images\\product\\ee8ea101-dbe6-4b2e-812c-e225af59b52f\\keyboard01.webp"
     },
