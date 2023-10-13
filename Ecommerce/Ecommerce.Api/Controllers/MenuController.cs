@@ -14,10 +14,10 @@ namespace Ecommerce.Api.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetAll()
+        [HttpGet("{userId}")]
+        public async Task<IActionResult> GetList(string userId)
         {
-            return Ok(await _service.GetAllMenu());
+            return Ok(await _service.GetListMenu(userId));
         }
     }
 }

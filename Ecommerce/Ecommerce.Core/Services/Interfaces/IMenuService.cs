@@ -5,7 +5,7 @@ namespace Ecommerce.Core.Services.Interfaces
 {
     public interface IMenuService
     {
-        Task<Response<List<MenuDTO>>> GetAllMenu();
+        Task<Response<List<MenuDTO>>> GetListMenu(string userId);
         Task<Response<List<MenuDTO>>> GetMenuByPositionId(string positionId);
         Response<List<MenuDTO>> GetListMenuExists(string positionId);
     }
