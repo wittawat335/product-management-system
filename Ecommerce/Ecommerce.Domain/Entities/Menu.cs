@@ -11,7 +11,7 @@ public partial class Menu
 
     public int? MenuLevel { get; set; }
 
-    public string ParentCode { get; set; }
+    public Guid? ParentId { get; set; }
 
     public string Url { get; set; }
 

@@ -15,12 +15,17 @@ namespace Ecommerce.Core.AutoMapper
                 .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.positionId)));
             CreateMap<User, UserPosition>();
 
-            CreateMap<Product, ProductDTO>()
+            CreateMap<Menu, MenuDTO>(); //output
+            CreateMap<MenuDTO, Menu>() //input
+                .ForMember(x => x.MenuId, opt => opt.MapFrom(origin => new Guid(origin.MenuId)))
+                .ForMember(x => x.ParentId, opt => opt.MapFrom(origin => new Guid(origin.ParentId)));
+
+            CreateMap<Product, ProductDTO>() //output
                 .ForMember(x => x.CategoryName, opt => opt.MapFrom(origin => origin.Category.CategoryName))
                 .ForMember(x => x.Stock, opt => opt.MapFrom(origin => String.Format($"{origin.Stock:n}")))
                 .ForMember(x => x.Price, opt => opt.MapFrom(origin => String.Format($"{origin.Price:n}")))
                 .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
-            CreateMap<ProductDTO, Product>()
+            CreateMap<ProductDTO, Product>() //input
                .ForMember(x => x.Category, opt => opt.Ignore())
                .ForMember(x => x.ProductId, opt => opt.MapFrom(origin => new Guid(origin.ProductId)))
                .ForMember(x => x.CategoryId, opt => opt.MapFrom(origin => new Guid(origin.CategoryId)))

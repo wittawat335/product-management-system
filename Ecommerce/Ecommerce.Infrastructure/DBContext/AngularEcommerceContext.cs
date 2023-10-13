@@ -69,9 +69,6 @@ public partial class AngularEcommerceContext : DbContext
                 .IsRequired()
                 .HasMaxLength(20)
                 .IsUnicode(false);
-            entity.Property(e => e.ParentCode)
-                .HasMaxLength(20)
-                .IsUnicode(false);
             entity.Property(e => e.Status)
                 .HasMaxLength(1)
                 .IsUnicode(false)
