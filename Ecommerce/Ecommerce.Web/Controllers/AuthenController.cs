@@ -8,15 +8,21 @@ namespace Ecommerce.Web.Controllers
     public class AuthenController : Controller
     {
         private readonly IAuthenService _service;
+        private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IConfiguration _configuration;
 
-        public AuthenController(IAuthenService service)
+        public AuthenController(IAuthenService service, IHttpContextAccessor contextAccessor, IConfiguration configuration)
         {
             _service = service;
+            _contextAccessor = contextAccessor;
+            _configuration = configuration;
         }
 
         [HttpGet]
         public IActionResult Login()
         {
+
+
             return View();
         }
         [HttpPost]
@@ -30,9 +36,9 @@ namespace Ecommerce.Web.Controllers
 
         public IActionResult Logout()
         {
-            Response.Cookies.Delete(Constants.SessionKey.sessionLogin);
-            Response.Cookies.Delete(Constants.SessionKey.accessToken);
-            Response.Clear();
+            var cookieName = _configuration.GetValue<string>("AppSettings:CookieName");
+            _contextAccessor.HttpContext.Session.Clear();
+            Response.Cookies.Delete(cookieName);
 
             return RedirectToAction("Login");
         }

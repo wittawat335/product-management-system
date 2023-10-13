@@ -9,6 +9,8 @@ public partial class Position
 
     public string PositionName { get; set; }
 
+    public string MenuDefault { get; set; }
+
     public string Status { get; set; }
 
     public DateTime? CreateDate { get; set; }

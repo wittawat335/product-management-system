@@ -2,8 +2,6 @@
 using Ecommerce.Web.Models;
 using Ecommerce.Web.Services.Interfaces;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using System.Net.Http.Headers;
 using Ecommerce.Web.Commons;
 namespace Ecommerce.Web.Services
 {
@@ -92,6 +90,15 @@ namespace Ecommerce.Web.Services
             response.value = response.value.Where(x => x.CategoryName.ToLower().Contains(query.ToLower())).ToList();
 
             return response.value;
+        }
+
+        public async Task<Response<List<Product>>> GetListShopping(int pageSize, int p)
+        {
+            var filter = new Product();
+            var response = await GetListProduct(filter);
+            response.value = response.value.OrderByDescending(p => p.ProductName).Skip((p - 1) * pageSize).Take(pageSize).ToList();
+
+            return response;
         }
 
         //public async Task<Response<List<Product>>> Search(string url, Product filter)

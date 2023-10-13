@@ -10,6 +10,6 @@ namespace Ecommerce.Web.Services.Interfaces
         Task<List<Category>> Select2Category(string query);
         Task<Product> Detail(string id, string action);
         Task<Response<Product>> Save(ProductViewModel model);
-        //Task<Response<List<Product>>> Search(string url, Product filter);
+        Task<Response<List<Product>>> GetListShopping(int pageSize, int p);
     }
 }
