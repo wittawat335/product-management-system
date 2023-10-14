@@ -33,6 +33,8 @@
         disabledInput.attr('disabled', 'disabled');
         return o;
     };
+    setNavActive();
+    //NavActive();
 });
 function saveForm(formId, url) {
     var data = $('#' + formId).serializeObject();
@@ -192,7 +194,6 @@ function clearValueByDiv(div) {
     $('#' + div + ' select').val("");
     $('#' + div + ' textarea').val("");
 }
-
 function swalProgressBar(icon, message) {
     const Toast = Swal.mixin({
         toast: true,
@@ -302,38 +303,41 @@ function setReq(div, x) {
         $('#' + div).closest('div.form-group').removeClass('has-error has-danger');
     }
 }
+function setNavActive() {
+    /*** add active class and stay opened when selected ***/
+    var url = window.location;
 
-///////////////////////////////////  Vaildatetor ////////////////////////////////////////////////////////
-function numKey(evt, obj, mode, dec) {
-    // 8  backspace
-    // 9  tab
-    // 46 delete
-    // 37 left
-    // 39 right
-    // 45 minus
-    // 46 dot
-    var key = evt.which;
-    if (key >= 48 && key <= 57 || key == 8 || key == 9 || key == 37 || key == 39) {
-        return true;
-    }
-    else if (key == 45 && (mode != 'inteingerpos' && mode != 'doublepos')) {
-        var val = obj.value;
-        if (val.length == val.replace('-', '').length) {
-            obj.value = '-' + obj.value;
-            return false;
+    // for sidebar menu entirely but not cover treeview
+    //$('ul.nav-sidebar a').filter(function () {
+    //    if (this.href) {
+    //        return this.href == url || url.href.indexOf(this.href) == 0;
+    //    }
+
+    //}).addClass('active');
+
+    // for the treeview
+    $('ul.nav-treeview a').filter(function () {
+        if (this.href) {
+            return this.href == url || url.href.indexOf(this.href) == 0;
         }
-        else
-            return false;
-    }
-    else if (key == 46 && (mode != 'integer' && mode != 'integerpos')) {
-        var val = obj.value;
-        if (val.length == val.replace('.', '').length)
-            return true;
-        else
-            return false;
-    }
-    else {
-        return false;
-    }
+
+    }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
+}
+
+
+function NavActive() {
+    var url = window.location;
+    // for single sidebar menu
+    $('ul.nav-sidebar a').filter(function () {
+        return this.href == url;
+    }).addClass('active');
+
+    // for sidebar menu and treeview
+    $('ul.nav-treeview a').filter(function () {
+        return this.href == url;
+    }).parentsUntil(".nav-sidebar > .nav-treeview")
+        .css({ 'display': 'block' })
+        .addClass('menu-open').prev('a')
+        .addClass('active');
 }
 
