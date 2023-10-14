@@ -15,6 +15,15 @@ namespace Ecommerce.Core.AutoMapper
                 .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.positionId)));
             CreateMap<User, UserPosition>();
 
+            CreateMap<User, UserDTO>()
+                .ForMember(x => x.PositionName, opt => opt.MapFrom(origin => origin.Position.PositionName))
+                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
+            CreateMap<UserDTO, User>()
+               .ForMember(x => x.Position, opt => opt.Ignore())
+               .ForMember(x => x.UserId, opt => opt.MapFrom(origin => new Guid(origin.UserId)))
+               .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.PositionId)))
+               .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
+
             CreateMap<Menu, MenuDTO>(); //output
             CreateMap<MenuDTO, Menu>() //input
                 .ForMember(x => x.MenuId, opt => opt.MapFrom(origin => new Guid(origin.MenuId)))
@@ -40,11 +49,4 @@ namespace Ecommerce.Core.AutoMapper
                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
         }
     }
-
-
-    //.ForMember(x => x.Image, opt =>
-    //opt.MapFrom(origin => origin.Image != null
-    //? String.Format("http://localhost:5133/images/product/{0}/{0}.png", origin.ProductId)
-    //: "http://localhost:5133/images/no_photo.jpg"))
-    //+ '<img src="~/images/product/' + row.image + '" alt="' + row.productName + '" width="50" height="50" />'
 }

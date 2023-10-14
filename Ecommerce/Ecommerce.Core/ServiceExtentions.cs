@@ -24,6 +24,7 @@ namespace Ecommerce.Core
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IMenuService, MenuService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ICommonService, CommonService>();
         }
 
