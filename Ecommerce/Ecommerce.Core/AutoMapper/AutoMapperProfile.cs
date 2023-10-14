@@ -35,12 +35,9 @@ namespace Ecommerce.Core.AutoMapper
 
             CreateMap<Category, CategoryDTO>()
                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
-            //CreateMap<CategoryDTO, Category>()
-            //   .ForMember(x => x.Category, opt => opt.Ignore())
-            //   .ForMember(x => x.ProductId, opt => opt.MapFrom(origin => new Guid(origin.ProductId)))
-            //   .ForMember(x => x.CategoryId, opt => opt.MapFrom(origin => new Guid(origin.CategoryId)))
-            //   .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now))
-            //   .ForMember(x => x.Price, opt => opt.MapFrom(origin => Convert.ToDecimal(origin.Price, new CultureInfo("en-US"))));
+            CreateMap<CategoryDTO, Category>()
+               .ForMember(x => x.CategoryId, opt => opt.MapFrom(origin => new Guid(origin.CategoryId)))
+               .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
         }
     }
 

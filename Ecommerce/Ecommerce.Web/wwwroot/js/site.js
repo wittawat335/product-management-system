@@ -235,9 +235,23 @@ function confirmMessage() {
         }
     });
 }
-function confirmDelete(id, url, imageUrl) {
+function confirmDelete(id, url, name) {
     Swal.fire({
-        title: 'คุณต้องการลบสินค้านี้ ?',
+        title: 'คุณต้องการลบ ' + name + " ?",
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'ใช่',
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'ไม่ใช่',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            sendDelete(id, url);
+        }
+    });
+}
+function confirmDeleteWithImage(id, url, imageUrl) {
+    Swal.fire({
+        title: 'คุณต้องการลบ ?',
         imageUrl: imageUrl,
         imageWidth: 200,
         imageHeight: 200,

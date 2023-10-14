@@ -28,5 +28,30 @@ namespace Ecommerce.Api.Controllers
             filter.Status = "A";
             return Ok(await _service.GetList(filter));
         }
+
+
+        [HttpGet("GetCategory/{id}")]
+        public async Task<IActionResult> GetCategory(string id)
+        {
+            return Ok(await _service.Get(id));
+        }
+
+        [HttpPost("Add")]
+        public async Task<IActionResult> Add(CategoryDTO request)
+        {
+            return Ok(await _service.Add(request));
+        }
+
+        [HttpPut("Update")]
+        public async Task<IActionResult> Update(CategoryDTO request)
+        {
+            return Ok(await _service.Update(request));
+        }
+
+        [HttpDelete("Delete/{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            return Ok(await _service.Delete(id));
+        }
     }
 }

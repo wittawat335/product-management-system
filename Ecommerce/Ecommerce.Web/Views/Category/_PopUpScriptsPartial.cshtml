@@ -1,0 +1,19 @@
+﻿@using Ecommerce.Web.Commons;
+@model CategoryViewModel;
+<script>
+    $(document).ready(function () {
+        checkAction();
+    });
+    function checkAction() {
+        let action = '@Model.Action';
+        switch (action) {
+            case '@Constants.Action.View':
+                setReadOnlyByDiv('frmDetail', true);
+                break;
+            case '@Constants.Action.Add':
+                $('#@Html.IdFor(m => m.Category.Status)').val('A');
+                break;
+        }
+    }
+</script>
+

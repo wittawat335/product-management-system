@@ -31,6 +31,15 @@
                 public const string select2Product = "~/Product/select2Product";
                 public const string select2Category = "~/Product/select2Category";
             }
+
+            public struct Category
+            {
+                public const string GetList = "~/Category/GetList";
+                public const string PopUpDialog = "~/Category/_PopUpDialog";
+                public const string Save = "~/Category/Save";
+                public const string Delete = "~/Category/Delete";
+            }
+
             public struct Master
             {
                 public const string GetList = "~/Master/GetList";

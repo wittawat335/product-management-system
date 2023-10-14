@@ -41,22 +41,88 @@ namespace Ecommerce.Core.Services
             }
             return response;
         }
-        public Task<Response<CategoryDTO>> Get(string id)
+        public async Task<Response<CategoryDTO>> Get(string id)
         {
-            throw new NotImplementedException();
+            var response = new Response<CategoryDTO>();
+            try
+            {
+                var query = await _repository.GetAsync(x => x.CategoryId == new Guid(id));
+                if (query != null)
+                {
+                    response.value = _mapper.Map<CategoryDTO>(query);
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.AddSuccessfully;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+
+            return response;
         }
 
-        public Task<Response<Category>> Add(CategoryDTO model)
+        public async Task<Response<Category>> Add(CategoryDTO model)
         {
-            throw new NotImplementedException();
+            var response = new Response<Category>();
+            try
+            {
+                response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Category>(model));
+                if (response.value != null)
+                {
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.AddSuccessfully;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+            return response;
         }
-        public Task<Response<Category>> Update(CategoryDTO model)
+        public async Task<Response<Category>> Update(CategoryDTO model)
         {
-            throw new NotImplementedException();
+            var response = new Response<Category>();
+            try
+            {
+                var data = _repository.Get(x => x.CategoryId == new Guid(model.CategoryId));
+                if (data != null)
+                {
+                    response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
+                    if (response.value != null)
+                    {
+                        response.isSuccess = Constants.Status.True;
+                        response.message = Constants.StatusMessage.UpdateSuccessfully;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                response.isSuccess = false;
+                response.message = "Exception Occurs : " + ex.Message;
+            }
+
+            return response;
         }
-        public Task<Response<Category>> Delete(string id)
+        public async Task<Response<Category>> Delete(string id)
         {
-            throw new NotImplementedException();
+            var response = new Response<Category>();
+            try
+            {
+                var data = _repository.Find(new Guid(id));
+                if (data != null)
+                {
+                    _repository.Delete(data);
+                    await _repository.SaveChangesAsync();
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.DeleteSuccessfully;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+            return response;
         }
     }
 }

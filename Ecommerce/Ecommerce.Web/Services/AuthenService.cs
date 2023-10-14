@@ -47,7 +47,8 @@ namespace Ecommerce.Web.Services
                     {
                         string data = result.Content.ReadAsStringAsync().Result;
                         response = JsonConvert.DeserializeObject<Response<Session>>(data);
-                        SetSessionValue(response.value);
+                        if (response.isSuccess)
+                            SetSessionValue(response.value);
                     }
                     else
                         response.message = Constants.MessageError.CallAPI;
