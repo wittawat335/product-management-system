@@ -40,6 +40,14 @@
                 public const string Delete = "~/Category/Delete";
             }
 
+            public struct User
+            {
+                public const string GetList = "~/User/GetList";
+                public const string PopUpDialog = "~/User/_PopUpDialog";
+                public const string Save = "~/User/Save";
+                public const string Delete = "~/User/Delete";
+            }
+
             public struct Master
             {
                 public const string GetList = "~/Master/GetList";
@@ -56,12 +64,7 @@
                 public const string DeleteRoleMenu = "~/Menu/DeleteRoleMenu";
                 public const string GetListRoleMenuByRole = "~/Menu/GetListRoleMenuByRole";
             }
-            public struct User
-            {
-                public const string GetList = "~/User/GetList";
-                public const string Save = "~/User/Save";
-                public const string Delete = "~/User/Delete";
-            }
+
         }
         public struct MessageError
         {

@@ -55,12 +55,14 @@ namespace Ecommerce.Web.Controllers
             var model = new ProductViewModel();
             try
             {
+                var listCategory = await _categoryService.GetListAsync(_setting.BaseApiUrl + "Category/GetListActive");
+                if (listCategory != null)
+                    model.listCategory = listCategory.value;
+
                 if (!string.IsNullOrEmpty(id))
                     response = await _productService.GetAsyncById(_setting.BaseApiUrl + string.Format("Product/GetProduct/{0}", id));
 
-                var listCategory = await _categoryService.GetListAsync(_setting.BaseApiUrl + "Category/GetListActive");
                 model.Product = response.value;
-                model.listCategory = listCategory.value;
                 model.Action = action;
             }
             catch

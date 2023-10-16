@@ -1,0 +1,20 @@
+﻿@using Ecommerce.Web.Commons;
+@model UserViewModel;
+<script>
+    $(document).ready(function () {
+        checkAction();
+    });
+
+    function checkAction() {
+        let action = '@Model.Action';
+        switch (action) {
+            case '@Constants.Action.View':
+                setReadOnlyByDiv('frmDetail', true);
+                break;
+            case '@Constants.Action.Add':
+                $('#@Html.IdFor(m => m.User.Status)').val('A');
+                break;
+        }
+    }
+</script>
+

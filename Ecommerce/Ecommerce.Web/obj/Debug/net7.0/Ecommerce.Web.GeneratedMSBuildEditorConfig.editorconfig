@@ -32,6 +32,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Category/_FormDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcX0Zvcm1EZXRhaWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Category/_HiddenValue.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2F0ZWdvcnlcX0hpZGRlblZhbHVlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -114,6 +118,22 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/User/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/User/_HiddenValue.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfSGlkZGVuVmFsdWUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/User/_PopUpDialog.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfUG9wVXBEaWFsb2cuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/User/_PopUpScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfUG9wVXBTY3JpcHRzUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/User/_Script.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXNlclxfU2NyaXB0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/_ViewImports.cshtml]

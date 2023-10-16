@@ -1,0 +1,58 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Models;
+@model UserViewModel
+
+<form id="frmDetail">
+    <div class="form-group">
+        <label asp-for="User.Username" class="form-label"></label>
+        <input asp-for="User.Username" class="form-control" type="text" maxlength="20" />
+    </div>
+    <div class="form-group">
+        <label asp-for="User.Password" class="form-label"></label>
+        <input asp-for="User.Password" class="form-control" type="text" maxlength="20" />
+    </div>
+    <div class="form-group">
+        <label asp-for="User.PositionId" class="form-label"></label>
+        <select asp-for="User.PositionId" class="form-control"
+                asp-items="@(new SelectList (Model.listPosition, "PositionId", "PositionName"))">
+            <option disabled selected>@Constants.SelectOption.SelectOne</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="User.FullName" class="form-label"></label>
+        <input asp-for="User.FullName" class="form-control" type="text" maxlength="20" />
+    </div>
+    <div class="form-group">
+        <label asp-for="User.Email" class="form-label"></label>
+        <input asp-for="User.Email" class="form-control" type="email" maxlength="20" />
+    </div>
+    <div class="form-group">
+        <label asp-for="User.Address" class="form-label"></label>
+        <textarea asp-for="User.Address" class="form-control" rows="3" placeholder="ใส่รายละเอียดเพิ่มเติม ..."></textarea>
+    </div>
+    <div class="form-group mb-3">
+        <label asp-for="User.Status" class="form-label"></label>
+        <select asp-for="User.Status" class="form-control" style="width: 100%;">
+            <option selected="selected">กรุณาเลือก</option>
+            <option value="A">ใช้งาน</option>
+            <option value="I">ไม่ได้ใช้งาน</option>
+        </select>
+    </div>
+    <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+        <button id="btnSave"
+                type="button"
+                class="btn btn-info"
+                onclick="saveForm('frmDetail','@Url.Content(Constants.UrlAction.Category.Save)')">
+            บันทึก
+        </button>
+    </div>
+    <div style="display: none">
+        @{
+            await Html.RenderPartialAsync("_HiddenValue", Model);
+        }
+    </div>
+</form>
+@{
+    await Html.RenderPartialAsync("_PopUpScriptsPartial", Model);
+}

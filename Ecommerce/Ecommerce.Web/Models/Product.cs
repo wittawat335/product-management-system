@@ -20,7 +20,7 @@ namespace Ecommerce.Web.Models
         public string Price { get; set; }
         [Display(Name = "รายละเอียดสินค้า")]
         public string Description { get; set; }
-        [Display(Name = "สถานะสินค้า")]
+        [Display(Name = "สถานะ")]
         public string Status { get; set; }
         [Display(Name = "วันที่บันทึก")]
         public string CreateDate { get; set; }

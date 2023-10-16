@@ -3,6 +3,7 @@
 <script>
     $(document).ready(function () {
         checkAction();
+        formValidate();
     });
     function checkAction() {
         let action = '@Model.Action';
@@ -11,9 +12,42 @@
                 setReadOnlyByDiv('frmDetail', true);
                 break;
             case '@Constants.Action.Add':
-                $('#@Html.IdFor(m => m.Category.Status)').val('A');
+                $('#Status').val('A');
                 break;
         }
+    }
+
+    function formValidate() {
+        $.validator.setDefaults({
+            submitHandler: function () {
+                saveForm('frmDetail', '@Url.Content(Constants.UrlAction.Category.Save)')
+            }
+        });
+        $('#frmDetail').validate({
+            rules: {
+                CategoryName: {
+                    required: true,
+                    minlength: 5
+                },
+            },
+            messages: {
+                CategoryName: {
+                    required: "กรุณาระบุประเภทสินค้า",
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+                $(element).addClass('is-valid');
+            }
+        });
     }
 </script>
 

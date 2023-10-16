@@ -58,23 +58,21 @@ namespace Ecommerce.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(CategoryViewModel model)
+        public async Task<IActionResult> Save(Category model)
         {
             var response = new Response<Category>();
             try
             {
                 if (model != null)
                 {
-                    switch (model.Action)
+                    switch (model.CategoryId ?? String.Empty)
                     {
-                        case Constants.Action.Add:
-                            response = await _categoryService.InsertAsync(_setting.BaseApiUrl + "Category/Add", model.Category);
+                        case "":
+                            response = await _categoryService.InsertAsync(_setting.BaseApiUrl + "Category/Add", model);
                             break;
-                        case Constants.Action.Update:
-                            response = await _categoryService.PutAsync(_setting.BaseApiUrl + "Category/Update", model.Category);
-                            break;
+
                         default:
-                            response.message = Constants.MessageError.CallAPI;
+                            response = await _categoryService.PutAsync(_setting.BaseApiUrl + "Category/Update", model);
                             break;
                     }
                 }
