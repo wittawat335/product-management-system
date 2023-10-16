@@ -1,0 +1,46 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Models;
+@model User
+<div class="form-group">
+    <label asp-for="Username" class="form-label"></label>
+    <input asp-for="Username" class="form-control" type="text" maxlength="20" />
+</div>
+<div class="form-group">
+    <label asp-for="Password" class="form-label"></label>
+    <input asp-for="Password" class="form-control" type="text" maxlength="20" />
+</div>
+<div class="form-group">
+    <label asp-for="PositionId" class="form-label"></label>
+    <select asp-for="PositionId" class="form-control"
+            asp-items="@(new SelectList (ViewBag.listPosition, "PositionId", "PositionName"))">
+        <option disabled selected>@Constants.SelectOption.SelectOne</option>
+    </select>
+</div>
+<div class="form-group">
+    <label asp-for="FullName" class="form-label"></label>
+    <input asp-for="FullName" class="form-control" type="text" maxlength="20" />
+</div>
+<div class="form-group">
+    <label asp-for="Email" class="form-label"></label>
+    <input asp-for="Email" class="form-control" type="email"/>
+</div>
+<div class="form-group">
+    <label asp-for="Address" class="form-label"></label>
+    <textarea asp-for="Address" class="form-control" rows="3" placeholder="ใส่รายละเอียดเพิ่มเติม ..."></textarea>
+</div>
+<div class="form-group mb-3">
+    <label asp-for="Status" class="form-label"></label>
+    <select asp-for="Status" class="form-control" style="width: 100%;">
+        <option selected="selected">กรุณาเลือก</option>
+        <option value="A">ใช้งาน</option>
+        <option value="I">ไม่ได้ใช้งาน</option>
+    </select>
+</div>
+<div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+    <button id="btnSave"
+            type="submit"
+            class="btn btn-info">
+        บันทึก
+    </button>
+</div>

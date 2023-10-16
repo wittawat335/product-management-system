@@ -7,6 +7,7 @@ using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
 using Microsoft.EntityFrameworkCore;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Ecommerce.Core.Services
 {
@@ -15,14 +16,16 @@ namespace Ecommerce.Core.Services
         private readonly IGenericRepository<User> _repository;
         private readonly IGenericRepository<Position> _positionRepository;
         private readonly IGenericRepository<UserPosition> _upRepository;
+        private readonly ICommonService _commonService;
         private readonly IMapper _mapper;
 
         public UserService(IGenericRepository<User> repository, IGenericRepository<Position> positionRepository,
-            IGenericRepository<UserPosition> upRepository, IMapper mapper)
+            IGenericRepository<UserPosition> upRepository, ICommonService commonService, IMapper mapper)
         {
             _repository = repository;
             _positionRepository = positionRepository;
             _upRepository = upRepository;
+            _commonService = commonService;
             _mapper = mapper;
         }
 
@@ -31,10 +34,12 @@ namespace Ecommerce.Core.Services
             var response = new Response<User>();
             try
             {
+                if (model.Password != null)
+                    model.Password = _commonService.Encrypt(model.Password);
                 response.value = await _repository.InsertAsyncAndSave(_mapper.Map<User>(model));
                 if (response.value != null)
                 {
-                    var result = await _upRepository.InsertAsyncAndSave(_mapper.Map<UserPosition>(response.value)); // Insert Table UserPosition
+                    var result = await _upRepository.InsertAsyncAndSave(_mapper.Map<UserPosition>(model)); // Insert Table UserPosition
                     if (result != null)
                     {
                         response.isSuccess = Constants.Status.True;
@@ -54,10 +59,12 @@ namespace Ecommerce.Core.Services
             var response = new Response<User>();
             try
             {
-                var data = _repository.Find(new Guid(id));
-                if (data != null)
+                var userData = _repository.Find(new Guid(id));
+                var userPosition = await _upRepository.GetListAsync(x => x.UserId == new Guid(id));
+                if (userData != null)
                 {
-                    _repository.Delete(data);
+                    if (userPosition.Count() > 0) _upRepository.DeleteList(userPosition);
+                    _repository.Delete(userData);
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;
                     response.message = Constants.StatusMessage.DeleteSuccessfully;
@@ -78,6 +85,7 @@ namespace Ecommerce.Core.Services
                 var query = await _repository.GetAsync(x => x.UserId == new Guid(id));
                 if (query != null)
                 {
+                    query.Password = _commonService.Decrypt(query.Password);
                     response.value = _mapper.Map<UserDTO>(query);
                     response.isSuccess = Constants.Status.True;
                     response.message = Constants.StatusMessage.AddSuccessfully;
@@ -114,11 +122,10 @@ namespace Ecommerce.Core.Services
             var response = new Response<User>();
             try
             {
-                var data = _repository.Get(x => x.UserId == new Guid(model.UserId));
-                if (data != null)
+                if (model != null)
                 {
-                    response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
-                    if (response.value != null)
+                    var data = _repository.Get(x => x.UserId == new Guid(model.UserId));
+                    if (data != null)
                     {
                         var findPosition = await _upRepository.GetListAsync(x => x.UserId == new Guid(model.UserId));
                         if (findPosition.Count() > 0)
@@ -127,14 +134,12 @@ namespace Ecommerce.Core.Services
                             var result = await _upRepository.InsertAsyncAndSave(_mapper.Map<UserPosition>(model)); // Insert Table UserPosition
                             if (result != null)
                             {
+                                model.Password = _commonService.Encrypt(model.Password);
+                                _repository.Update(_mapper.Map(model, data));
+                                await _repository.SaveChangesAsync();
                                 response.isSuccess = Constants.Status.True;
                                 response.message = Constants.StatusMessage.UpdateSuccessfully;
                             }
-                        }
-                        else
-                        {
-                            response.isSuccess = Constants.Status.True;
-                            response.message = Constants.StatusMessage.UpdateSuccessfully;
                         }
                     }
                 }

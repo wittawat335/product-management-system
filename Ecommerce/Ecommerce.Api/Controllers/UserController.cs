@@ -39,7 +39,7 @@ namespace Ecommerce.Api.Controllers
             return Ok(await _service.Update(request));
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             return Ok(await _service.Delete(id));

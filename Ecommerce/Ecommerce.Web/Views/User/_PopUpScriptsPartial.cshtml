@@ -3,6 +3,7 @@
 <script>
     $(document).ready(function () {
         checkAction();
+        formValidate();
     });
 
     function checkAction() {
@@ -12,9 +13,76 @@
                 setReadOnlyByDiv('frmDetail', true);
                 break;
             case '@Constants.Action.Add':
-                $('#@Html.IdFor(m => m.User.Status)').val('A');
+                $('#Status').val('A');
                 break;
         }
+    }
+
+    function formValidate() {
+        $.validator.setDefaults({
+            submitHandler: function () {
+                saveForm('frmDetail', '@Url.Content(Constants.UrlAction.User.Save)')
+            }
+        });
+        $('#frmDetail').validate({
+            rules: {
+                Username: {
+                    required: true,
+                    minlength: 5
+                },
+                Password: {
+                    required: true,
+                    minlength: 5
+                },
+                PositionId: {
+                    required: true,
+                },
+                FullName: {
+                    required: true,
+                    minlength: 5
+                },
+                Email: {
+                    required: true,
+                    email: true,
+                },
+                Address: {
+                    required: true,
+                    minlength: 5
+                },
+            },
+            messages: {
+                Username: {
+                    required: "กรุณาระบุบัญชีผู้ใช้",
+                },
+                Password: {
+                    required: "กรุณาระบุรหัสผ่าน",
+                },
+                PositionId: {
+                    required: "กรุณาเลือกตำแหน่ง",
+                },
+                FullName: {
+                    required: "กรุณาระบุชื่อ-สกุล",
+                },
+                Email: {
+                    required: "กรุณาระบุอีเมลล์",
+                },
+                Address: {
+                    required: "กรุณาระบุที่อยู่",
+                },
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+                $(element).addClass('is-valid');
+            }
+        });
     }
 </script>
 

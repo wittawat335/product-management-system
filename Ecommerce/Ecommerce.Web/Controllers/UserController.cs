@@ -46,7 +46,7 @@ namespace Ecommerce.Web.Controllers
             {
                 var listPosition = await _positionService.GetListAsync(_setting.BaseApiUrl + "Position/GetListActive");
                 if (listPosition.value.Count() > 0)
-                    model.listPosition = listPosition.value;
+                    ViewBag.listPosition = listPosition.value;
 
                 if (!string.IsNullOrEmpty(id))
                     response = await _service.GetAsyncById(_setting.BaseApiUrl + string.Format("User/GetUser/{0}", id));
@@ -63,23 +63,21 @@ namespace Ecommerce.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(UserViewModel model)
+        public async Task<IActionResult> Save(User model)
         {
             var response = new Response<User>();
             try
             {
                 if (model != null)
                 {
-                    switch (model.Action)
+                    switch (model.UserId ?? String.Empty)
                     {
-                        case Constants.Action.Add:
-                            response = await _service.InsertAsync(_setting.BaseApiUrl + "User/Add", model.User);
+                        case "":
+                            response = await _service.InsertAsync(_setting.BaseApiUrl + "User/Add", model);
                             break;
-                        case Constants.Action.Update:
-                            response = await _service.PutAsync(_setting.BaseApiUrl + "User/Update", model.User);
-                            break;
+
                         default:
-                            response.message = Constants.MessageError.CallAPI;
+                            response = await _service.PutAsync(_setting.BaseApiUrl + "User/Update", model);
                             break;
                     }
                 }
@@ -95,7 +93,7 @@ namespace Ecommerce.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(string id)
         {
-            var response = await _service.DeleteAsync(_setting.BaseApiUrl + string.Format("User/Delete/{0}", id));
+            var response = await _service.DeleteAsync(_setting.BaseApiUrl + string.Format("User/{0}", id));
             return Json(response);
         }
     }
