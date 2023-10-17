@@ -28,18 +28,18 @@
             rules: {
                 Username: {
                     required: true,
-                    minlength: 5
+                    minlength: 3
                 },
                 Password: {
                     required: true,
-                    minlength: 5
+                    minlength: 3
                 },
                 PositionId: {
                     required: true,
                 },
                 FullName: {
                     required: true,
-                    minlength: 5
+                    minlength: 3
                 },
                 Email: {
                     required: true,
@@ -47,7 +47,10 @@
                 },
                 Address: {
                     required: true,
-                    minlength: 5
+                    minlength: 3
+                },
+                Status: {
+                    required: true
                 },
             },
             messages: {
@@ -69,6 +72,9 @@
                 Address: {
                     required: "กรุณาระบุที่อยู่",
                 },
+                Status: {
+                    required: "กรุณาเลือกสถานะ",
+                },
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {
@@ -80,7 +86,6 @@
             },
             unhighlight: function (element, errorClass, validClass) {
                 $(element).removeClass('is-invalid');
-                $(element).addClass('is-valid');
             }
         });
     }

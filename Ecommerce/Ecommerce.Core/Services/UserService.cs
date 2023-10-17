@@ -34,16 +34,25 @@ namespace Ecommerce.Core.Services
             var response = new Response<User>();
             try
             {
-                if (model.Password != null)
-                    model.Password = _commonService.Encrypt(model.Password);
-                response.value = await _repository.InsertAsyncAndSave(_mapper.Map<User>(model));
-                if (response.value != null)
+                var user = await _repository.GetAsync(x => x.Username == model.Username);
+                if (user != null && user.Status == Constants.Status.Active)
                 {
-                    var result = await _upRepository.InsertAsyncAndSave(_mapper.Map<UserPosition>(model)); // Insert Table UserPosition
-                    if (result != null)
+                    response.isSuccess = Constants.Status.False;
+                    response.message = Constants.StatusMessage.DuplicateUser;
+                }
+                else
+                {
+                    if (model.Password != null)
+                        model.Password = _commonService.Encrypt(model.Password);
+                    var resultUser = await _repository.InsertAsyncAndSave(_mapper.Map<User>(model));
+                    if (resultUser != null)
                     {
-                        response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.AddSuccessfully;
+                        var result = await _upRepository.InsertAsyncAndSave(_mapper.Map<UserPosition>(resultUser)); // Insert Table UserPosition
+                        if (result != null)
+                        {
+                            response.isSuccess = Constants.Status.True;
+                            response.message = Constants.StatusMessage.AddSuccessfully;
+                        }
                     }
                 }
             }

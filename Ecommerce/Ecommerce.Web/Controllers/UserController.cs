@@ -51,7 +51,9 @@ namespace Ecommerce.Web.Controllers
                 if (!string.IsNullOrEmpty(id))
                     response = await _service.GetAsyncById(_setting.BaseApiUrl + string.Format("User/GetUser/{0}", id));
 
-                model.User = response.value;
+                if (response.value != null)
+                    model.User = response.value;
+
                 model.Action = action;
             }
             catch

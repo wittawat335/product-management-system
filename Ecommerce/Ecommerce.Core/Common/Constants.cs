@@ -24,7 +24,7 @@ namespace Ecommerce.Core.Common
             public const string No_Data = "No Data";
             public const string Could_Not_Create = "Could not create";
             public const string No_Delete = "No Deleted";
-            public const string DuplicateUser = "Username is Duplicate";
+            public const string DuplicateUser = "บัญชีนี้อยู่ในระบบแล้ว";
             public const string DuplicatePosition = "Position is Duplicate";
             public const string Cannot_Update_Data = "Cannot Update Data";
             public const string Cannot_Map_Data = "Cannot Map Data";

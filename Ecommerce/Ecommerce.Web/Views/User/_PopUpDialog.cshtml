@@ -6,11 +6,6 @@
     @{
         await Html.RenderPartialAsync("_FormDetail", Model.User);
     }
-    <div style="display: none">
-        @{
-            await Html.RenderPartialAsync("_HiddenValue", Model);
-        }
-    </div>
 </form>
 @{
     await Html.RenderPartialAsync("_PopUpScriptsPartial", Model);

@@ -1,6 +1,5 @@
 ﻿@using Ecommerce.Web.Commons;
-@model UserViewModel
-@if (Model.Action == Constants.Action.Update)
-{
-    <input type="text" name="UserId" value='@Model.User.UserId' />
-}
+@model User
+
+<input type="text" name="UserId" value='@Model.UserId' />
+
