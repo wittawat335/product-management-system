@@ -1,6 +1,5 @@
 ﻿@using Ecommerce.Web.Commons;
-@model CategoryViewModel
-@if (Model.Action == Constants.Action.Update)
-{
-    <input type="text" name="CategoryId" value='@Model.Category.CategoryId' />
-}
+@model Category
+
+<input type="text" name="CategoryId" value='@Model.CategoryId' />
+

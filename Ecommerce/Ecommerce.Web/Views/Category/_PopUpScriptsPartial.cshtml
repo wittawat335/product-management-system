@@ -27,12 +27,18 @@
             rules: {
                 CategoryName: {
                     required: true,
-                    minlength: 5
+                    minlength: 3
                 },
+                Status: {
+                    required: true
+                }
             },
             messages: {
                 CategoryName: {
                     required: "กรุณาระบุประเภทสินค้า",
+                },
+                Status: {
+                    required: "กรุณาเลือกสถานะสินค้า",
                 }
             },
             errorElement: 'span',
@@ -45,7 +51,6 @@
             },
             unhighlight: function (element, errorClass, validClass) {
                 $(element).removeClass('is-invalid');
-                $(element).addClass('is-valid');
             }
         });
     }

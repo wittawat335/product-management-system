@@ -46,7 +46,9 @@ namespace Ecommerce.Web.Controllers
                 if (!string.IsNullOrEmpty(id))
                     response = await _categoryService.GetAsyncById(_setting.BaseApiUrl + string.Format("Category/GetCategory/{0}", id));
 
-                model.Category = response.value;
+                if (response.value != null)
+                    model.Category = response.value;
+
                 model.Action = action;
             }
             catch

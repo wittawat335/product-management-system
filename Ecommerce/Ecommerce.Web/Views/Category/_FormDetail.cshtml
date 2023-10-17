@@ -7,7 +7,7 @@
 <div class="form-group mb-3">
     <label asp-for="Status" class="form-label"></label>
     <select asp-for="Status" class="form-control" style="width: 100%;">
-        <option selected="selected">กรุณาเลือก</option>
+        <option value="" selected="selected">กรุณาเลือก</option>
         <option value="A">ใช้งาน</option>
         <option value="I">ไม่ได้ใช้งาน</option>
     </select>
@@ -20,4 +20,11 @@
             onclick="">
         บันทึก
     </button>
+</div>
+
+
+<div style="display: none">
+    @{
+        await Html.RenderPartialAsync("_HiddenValue", Model);
+    }
 </div>
