@@ -137,6 +137,10 @@ public partial class AngularEcommerceContext : DbContext
                 .HasMaxLength(1)
                 .IsUnicode(false)
                 .IsFixedLength();
+
+            entity.HasOne(d => d.MenuDefaultNavigation).WithMany(p => p.Positions)
+                .HasForeignKey(d => d.MenuDefault)
+                .HasConstraintName("FK_Position_Menu");
         });
 
         modelBuilder.Entity<Product>(entity =>

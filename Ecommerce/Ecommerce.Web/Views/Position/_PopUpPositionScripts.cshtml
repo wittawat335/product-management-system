@@ -1,17 +1,16 @@
 ﻿@using Ecommerce.Web.Commons;
-@model UserViewModel;
+@model PositionViewModel;
 <script>
     $(document).ready(function () {
         checkAction();
         formValidate();
     });
-
     function checkAction() {
         let action = '@Model.Action';
         switch (action) {
             case '@Constants.Action.View': {
-                $('#btnSave').hide();
                 setReadOnlyByDiv('frmDetail', true);
+                $('#btnSave').hide();
                 break;
             }
             case '@Constants.Action.Add':
@@ -23,60 +22,32 @@
     function formValidate() {
         $.validator.setDefaults({
             submitHandler: function () {
-                saveForm('frmDetail', '@Url.Content(Constants.UrlAction.User.Save)')
+                saveForm('frmDetail', '@Url.Content(Constants.UrlAction.Position.Save)')
             }
         });
         $('#frmDetail').validate({
             rules: {
-                Username: {
+                PositionName: {
                     required: true,
                     minlength: 3
                 },
-                Password: {
-                    required: true,
-                    minlength: 3
-                },
-                PositionId: {
-                    required: true,
-                },
-                FullName: {
-                    required: true,
-                    minlength: 3
-                },
-                Email: {
-                    required: true,
-                    email: true,
-                },
-                Address: {
-                    required: true,
-                    minlength: 3
+                MenuDefault: {
+                    required: true
                 },
                 Status: {
                     required: true
-                },
+                }
             },
             messages: {
-                Username: {
-                    required: "กรุณาระบุบัญชีผู้ใช้",
+                PositionName: {
+                    required: "กรุณาระบุตำแหน่ง",
                 },
-                Password: {
-                    required: "กรุณาระบุรหัสผ่าน",
-                },
-                PositionId: {
-                    required: "กรุณาเลือกตำแหน่ง",
-                },
-                FullName: {
-                    required: "กรุณาระบุชื่อ-สกุล",
-                },
-                Email: {
-                    required: "กรุณาระบุอีเมลล์",
-                },
-                Address: {
-                    required: "กรุณาระบุที่อยู่",
+                MenuDefault: {
+                    required: "กรุณาเลือกสถานะ",
                 },
                 Status: {
                     required: "กรุณาเลือกสถานะ",
-                },
+                }
             },
             errorElement: 'span',
             errorPlacement: function (error, element) {
@@ -92,4 +63,5 @@
         });
     }
 </script>
+
 

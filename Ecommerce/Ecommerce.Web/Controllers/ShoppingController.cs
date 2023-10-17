@@ -12,7 +12,7 @@ namespace Ecommerce.Web.Controllers
             _productService = productService;
         }
 
-        public async Task<IActionResult> Index(string categorySlug = "", int p = 1)
+        public IActionResult Index()
         {
             //int pageSize = 3;
             //ViewBag.PageNumber = p;

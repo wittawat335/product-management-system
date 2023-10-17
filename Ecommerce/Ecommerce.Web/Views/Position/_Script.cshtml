@@ -1,0 +1,96 @@
+﻿@using Ecommerce.Web.Commons;
+@model Position;
+<script>
+    let urlDelete = '@Url.Content(Constants.UrlAction.Position.Delete)';
+    let url = '@Url.Content(Constants.UrlAction.Position.PopUpDialog)';
+
+    $(function () {
+        getList();
+    });
+
+    function getList() {
+        $.ajax({
+            type: "POST",
+            url: '@Url.Content(Constants.UrlAction.Position.GetList)',
+            dataType: "json",
+            data: {
+
+            },
+            success: onSuccess
+        })
+    }
+
+    function onSuccess(response) {
+        $('#dtResult').DataTable({
+            bDestroy: true,
+            bProcessing: true,
+            bLenghtChange: true,
+            lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
+            searching: false, //ช่อง search
+            responsive: true,
+            autoWidth: false,
+            bfilter: true,
+            bSort: true,
+            bPaginate: true,
+            lengthChange: true, //ปุ่มจำนวนแสดงข้อมูล
+            //buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"], //แผงปุ่ม export
+            data: response.value,
+            columns: [
+                {
+                    data: 'positionName',
+                    render: function (data, type, row, meta) {
+                        return row.positionName
+                    }
+                },
+                {
+                    data: 'menuDefaultName',
+                    render: function (data, type, row, meta) {
+                        return row.menuDefaultName
+                    }
+                },
+                {
+                    data: 'status',
+                    render: function (data, type, row, meta) {
+                        if (row.status === 'A') {
+                            return '<span class="badge bg-success">'
+                                + '' + 'ใช้งาน' + ''
+                                + '</span>'
+                        }
+                        else if (row.status === 'I') {
+                            return '<span class="badge bg-dark">'
+                                + '' + 'ไม่ได้ใช้งาน' + ''
+                                + '</span> '
+                        }
+                        else {
+                            return "";
+                        }
+                    }
+                },
+                {
+                    data: 'createDate',
+                    render: function (data, type, row, meta) {
+                        return row.createDate
+                    }
+                },
+                {
+                    data: 'positionId',
+                    render: function (data, type, row, meta) {
+                        return '<a class="btn btn-info" onclick=openPopup("' + row.positionId + '","View","' + url + '","ดูรายละเอียดตำแหน่งผู้ใช้งาน");>'
+                            + '<i class="nav-icon fas fa-book"></i></a> '
+                    }
+                },
+                {
+                    data: 'positionId',
+                    render: function (data, type, row, meta) {
+                        return '<a class="btn btn-info" onclick=openPopup("' + row.positionId + '","View","' + url + '","ดูรายละเอียดตำแหน่งผู้ใช้งาน");>'
+                            + '<i class="fas fa-eye"></i></a> | '
+                            + '<a class="btn btn-warning" onclick=openPopup("' + row.positionId + '","Update","' + url + '","แก้ไขตำแหน่งผู้ใช้งาน");>'
+                            + '<i class="fas fa-pen"></i></a> | '
+                            + '<a class="btn btn-danger" onclick=confirmDelete("' + row.positionId + '","' + urlDelete + '","' + row.positionName + '");>'
+                            + '<i class="fas fa-trash"></a>'
+                    }
+                }
+            ]
+        })
+    }
+</script>

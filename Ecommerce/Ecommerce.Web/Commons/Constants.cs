@@ -39,6 +39,13 @@
                 public const string Save = "~/Category/Save";
                 public const string Delete = "~/Category/Delete";
             }
+            public struct Position
+            {
+                public const string GetList = "~/Position/GetListPosition";
+                public const string PopUpDialog = "~/Position/_PopUpPosition";
+                public const string Save = "~/Position/SavePosition";
+                public const string Delete = "~/Position/DeletePosition";
+            }
 
             public struct User
             {

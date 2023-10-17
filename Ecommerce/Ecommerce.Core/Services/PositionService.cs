@@ -5,6 +5,7 @@ using Ecommerce.Core.Helper;
 using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
+using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Core.Services
 {
@@ -25,6 +26,7 @@ namespace Ecommerce.Core.Services
             try
             {
                 var list = await _repository.AsQueryable();
+                list = list.Include(x => x.MenuDefaultNavigation);
                 if (filter != null)
                 {
                     if (filter.Status != null) list = list.Where(x => x.Status.Contains(filter.Status));

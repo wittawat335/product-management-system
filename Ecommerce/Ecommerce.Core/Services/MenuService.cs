@@ -27,7 +27,26 @@ namespace Ecommerce.Core.Services
             _mapper = mapper;
         }
 
-        public async Task<Response<List<MenuDTO>>> GetListMenu(string userId)
+        public async Task<Response<List<MenuDTO>>> GetListMenuActive()
+        {
+            var response = new Response<List<MenuDTO>>();
+            try
+            {
+                response.value = _mapper.Map<List<MenuDTO>>
+                    (await _MenuRepository.GetListAsync(x => x.Url != null && x.Status == Constants.Status.Active));
+
+                if (response.value.Count() > 0)
+                    response.isSuccess = Constants.Status.True;
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+
+            return response;
+        }
+
+        public async Task<Response<List<MenuDTO>>> GetListMenuByUserId(string userId)
         {
             var response = new Response<List<MenuDTO>>();
             try
@@ -54,8 +73,6 @@ namespace Ecommerce.Core.Services
                         response.isSuccess = Constants.Status.True;
                     }
                 }
-
-                return response;
             }
             catch (Exception ex)
             {
@@ -65,17 +82,12 @@ namespace Ecommerce.Core.Services
             return response;
         }
 
-        public Response<List<MenuDTO>> GetListMenuExists(string positionId)
+        public Task<Response<List<MenuDTO>>> GetListMenuExists(string positionId)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response<MenuDTO>> GetMenuByPositionId(string positionId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<Response<List<MenuDTO>>> IMenuService.GetMenuByPositionId(string positionId)
+        public Task<Response<List<MenuDTO>>> GetMenuByPositionId(string positionId)
         {
             throw new NotImplementedException();
         }

@@ -8,9 +8,11 @@
     function checkAction() {
         let action = '@Model.Action';
         switch (action) {
-            case '@Constants.Action.View':
+            case '@Constants.Action.View': {
+                $('#btnSave').hide();
                 setReadOnlyByDiv('frmDetail', true);
                 break;
+            }
             case '@Constants.Action.Add':
                 $('#Status').val('A');
                 break;

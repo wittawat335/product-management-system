@@ -18,18 +18,22 @@ namespace Ecommerce.Core.Services
         private readonly IGenericRepository<User> _repository;
         private readonly IGenericRepository<Position> _positionRepository;
         private readonly IGenericRepository<UserPosition> _upRepository;
+        private readonly IGenericRepository<Menu> _menuRepository;
         private readonly ICommonService _common;
         private readonly IMapper _mapper;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthenService(IGenericRepository<User> repository, IGenericRepository<UserPosition> upRepository,
+        public AuthenService(IGenericRepository<User> repository,
+            IGenericRepository<UserPosition> upRepository,
             IGenericRepository<Position> positionRepository,
+            IGenericRepository<Menu> menuRepository,
             ICommonService common,
             IMapper mapper,
             IOptions<JwtSettings> options)
         {
             _repository = repository;
             _upRepository = upRepository;
+            _menuRepository = menuRepository;
             _positionRepository = positionRepository;
             _common = common;
             _mapper = mapper;
@@ -87,6 +91,7 @@ namespace Ecommerce.Core.Services
                 var token = new JwtSecurityToken(_jwtSettings.Issuer, _jwtSettings.Audience, claims,
                     expires: DateTime.UtcNow.AddMinutes(10),
                     signingCredentials: signIn);
+                var menuDefault = await _menuRepository.GetAsync(x => x.MenuId == user.Position.MenuDefault);
 
                 loginResponse.token = new JwtSecurityTokenHandler().WriteToken(token);
                 loginResponse.userName = user.Username;
@@ -98,7 +103,7 @@ namespace Ecommerce.Core.Services
                 response.message = Constants.StatusMessage.LoginSuccess;
                 response.isSuccess = Constants.Status.True;
                 response.value = loginResponse;
-                response.returnUrl = user.Position.MenuDefault;
+                response.returnUrl = menuDefault.Url;
             }
             catch (Exception ex)
             {

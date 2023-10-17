@@ -22,4 +22,6 @@ public partial class Menu
     public string Status { get; set; }
 
     public virtual ICollection<MenuPosition> MenuPositions { get; set; } = new List<MenuPosition>();
+
+    public virtual ICollection<Position> Positions { get; set; } = new List<Position>();
 }

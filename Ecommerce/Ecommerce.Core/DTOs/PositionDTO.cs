@@ -5,8 +5,9 @@
         public string PositionId { get; set; }
 
         public string PositionName { get; set; }
-
         public string MenuDefault { get; set; }
+
+        public string MenuDefaultName { get; set; }
 
         public string Status { get; set; }
 

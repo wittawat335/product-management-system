@@ -1,0 +1,12 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Models;
+@model PositionViewModel
+
+<form id="frmDetail" role="form">
+    @{
+        await Html.RenderPartialAsync("_FormDetail", Model.Position);
+    }
+</form>
+@{
+    await Html.RenderPartialAsync("_PopUpPositionScripts", Model);
+}

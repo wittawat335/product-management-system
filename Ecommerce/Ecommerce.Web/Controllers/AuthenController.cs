@@ -29,7 +29,7 @@ namespace Ecommerce.Web.Controllers
         public async Task<IActionResult> Login(Login req)
         {
             var result = await _service.Login(req);
-            result.returnUrl = Url.Content(result.returnUrl);
+            result.returnUrl = Url.Content("~" + result.returnUrl);
 
             return Json(result);
         }

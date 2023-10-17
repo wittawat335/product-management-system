@@ -32,6 +32,7 @@ namespace Ecommerce.Core.AutoMapper
                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
 
             CreateMap<Position, PositionDTO>()
+               .ForMember(x => x.MenuDefaultName, opt => opt.MapFrom(origin => origin.MenuDefaultNavigation.MenuName))
                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
             CreateMap<PositionDTO, Position>()
                .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.PositionId)))

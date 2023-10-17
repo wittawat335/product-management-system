@@ -1,0 +1,38 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Models;
+@model Position
+<div class="form-group">
+    <label asp-for="PositionName" class="form-label"></label>
+    <input asp-for="PositionName" class="form-control" type="text" />
+</div>
+<div class="form-group">
+    <label asp-for="MenuDefault" class="form-label"></label>
+    <select asp-for="MenuDefault" class="form-control"
+            asp-items="@(new SelectList (ViewBag.listMenu, "MenuId", "MenuName"))">
+        <option disabled selected>@Constants.SelectOption.SelectOne</option>
+    </select>
+</div>
+<div class="form-group mb-3">
+    <label asp-for="Status" class="form-label"></label>
+    <select asp-for="Status" class="form-control" style="width: 100%;">
+        <option value="" selected="selected">กรุณาเลือก</option>
+        <option value="A">ใช้งาน</option>
+        <option value="I">ไม่ได้ใช้งาน</option>
+    </select>
+</div>
+<div class="modal-footer justify-content-between">
+    <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+    <button id="btnSave"
+            type="submit"
+            class="btn btn-info"
+            onclick="">
+        บันทึก
+    </button>
+</div>
+
+
+<div style="display: none">
+    @{
+        await Html.RenderPartialAsync("_HiddenValue", Model);
+    }
+</div>

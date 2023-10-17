@@ -15,9 +15,15 @@ namespace Ecommerce.Api.Controllers
         }
 
         [HttpGet("{userId}")]
-        public async Task<IActionResult> GetList(string userId)
+        public async Task<IActionResult> GetListByUserId(string userId)
         {
-            return Ok(await _service.GetListMenu(userId));
+            return Ok(await _service.GetListMenuByUserId(userId));
+        }
+
+        [HttpGet("GetListActive")]
+        public async Task<IActionResult> GetListActive()
+        {
+            return Ok(await _service.GetListMenuActive());
         }
     }
 }
