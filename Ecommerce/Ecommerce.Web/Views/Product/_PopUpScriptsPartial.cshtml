@@ -4,6 +4,7 @@
     $(document).ready(function () {
         bsCustomFileInput.init();
         checkAction();
+        formValidate();
     });
 
     function checkAction() {
@@ -14,15 +15,73 @@
                 setReadOnlyByDiv('frmDetail', true);
                 break;
             }
-            case '@Constants.Action.Add':
-                $('#@Html.IdFor(m => m.Product.Status)').val('A');
+            case '@Constants.Action.Add': {
+                $('#Status').val('A');
                 break;
+            }
         }
     }
 
-    function setValueImage(){
+    function formValidate() {
+        $.validator.setDefaults({
+            submitHandler: function () {
+                save();
+            }
+        });
+        $('#frmDetail').validate({
+            rules: {
+                ProductName: {
+                    required: true,
+                    minlength: 3
+                },
+                CategoryId: {
+                    required: true,
+                },
+                Stock: {
+                    required: true,
+                },
+                Price: {
+                    required: true,
+                },
+                Status: {
+                    required: true
+                }
+            },
+            messages: {
+                ProductName: {
+                    required: "กรุณาระบุชื่อสินค้า",
+                },
+                CategoryId: {
+                    required: "กรุณาระบุประเภทสินค้า",
+                },
+                Stock: {
+                    required: "กรุณาระบุจำนวนสินค้า",
+                },
+                Price: {
+                    required: "กรุณาระบุราคาสินค้า",
+                },
+                Status: {
+                    required: "กรุณาเลือกสถานะ",
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+            }
+        });
+    }
+
+    function setValueImage() {
         let fileName = $('#fileName').val().replace(/C:\\fakepath\\/i, '');
-        if(fileName != null) $('#@Html.IdFor(m => m.Product.Image)').val(fileName);
+        if (fileName != null && fileName != '')
+            $('#Image').val(fileName);
     }
 
     function save() {
@@ -30,8 +89,7 @@
         let url = '@Url.Content(Constants.UrlAction.Product.Save)';
         let data = $('#frmDetail').serializeObject();
         $.post(url, data, function (response) {
-            if (response.isSuccess) 
-                uploadImage(response);
+            if (response.isSuccess) uploadImage(response);
             else swalMessage('error', response.message);
         });
     }

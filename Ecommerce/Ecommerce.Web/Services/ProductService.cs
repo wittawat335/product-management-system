@@ -46,23 +46,21 @@ namespace Ecommerce.Web.Services
             return response;
         }
 
-        public async Task<Response<Product>> Save(ProductViewModel model)
+        public async Task<Response<Product>> Save(Product model)
         {
             var response = new Response<Product>();
             try
             {
                 if (model != null)
                 {
-                    switch (model.Action)
+                    switch (model.ProductId ?? String.Empty)
                     {
-                        case Constants.Action.Add:
-                            response = await _productService.InsertAsync(_setting.BaseApiUrl + "Product/Add", model.Product);
+                        case "":
+                            response = await _productService.InsertAsync(_setting.BaseApiUrl + "Product/Add", model);
                             break;
-                        case Constants.Action.Update:
-                            response = await _productService.PutAsync(_setting.BaseApiUrl + "Product/Update", model.Product);
-                            break;
+
                         default:
-                            response.message = Constants.MessageError.CallAPI;
+                            response = await _productService.PutAsync(_setting.BaseApiUrl + "Product/Update", model);
                             break;
                     }
                 }

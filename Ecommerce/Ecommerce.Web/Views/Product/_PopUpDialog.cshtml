@@ -2,92 +2,10 @@
 @using Ecommerce.Web.Models;
 @model ProductViewModel
 
-<form id="frmDetail" enctype="multipart/form-data">
-    <div class="form-group">
-        <label asp-for="Product.ProductName" class="form-label"></label>
-        <input asp-for="Product.ProductName" class="form-control" type="text" maxlength="20" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Product.CategoryId" class="form-label"></label>
-        <select asp-for="Product.CategoryId"
-                class="form-control"
-                asp-items="@(new SelectList (Model.listCategory, "CategoryId", "CategoryName"))">
-            <option disabled selected>@Constants.SelectOption.SelectOne</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="Product.Stock" class="form-label"></label>
-        <input asp-for="Product.Stock" class="form-control" type="text" oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Product.Price" class="form-label"></label>
-        <input asp-for="Product.Price" class="form-control" type="text" oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Product.Description" class="form-label"></label>
-        <textarea asp-for="Product.Description" class="form-control" rows="3" placeholder="ใส่รายละเอียดเพิ่มเติม ..."></textarea>
-    </div>
-    <div class="form-group mb-3">
-        <label asp-for="Product.Status" class="form-label"></label>
-        <select asp-for="Product.Status" class="form-control" style="width: 100%;">
-            <option selected="selected">กรุณาเลือก</option>
-            <option value="A">ใช้งาน</option>
-            <option value="I">ไม่ได้ใช้งาน</option>
-        </select>
-    </div>
-    <div class="form-group">
-        <label asp-for="Product.Image" class="form-label"></label>
-        @if(Model.Action == Constants.Action.Add)
-        {
-            <div class="input-group">
-                <div class="custom-file">
-                    <input id="fileName" type="file" class="custom-file-input"
-                           onchange="document.getElementById('imagePrv').src = window.URL.createObjectURL(this.files[0])" />
-                    <label class="custom-file-label">เลือกไฟล์</label>
-                </div>
-            </div>
-            <img id="imagePrv" src="~/images/no_photo.jpg" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px; margin-left:150px;" />
-        }
-        else
-        {
-            @if (Model.Product.Image == null)
-            {
-                <div class="input-group">
-                    <div class="custom-file">
-                        <input id="fileName" type="file" class="custom-file-input"
-                               onchange="document.getElementById('imagePrv').src = window.URL.createObjectURL(this.files[0])" />
-                        <label class="custom-file-label">เลือกไฟล์</label>
-                    </div>
-                </div>
-                <img id="imagePrv" src="~/images/no_photo.jpg" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px; margin-left:150px;" />
-            }
-            else
-            {
-                <div class="input-group">
-                    <div class="custom-file">
-                        <input id="fileName" type="file" class="custom-file-input"
-                               onchange="document.getElementById('imagePrv').src = window.URL.createObjectURL(this.files[0])" />
-                        <label class="custom-file-label">@Model.Product.Image</label>
-                    </div>
-                </div>
-                <img id="imagePrv" src="~/images/product/@Model.Product.ProductId/@Model.Product.Image" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px; margin-left:150px;" />
-            }
-        }
-    </div>
-    <div class="modal-footer justify-content-between">
-        <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
-        <button id="btnSave"
-                type="button"
-                class="btn btn-info"
-                onclick="save()">
-            บันทึก
-        </button>
-    </div>
-    <div style="display: none">
-        @{
-            await Html.RenderPartialAsync("_HiddenValue", Model);
-        }
-    </div>
+<form id="frmDetail" enctype="multipart/form-data" role="form">
+    @{
+        await Html.RenderPartialAsync("_FormDetail", Model.Product);
+    }
 </form>
 @{
     await Html.RenderPartialAsync("_PopUpScriptsPartial", Model);

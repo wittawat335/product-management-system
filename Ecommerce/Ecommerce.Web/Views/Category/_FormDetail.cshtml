@@ -1,4 +1,5 @@
-﻿@using Ecommerce.Web.Models;
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Models;
 @model Category
 <div class="form-group">
     <label asp-for="CategoryName" class="form-label"></label>
@@ -7,7 +8,7 @@
 <div class="form-group mb-3">
     <label asp-for="Status" class="form-label"></label>
     <select asp-for="Status" class="form-control" style="width: 100%;">
-        <option value="" selected="selected">กรุณาเลือก</option>
+        <option value="" selected="selected">@Constants.SelectOption.SelectOne</option>
         <option value="A">ใช้งาน</option>
         <option value="I">ไม่ได้ใช้งาน</option>
     </select>

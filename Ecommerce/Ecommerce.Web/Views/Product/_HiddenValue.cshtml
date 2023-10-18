@@ -1,9 +1,5 @@
 ﻿@using Ecommerce.Web.Commons;
-@model ProductViewModel
-@if (Model.Action == Constants.Action.Update)
-{
-    <input type="text" name="Product.ProductId" value='@Model.Product.ProductId' />
-    //<input type="text" name="Product.Image" value='@Model.Product.Image' />
-}
-<input asp-for="Product.Image" class="form-control" type="text" />
-<input type="text" name="Action" value='@Model.Action' />
+@model Product
+@* <input type="text" name="Product.ProductId" value='@Model.Product.ProductId' /> *@
+<input asp-for="ProductId" class="form-control" type="text" />
+<input asp-for="Image" class="form-control" type="text" />

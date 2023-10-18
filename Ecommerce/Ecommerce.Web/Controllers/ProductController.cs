@@ -57,12 +57,14 @@ namespace Ecommerce.Web.Controllers
             {
                 var listCategory = await _categoryService.GetListAsync(_setting.BaseApiUrl + "Category/GetListActive");
                 if (listCategory != null)
-                    model.listCategory = listCategory.value;
+                    ViewBag.listCategory = listCategory.value;
 
                 if (!string.IsNullOrEmpty(id))
                     response = await _productService.GetAsyncById(_setting.BaseApiUrl + string.Format("Product/GetProduct/{0}", id));
 
-                model.Product = response.value;
+                if (response.value != null)
+                    model.Product = response.value;
+
                 model.Action = action;
             }
             catch
@@ -74,7 +76,7 @@ namespace Ecommerce.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(ProductViewModel model)
+        public async Task<IActionResult> Save(Product model)
         {
             var response = await _service.Save(model);
             return Json(response);

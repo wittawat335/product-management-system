@@ -92,6 +92,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Product/_FormDetail.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxfRm9ybURldGFpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Product/_HiddenValue.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZHVjdFxfSGlkZGVuVmFsdWUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

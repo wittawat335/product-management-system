@@ -7,7 +7,7 @@ namespace Ecommerce.Web.Models
         public string ProductId { get; set; }
         [Display(Name = "ชื่อสินค้า")]
         public string ProductName { get; set; }
-        //[Display(Name = "ประเภทสินค้า")]
+        [Display(Name = "ประเภทสินค้า")]
         public string CategoryId { get; set; }
         [Display(Name = "ประเภทสินค้า")]
         public string CategoryName { get; set; }
