@@ -15,16 +15,14 @@ namespace Ecommerce.Core.Services
     {
         private readonly IGenericRepository<User> _repository;
         private readonly IGenericRepository<Position> _positionRepository;
-        private readonly IGenericRepository<UserPosition> _upRepository;
         private readonly ICommonService _commonService;
         private readonly IMapper _mapper;
 
         public UserService(IGenericRepository<User> repository, IGenericRepository<Position> positionRepository,
-            IGenericRepository<UserPosition> upRepository, ICommonService commonService, IMapper mapper)
+            ICommonService commonService, IMapper mapper)
         {
             _repository = repository;
             _positionRepository = positionRepository;
-            _upRepository = upRepository;
             _commonService = commonService;
             _mapper = mapper;
         }
@@ -47,12 +45,8 @@ namespace Ecommerce.Core.Services
                     var resultUser = await _repository.InsertAsyncAndSave(_mapper.Map<User>(model));
                     if (resultUser != null)
                     {
-                        var result = await _upRepository.InsertAsyncAndSave(_mapper.Map<UserPosition>(resultUser)); // Insert Table UserPosition
-                        if (result != null)
-                        {
-                            response.isSuccess = Constants.Status.True;
-                            response.message = Constants.StatusMessage.AddSuccessfully;
-                        }
+                        response.isSuccess = Constants.Status.True;
+                        response.message = Constants.StatusMessage.AddSuccessfully;
                     }
                 }
             }
@@ -69,10 +63,8 @@ namespace Ecommerce.Core.Services
             try
             {
                 var userData = _repository.Find(new Guid(id));
-                var userPosition = await _upRepository.GetListAsync(x => x.UserId == new Guid(id));
                 if (userData != null)
                 {
-                    if (userPosition.Count() > 0) _upRepository.DeleteList(userPosition);
                     _repository.Delete(userData);
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;
@@ -116,6 +108,7 @@ namespace Ecommerce.Core.Services
                 var list = await _repository.AsQueryable();
                 var result = list.Include(x => x.Position).ToList();
 
+
                 response.value = _mapper.Map<List<UserDTO>>(result);
                 response.isSuccess = Constants.Status.True;
             }
@@ -136,20 +129,13 @@ namespace Ecommerce.Core.Services
                     var data = _repository.Get(x => x.UserId == new Guid(model.UserId));
                     if (data != null)
                     {
-                        var findPosition = await _upRepository.GetListAsync(x => x.UserId == new Guid(model.UserId));
-                        if (findPosition.Count() > 0)
-                        {
-                            _upRepository.DeleteList(findPosition.ToList());
-                            var result = await _upRepository.InsertAsyncAndSave(_mapper.Map<UserPosition>(model)); // Insert Table UserPosition
-                            if (result != null)
-                            {
-                                model.Password = _commonService.Encrypt(model.Password);
-                                _repository.Update(_mapper.Map(model, data));
-                                await _repository.SaveChangesAsync();
-                                response.isSuccess = Constants.Status.True;
-                                response.message = Constants.StatusMessage.UpdateSuccessfully;
-                            }
-                        }
+                        if (model.Password != null)
+                            model.Password = _commonService.Encrypt(model.Password);
+
+                        _repository.Update(_mapper.Map(model, data));
+                        await _repository.SaveChangesAsync();
+                        response.isSuccess = Constants.Status.True;
+                        response.message = Constants.StatusMessage.UpdateSuccessfully;
                     }
                 }
             }

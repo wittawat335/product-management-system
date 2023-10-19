@@ -5,11 +5,11 @@ namespace Ecommerce.Domain.Entities;
 
 public partial class Product
 {
-    public Guid ProductId { get; set; }
+    public string ProductId { get; set; }
 
     public string ProductName { get; set; }
 
-    public Guid CategoryId { get; set; }
+    public string CategoryId { get; set; }
 
     public string Image { get; set; }
 

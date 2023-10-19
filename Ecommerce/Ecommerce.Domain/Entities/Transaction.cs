@@ -38,6 +38,4 @@ public partial class Transaction
     public DateTime? Timestamp { get; set; }
 
     public string Status { get; set; }
-
-    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 }

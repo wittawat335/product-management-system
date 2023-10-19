@@ -49,7 +49,7 @@ namespace Ecommerce.Core.Services
             var response = new Response<PositionDTO>();
             try
             {
-                var query = await _repository.GetAsync(x => x.PositionId == new Guid(id));
+                var query = await _repository.GetAsync(x => x.PositionId == id);
                 if (query != null)
                 {
                     response.value = _mapper.Map<PositionDTO>(query);
@@ -89,7 +89,7 @@ namespace Ecommerce.Core.Services
             var response = new Response<Position>();
             try
             {
-                var data = _repository.Get(x => x.PositionId == new Guid(model.PositionId));
+                var data = _repository.Get(x => x.PositionId == model.PositionId);
                 if (data != null)
                 {
                     response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));

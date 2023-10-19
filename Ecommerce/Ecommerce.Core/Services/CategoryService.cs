@@ -46,7 +46,7 @@ namespace Ecommerce.Core.Services
             var response = new Response<CategoryDTO>();
             try
             {
-                var query = await _repository.GetAsync(x => x.CategoryId == new Guid(id));
+                var query = await _repository.GetAsync(x => x.CategoryId == id);
                 if (query != null)
                 {
                     response.value = _mapper.Map<CategoryDTO>(query);
@@ -85,7 +85,7 @@ namespace Ecommerce.Core.Services
             var response = new Response<Category>();
             try
             {
-                var data = _repository.Get(x => x.CategoryId == new Guid(model.CategoryId));
+                var data = _repository.Get(x => x.CategoryId == model.CategoryId);
                 if (data != null)
                 {
                     response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));

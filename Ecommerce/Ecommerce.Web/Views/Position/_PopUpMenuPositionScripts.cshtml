@@ -1,0 +1,11 @@
+﻿
+<script>
+    $(document).ready(function () {
+        $("#selectAll").click(function () {
+            $('#dtMenuResult tbody tr  input:checkbox').not(this).prop('checked', this.checked);
+        });
+    });
+</script>
+
+
+

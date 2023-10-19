@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "HC4yGjPzC0NMmnlakgaAA/Ax6hwvd/039U5tXndlTUQ=",
+  "Hash": "pEUJjbkMyNT27kQKnYdwWRRuzVPQHt87bn/gxbzWIUY=",
   "Source": "Ecommerce.Web",
   "BasePath": "_content/Ecommerce.Web",
   "Mode": "Default",
@@ -1292,6 +1292,23 @@
       "OriginalItemSpec": "wwwroot\\images\\product\\17578ce0-adac-4179-96c1-ad2c5758f3bd\\vivo-y50-blue.jpeg"
     },
     {
+      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\2ed44ae6-b194-4c41-95ed-32d5100f6744\\keyboard01.webp",
+      "SourceId": "Ecommerce.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\",
+      "BasePath": "_content/Ecommerce.Web",
+      "RelativePath": "images/product/2ed44ae6-b194-4c41-95ed-32d5100f6744/keyboard01.webp",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\product\\2ed44ae6-b194-4c41-95ed-32d5100f6744\\keyboard01.webp"
+    },
+    {
       "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\55d0f4db-4271-4fdc-8dbf-98cdcc367a25\\keyboard01.webp",
       "SourceId": "Ecommerce.Web",
       "SourceType": "Discovered",
@@ -1341,40 +1358,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\images\\product\\ee8ea101-dbe6-4b2e-812c-e225af59b52f\\keyboard01.webp"
-    },
-    {
-      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\ef41f80b-d53e-4222-aa90-7ba66d71c821\\keyboard01.webp",
-      "SourceId": "Ecommerce.Web",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\",
-      "BasePath": "_content/Ecommerce.Web",
-      "RelativePath": "images/product/ef41f80b-d53e-4222-aa90-7ba66d71c821/keyboard01.webp",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\product\\ef41f80b-d53e-4222-aa90-7ba66d71c821\\keyboard01.webp"
-    },
-    {
-      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\ffbb4788-53cd-4ee2-8319-3fe3c4ca5b9f\\keyboard01.webp",
-      "SourceId": "Ecommerce.Web",
-      "SourceType": "Discovered",
-      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\",
-      "BasePath": "_content/Ecommerce.Web",
-      "RelativePath": "images/product/ffbb4788-53cd-4ee2-8319-3fe3c4ca5b9f/keyboard01.webp",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\images\\product\\ffbb4788-53cd-4ee2-8319-3fe3c4ca5b9f\\keyboard01.webp"
     },
     {
       "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\js\\site.js",

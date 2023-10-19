@@ -13,20 +13,19 @@ namespace Ecommerce.Core.AutoMapper
             CreateMap<PositionRequest, Position>();
             CreateMap<RegisterRequest, User>()
                 .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.positionId)));
-            CreateMap<User, UserPosition>();
-            CreateMap<UserDTO, UserPosition>()
-              .ForMember(x => x.Position, opt => opt.Ignore())
-              .ForMember(x => x.User, opt => opt.Ignore())
-              .ForMember(x => x.UserId, opt => opt.MapFrom(origin => new Guid(origin.UserId)))
-              .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.PositionId)))
-              .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
+            //CreateMap<User, UserPosition>();
+            //CreateMap<UserDTO, UserPosition>()
+            //  .ForMember(x => x.Position, opt => opt.Ignore())
+            //  .ForMember(x => x.User, opt => opt.Ignore())
+            //  .ForMember(x => x.UserId, opt => opt.MapFrom(origin => new Guid(origin.UserId)))
+            //  .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.PositionId)))
+            //  .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
 
             CreateMap<User, UserDTO>()
                 .ForMember(x => x.PositionName, opt => opt.MapFrom(origin => origin.Position.PositionName))
                 .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
             CreateMap<UserDTO, User>()
                .ForMember(x => x.Position, opt => opt.Ignore())
-               .ForMember(x => x.UserPositions, opt => opt.Ignore())
                .ForMember(x => x.UserId, opt => opt.MapFrom(origin => new Guid(origin.UserId)))
                .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.PositionId)))
                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
@@ -35,13 +34,9 @@ namespace Ecommerce.Core.AutoMapper
                .ForMember(x => x.MenuDefaultName, opt => opt.MapFrom(origin => origin.MenuDefaultNavigation.MenuName))
                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
             CreateMap<PositionDTO, Position>()
-               .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.PositionId)))
                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
 
-            CreateMap<Menu, MenuDTO>(); //output
-            CreateMap<MenuDTO, Menu>() //input
-                .ForMember(x => x.MenuId, opt => opt.MapFrom(origin => new Guid(origin.MenuId)))
-                .ForMember(x => x.ParentId, opt => opt.MapFrom(origin => new Guid(origin.ParentId)));
+            CreateMap<Menu, MenuDTO>().ReverseMap();
 
             CreateMap<Product, ProductDTO>() //output
                 .ForMember(x => x.CategoryName, opt => opt.MapFrom(origin => origin.Category.CategoryName))
@@ -50,8 +45,6 @@ namespace Ecommerce.Core.AutoMapper
                 .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
             CreateMap<ProductDTO, Product>() //input
                .ForMember(x => x.Category, opt => opt.Ignore())
-               .ForMember(x => x.ProductId, opt => opt.MapFrom(origin => new Guid(origin.ProductId)))
-               .ForMember(x => x.CategoryId, opt => opt.MapFrom(origin => new Guid(origin.CategoryId)))
                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now))
                .ForMember(x => x.Stock, opt => opt.MapFrom(origin => Convert.ToDecimal(origin.Stock, new CultureInfo("en-US"))))
                .ForMember(x => x.Price, opt => opt.MapFrom(origin => Convert.ToDecimal(origin.Price, new CultureInfo("en-US"))));
@@ -59,7 +52,6 @@ namespace Ecommerce.Core.AutoMapper
             CreateMap<Category, CategoryDTO>()
                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
             CreateMap<CategoryDTO, Category>()
-               .ForMember(x => x.CategoryId, opt => opt.MapFrom(origin => new Guid(origin.CategoryId)))
                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
         }
     }

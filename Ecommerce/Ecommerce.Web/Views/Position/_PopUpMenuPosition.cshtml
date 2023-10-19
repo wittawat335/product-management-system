@@ -1,0 +1,39 @@
+﻿@* @model MenuViewModel
+<section class="content">
+    <div class="card card-default">
+        <table id="dtMenuResult" class="table table-bordered table-striped">
+            <thead>
+                <tr style="text-align:center">
+                    <th>เมนู</th>
+                    <th>
+                        <input type="checkbox" id="selectAll" />
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model.listMenu.Count() > 0)
+                {
+                    @for (int i = 0; i < Model.listMenu.Count; i++)
+                    {
+                        <tr style="text-align:center">
+                            <td>@Model.listMenu[i].MenuName</td>
+                            <td>@Html.CheckBoxFor(model => model.listMenu[i].IsChecked)</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+            <button id="btnSave"
+                    type="button"
+                    class="btn btn-info"
+                    onclick="">
+                บันทึก
+            </button>
+        </div>
+    </div>
+</section>
+@{
+    await Html.RenderPartialAsync("_PopUpMenuPositionScripts");
+} *@

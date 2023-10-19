@@ -28,6 +28,7 @@ namespace Ecommerce.Web.Controllers
             return View();
         }
 
+        #region Position
         public async Task<IActionResult> GetListPosition()
         {
             var response = await _PositionService.GetListAsync(_setting.BaseApiUrl + "Position/GetList");
@@ -96,62 +97,35 @@ namespace Ecommerce.Web.Controllers
             return Json(response);
         }
 
+        #endregion
+
         #region Add Menu to position
 
         public async Task<IActionResult> GetListMenuPosition()
         {
-            var response = await _PositionService.GetListAsync(_setting.BaseApiUrl + "Position/GetList");
+            var response = await _PositionService.GetListAsync(_setting.BaseApiUrl + "Menu/GetListActive");
             return Json(response);
         }
 
         [HttpPost]
-        public async Task<IActionResult> _PopUpMenuPosition(string id, string action)
+        public async Task<IActionResult> _PopUpMenuPosition()
         {
-            var model = new PositionViewModel();
-            var response = new Response<Position>();
-            try
-            {
-                if (!string.IsNullOrEmpty(id))
-                    response = await _PositionService.GetAsyncById(_setting.BaseApiUrl + string.Format("Position/Get/{0}", id));
+            var model = new MenuViewModel();
+            var response = new Response<List<Menu>>();
 
-                if (response.value != null)
-                    model.Position = response.value;
-
-                model.Action = action;
-            }
-            catch
-            {
-                throw;
-            }
+            response = await _MenuService.GetListAsync(_setting.BaseApiUrl + "Menu/GetListActive");
+            if (response.value != null)
+                model.listMenu = response.value;
 
             return PartialView(model);
         }
 
 
         [HttpPost]
-        public async Task<IActionResult> SaveMenuToPosition(Position model)
+        public async Task<IActionResult> SaveMenuToPosition(List<Menu> model)
         {
-            var response = new Response<Position>();
-            try
-            {
-                if (model != null)
-                {
-                    switch (model.PositionId ?? String.Empty)
-                    {
-                        case "":
-                            response = await _PositionService.InsertAsync(_setting.BaseApiUrl + "Position/Add", model);
-                            break;
+            var response = new Response<List<Menu>>();
 
-                        default:
-                            response = await _PositionService.PutAsync(_setting.BaseApiUrl + "Position/Update", model);
-                            break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-            }
 
             return Json(response);
         }

@@ -3,7 +3,7 @@
 <script>
     let urlDelete = '@Url.Content(Constants.UrlAction.Position.Delete)';
     let url = '@Url.Content(Constants.UrlAction.Position.PopUpDialog)';
-
+    let urlPopUpMenuPosition = '@Url.Content(Constants.UrlAction.Position.PopUpMenuPosition)';
     $(function () {
         getList();
     });
@@ -75,7 +75,7 @@
                 {
                     data: 'positionId',
                     render: function (data, type, row, meta) {
-                        return '<a class="btn btn-info" onclick=openPopup("' + row.positionId + '","View","' + url + '","ดูรายละเอียดตำแหน่งผู้ใช้งาน");>'
+                        return '<a class="btn btn-info" onclick=openPopup("' + row.positionId + '","View","' + urlPopUpMenuPosition + '","เมนูที่ใช้");>'
                             + '<i class="nav-icon fas fa-book"></i></a> '
                     }
                 },

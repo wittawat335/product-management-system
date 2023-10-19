@@ -9,10 +9,12 @@ namespace Ecommerce.Core.Services
     public class CommonService : ICommonService
     {
         private readonly IGenericRepository<Position> _postRespository;
+        private readonly IGenericRepository<Menu> _menuRespository;
 
-        public CommonService(IGenericRepository<Position> postRespository)
+        public CommonService(IGenericRepository<Position> postRespository, IGenericRepository<Menu> menuRespository)
         {
             _postRespository = postRespository;
+            _menuRespository = menuRespository;
         }
 
         public string Decrypt(string text) // ใช้ถอดรหัส
@@ -62,6 +64,12 @@ namespace Ecommerce.Core.Services
             return text;
         }
 
+        public string GetMenuDefault(string menuId)
+        {
+            var menu = _menuRespository.Get(x => x.MenuId == menuId);
+            return menu.Url;
+        }
+
         public string GetParameter(string code)
         {
             throw new NotImplementedException();
@@ -69,7 +77,7 @@ namespace Ecommerce.Core.Services
 
         public string GetPositionName(string id)
         {
-            var position = _postRespository.Get(x => x.PositionId == new Guid(id));
+            var position = _postRespository.Get(x => x.PositionId == id);
             return position.PositionName;
         }
     }

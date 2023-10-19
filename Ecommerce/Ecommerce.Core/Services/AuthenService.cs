@@ -17,23 +17,17 @@ namespace Ecommerce.Core.Services
     {
         private readonly IGenericRepository<User> _repository;
         private readonly IGenericRepository<Position> _positionRepository;
-        private readonly IGenericRepository<UserPosition> _upRepository;
-        private readonly IGenericRepository<Menu> _menuRepository;
         private readonly ICommonService _common;
         private readonly IMapper _mapper;
         private readonly JwtSettings _jwtSettings;
 
         public AuthenService(IGenericRepository<User> repository,
-            IGenericRepository<UserPosition> upRepository,
             IGenericRepository<Position> positionRepository,
-            IGenericRepository<Menu> menuRepository,
             ICommonService common,
             IMapper mapper,
             IOptions<JwtSettings> options)
         {
             _repository = repository;
-            _upRepository = upRepository;
-            _menuRepository = menuRepository;
             _positionRepository = positionRepository;
             _common = common;
             _mapper = mapper;
@@ -80,10 +74,11 @@ namespace Ecommerce.Core.Services
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                         new Claim("UserId", user.UserId.ToString())
                     };
-                var roles = await _upRepository
-                    .GetListAsync(x => x.UserId == user.UserId && x.Status == Constants.Status.Active);
+
+                var roles = await _positionRepository
+                    .GetListAsync(x => x.PositionId == user.PositionId && x.Status == Constants.Status.Active);
                 var roleClaims = roles
-                    .Select(x => new Claim(ClaimTypes.Role, _common.GetPositionName(x.PositionId.ToString())));
+                    .Select(x => new Claim(ClaimTypes.Role, x.PositionName));
                 claims.AddRange(roleClaims);
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
@@ -91,7 +86,6 @@ namespace Ecommerce.Core.Services
                 var token = new JwtSecurityToken(_jwtSettings.Issuer, _jwtSettings.Audience, claims,
                     expires: DateTime.UtcNow.AddMinutes(10),
                     signingCredentials: signIn);
-                var menuDefault = await _menuRepository.GetAsync(x => x.MenuId == user.Position.MenuDefault);
 
                 loginResponse.token = new JwtSecurityTokenHandler().WriteToken(token);
                 loginResponse.userName = user.Username;
@@ -103,7 +97,7 @@ namespace Ecommerce.Core.Services
                 response.message = Constants.StatusMessage.LoginSuccess;
                 response.isSuccess = Constants.Status.True;
                 response.value = loginResponse;
-                response.returnUrl = menuDefault.Url;
+                response.returnUrl = _common.GetMenuDefault(user.Position.MenuDefault);
             }
             catch (Exception ex)
             {
@@ -151,17 +145,11 @@ namespace Ecommerce.Core.Services
                 {
                     request.password = _common.Encrypt(request.password);
                     request.positionId = Constants.PositionId.Customer;
-                    var user = await _repository
-                        .InsertAsyncAndSave(_mapper.Map<User>(request)); // Insert Table User
+                    var user = await _repository.InsertAsyncAndSave(_mapper.Map<User>(request)); // Insert Table User
                     if (user != null)
                     {
-                        var result = await _upRepository
-                            .InsertAsyncAndSave(_mapper.Map<UserPosition>(user)); // Insert Table UserPosition
-                        if (result != null)
-                        {
-                            response.isSuccess = Constants.Status.True;
-                            response.message = Constants.StatusMessage.RegisterSuccess;
-                        }
+                        response.isSuccess = Constants.Status.True;
+                        response.message = Constants.StatusMessage.RegisterSuccess;
                     }
                 }
             }

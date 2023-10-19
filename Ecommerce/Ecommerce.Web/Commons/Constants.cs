@@ -42,6 +42,7 @@
             public struct Position
             {
                 public const string GetList = "~/Position/GetListPosition";
+                public const string PopUpMenuPosition = "~/Position/_PopUpMenuPosition";
                 public const string PopUpDialog = "~/Position/_PopUpPosition";
                 public const string Save = "~/Position/SavePosition";
                 public const string Delete = "~/Position/DeletePosition";

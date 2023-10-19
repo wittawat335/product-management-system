@@ -1,7 +1,6 @@
 ﻿using Ecommerce.Core.DTOs.Authen;
 using Ecommerce.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Api.Controllers
@@ -26,7 +25,6 @@ namespace Ecommerce.Api.Controllers
             return Content("Environment : " + _environment.EnvironmentName);
         }
 
-
         [HttpPost]
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
@@ -39,14 +37,6 @@ namespace Ecommerce.Api.Controllers
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             return Ok(await _service.Register(request));
-        }
-
-        [HttpPost]
-        [Authorize(Roles = "Administrator")]
-        [Route("AddPosition")]
-        public async Task<IActionResult> AddPosition([FromBody] PositionRequest request)
-        {
-            return Ok(await _service.AddPosition(request));
         }
     }
 }

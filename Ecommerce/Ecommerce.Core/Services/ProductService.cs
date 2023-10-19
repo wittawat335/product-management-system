@@ -29,11 +29,11 @@ namespace Ecommerce.Core.Services
                 if (request != null)
                 {
                     if (request.ProductId != null)
-                        result = result.Where(x => x.ProductId == new Guid(request.ProductId)).ToList();
+                        result = result.Where(x => x.ProductId == request.ProductId).ToList();
                     if (request.ProductName != null)
                         result = result.Where(x => x.ProductName.Contains(request.ProductName)).ToList();
                     if (request.CategoryId != null)
-                        result = result.Where(x => x.CategoryId == new Guid(request.CategoryId)).ToList();
+                        result = result.Where(x => x.CategoryId == request.CategoryId).ToList();
                     if (request.CategoryName != null)
                         result = result.Where(x => x.Category.CategoryName.Contains(request.CategoryName)).ToList();
                     if (request.Status != null)
@@ -53,7 +53,7 @@ namespace Ecommerce.Core.Services
             var response = new Response<ProductDTO>();
             try
             {
-                var query = await _repository.GetAsync(x => x.ProductId == new Guid(id));
+                var query = await _repository.GetAsync(x => x.ProductId == id);
                 if (query != null)
                 {
                     response.value = _mapper.Map<ProductDTO>(query);
@@ -91,7 +91,7 @@ namespace Ecommerce.Core.Services
             var response = new Response<Product>();
             try
             {
-                var data = _repository.Get(x => x.ProductId == new Guid(model.ProductId));
+                var data = _repository.Get(x => x.ProductId == model.ProductId);
                 if (data != null)
                 {
                     response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));

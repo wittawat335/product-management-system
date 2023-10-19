@@ -7,9 +7,9 @@ namespace Ecommerce.Infrastructure.Repositories
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : class
     {
-        private readonly AngularEcommerceContext _context;
+        private readonly ECommerceContext _context;
 
-        public GenericRepository(AngularEcommerceContext context)
+        public GenericRepository(ECommerceContext context)
         {
             _context = context;
         }

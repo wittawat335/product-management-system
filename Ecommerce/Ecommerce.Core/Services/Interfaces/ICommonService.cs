@@ -7,5 +7,6 @@ namespace Ecommerce.Core.Services.Interfaces
         string Decrypt(string text);
         string GetPositionName(string id);
         string GetParameter(string code);
+        string GetMenuDefault(string menuId);
     }
 }

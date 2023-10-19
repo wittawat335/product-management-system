@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewData["Title"] = "TestJsTree";
+}
+@{
+    Layout = null;
+}
+
+<h1>TestJsTree</h1>
+<div id="jstree"></div>
+<form method="post" asp-controller="Home" asp-action="TestJsTree">
+    <input type="hidden" name="selectedItem" id="selectedItems" />
+    <input type="submit" value="test"/>
+</form>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script>
+    $(function () {
+        $('#jstree').on('changed.jstree', function (e, data) {
+            var i, j;
+            var selectedItems = [];
+            for (var i = 0, j = data.selected.length; i < j; i++) {
+                var id = data.selected[i];
+                if (id.indexOf('-') != 1) {
+                    id = id.split("-")[1];
+                }
+                selectedItems.push({
+                    text: data.instance.get_node(data.selected[i].Text),
+                    id: id,
+                    parent: data.node.parents[0]
+                })
+            }
+            $('#selectedItems').val(JSON.stringify(selectedItems));
+        }).jstree({
+            "core": {
+                "themes": {
+                    "variant": "large"
+                },
+                "data": @Html.Raw(ViewBag.Json)
+            },
+            "checkbox": {
+                "keep_selected_style": false
+            },
+            "plugins": ["wholerow", "checkbox"]
+        })
+    });
+</script>
+
+
+
+

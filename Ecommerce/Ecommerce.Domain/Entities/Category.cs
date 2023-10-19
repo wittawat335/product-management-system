@@ -5,7 +5,7 @@ namespace Ecommerce.Domain.Entities;
 
 public partial class Category
 {
-    public Guid CategoryId { get; set; }
+    public string CategoryId { get; set; }
 
     public string CategoryName { get; set; }
 
