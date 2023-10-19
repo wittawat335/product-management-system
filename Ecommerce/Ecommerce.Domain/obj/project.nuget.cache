@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Y9rKfocRD6ni01Gr67qwqAwfd7755//cKJ2QLCatNk521YZMvCZKheSxozhIyrbv/PD55c/RbYeVKI0Ob0AkKQ==",
+  "dgSpecHash": "dn53yry7gW8OxkPnlPGc/TWIHEH00tf2Hh3ZMZreENRnHEEaFBGYkEscbWKkqDz25R74VFoStOUmwgr2JGC/Tw==",
   "success": true,
   "projectFilePath": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Domain\\Ecommerce.Domain.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\witta\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\witta\\.nuget\\packages\\dapper\\2.1.11\\dapper.2.1.11.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

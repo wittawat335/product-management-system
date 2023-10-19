@@ -91,7 +91,8 @@ namespace Ecommerce.Core.Services
                 loginResponse.userName = user.Username;
                 loginResponse.userId = user.UserId.ToString();
                 loginResponse.fullName = user.FullName;
-                loginResponse.position = user.Position.PositionName;
+                loginResponse.positionId = user.PositionId;
+                loginResponse.positionName = user.Position.PositionName;
                 loginResponse.email = user.Email;
 
                 response.message = Constants.StatusMessage.LoginSuccess;

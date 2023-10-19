@@ -63,9 +63,29 @@ namespace Ecommerce.Core.Services
             throw new NotImplementedException();
         }
 
-        public Task<Response<List<MenuDTO>>> GetMenuByPositionId(string positionId)
+        public async Task<Response<List<MenuDTO>>> GetMenuByPositionId(string positionId)
         {
-            throw new NotImplementedException();
+            var response = new Response<List<MenuDTO>>();
+            try
+            {
+                if (positionId == "P00")
+                    response.value = _mapper.Map<List<MenuDTO>>(await _MenuRepository.GetListAsync(x => x.Status == Constants.Status.Active));
+                else
+                {
+
+                }
+
+                if (response.value.Count() > 0)
+                    response.isSuccess = Constants.Status.True;
+                else
+                    response.message = Constants.StatusMessage.No_Data;
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+
+            return response;
         }
     }
 }

@@ -3,17 +3,10 @@
     public class JsTree
     {
         public List<TreeViewNode> TreeViewNodes { get; set; }
-        public List<DataPermissionJsonList> DataPermissionJson { get; set; }
-        public List<DataPermissionJsonList> DataPermissionJsonInsert { get; set; }
+
     }
+
     public class TreeViewNode
-    {
-        public string id { get; set; }
-        public string parent { get; set; }
-        public string text { get; set; }
-        public string select { get; set; }
-    }
-    public class DataPermissionJsonList
     {
         public string id { get; set; }
         public string parent { get; set; }

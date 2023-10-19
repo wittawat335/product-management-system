@@ -5,6 +5,7 @@ using Ecommerce.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Reflection;
 
 namespace Ecommerce.Web.Controllers
 {
@@ -13,19 +14,19 @@ namespace Ecommerce.Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IWebHostEnvironment _environment;
         private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IBaseApiService<Menu> _MenuService;
+        private readonly IPermissionService _permissionService;
         private readonly AppSetting _setting;
 
         public HomeController(ILogger<HomeController> logger,
             IWebHostEnvironment environment,
             IHttpContextAccessor contextAccessor,
-            IBaseApiService<Menu> MenuService,
+            IPermissionService permissionService,
             IOptions<AppSetting> options)
         {
             _logger = logger;
             _environment = environment;
             _contextAccessor = contextAccessor;
-            _MenuService = MenuService;
+            _permissionService = permissionService;
             _setting = options.Value;
         }
 
@@ -50,37 +51,16 @@ namespace Ecommerce.Web.Controllers
 
         public async Task<IActionResult> TestJsTree()
         {
-            List<TreeViewNode> nodes = new List<TreeViewNode>();
-            var response = await _MenuService.GetListAsync(_setting.BaseApiUrl + "Menu/GetListActive");
-
-            foreach (var item in response.value.Where(x => x.MenuLevel == 1).OrderBy(x => x.MenuOrder)) //Lv1
-            {
-                nodes.Add(new TreeViewNode
-                {
-                    id = item.MenuId.ToString(),
-                    parent = item.ParentId.ToString(),
-                    text = item.MenuName
-                });
-            }
-            foreach (var item in response.value.Where(x => x.MenuLevel == 2).OrderBy(x => x.MenuOrder)) //Lv2
-            {
-                nodes.Add(new TreeViewNode
-                {
-                    id = item.MenuId.ToString(),
-                    parent = item.ParentId.ToString(),
-                    text = item.MenuName
-                });
-            }
-            ViewBag.Json = JsonConvert.SerializeObject(nodes);
-
             return View();
         }
 
         [HttpPost]
-        public IActionResult TestJsTree(string selectedItem)
+        public async Task<IActionResult> JsTree(string positionId)
         {
-            List<TreeViewNode> item = JsonConvert.DeserializeObject<List<TreeViewNode>>(selectedItem);
-            return Json(item);
+            positionId = "P01";
+            var response = await _permissionService.GetJsTree(_setting.BaseApiUrl + string.Format("Position/GetJsTree/{0}", positionId));
+            return Json(response.value);
         }
+
     }
 }

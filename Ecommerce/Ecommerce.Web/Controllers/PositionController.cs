@@ -1,4 +1,5 @@
-﻿using Ecommerce.Web.Extenions.Class;
+﻿using Ecommerce.Web.Commons;
+using Ecommerce.Web.Extenions.Class;
 using Ecommerce.Web.Models;
 using Ecommerce.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +12,17 @@ namespace Ecommerce.Web.Controllers
         private readonly IBaseApiService<Position> _PositionService;
         private readonly IBaseApiService<Menu> _MenuService;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly IPermissionService _permissionService;
         private readonly AppSetting _setting;
 
         public PositionController(IBaseApiService<Position> PositionService,
            IBaseApiService<Menu> MenuService,
+           IPermissionService permissionService,
            IHttpContextAccessor contextAccessor,
            IOptions<AppSetting> options)
         {
             _PositionService = PositionService;
+            _permissionService = permissionService;
             _MenuService = MenuService;
             _contextAccessor = contextAccessor;
             _setting = options.Value;
@@ -63,23 +67,23 @@ namespace Ecommerce.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SavePosition(Position model)
+        public async Task<IActionResult> SavePosition(Position model, string action)
         {
             var response = new Response<Position>();
             try
             {
-                if (model != null)
+                switch (action ?? String.Empty)
                 {
-                    switch (model.PositionId ?? String.Empty)
-                    {
-                        case "":
-                            response = await _PositionService.InsertAsync(_setting.BaseApiUrl + "Position/Add", model);
-                            break;
+                    case Constants.Action.Add:
+                        response = await _PositionService.InsertAsync(_setting.BaseApiUrl + "Position/Add", model);
+                        break;
 
-                        default:
-                            response = await _PositionService.PutAsync(_setting.BaseApiUrl + "Position/Update", model);
-                            break;
-                    }
+                    case Constants.Action.Update:
+                        response = await _PositionService.PutAsync(_setting.BaseApiUrl + "Position/Update", model);
+                        break;
+
+                    default:
+                        break;
                 }
             }
             catch (Exception ex)
@@ -110,14 +114,14 @@ namespace Ecommerce.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> _PopUpMenuPosition()
         {
-            var model = new MenuViewModel();
-            var response = new Response<List<Menu>>();
+            return PartialView();
+        }
 
-            response = await _MenuService.GetListAsync(_setting.BaseApiUrl + "Menu/GetListActive");
-            if (response.value != null)
-                model.listMenu = response.value;
-
-            return PartialView(model);
+        [HttpPost]
+        public async Task<IActionResult> JsTree(string positionId)
+        {
+            var response = await _permissionService.GetJsTree(_setting.BaseApiUrl + string.Format("Position/GetJsTree/{0}", positionId));
+            return Json(response.value);
         }
 
 

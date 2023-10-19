@@ -33,6 +33,17 @@ namespace Ecommerce.Core.Common
             public const string UpdateSuccessfully = "แก้ไขขัอมูลเรียบร้อย";
             public const string DeleteSuccessfully = "ลบขัอมูลเรียบร้อย";
         }
+        public struct JsTreeConfig
+        {
+            public const string TextAdd = "เพิ่มข้อมูล";
+            public const string TextEdit = "แก้ไขข้อมูล";
+            public const string TextView = "ดูข้อมูล";
+
+            public const string IconDefault = "fas fa-folder";
+            public const string IconAdd = "fas fa-plus";
+            public const string IconEdit = "fas fa-pen";
+            public const string IconView = "fas fa-eye";
+        }
         public struct Status
         {
             public const bool True = true;

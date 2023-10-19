@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "O58z/8AKv4G5tHNdyyJR6DKKmWxQGqIQHqGmmjhbgMtH9Nf54++dusmUiQcU24JGk75cwW0bXEwoPZxQ9qT+Dw==",
+  "dgSpecHash": "kcpv/eJz/mPFpzm15jE7KoWLrU4t3Pdwv1HUUcAgavOR+nBWjoPI7WnomxkwGQLvcF3qzn7l1K35m8/PKctWqA==",
   "success": true,
   "projectFilePath": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Core\\Ecommerce.Core.csproj",
   "expectedPackageFiles": [
@@ -8,6 +8,7 @@
     "C:\\Users\\witta\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.1\\automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\witta\\.nuget\\packages\\dapper\\2.1.11\\dapper.2.1.11.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\7.0.11\\microsoft.aspnetcore.authentication.jwtbearer.7.0.11.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "C:\\Users\\witta\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",

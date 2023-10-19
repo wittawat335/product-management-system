@@ -15,6 +15,12 @@ namespace Ecommerce.Api.Controllers
             _service = service;
         }
 
+        [HttpGet("GetJsTree/{positionId}")]
+        public async Task<IActionResult> GetJsTree(string positionId)
+        {
+            return Ok(await _service.GetListPermissionData(positionId));
+        }
+
         [HttpGet("GetList")]
         public async Task<IActionResult> GetList()
         {
@@ -28,7 +34,6 @@ namespace Ecommerce.Api.Controllers
             filter.Status = "A";
             return Ok(await _service.GetList(filter));
         }
-
 
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> Get(string id)

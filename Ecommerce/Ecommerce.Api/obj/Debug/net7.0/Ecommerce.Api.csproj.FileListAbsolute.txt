@@ -83,3 +83,4 @@ E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\Microsoft.AspN
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\Newtonsoft.Json.dll
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\Ecommerce.Api.staticwebassets.runtime.json
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\Dapper.dll

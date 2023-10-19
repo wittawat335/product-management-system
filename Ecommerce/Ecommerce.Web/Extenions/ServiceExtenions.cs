@@ -32,6 +32,7 @@ namespace Ecommerce.Web.Extenions
             services.AddScoped<ICommonService, CommonService>();
             services.AddScoped<IAuthenService, AuthenService>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IPermissionService, PermissionService>();
         }
     }
 }

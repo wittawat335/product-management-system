@@ -1,4 +1,5 @@
-﻿
+﻿@using Ecommerce.Web.Commons;
+
 @{
     ViewData["Title"] = "TestJsTree";
 }
@@ -6,47 +7,67 @@
     Layout = null;
 }
 
-<h1>TestJsTree</h1>
-<div id="jstree"></div>
-<form method="post" asp-controller="Home" asp-action="TestJsTree">
-    <input type="hidden" name="selectedItem" id="selectedItems" />
-    <input type="submit" value="test"/>
-</form>
 
+
+<div>
+    <div class="row mx-auto">
+        <div id="PermissionDetails"></div>
+    </div>
+
+    <div class="row">
+        <hr />
+        <div class="col-md-12">
+            <div class="float-end">
+                <button id="btnClose"
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Close
+                </button>
+               
+                
+                 
+                
+            </div>
+        </div>
+    </div>
+</div>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <script>
     $(function () {
-        $('#jstree').on('changed.jstree', function (e, data) {
-            var i, j;
-            var selectedItems = [];
-            for (var i = 0, j = data.selected.length; i < j; i++) {
-                var id = data.selected[i];
-                if (id.indexOf('-') != 1) {
-                    id = id.split("-")[1];
-                }
-                selectedItems.push({
-                    text: data.instance.get_node(data.selected[i].Text),
-                    id: id,
-                    parent: data.node.parents[0]
-                })
-            }
-            $('#selectedItems').val(JSON.stringify(selectedItems));
-        }).jstree({
-            "core": {
-                "themes": {
-                    "variant": "large"
-                },
-                "data": @Html.Raw(ViewBag.Json)
-            },
-            "checkbox": {
-                "keep_selected_style": false
-            },
-            "plugins": ["wholerow", "checkbox"]
-        })
+        getPermissionData();
     });
+    function getPermissionData() {
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: "json",
+            url: '@Url.Content("~/Home/JsTree")',
+            data: { positionId: 'P01' },
+            success: function (data) {
+                buildTree(data);
+            },
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+            }
+        });
+    };
+
+    function buildTree(data) {
+        $('#PermissionDetails').jstree({
+            'core': {
+                "themes": { "responsive": false },
+                'data': data
+            },
+            'plugins': ["checkbox", "types"]
+        });
+    };
+
+
 </script>
 
 
