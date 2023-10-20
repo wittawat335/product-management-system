@@ -30,6 +30,10 @@
         });
         $('#frmDetail').validate({
             rules: {
+                ProductId: {
+                    required: true,
+                    minlength: 3
+                },
                 ProductName: {
                     required: true,
                     minlength: 3
@@ -48,6 +52,9 @@
                 }
             },
             messages: {
+                ProductId: {
+                    required: "กรุณาระบุรหัสสินค้า",
+                },
                 ProductName: {
                     required: "กรุณาระบุชื่อสินค้า",
                 },

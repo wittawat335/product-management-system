@@ -29,6 +29,10 @@ namespace Ecommerce.Web.Controllers
         }
         public IActionResult Index()
         {
+            var sessionLogin = _contextAccessor.HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
+            if (sessionLogin == null)
+                return RedirectToAction("Login", "Authen");
+
             return View();
         }
 
@@ -44,25 +48,18 @@ namespace Ecommerce.Web.Controllers
         {
             var model = new PositionViewModel();
             var response = new Response<Position>();
-            try
-            {
-                var listMenu = await _MenuService.GetListAsync(_setting.BaseApiUrl + "Menu/GetListActive");
-                if (listMenu.value.Count() > 0)
-                    ViewBag.listMenu = listMenu.value;
 
-                if (!string.IsNullOrEmpty(id))
-                    response = await _PositionService.GetAsyncById(_setting.BaseApiUrl + string.Format("Position/Get/{0}", id));
+            var listMenu = await _MenuService.GetListAsync(_setting.BaseApiUrl + "Menu/GetListActive");
+            if (listMenu.value.Count() > 0)
+                ViewBag.listMenu = listMenu.value;
 
-                if (response.value != null)
-                    model.Position = response.value;
+            if (!string.IsNullOrEmpty(id))
+                response = await _PositionService.GetAsyncById(_setting.BaseApiUrl + string.Format("Position/Get/{0}", id));
 
-                model.Action = action;
-            }
-            catch
-            {
-                throw;
-            }
+            if (response.value != null)
+                model.Position = response.value;
 
+            model.Action = action;
             return PartialView(model);
         }
 
@@ -70,27 +67,19 @@ namespace Ecommerce.Web.Controllers
         public async Task<IActionResult> SavePosition(Position model, string action)
         {
             var response = new Response<Position>();
-            try
+            switch (action ?? String.Empty)
             {
-                switch (action ?? String.Empty)
-                {
-                    case Constants.Action.Add:
-                        response = await _PositionService.InsertAsync(_setting.BaseApiUrl + "Position/Add", model);
-                        break;
+                case Constants.Action.Add:
+                    response = await _PositionService.InsertAsync(_setting.BaseApiUrl + "Position/Add", model);
+                    break;
 
-                    case Constants.Action.Update:
-                        response = await _PositionService.PutAsync(_setting.BaseApiUrl + "Position/Update", model);
-                        break;
+                case Constants.Action.Update:
+                    response = await _PositionService.PutAsync(_setting.BaseApiUrl + "Position/Update", model);
+                    break;
 
-                    default:
-                        break;
-                }
+                default:
+                    break;
             }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-            }
-
             return Json(response);
         }
 
@@ -112,8 +101,9 @@ namespace Ecommerce.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> _PopUpMenuPosition()
+        public async Task<IActionResult> _PopUpMenuPosition(string id)
         {
+            ViewBag.positionId = id;
             return PartialView();
         }
 

@@ -27,6 +27,10 @@
         });
         $('#frmDetail').validate({
             rules: {
+                CategoryId: {
+                    required: true,
+                    minlength: 3
+                },
                 CategoryName: {
                     required: true,
                     minlength: 3
@@ -36,6 +40,9 @@
                 }
             },
             messages: {
+                CategoryId: {
+                    required: "กรุณาระบุรหัสประเภทสินค้า",
+                },
                 CategoryName: {
                     required: "กรุณาระบุประเภทสินค้า",
                 },

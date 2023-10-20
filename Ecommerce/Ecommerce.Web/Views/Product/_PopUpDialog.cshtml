@@ -6,6 +6,9 @@
     @{
         await Html.RenderPartialAsync("_FormDetail", Model.Product);
     }
+    <div style="display: none">
+        <input type="text" name="action" value="@Model.Action" />
+    </div>
 </form>
 @{
     await Html.RenderPartialAsync("_PopUpScriptsPartial", Model);

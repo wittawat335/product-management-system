@@ -41,47 +41,29 @@ namespace Ecommerce.Web.Controllers
         {
             var model = new CategoryViewModel();
             var response = new Response<Category>();
-            try
-            {
-                if (!string.IsNullOrEmpty(id))
-                    response = await _categoryService.GetAsyncById(_setting.BaseApiUrl + string.Format("Category/GetCategory/{0}", id));
+            if (!string.IsNullOrEmpty(id))
+                response = await _categoryService.GetAsyncById(_setting.BaseApiUrl + string.Format("Category/GetCategory/{0}", id));
 
-                if (response.value != null)
-                    model.Category = response.value;
+            if (response.value != null)
+                model.Category = response.value;
 
-                model.Action = action;
-            }
-            catch
-            {
-                throw;
-            }
-
+            model.Action = action;
             return PartialView(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(Category model)
+        public async Task<IActionResult> Save(Category model, string action)
         {
             var response = new Response<Category>();
-            try
+            switch (action ?? String.Empty)
             {
-                if (model != null)
-                {
-                    switch (model.CategoryId ?? String.Empty)
-                    {
-                        case "":
-                            response = await _categoryService.InsertAsync(_setting.BaseApiUrl + "Category/Add", model);
-                            break;
+                case Constants.Action.Add:
+                    response = await _categoryService.InsertAsync(_setting.BaseApiUrl + "Category/Add", model);
+                    break;
 
-                        default:
-                            response = await _categoryService.PutAsync(_setting.BaseApiUrl + "Category/Update", model);
-                            break;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
+                case Constants.Action.Update:
+                    response = await _categoryService.PutAsync(_setting.BaseApiUrl + "Category/Update", model);
+                    break;
             }
 
             return Json(response);

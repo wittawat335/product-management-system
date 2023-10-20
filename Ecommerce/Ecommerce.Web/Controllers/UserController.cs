@@ -42,53 +42,35 @@ namespace Ecommerce.Web.Controllers
         {
             var model = new UserViewModel();
             var response = new Response<User>();
-            try
-            {
-                var listPosition = await _positionService.GetListAsync(_setting.BaseApiUrl + "Position/GetListActive");
-                if (listPosition.value.Count() > 0)
-                    ViewBag.listPosition = listPosition.value;
 
-                if (!string.IsNullOrEmpty(id))
-                    response = await _service.GetAsyncById(_setting.BaseApiUrl + string.Format("User/GetUser/{0}", id));
+            var listPosition = await _positionService.GetListAsync(_setting.BaseApiUrl + "Position/GetListActive");
+            if (listPosition.value.Count() > 0)
+                ViewBag.listPosition = listPosition.value;
 
-                if (response.value != null)
-                    model.User = response.value;
+            if (!string.IsNullOrEmpty(id))
+                response = await _service.GetAsyncById(_setting.BaseApiUrl + string.Format("User/GetUser/{0}", id));
 
-                model.Action = action;
-            }
-            catch
-            {
-                throw;
-            }
+            if (response.value != null)
+                model.User = response.value;
 
+            model.Action = action;
             return PartialView(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Save(User model)
+        public async Task<IActionResult> Save(User model, string action)
         {
             var response = new Response<User>();
-            try
+            switch (action ?? String.Empty)
             {
-                if (model != null)
-                {
-                    switch (model.UserId ?? String.Empty)
-                    {
-                        case "":
-                            response = await _service.InsertAsync(_setting.BaseApiUrl + "User/Add", model);
-                            break;
+                case Constants.Action.Add:
+                    response = await _service.InsertAsync(_setting.BaseApiUrl + "User/Add", model);
+                    break;
 
-                        default:
-                            response = await _service.PutAsync(_setting.BaseApiUrl + "User/Update", model);
-                            break;
-                    }
-                }
+                case Constants.Action.Update:
+                    response = await _service.PutAsync(_setting.BaseApiUrl + "User/Update", model);
+                    break;
             }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-            }
-
             return Json(response);
         }
 
