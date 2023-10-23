@@ -1,4 +1,6 @@
-﻿@using Ecommerce.Web.Services.Interfaces;
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Models.Authen;
+@using Ecommerce.Web.Services.Interfaces;
 @inject ICommonService common;
 @{
     var user = common.GetSessionValue();

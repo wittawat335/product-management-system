@@ -733,6 +733,10 @@
       "PackagePath": "staticwebassets\\images\\product\\ee8ea101-dbe6-4b2e-812c-e225af59b52f\\keyboard01.webp"
     },
     {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\product02\\keyboard01.webp",
+      "PackagePath": "staticwebassets\\images\\product\\product02\\keyboard01.webp"
+    },
+    {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

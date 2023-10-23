@@ -42,7 +42,8 @@ namespace Ecommerce.Core.Services
                 {
                     if (model.Password != null)
                         model.Password = _commonService.Encrypt(model.Password);
-                    var resultUser = await _repository.InsertAsyncAndSave(_mapper.Map<User>(model));
+                    var test = _mapper.Map<User>(model);
+                    var resultUser = await _repository.InsertAsyncAndSave(test);
                     if (resultUser != null)
                     {
                         response.isSuccess = Constants.Status.True;

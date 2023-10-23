@@ -10,6 +10,7 @@ namespace Ecommerce.Web.Services.Interfaces
         Task<Response<T>> InsertAsync(string path, T request);
         Task<Response<T>> PostAsync(string path, T request);
         Task<Response<T>> PostAsJsonAsync(string path, T request);
+        Task<Response<List<T>>> PostListAsJsonAsync(string path, List<T> request);
         Task<Response<T>> PutAsync(string path, T request);
         Task<Response<T>> PatchAsync(string path, T request);
         Task<Response<T>> DeleteAsync(string path);

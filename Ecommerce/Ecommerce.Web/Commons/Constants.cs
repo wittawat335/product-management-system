@@ -39,6 +39,7 @@
                 public const string Save = "~/Category/Save";
                 public const string Delete = "~/Category/Delete";
             }
+
             public struct Position
             {
                 public const string GetList = "~/Position/GetListPosition";
@@ -46,6 +47,10 @@
                 public const string PopUpDialog = "~/Position/_PopUpPosition";
                 public const string Save = "~/Position/SavePosition";
                 public const string Delete = "~/Position/DeletePosition";
+                //--------------JStree----------------
+                public const string GetJsTree = "~/Position/JsTree";
+                public const string SetPermission = "~/Position/SetPermission";
+                public const string SavePermission = "~/Position/SavePermission";
             }
 
             public struct User

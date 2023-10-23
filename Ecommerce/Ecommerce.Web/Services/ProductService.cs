@@ -9,19 +9,16 @@ namespace Ecommerce.Web.Services
     {
         private readonly IBaseApiService<Product> _productService;
         private readonly IBaseApiService<Category> _categoryService;
-        private readonly ICommonService _common;
         private readonly AppSetting _setting;
         HttpClientHandler _httpClient = new HttpClientHandler();
 
         public ProductService(
             IBaseApiService<Product> productService,
             IBaseApiService<Category> categoryService,
-            ICommonService common,
             IOptions<AppSetting> options)
         {
             _productService = productService;
             _categoryService = categoryService;
-            _common = common;
             _setting = options.Value;
             _httpClient.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         }

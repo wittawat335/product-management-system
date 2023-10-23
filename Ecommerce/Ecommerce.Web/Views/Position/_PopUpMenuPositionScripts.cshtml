@@ -1,10 +1,70 @@
-﻿
+﻿@using Ecommerce.Web.Commons;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <script>
-    $(document).ready(function () {
-        $("#selectAll").click(function () {
-            $('#dtMenuResult tbody tr  input:checkbox').not(this).prop('checked', this.checked);
+    $(function () {
+        getPermissionData();
+    });
+
+    function getPermissionData() {
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: "json",
+            url: '@Url.Content(Constants.UrlAction.Position.GetJsTree)',
+            data: { positionId: '@ViewBag.positionId' },
+            success: function (data) {
+                buildTree(data);
+            },
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+            }
+        });
+    };
+
+    function buildTree(data) {
+        $('#PermissionDetails').jstree({
+            'core': {
+                "themes": { "responsive": false },
+                'data': data
+            },
+            'plugins': ["checkbox", "types"]
+        });
+    };
+
+    $("#btnSave").click(function () {
+        var treeData = $('#PermissionDetails').jstree(true).get_json('#', { flat: false });
+        $.ajax({
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            type: 'POST',
+            url: '@Url.Content(Constants.UrlAction.Position.SetPermission)',
+            data: JSON.stringify(treeData),
+            success: function (response) {
+                if (response.isSuccess) SaveListPermission();
+            },
+            failure: function (response) {
+               
+            }
         });
     });
+
+    function SaveListPermission() {
+        $.ajax({
+            type: 'POST',
+            dataType: "json",
+            url: '@Url.Content(Constants.UrlAction.Position.SavePermission)',
+            data: { "positionId": "@ViewBag.positionId" },
+            success: function (response) {
+                if (response.isSuccess) {
+                    swalMessage('success', response.message);
+                    closeModal();
+                }
+                else swalMessage('error', response.message);
+            }
+        });
+    }
 </script>
 
 

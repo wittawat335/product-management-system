@@ -4,6 +4,7 @@ namespace Ecommerce.Web.Models
 {
     public class Product
     {
+        [Display(Name = "รหัสสินค้า")]
         public string ProductId { get; set; }
         [Display(Name = "ชื่อสินค้า")]
         public string ProductName { get; set; }
@@ -14,9 +15,9 @@ namespace Ecommerce.Web.Models
         [Display(Name = "รูปภาพสินค้า")]
         public string Image { get; set; }
         //public IFormFile ImageFile { get; set; }
-        [Display(Name = "จำนวนสินค้าที่มี(ชิ้น)")]
+        [Display(Name = "จำนวนสินค้าที่มี (ชิ้น)")]
         public string Stock { get; set; }
-        [Display(Name = "ราคาสินค้า(บาท)")]
+        [Display(Name = "ราคาสินค้า (บาท)")]
         public string Price { get; set; }
         [Display(Name = "รายละเอียดสินค้า")]
         public string Description { get; set; }

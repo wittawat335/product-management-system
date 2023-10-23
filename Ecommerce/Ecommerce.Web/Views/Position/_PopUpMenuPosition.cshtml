@@ -1,49 +1,16 @@
 ﻿@using Ecommerce.Web.Commons;
-
 <div id="PermissionDetails"></div>
 <div class="modal-footer">
     <button id="btnSave"
-            type="submit"
+            type="button"
             class="btn btn-info"
             onclick="">
         บันทึก
     </button>
 </div>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-<script>
-    $(function () {
-        getPermissionData();
-    });
-    function getPermissionData() {
-        $.ajax({
-            async: true,
-            type: 'post',
-            dataType: "json",
-            url: '@Url.Content("~/Position/JsTree")',
-            data: { positionId: '@ViewBag.positionId' },
-            success: function (data) {
-                buildTree(data);
-            },
-            error: function (xhr, status, error) {
-                var err = eval("(" + xhr.responseText + ")");
-                alert(err.Message);
-            }
-        });
-    };
-
-    function buildTree(data) {
-        $('#PermissionDetails').jstree({
-            'core': {
-                "themes": { "responsive": false },
-                'data': data
-            },
-            'plugins': ["checkbox", "types"]
-        });
-    };
-
-
-</script>
+@{
+    await Html.RenderPartialAsync("_PopUpMenuPositionScripts");
+}
 
 
 

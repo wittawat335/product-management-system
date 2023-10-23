@@ -11,6 +11,8 @@ namespace Ecommerce.Web.Models
         public string Password { get; set; }
         [Display(Name = "ชื่อ-สกุล")]
         public string FullName { get; set; }
+        [Display(Name = "เบอร์โทรศัพท์")]
+        public string PhoneNumber { get; set; }
         [Display(Name = "อีเมลล์")]
         public string Email { get; set; }
         [Display(Name = "ตำแหน่ง")]

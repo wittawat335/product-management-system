@@ -4,6 +4,7 @@ using Ecommerce.Web.Models;
 using Ecommerce.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace Ecommerce.Web.Controllers
 {
@@ -101,8 +102,9 @@ namespace Ecommerce.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> _PopUpMenuPosition(string id)
+        public IActionResult _PopUpMenuPosition(string id)
         {
+            _contextAccessor.HttpContext.Session.Remove("listSelectedPermission");
             ViewBag.positionId = id;
             return PartialView();
         }
@@ -114,22 +116,19 @@ namespace Ecommerce.Web.Controllers
             return Json(response.value);
         }
 
-
         [HttpPost]
-        public async Task<IActionResult> SaveMenuToPosition(List<Menu> model)
+        public IActionResult SetPermission([FromBody] List<DataPermissionJsonInsertList> permissionData)
         {
-            var response = new Response<List<Menu>>();
-
-
-            return Json(response);
+            return Json(_permissionService.SetPermissionToSession(permissionData));
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteMenuPosition(string id)
+        public async Task<IActionResult> SavePermission(string positionId)
         {
-            var response = await _PositionService.DeleteAsync(_setting.BaseApiUrl + string.Format("Position/{0}", id));
-            return Json(response);
+            return Json(await _permissionService.SavePermission(positionId));
         }
+
+
         #endregion
     }
 

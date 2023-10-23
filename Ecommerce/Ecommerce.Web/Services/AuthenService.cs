@@ -13,14 +13,12 @@ namespace Ecommerce.Web.Services
     public class AuthenService : IAuthenService
     {
         private readonly AppSetting _setting;
-        private readonly ICommonService _common;
         private readonly IHttpContextAccessor _contextAccessor;
         HttpClientHandler _httpClient = new HttpClientHandler();
 
-        public AuthenService(IOptions<AppSetting> options, ICommonService common, IHttpContextAccessor contextAccessor)
+        public AuthenService(IOptions<AppSetting> options, IHttpContextAccessor contextAccessor)
         {
             _setting = options.Value;
-            _common = common;
             _contextAccessor = contextAccessor;
             _httpClient.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         }

@@ -1,8 +1,7 @@
 ﻿using Ecommerce.Web.Commons;
-using Ecommerce.Web.Extenions.Class;
+using Ecommerce.Web.Models;
 using Ecommerce.Web.Models.Authen;
 using Ecommerce.Web.Services.Interfaces;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Ecommerce.Web.Services
@@ -11,21 +10,29 @@ namespace Ecommerce.Web.Services
     {
         private readonly IHttpContextAccessor _contextAccessor;
 
-
         public CommonService(IHttpContextAccessor contextAccessor)
         {
             _contextAccessor = contextAccessor;
         }
 
+        public List<DataPermissionJsonInsertList> GetListSessionValue()
+        {
+            List<DataPermissionJsonInsertList> list = new List<DataPermissionJsonInsertList>();
+            string session = _contextAccessor.HttpContext.Session.GetString("listSelectedPermission");
+            if (session != null)
+                list = JsonConvert.DeserializeObject<List<DataPermissionJsonInsertList>>(session);
+            return list;
+        }
+
         public Session GetSessionValue()
         {
-            var session = new Session();
+            Session result = null;
             string sessionString = _contextAccessor.HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
-
             if (sessionString != null)
-                session = JsonConvert.DeserializeObject<Session>(sessionString);
+                result = JsonConvert.DeserializeObject<Session>(sessionString);
 
-            return session;
+            return result;
         }
+
     }
 }

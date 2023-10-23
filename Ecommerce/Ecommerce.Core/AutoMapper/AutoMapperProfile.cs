@@ -20,14 +20,13 @@ namespace Ecommerce.Core.AutoMapper
             //  .ForMember(x => x.UserId, opt => opt.MapFrom(origin => new Guid(origin.UserId)))
             //  .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.PositionId)))
             //  .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
-
+            CreateMap<PermissionDTO, Permission>().ReverseMap();
             CreateMap<User, UserDTO>()
                 .ForMember(x => x.PositionName, opt => opt.MapFrom(origin => origin.Position.PositionName))
                 .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
             CreateMap<UserDTO, User>()
                .ForMember(x => x.Position, opt => opt.Ignore())
                .ForMember(x => x.UserId, opt => opt.MapFrom(origin => new Guid(origin.UserId)))
-               .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.PositionId)))
                .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
 
             CreateMap<Position, PositionDTO>()
