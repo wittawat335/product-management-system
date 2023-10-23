@@ -59,6 +59,8 @@
                 public const string PopUpDialog = "~/User/_PopUpDialog";
                 public const string Save = "~/User/Save";
                 public const string Delete = "~/User/Delete";
+                public const string select2userName = "~/User/select2UserName";
+                public const string select2positionName = "~/User/select2Position";
             }
 
             public struct Master

@@ -5,6 +5,7 @@
     let url = '@Url.Content(Constants.UrlAction.User.PopUpDialog)';
 
     $(function () {
+        setSelect2();
         getList();
         $('.btn[data-filter]').on('click', function () {
             $('.btn[data-filter]').removeClass('active');
@@ -25,8 +26,6 @@
     }
 
     function onSuccess(response) {
-        console.log(response);
-
         $('#dtResult').DataTable({
             bDestroy: true,
             bProcessing: true,
@@ -109,6 +108,69 @@
                 }
             ]
         })
+    }
+    function setSelect2() {
+        $("#@Html.IdFor(m => m.Username)").select2({
+            placeholder: "--- กรุณาเลือก ---",
+            minimumInputLength: 3,
+            dropdownAutoWidth: 'true',
+            width: '100%',
+            allowClear: true,
+            ajax: {
+                url: '@Url.Content(Constants.UrlAction.User.select2userName)',
+                delay: 50,
+                dataType: 'json',
+                quietMillis: 1000,
+                data: function (params) {
+                    return { query: params.term };
+                },
+                processResults: function (data) {
+                    console.log(data);
+                    return {
+                        results: $.map(data, function (obj) {
+                            return {
+                                id: obj.userId,
+                                text: obj.username + ' : ' + obj.fullName
+                            };
+                        })
+                    };
+                }
+            }
+        });
+
+        $("#@Html.IdFor(m => m.PositionId)").select2({
+            placeholder: "--- กรุณาเลือก ---",
+            minimumInputLength: 3,
+            dropdownAutoWidth: 'true',
+            width: '100%',
+            allowClear: true,
+            ajax: {
+                url: '@Url.Content(Constants.UrlAction.User.select2positionName)',
+                delay: 50,
+                dataType: 'json',
+                quietMillis: 1000,
+                data: function (params) {
+                    return { query: params.term };
+                },
+                processResults: function (data) {
+                    console.log(data);
+                    return {
+                        results: $.map(data, function (obj) {
+                            return {
+                                id: obj.positionId,
+                                text: obj.positionName
+                            };
+                        })
+                    };
+                }
+            }
+        });
+    }
+
+    function resetform() {
+        $("#dtResult").dataTable().fnClearTable();
+        $("#@Html.IdFor(m => m.Username)").empty().trigger('change')
+        $("#@Html.IdFor(m => m.PositionName)").empty().trigger('change')
     }
 </script>
 

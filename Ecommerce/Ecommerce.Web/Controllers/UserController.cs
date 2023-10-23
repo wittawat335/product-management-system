@@ -80,5 +80,19 @@ namespace Ecommerce.Web.Controllers
             var response = await _service.DeleteAsync(_setting.BaseApiUrl + string.Format("User/{0}", id));
             return Json(response);
         }
+
+        public async Task<IActionResult> select2UserName(string query)
+        {
+            var response = await _service.GetListAsync(_setting.BaseApiUrl + "User/GetList");
+            response.value = response.value.Where(x => x.Username.ToLower().Contains(query.ToLower())).ToList();
+            return Json(response.value);
+        }
+
+        public async Task<IActionResult> select2Position(string query)
+        {
+            var response = await _service.GetListAsync(_setting.BaseApiUrl + "User/GetList");
+            response.value = response.value.Where(x => x.PositionName.ToLower().Contains(query.ToLower())).ToList();
+            return Json(response.value);
+        }
     }
 }
