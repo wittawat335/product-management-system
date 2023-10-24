@@ -31,9 +31,9 @@ namespace Ecommerce.Web.Controllers
             return View();
         }
 
-        public async Task<IActionResult> GetList()
+        public async Task<IActionResult> GetList(User search)
         {
-            var response = await _service.GetListAsync(_setting.BaseApiUrl + "User/GetList");
+            var response = await _service.Search(_setting.BaseApiUrl + "User/GetList", search);
             return Json(response);
         }
 

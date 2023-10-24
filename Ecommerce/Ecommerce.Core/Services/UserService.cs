@@ -108,7 +108,15 @@ namespace Ecommerce.Core.Services
             {
                 var list = await _repository.AsQueryable();
                 var result = list.Include(x => x.Position).ToList();
-
+                if (filter != null)
+                {
+                    if (filter.UserId != null)
+                        result = result.Where(x => x.UserId == new Guid(filter.UserId)).ToList();
+                    if (filter.PositionId != null)
+                        result = result.Where(x => x.PositionId == filter.PositionId).ToList();
+                    if (filter.Status != null)
+                        result = result.Where(x => x.Status.Contains(filter.Status)).ToList();
+                }
 
                 response.value = _mapper.Map<List<UserDTO>>(result);
                 response.isSuccess = Constants.Status.True;

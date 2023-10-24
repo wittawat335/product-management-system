@@ -1,6 +1,8 @@
 ﻿using Ecommerce.Web.Commons;
 using Ecommerce.Web.Extenions.Class;
 using Ecommerce.Web.Models;
+using Ecommerce.Web.Models.Authen;
+using Ecommerce.Web.Services;
 using Ecommerce.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -49,16 +51,19 @@ namespace Ecommerce.Web.Controllers
         {
             var model = new PositionViewModel();
             var response = new Response<Position>();
-
-            var listMenu = await _MenuService.GetListAsync(_setting.BaseApiUrl + "Menu/GetListActive");
-            if (listMenu.value.Count() > 0)
-                ViewBag.listMenu = listMenu.value;
+            var listMenu = new Response<List<Menu>>();
 
             if (!string.IsNullOrEmpty(id))
+            {
                 response = await _PositionService.GetAsyncById(_setting.BaseApiUrl + string.Format("Position/Get/{0}", id));
+                listMenu = await _MenuService.GetListAsync(_setting.BaseApiUrl + string.Format("Menu/GetListByPermission/{0}", id));
+                if (response.value != null)
+                    model.Position = response.value;
+            }
+            else listMenu = await _MenuService.GetListAsync(_setting.BaseApiUrl + "Menu/GetListActive");
 
-            if (response.value != null)
-                model.Position = response.value;
+            if (listMenu.value.Count() > 0)
+                ViewBag.listMenu = listMenu.value;
 
             model.Action = action;
             return PartialView(model);

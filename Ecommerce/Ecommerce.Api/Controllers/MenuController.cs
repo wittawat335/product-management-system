@@ -25,5 +25,11 @@ namespace Ecommerce.Api.Controllers
         {
             return Ok(await _service.GetListMenuActive());
         }
+
+        [HttpGet("GetListByPermission/{PositionId}")]
+        public async Task<IActionResult> GetListByPermission(string PositionId)
+        {
+            return Ok(await _service.GetListByPermission(PositionId));
+        }
     }
 }

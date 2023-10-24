@@ -19,7 +19,9 @@
             url: '@Url.Content(Constants.UrlAction.User.GetList)',
             dataType: "json",
             data: {
-              
+                UserId: $('#@Html.IdFor(m => m.Username)').val(),
+                PositionId: $('#@Html.IdFor(m => m.PositionId)').val(),
+                Status: $('#@Html.IdFor(m => m.Status)').val(),
             },
             success: onSuccess
         })
@@ -170,7 +172,8 @@
     function resetform() {
         $("#dtResult").dataTable().fnClearTable();
         $("#@Html.IdFor(m => m.Username)").empty().trigger('change')
-        $("#@Html.IdFor(m => m.PositionName)").empty().trigger('change')
+        $("#@Html.IdFor(m => m.PositionId)").empty().trigger('change')
+        $("#@Html.IdFor(m => m.Status)").val('');
     }
 </script>
 

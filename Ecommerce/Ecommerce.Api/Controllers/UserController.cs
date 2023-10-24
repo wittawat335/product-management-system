@@ -27,6 +27,12 @@ namespace Ecommerce.Api.Controllers
             return Ok(await _service.Get(id));
         }
 
+        [HttpPost("GetList")]
+        public async Task<IActionResult> GetList(UserDTO request)
+        {
+            return Ok(await _service.GetList(request));
+        }
+
         [HttpPost("Add")]
         public async Task<IActionResult> Add(UserDTO request)
         {

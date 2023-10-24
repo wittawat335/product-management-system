@@ -12,19 +12,50 @@ namespace Ecommerce.Core.Services
     {
         private readonly IGenericRepository<Menu> _MenuRepository;
         private readonly IGenericRepository<User> _UserRepository;
+        private readonly IGenericRepository<Permission> _PermissionRepository;
         private readonly IStoredRespository _storedRespository;
         private readonly IMapper _mapper;
 
         public MenuService(
             IGenericRepository<Menu> MenuRepository,
             IGenericRepository<User> UserRepository,
+            IGenericRepository<Permission> PermissionRepository,
             IStoredRespository storedRespository,
             IMapper mapper)
         {
             _MenuRepository = MenuRepository;
             _UserRepository = UserRepository;
+            _PermissionRepository = PermissionRepository;
             _storedRespository = storedRespository;
             _mapper = mapper;
+        }
+
+        public async Task<Response<List<MenuDTO>>> GetListByPermission(string positionId)
+        {
+            var response = new Response<List<MenuDTO>>();
+            IQueryable<Permission> tbPermission = await _PermissionRepository.AsQueryable(x => x.PositionId == positionId);
+            IQueryable<Menu> tbMenu = await _MenuRepository.AsQueryable();
+            try
+            {
+                IQueryable<Menu> tbResult = (from p in tbPermission
+                                             join m in tbMenu on p.MenuId equals m.MenuId
+                                             select m).AsQueryable();
+
+                var listMenus = tbResult.Distinct().ToList();
+                if (listMenus.Count() > 0)
+                {
+                    response.value = _mapper.Map<List<MenuDTO>>(listMenus);
+                    response.isSuccess = Constants.Status.True;
+                }
+                else
+                    response.message = Constants.StatusMessage.No_Data;
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+
+            return response;
         }
 
         public async Task<Response<List<MenuDTO>>> GetListMenuActive()

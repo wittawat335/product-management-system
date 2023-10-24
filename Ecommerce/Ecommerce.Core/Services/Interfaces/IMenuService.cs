@@ -9,5 +9,6 @@ namespace Ecommerce.Core.Services.Interfaces
         Task<Response<List<MenuDTO>>> GetListMenuByUserId(string userId);
         Task<Response<List<MenuDTO>>> GetMenuByPositionId(string positionId);
         Task<Response<List<MenuDTO>>> GetListMenuExists(string positionId);
+        Task<Response<List<MenuDTO>>> GetListByPermission(string positionId);
     }
 }
