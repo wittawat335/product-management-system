@@ -737,6 +737,18 @@
       "PackagePath": "staticwebassets\\images\\product\\product02\\keyboard01.webp"
     },
     {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\product55\\memory01.jpg",
+      "PackagePath": "staticwebassets\\images\\product\\product55\\memory01.jpg"
+    },
+    {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\proudct01\\memory01.jpg",
+      "PackagePath": "staticwebassets\\images\\product\\proudct01\\memory01.jpg"
+    },
+    {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\proudct01\\monitor01.jfif",
+      "PackagePath": "staticwebassets\\images\\product\\proudct01\\monitor01.jfif"
+    },
+    {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

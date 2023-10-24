@@ -47,6 +47,8 @@ function saveForm(formId, url) {
         else swalMessage('error', response.message);
     });
 }
+
+//------------------------ Modal ---------------------------------
 function openPopup(id, action, url, caption) {
     let data = { "id": id, "action": action };
     modalPOST(caption, url, data);
@@ -54,20 +56,70 @@ function openPopup(id, action, url, caption) {
 function modalPOST(caption, path, data) {
     var url = path;
     $.post(url, data, function (result) {
-        $('#modalDialog > .modal-dialog > .modal-content > .modal-body').html(result);
+        $('#modal-dialog > .modal-dialog > .modal-content > .modal-body').html(result);
         showModal(caption);
     });
 }
+function showModal(caption) {
+    $('#modal-dialog > .modal-dialog > .modal-content > .modal-header > .modal-title').text(caption);
+    $('#modal-dialog').modal('show');
+}
+function closeModal() {
+    $('#modal-dialog > .modal-dialog > .modal-content > .modal-body').html('');
+    $('#modal-dialog > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
+    $('#modal-dialog').modal('hide');
+}
+//-------------------------------------------------------------------
+//------------------------ Modal Lg ---------------------------------
+function openPopupLg(id, action, url, caption) {
+    let data = { "id": id, "action": action };
+    modalLgPOST(caption, url, data);
+};
+function modalLgPOST(caption, path, data) {
+    var url = path;
+    $.post(url, data, function (result) {
+        $('#modal-lg > .modal-dialog > .modal-content > .modal-body').html(result);
+        showModalLg(caption);
+    });
+}
+function showModalLg(caption) {
+    $('#modal-lg > .modal-dialog > .modal-content > .modal-header > .modal-title').text(caption);
+    $('#modal-lg').modal('show');
+}
+function closeModalLg() {
+    $('#modal-lg > .modal-dialog > .modal-content > .modal-body').html('');
+    $('#modal-lg > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
+    $('#modal-lg').modal('hide');
+}
+//-------------------------------------------------------------------
+//------------------------ Modal Xl ---------------------------------
+function openPopupXl(id, action, url, caption) {
+    let data = { "id": id, "action": action };
+    modalXlPOST(caption, url, data);
+};
+function modaXlPOST(caption, path, data) {
+    var url = path;
+    $.post(url, data, function (result) {
+        $('#modal-xl > .modal-dialog > .modal-content > .modal-body').html(result);
+        showModalXl(caption);
+    });
+}
+function showModalXl(caption) {
+    $('#modal-xl > .modal-dialog > .modal-content > .modal-header > .modal-title').text(caption);
+    $('#modal-xl').modal('show');
+}
+function closeModalLg() {
+    $('#modal-lg > .modal-dialog > .modal-content > .modal-body').html('');
+    $('#modal-lg > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
+    $('#modal-lg').modal('hide');
+}
+//-------------------------------------------------------------------
 function modalPOSTV2(caption, path, data, isFull) {
     var url = path;
     $.post(url, data, function (result) {
         $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-body').html(result);
         showModalLv2(caption, isFull);
     });
-}
-function showModal(caption) {
-    $('#modalDialog > .modal-dialog > .modal-content > .modal-header > .modal-title').text(caption);
-    $('#modalDialog').modal('show');
 }
 function showModalLv2(caption, isFull) {
     if (typeof (isFull) === "boolean") {
@@ -112,16 +164,12 @@ function showModalLv2(caption, isFull) {
     $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-header > .modal-title').text(caption);
     $('#modalDialogLv2').modal('show');
 }
-function closeModal() {
-    $('#modalDialog > .modal-dialog > .modal-content > .modal-body').html('');
-    $('#modalDialog > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
-    $('#modalDialog').modal('hide');
-}
 function clearModalLv2() {
     $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-body').html('');
     $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modalDialogLv2').modal('hide');
 }
+//-------------------------------------------------------------------------------------------------------
 function clearValueByDiv(div) {
     $('#' + div + ' input').val("");
     $('#' + div + ' select').val("");

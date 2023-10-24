@@ -109,7 +109,7 @@ namespace Ecommerce.Core.Services
             var response = new Response<Category>();
             try
             {
-                var data = _repository.Find(new Guid(id));
+                var data = _repository.Find(id);
                 if (data != null)
                 {
                     _repository.Delete(data);

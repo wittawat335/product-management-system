@@ -124,18 +124,18 @@
                     render: function (data, type, row, meta) {
                         if (row.image != null) {
                             let imageUrl = '@Url.Content("~/images/product/")' + row.productId + "/" + row.image;
-                            return '<a class="btn btn-info" onclick=openPopup("' + row.productId + '","View","' + url + '","ดูรายละเอียดสินค้า");>'
+                            return '<a class="btn btn-info" onclick=openPopupLg("' + row.productId + '","View","' + url + '","ดูรายละเอียดสินค้า");>'
                                 + '<i class="fas fa-eye"></i></a> | '
-                                + '<a class="btn btn-warning" onclick=openPopup("' + row.productId + '","Update","' + url + '","แก้ไขสินค้า");>'
+                                + '<a class="btn btn-warning" onclick=openPopupLg("' + row.productId + '","Update","' + url + '","แก้ไขสินค้า");>'
                                 + '<i class="fas fa-pen"></i></a> | '
                                 + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + row.productId + '","' + urlDelete + '","' + imageUrl + '");>'
                                 + '<i class="fas fa-trash"></a>'
                         }
                         else {
                             let imageUrl = '@Url.Content("~/images/no_photo.jpg")';
-                            return '<a class="btn btn-info" onclick=openPopup("' + row.productId + '","View","' + url + '","ดูรายละเอียดสินค้า");>'
+                            return '<a class="btn btn-info" onclick=openPopupLg("' + row.productId + '","View","' + url + '","ดูรายละเอียดสินค้า");>'
                                 + '<i class="fas fa-eye"></i></a> | '
-                                + '<a class="btn btn-warning" onclick=openPopup("' + row.productId + '","Update","' + url + '","แก้ไขสินค้า");>'
+                                + '<a class="btn btn-warning" onclick=openPopupLg("' + row.productId + '","Update","' + url + '","แก้ไขสินค้า");>'
                                 + '<i class="fas fa-pen"></i></a> | '
                                 + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + row.productId + '","' + urlDelete + '","' + imageUrl + '");>'
                                 + '<i class="fas fa-trash"></a>'

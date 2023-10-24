@@ -63,7 +63,7 @@ namespace Ecommerce.Core.Services
             var response = new Response<User>();
             try
             {
-                var userData = _repository.Find(new Guid(id));
+                var userData = await _repository.GetAsync(x => x.UserId == new Guid(id));
                 if (userData != null)
                 {
                     _repository.Delete(userData);
