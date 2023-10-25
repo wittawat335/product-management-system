@@ -54,11 +54,11 @@ namespace Ecommerce.Core.Common
             public static string InactiveText = "Inactive";
         }
 
-        public struct PositionId
+        public struct Position
         {
-            public static string Administrator = "08FE48BE-AC81-4983-9A0A-4EEB2972C947";
-            public static string User = "A06B5B8E-F94A-4DBA-A82E-D70F439548CF";
-            public static string Customer = "5FAB735A-A4CB-4EF3-BFD2-1FFC3BC37821";
+            public static string Administrator = "Administrator";
+            public static string User = "User";
+            public static string Customer = "Customer";
         }
     }
 }

@@ -144,8 +144,9 @@ namespace Ecommerce.Core.Services
                 }
                 else
                 {
+                    var positionId = _positionRepository.Get(x => x.PositionName == Constants.Position.Customer).PositionId;
                     request.password = _common.Encrypt(request.password);
-                    request.positionId = Constants.PositionId.Customer;
+                    request.positionId = positionId;
                     var user = await _repository.InsertAsyncAndSave(_mapper.Map<User>(request)); // Insert Table User
                     if (user != null)
                     {

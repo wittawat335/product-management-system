@@ -1,5 +1,9 @@
-﻿@model List<Menu>
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Services.Interfaces;
+@model List<Menu>
+@inject ICommonService common;
 @{
+    var user = common.GetSessionValue();
     var menuLv0 = ((List<Menu>)Model).Where(x => x.MenuLevel == 0);
     var menuLv1 = ((List<Menu>)Model).Where(x => x.MenuLevel == 1);
     var menuLv2 = ((List<Menu>)Model).Where(x => x.MenuLevel == 2);

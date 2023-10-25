@@ -1,5 +1,6 @@
 ﻿using Ecommerce.Core.DTOs;
 using Ecommerce.Core.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Api.Controllers
@@ -15,6 +16,7 @@ namespace Ecommerce.Api.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "Administrator,Manager,Employee")]
         [HttpGet("GetList")]
         public async Task<IActionResult> GetList()
         {

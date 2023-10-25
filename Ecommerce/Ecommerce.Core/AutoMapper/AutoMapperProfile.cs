@@ -11,8 +11,7 @@ namespace Ecommerce.Core.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<PositionRequest, Position>();
-            CreateMap<RegisterRequest, User>()
-                .ForMember(x => x.PositionId, opt => opt.MapFrom(origin => new Guid(origin.positionId)));
+            CreateMap<RegisterRequest, User>();
             //CreateMap<User, UserPosition>();
             //CreateMap<UserDTO, UserPosition>()
             //  .ForMember(x => x.Position, opt => opt.Ignore())
