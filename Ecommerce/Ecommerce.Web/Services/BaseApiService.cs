@@ -1,9 +1,10 @@
 ﻿using Ecommerce.Web.Commons;
 using Ecommerce.Web.Models;
-using Ecommerce.Web.Models.Authen;
 using Ecommerce.Web.Services.Interfaces;
 using Newtonsoft.Json;
+using System.Net;
 using System.Net.Http.Headers;
+using System.Security.Policy;
 
 namespace Ecommerce.Web.Services
 {
@@ -30,6 +31,11 @@ namespace Ecommerce.Web.Services
                     {
                         string data = result.Content.ReadAsStringAsync().Result;
                         response = JsonConvert.DeserializeObject<Response<List<T>>>(data);
+                    }
+                    else
+                    {
+                        //response.statusCode = (int)result.StatusCode;
+                        response.returnUrl = String.Format("~/ErrorPages/{0}", (int)result.StatusCode);
                     }
                 }
             }

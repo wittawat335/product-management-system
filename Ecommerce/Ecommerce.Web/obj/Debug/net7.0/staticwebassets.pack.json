@@ -425,6 +425,10 @@
       "PackagePath": "staticwebassets\\Login_v1\\vendor\\tilt\\tilt.jquery.min.js"
     },
     {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\css\\error500.css",
+      "PackagePath": "staticwebassets\\css\\error500.css"
+    },
+    {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

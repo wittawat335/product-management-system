@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MMX8nseZFh078p3babz4ashv3MF8T1uXu59p6ljP7vk=",
+  "Hash": "tJRFheuH15dVhsF8Zjiq8cxOL/ZNM98C22Vg8/3Dd0g=",
   "Source": "Ecommerce.Web",
   "BasePath": "_content/Ecommerce.Web",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\obj\\Debug\\net7.0\\scopedcss\\projectbundle\\Ecommerce.Web.bundle.scp.css"
+    },
+    {
+      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\css\\error500.css",
+      "SourceId": "Ecommerce.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\",
+      "BasePath": "_content/Ecommerce.Web",
+      "RelativePath": "css/error500.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\error500.css"
     },
     {
       "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\css\\site.css",

@@ -14,9 +14,12 @@ builder.Services.Configure<ForwardedHeadersOptions>(options =>
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseStatusCodePagesWithRedirects("ErrorPages/{0}"); //add
+    app.UseExceptionHandler("/Home/Privacy");
     app.UseHsts();
 }
+else
+    app.UseDeveloperExceptionPage();
 
 app.UseForwardedHeaders();
 app.UseSession();

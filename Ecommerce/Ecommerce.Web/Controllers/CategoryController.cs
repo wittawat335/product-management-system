@@ -33,6 +33,9 @@ namespace Ecommerce.Web.Controllers
         public async Task<IActionResult> GetList()
         {
             var response = await _categoryService.GetListAsync(_setting.BaseApiUrl + "Category/GetList");
+            if (response.returnUrl != null)
+                response.returnUrl = Url.Content(response.returnUrl);
+
             return Json(response);
         }
 

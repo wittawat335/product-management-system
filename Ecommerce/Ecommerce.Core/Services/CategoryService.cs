@@ -5,6 +5,7 @@ using Ecommerce.Core.Helper;
 using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
+using System.Net;
 
 namespace Ecommerce.Core.Services
 {
@@ -25,18 +26,15 @@ namespace Ecommerce.Core.Services
             try
             {
                 var list = await _repository.AsQueryable();
-                if (filter != null)
+                if (list.Count() > 0)
                 {
-                    if (filter.CategoryName != null && filter.CategoryName != "string")
-                        list = list.Where(x => x.CategoryName.Contains(filter.CategoryName));
-                    if (filter.Status != null && filter.Status != "string")
-                        list = list.Where(x => x.Status.Contains(filter.Status));
+                    response.value = _mapper.Map<List<CategoryDTO>>(list);
+                    response.isSuccess = Constants.Status.True;
                 }
-                response.value = _mapper.Map<List<CategoryDTO>>(list);
-                response.isSuccess = Constants.Status.True;
             }
             catch (Exception ex)
             {
+                response.statusCode = (int)HttpStatusCode.InternalServerError;
                 response.message = ex.Message;
             }
             return response;
