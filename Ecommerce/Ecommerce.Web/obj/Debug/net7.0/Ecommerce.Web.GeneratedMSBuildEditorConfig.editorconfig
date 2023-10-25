@@ -56,10 +56,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGFzaGJvYXJkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/ErrorPages/ErrorPages.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JQYWdlc1xFcnJvclBhZ2VzLmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
 [E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/ErrorPages/Forbidden.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JQYWdlc1xGb3JiaWRkZW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,6 +66,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/ErrorPages/ServerError.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JQYWdlc1xTZXJ2ZXJFcnJvci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/ErrorPages/UnAuthorized.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRXJyb3JQYWdlc1xVbkF1dGhvcml6ZWQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [E:/GitHub/.net-Ecommerce/Ecommerce/Ecommerce.Web/Views/Home/Index.cshtml]

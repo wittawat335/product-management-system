@@ -10,11 +10,14 @@ namespace Ecommerce.Web.Controllers
             string action = string.Empty;
             switch (statuscode)
             {
-                case 404:
-                    action = "NotFound";
+                case 401:
+                    action = "UnAuthorized";
                     break;
                 case 403:
                     action = "Forbidden";
+                    break;
+                case 404:
+                    action = "NotFound";
                     break;
                 case 500:
                     action = "ServerError";
