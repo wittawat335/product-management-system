@@ -4,7 +4,10 @@
 
 <form id="frmDetail">
     @{
-        await Html.RenderPartialAsync("_FormDetail", Model.User);
+        if (Model.Action != "cusUpdate")
+            await Html.RenderPartialAsync("_FormDetail", Model.User);
+        else
+            await Html.RenderPartialAsync("_FormCustomerDetail", Model.User);
     }
     <div style="display: none">
         <input type="text" name="action" value="@Model.Action" />

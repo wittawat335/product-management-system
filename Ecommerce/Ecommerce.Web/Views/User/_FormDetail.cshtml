@@ -2,45 +2,75 @@
 @using Ecommerce.Web.Models;
 @model User
 
-<div class="form-group">
-    <label asp-for="Username" class="form-label"></label>
+<label asp-for="Username" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-user-circle"></i></span>
+    </div>
     <input asp-for="Username" class="form-control" type="text" maxlength="20" />
 </div>
-<div class="form-group">
-    <label asp-for="Password" class="form-label"></label>
-    <input asp-for="Password" class="form-control" type="text" maxlength="20" />
+
+<label asp-for="Password" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-key"></i></span>
+    </div>
+    <input asp-for="Password" class="form-control" type="text" maxlength="10" />
 </div>
-<div class="form-group">
-    <label asp-for="PositionId" class="form-label"></label>
+
+<label asp-for="PositionId" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+    </div>
     <select asp-for="PositionId" class="form-control"
             asp-items="@(new SelectList (ViewBag.listPosition, "PositionId", "PositionName"))">
         <option disabled selected>@Constants.SelectOption.SelectOne</option>
     </select>
 </div>
-<div class="form-group">
-    <label asp-for="FullName" class="form-label"></label>
+
+<label asp-for="FullName" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-edit"></i></span>
+    </div>
     <input asp-for="FullName" class="form-control" type="text" maxlength="20" />
 </div>
-<div class="form-group">
-    <label asp-for="Email" class="form-label"></label>
-    <input asp-for="Email" class="form-control" type="email"/>
+
+<label asp-for="Email" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+    </div>
+    <input asp-for="Email" class="form-control" type="email">
 </div>
-<div class="form-group">
-    <label asp-for="PhoneNumber" class="form-label"></label>
+
+<label asp-for="PhoneNumber" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+    </div>
     <input asp-for="PhoneNumber" class="form-control" type="text" />
 </div>
+
 <div class="form-group">
     <label asp-for="Address" class="form-label"></label>
     <textarea asp-for="Address" class="form-control" rows="3" placeholder="..."></textarea>
 </div>
-<div class="form-group mb-3">
-    <label asp-for="Status" class="form-label"></label>
-    <select asp-for="Status" class="form-control" style="width: 100%;">
+
+
+<label asp-for="Status" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
+    </div>
+    <select asp-for="Status" class="form-control">
         <option value="" selected="selected">กรุณาเลือก</option>
         <option value="A">ใช้งาน</option>
         <option value="I">ไม่ได้ใช้งาน</option>
     </select>
 </div>
+
 <div class="modal-footer">
     <button id="btnSave"
             type="submit"

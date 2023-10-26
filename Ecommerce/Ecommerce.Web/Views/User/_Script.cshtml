@@ -100,9 +100,9 @@
                 {
                     data: 'userId',
                     render: function (data, type, row, meta) {
-                        return '<a class="btn btn-info" onclick=openPopup("' + row.userId + '","View","' + url + '","ดูรายละเอียดสินค้า");>'
+                        return '<a class="btn btn-info" onclick=openPopup("' + row.userId + '","View","' + url + '","ดูข้อมูลผู้ใช้งาน");>'
                             + '<i class="fas fa-eye"></i></a> | '
-                            + '<a class="btn btn-warning" onclick=openPopup("' + row.userId + '","Update","' + url + '","แก้ไขสินค้า");>'
+                            + '<a class="btn btn-warning" onclick=openPopup("' + row.userId + '","Update","' + url + '","แก้ไขข้อมูลผู้ใช้งาน");>'
                             + '<i class="fas fa-pen"></i></a> | '
                             + '<a class="btn btn-danger" onclick=confirmDelete("' + row.userId + '","' + urlDelete + '","' + row.username + '");>'
                             + '<i class="fas fa-trash"></a>'

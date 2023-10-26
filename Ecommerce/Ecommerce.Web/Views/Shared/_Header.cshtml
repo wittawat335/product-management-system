@@ -4,6 +4,7 @@
 @inject ICommonService common;
 @{
     var user = common.GetSessionValue();
+    var url = Url.Content(Constants.UrlAction.User.PopUpDialog);
 }
 <!-- Preloader -->
 <div class="preloader flex-column justify-content-center align-items-center">
@@ -137,18 +138,9 @@
                 <span class="">@user.userName</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <a href="#" class="dropdown-item">
+                <a class="dropdown-item" onclick="openPopup('@user.userId','cusUpdate','@url','แก้ไขข้อมูลส่วนตัว')">
                     <i class="fas fa-user mr-2"></i>
-                    <span>ชื่อผู้ใช้งาน : @user.fullName</span>
-                </a>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-user mr-2"></i>
-                    <span>ตำแหน่ง : @user.positionName</span>
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item">
-                    <i class="fas fa-envelope mr-2"></i> 
-                    <span>อีเมลล์ : @user.email</span>
+                    <span>แก้ไขข้อมูลส่วนตัว</span>
                 </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" asp-controller="Authen" asp-action="Logout">

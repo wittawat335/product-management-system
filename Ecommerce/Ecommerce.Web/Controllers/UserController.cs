@@ -67,7 +67,7 @@ namespace Ecommerce.Web.Controllers
                     response = await _service.InsertAsync(_setting.BaseApiUrl + "User/Add", model);
                     break;
 
-                case Constants.Action.Update:
+                case Constants.Action.Update or "cusUpdate":
                     response = await _service.PutAsync(_setting.BaseApiUrl + "User/Update", model);
                     break;
             }
