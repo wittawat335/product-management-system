@@ -21,7 +21,9 @@ namespace Ecommerce.Web.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-
+            var sessionLogin = _contextAccessor.HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
+            if (sessionLogin != null)
+                return RedirectToAction("Home", "Index");
 
             return View();
         }

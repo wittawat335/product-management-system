@@ -4,14 +4,18 @@
     $(document).ready(function () {
         checkAction();
         formValidate();
+        visiblePassword();
+    });
+
+    function visiblePassword(){
+        $('#Password').attr('type', 'password');
         $('#Password').click(function () {
             $('#Password').attr('type', $('#Password').attr('type') === 'password' ? 'text' : 'password');
         });
-    });
+    }
 
     function checkAction() {
         let action = '@Model.Action';
-        $('#Password').attr('type', 'password');
         switch (action) {
             case '@Constants.Action.View': {
                 $('#btnSave').hide();

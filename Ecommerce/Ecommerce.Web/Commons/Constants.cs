@@ -40,6 +40,11 @@
                 public const string Delete = "~/Category/Delete";
             }
 
+            public struct Contract
+            {
+                public const string SendEmail = "~/Contract/SendEmail";
+            }
+
             public struct Position
             {
                 public const string GetList = "~/Position/GetListPosition";

@@ -84,3 +84,8 @@ E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\Newtonsoft.Jso
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\Newtonsoft.Json.Bson.dll
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\Ecommerce.Api.staticwebassets.runtime.json
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\Dapper.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\BouncyCastle.Cryptography.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\MailKit.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\MimeKit.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\System.Security.Cryptography.Pkcs.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll

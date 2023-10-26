@@ -28,6 +28,7 @@ namespace Ecommerce.Core
             services.AddScoped<IPositionService, PositionService>();
             services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<ICommonService, CommonService>();
+            services.AddTransient<IEmailService, EmailService>();
         }
 
         public static void AuthenticationConfig(this IServiceCollection services, IConfiguration configuration)

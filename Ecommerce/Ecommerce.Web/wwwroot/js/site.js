@@ -259,6 +259,7 @@ function sendDelete(id, url) {
         }
         else {
             swalMessage('error', result.message);
+            window.location.href = result.returnUrl;
         }
     });
 }

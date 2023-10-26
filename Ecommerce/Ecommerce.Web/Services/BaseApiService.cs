@@ -139,6 +139,8 @@ namespace Ecommerce.Web.Services
                     string data = result.Content.ReadAsStringAsync().Result;
                     response = JsonConvert.DeserializeObject<Response<T>>(data);
                 }
+                else
+                    response.returnUrl = String.Format("~/ErrorPages/{0}", (int)result.StatusCode);
             }
 
             return response;

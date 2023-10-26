@@ -92,7 +92,10 @@ namespace Ecommerce.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> DeletePosition(string id)
         {
-            var response = await _PositionService.DeleteAsync(_setting.BaseApiUrl + string.Format("Position/{0}", id));
+            var response = await _PositionService.DeleteAsync(_setting.BaseApiUrl + string.Format("Position/Delete/{0}", id));
+            if (response.returnUrl != null)
+                response.returnUrl = Url.Content(response.returnUrl);
+
             return Json(response);
         }
 

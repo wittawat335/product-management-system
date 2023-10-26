@@ -1,9 +1,7 @@
-﻿
+﻿@model MailRequest
 @{
     ViewData["Title"] = "Index";
 }
-
-<!-- Content Header (Page header) -->
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -20,43 +18,46 @@
     </div><!-- /.container-fluid -->
 </section>
 
-<!-- Main content -->
-<section class="content">
-    <!-- Default box -->
-    <div class="card">
-        <div class="card-body row">
-            <div class="col-5 text-center d-flex align-items-center justify-content-center">
-                <div class="">
-                    <p class="lead mb-5">
-                        <strong>Line ID:</strong> wittawat335 <br />
-                        เบอร์โทรทีมงาน: 093-3262899
-                    </p>
+<form id="frmDetail" role="form">
+    <section class="content">
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-body row">
+                <div class="col-5 text-center d-flex align-items-center justify-content-center">
+                    <div class="">
+                        <p class="lead mb-5">
+                            <strong>Line ID:</strong> wittawat335 <br />
+                            เบอร์โทรทีมงาน: 093-3262899
+                        </p>
+                    </div>
                 </div>
-            </div>
-            <div class="col-7">
-                <div class="form-group">
-                    <label for="inputName">Name</label>
-                    <input type="text" id="inputName" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="inputEmail">E-Mail</label>
-                    <input type="email" id="inputEmail" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="inputSubject">Subject</label>
-                    <input type="text" id="inputSubject" class="form-control" />
-                </div>
-                <div class="form-group">
-                    <label for="inputMessage">Message</label>
-                    <textarea id="inputMessage" class="form-control" rows="4"></textarea>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-primary" value="Send message">
+                <div class="col-7">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ReturnEmail"></label>
+                        <input asp-for="ReturnEmail" type="email" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Subject"></label>
+                        <input asp-for="Subject" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Body"></label>
+                        <textarea asp-for="Body" class="form-control" rows="4"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <input id="btnSave" type="submit" class="btn btn-primary" value="ส่งข้อความ">
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-</section>
-<!-- /.content -->
-
+    </section>
+</form>
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_Script");
+    }
+}
