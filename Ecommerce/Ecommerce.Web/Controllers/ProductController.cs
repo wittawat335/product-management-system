@@ -1,6 +1,8 @@
 ﻿using Ecommerce.Web.Commons;
 using Ecommerce.Web.Extenions.Class;
 using Ecommerce.Web.Models;
+using Ecommerce.Web.Models.Category;
+using Ecommerce.Web.Models.Product;
 using Ecommerce.Web.Services;
 using Ecommerce.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;

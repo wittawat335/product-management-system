@@ -1,6 +1,6 @@
 ﻿using Ecommerce.Web.Commons;
-using Ecommerce.Web.Models;
 using Ecommerce.Web.Models.Authen;
+using Ecommerce.Web.Models.Permission;
 using Ecommerce.Web.Services.Interfaces;
 using Newtonsoft.Json;
 

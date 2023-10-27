@@ -1,4 +1,5 @@
 ﻿using Ecommerce.Web.Models;
+using Ecommerce.Web.Models.Permission;
 
 namespace Ecommerce.Web.Services.Interfaces
 {

@@ -3,6 +3,9 @@ using Ecommerce.Web.Models;
 using Ecommerce.Web.Services.Interfaces;
 using Microsoft.Extensions.Options;
 using Ecommerce.Web.Commons;
+using Ecommerce.Web.Models.Category;
+using Ecommerce.Web.Models.Product;
+
 namespace Ecommerce.Web.Services
 {
     public class ProductService : IProductService

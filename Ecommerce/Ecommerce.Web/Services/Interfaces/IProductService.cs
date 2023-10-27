@@ -1,4 +1,6 @@
 ﻿using Ecommerce.Web.Models;
+using Ecommerce.Web.Models.Category;
+using Ecommerce.Web.Models.Product;
 
 namespace Ecommerce.Web.Services.Interfaces
 {

@@ -38,6 +38,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Notification\" />
     <Folder Include="wwwroot\images\product\" />
   </ItemGroup>
 
