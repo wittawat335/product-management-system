@@ -8,22 +8,18 @@ namespace Ecommerce.Web.Controllers
     public class AuthenController : Controller
     {
         private readonly IAuthenService _service;
-        private readonly IHttpContextAccessor _contextAccessor;
-        private readonly IConfiguration _configuration;
 
-        public AuthenController(IAuthenService service, IHttpContextAccessor contextAccessor, IConfiguration configuration)
+        public AuthenController(IAuthenService service)
         {
             _service = service;
-            _contextAccessor = contextAccessor;
-            _configuration = configuration;
         }
 
         [HttpGet]
         public IActionResult Login()
         {
-            var sessionLogin = _contextAccessor.HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
+            var sessionLogin = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
             if (sessionLogin != null)
-                return RedirectToAction("Home", "Index");
+                return RedirectToAction("Index", "Home");
 
             return View();
         }
@@ -31,17 +27,18 @@ namespace Ecommerce.Web.Controllers
         public async Task<IActionResult> Login(Login req)
         {
             var result = await _service.Login(req);
-            result.returnUrl = Url.Content("~" + result.returnUrl);
+            if (result.isSuccess)
+            {
+                await _service.GetPermission(result.value.positionId);
+                result.returnUrl = Url.Content("~" + result.returnUrl);
+            }
 
             return Json(result);
         }
 
         public IActionResult Logout()
         {
-            var cookieName = _configuration.GetValue<string>("AppSettings:CookieName");
-            _contextAccessor.HttpContext.Session.Clear();
-            Response.Cookies.Delete(cookieName);
-
+            clearSession();
             return RedirectToAction("Login");
         }
 
@@ -50,6 +47,18 @@ namespace Ecommerce.Web.Controllers
         {
             var result = await _service.Register(req);
             return Json(result);
+        }
+
+        public void clearSession()
+        {
+            HttpContext.Session.Remove(Constants.SessionKey.sessionLogin);
+            HttpContext.Session.Remove(Constants.SessionKey.accessToken);
+            HttpContext.Session.Remove(Constants.SessionKey.permission);
+            HttpContext.Session.Clear();
+            foreach (var cookie in Request.Cookies.Keys)
+            {
+                Response.Cookies.Delete(cookie);
+            }
         }
     }
 }

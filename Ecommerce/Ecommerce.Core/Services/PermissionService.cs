@@ -5,6 +5,7 @@ using Ecommerce.Core.Helper;
 using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
+using System.Net;
 
 namespace Ecommerce.Core.Services
 {
@@ -72,6 +73,43 @@ namespace Ecommerce.Core.Services
             }
             catch (Exception ex)
             {
+                response.message = ex.Message;
+            }
+            return response;
+        }
+
+        //public async Task<bool> IsPermission(string positionId)
+        //{
+        //    bool isPer = false;
+        //    try
+        //    {
+        //        var query = await _repository
+        //            .GetAsync(x => x.PositionId == positionId);
+        //        if (query != null)
+        //            isPer = true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //    return isPer;
+        //}
+
+        public async Task<Response<List<PermissionDTO>>> GetList(string positionId)
+        {
+            var response = new Response<List<PermissionDTO>>();
+            try
+            {
+                var list = await _repository.GetListAsync(x => x.PositionId == positionId);
+                if (list.Count() > 0)
+                {
+                    response.value = _mapper.Map<List<PermissionDTO>>(list);
+                    response.isSuccess = Constants.Status.True;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.statusCode = (int)HttpStatusCode.InternalServerError;
                 response.message = ex.Message;
             }
             return response;

@@ -1,9 +1,12 @@
 ﻿@using Ecommerce.Web.Models;
 @using Ecommerce.Web.Commons;
 @using Ecommerce.Web.Models.Category;
+@using Ecommerce.Web.Services.Interfaces;
+@inject ICommonService common;
 @model Category
 @{
     ViewData["Title"] = "หน้าหลัก";
+    bool permAdd = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.ActId.New);
     var urlPopUp = Url.Content(Constants.UrlAction.Category.PopUpDialog);
     var action = Constants.Action.Add;
 }
@@ -44,9 +47,12 @@
                             <th>@Html.DisplayNameFor(m => m.Status)</th>
                             <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
                             <th>
-                                <a class="btn btn-info" onclick="openPopup('','@action','@urlPopUp','เพิ่มประเภทสินค้า')">
-                                    เพิ่มประเภทสินค้า
-                                </a>
+                                @if (permAdd)
+                                {
+                                    <a class="btn btn-info" onclick="openPopup('','@action','@urlPopUp','เพิ่มประเภทสินค้า')">
+                                        เพิ่มประเภทสินค้า
+                                    </a>
+                                }
                             </th>
                         </tr>
                     </thead>

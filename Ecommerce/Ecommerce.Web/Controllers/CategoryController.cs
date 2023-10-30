@@ -11,13 +11,18 @@ namespace Ecommerce.Web.Controllers
     public class CategoryController : Controller
     {
         private readonly IBaseApiService<Category> _categoryService;
+        private readonly ICommonService _common;
         private readonly IHttpContextAccessor _contextAccessor;
         private readonly AppSetting _setting;
 
-        public CategoryController(IBaseApiService<Category> categoryService, IHttpContextAccessor contextAccessor,
+        public CategoryController(
+            IBaseApiService<Category> categoryService,
+            ICommonService common,
+            IHttpContextAccessor contextAccessor,
             IOptions<AppSetting> options)
         {
             _categoryService = categoryService;
+            _common = common;
             _contextAccessor = contextAccessor;
             _setting = options.Value;
         }

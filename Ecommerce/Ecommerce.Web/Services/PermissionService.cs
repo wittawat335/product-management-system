@@ -22,7 +22,8 @@ namespace Ecommerce.Web.Services
         public PermissionService(
             ICommonService common,
             IBaseApiService<Permission> service,
-            IHttpContextAccessor contextAccessor, IOptions<AppSetting> options)
+            IHttpContextAccessor contextAccessor,
+            IOptions<AppSetting> options)
         {
             _common = common;
             _service = service;

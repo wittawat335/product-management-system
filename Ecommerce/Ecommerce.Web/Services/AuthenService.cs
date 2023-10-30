@@ -7,6 +7,7 @@ using Microsoft.Extensions.Options;
 using Ecommerce.Web.Commons;
 using System.Net.Http.Json;
 using Ecommerce.Web.Models.Authen;
+using Ecommerce.Web.Models.Permission;
 
 namespace Ecommerce.Web.Services
 {
@@ -28,13 +29,44 @@ namespace Ecommerce.Web.Services
             throw new NotImplementedException();
         }
 
+        public async Task GetPermission(string positionId)
+        {
+            var response = new Response<List<Permission>>();
+            var path = string.Format(_setting.BaseApiUrl + "Permission/GetList/{0}", positionId);
+            try
+            {
+                using (var client = new HttpClient(_httpClient))
+                {
+                    client.BaseAddress = new Uri(path);
+                    client.DefaultRequestHeaders.Accept.Clear();
+                    client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    HttpResponseMessage result = await client.GetAsync(path);
+                    if (result.IsSuccessStatusCode)
+                    {
+                        string data = result.Content.ReadAsStringAsync().Result;
+                        response = JsonConvert.DeserializeObject<Response<List<Permission>>>(data);
+                        if (response.isSuccess)
+                        {
+                            SetPermissionToSession(response.value);
+                        }
+                    }
+                    else
+                        response.message = Constants.MessageError.CallAPI;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+        }
+
         public async Task<Response<Session>> Login(Login request)
         {
             var response = new Response<Session>();
             var path = _setting.BaseApiUrl + "Authen/Login";
             try
             {
-                using (var client = new HttpClient(_httpClient))
+                using (var client = new HttpClient(_httpClient, false))
                 {
                     client.BaseAddress = new Uri(path);
                     client.DefaultRequestHeaders.Accept.Clear();
@@ -46,7 +78,9 @@ namespace Ecommerce.Web.Services
                         string data = result.Content.ReadAsStringAsync().Result;
                         response = JsonConvert.DeserializeObject<Response<Session>>(data);
                         if (response.isSuccess)
+                        {
                             SetSessionValue(response.value);
+                        }
                     }
                     else
                         response.message = Constants.MessageError.CallAPI;
@@ -93,6 +127,20 @@ namespace Ecommerce.Web.Services
             }
 
             return response;
+        }
+
+        public void SetPermissionToSession(List<Permission> listPermission)
+        {
+            try
+            {
+                string sessionString = JsonConvert.SerializeObject(listPermission);
+                if (sessionString != null)
+                    _contextAccessor.HttpContext.Session.SetString(Constants.SessionKey.permission, sessionString);
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public void SetSessionValue(Session session)

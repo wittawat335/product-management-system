@@ -15,6 +15,7 @@
         public struct SessionKey
         {
             public const string sessionLogin = "sessionLogin";
+            public const string permission = "listPermission";
             public const string accessToken = "JwtToken";
         }
         public struct UrlAction
@@ -117,6 +118,32 @@
             public const string Delete = "Delete";
             public const string View = "View";
         }
-    }
 
+        public struct Menu
+        {
+            public struct User
+            {
+                public const string Id = "MN01";
+                public struct ActId
+                {
+                    public const string New = "ACT001";
+                    public const string Update = "ACT002";
+                    public const string View = "ACT002";
+                    public const string Delete = "ACT004";
+                }
+            }
+
+            public struct Category
+            {
+                public const string Id = "MN04";
+                public struct ActId
+                {
+                    public const string New = "ACT009";
+                    public const string Update = "ACT010";
+                    public const string View = "ACT011";
+                    public const string Delete = "ACT012";
+                }
+            }
+        }
+    }
 }

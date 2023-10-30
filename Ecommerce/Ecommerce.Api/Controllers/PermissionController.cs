@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Api.Controllers
 {
-    [Authorize(Roles = "Developer,Administrator")]
+    //[Authorize(Roles = "Developer,Administrator")]
     [Route("api/[controller]")]
     [ApiController]
     public class PermissionController : ControllerBase
@@ -17,6 +17,12 @@ namespace Ecommerce.Api.Controllers
         public PermissionController(IPermissionService service)
         {
             _service = service;
+        }
+
+        [HttpGet("GetList/{positionId}")]
+        public async Task<IActionResult> GetList(string positionId)
+        {
+            return Ok(await _service.GetList(positionId));
         }
 
         [HttpPost("Add")]
