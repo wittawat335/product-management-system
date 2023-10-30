@@ -1,9 +1,11 @@
 ﻿using Ecommerce.Core.DTOs;
 using Ecommerce.Core.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Api.Controllers
 {
+    [Authorize(Roles = "Developer,Administrator,Manager,Employee")]
     [Route("api/[controller]")]
     [ApiController]
     public class PositionController : ControllerBase
@@ -15,6 +17,7 @@ namespace Ecommerce.Api.Controllers
             _service = service;
         }
 
+        [Authorize(Roles = "Developer,Administrator")]
         [HttpGet("GetJsTree/{positionId}")]
         public async Task<IActionResult> GetJsTree(string positionId)
         {
@@ -53,6 +56,7 @@ namespace Ecommerce.Api.Controllers
             return Ok(await _service.Update(request));
         }
 
+        [Authorize(Roles = "Developer")]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {

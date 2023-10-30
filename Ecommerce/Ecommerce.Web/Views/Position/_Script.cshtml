@@ -14,10 +14,14 @@
             type: "POST",
             url: '@Url.Content(Constants.UrlAction.Position.GetList)',
             dataType: "json",
-            data: {
-
+            data: {},
+            success: function (response) {
+                if (response.isSuccess) onSuccess(response);
+                else window.location.href = response.returnUrl;
             },
-            success: onSuccess
+            error: function (textStatus, errorThrown) {
+                Success = false;
+            }
         })
     }
 

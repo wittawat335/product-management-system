@@ -36,6 +36,9 @@ namespace Ecommerce.Web.Controllers
         public async Task<IActionResult> GetList(User search)
         {
             var response = await _service.Search(_setting.BaseApiUrl + "User/GetList", search);
+            if (response.returnUrl != null)
+                response.returnUrl = Url.Content(response.returnUrl);
+
             return Json(response);
         }
 

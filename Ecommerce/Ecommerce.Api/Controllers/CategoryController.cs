@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Api.Controllers
 {
+    [Authorize(Roles = "Developer,Administrator,Manager,Employee")]
     [Route("api/[controller]")]
     [ApiController]
     public class CategoryController : ControllerBase
@@ -16,7 +17,6 @@ namespace Ecommerce.Api.Controllers
             _service = service;
         }
 
-        [Authorize(Roles = "Administrator,Manager,Employee")]
         [HttpGet("GetList")]
         public async Task<IActionResult> GetList()
         {

@@ -43,6 +43,9 @@ namespace Ecommerce.Web.Controllers
         public async Task<IActionResult> GetListPosition()
         {
             var response = await _PositionService.GetListAsync(_setting.BaseApiUrl + "Position/GetList");
+            if (response.returnUrl != null)
+                response.returnUrl = Url.Content(response.returnUrl);
+
             return Json(response);
         }
 

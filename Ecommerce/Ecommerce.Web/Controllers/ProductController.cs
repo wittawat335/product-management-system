@@ -47,6 +47,9 @@ namespace Ecommerce.Web.Controllers
         public async Task<IActionResult> GetList(Product search)
         {
             var response = await _service.GetListProduct(search);
+            if (response.returnUrl != null)
+                response.returnUrl = Url.Content(response.returnUrl);
+
             return Json(response);
         }
 

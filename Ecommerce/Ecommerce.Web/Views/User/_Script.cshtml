@@ -24,7 +24,13 @@
                 PositionId: $('#@Html.IdFor(m => m.PositionId)').val(),
                 Status: $('#@Html.IdFor(m => m.Status)').val(),
             },
-            success: onSuccess
+            success: function (response) {
+                if (response.isSuccess) onSuccess(response);
+                else window.location.href = response.returnUrl;
+            },
+            error: function (textStatus, errorThrown) {
+                Success = false;
+            }
         })
     }
 

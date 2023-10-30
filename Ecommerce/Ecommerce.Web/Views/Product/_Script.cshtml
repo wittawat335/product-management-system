@@ -31,7 +31,13 @@
                 CategoryId: $('#@Html.IdFor(m => m.CategoryId)').val(),
                 Status: $('#@Html.IdFor(m => m.Status)').val(),
             },
-            success: onSuccess
+            success: function (response) {
+                if (response.isSuccess) onSuccess(response);
+                else window.location.href = response.returnUrl;
+            },
+            error: function (textStatus, errorThrown) {
+                Success = false;
+            }
         })
     }
 

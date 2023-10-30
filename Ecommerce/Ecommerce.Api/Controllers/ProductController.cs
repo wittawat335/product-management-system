@@ -1,10 +1,12 @@
 ﻿using Ecommerce.Core.DTOs;
 using Ecommerce.Core.Helper;
 using Ecommerce.Core.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Api.Controllers
 {
+    [Authorize(Roles = "Developer,Administrator,Manager,Employee")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
