@@ -989,6 +989,14 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.js",
+      "PackagePath": "staticwebassets\\lib\\microsoft\\signalr\\dist\\browser\\signalr.js"
+    },
+    {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+      "PackagePath": "staticwebassets\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js"
+    },
+    {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\plugins\\bootstrap-colorpicker\\css\\bootstrap-colorpicker.css",
       "PackagePath": "staticwebassets\\plugins\\bootstrap-colorpicker\\css\\bootstrap-colorpicker.css"
     },

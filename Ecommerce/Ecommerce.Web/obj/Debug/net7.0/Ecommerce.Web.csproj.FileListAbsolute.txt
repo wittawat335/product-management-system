@@ -222,3 +222,4 @@ E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web\obj\Debug\net7.0\Ecommerce.Web.
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web\obj\Debug\net7.0\Ecommerce.Web.genruntimeconfig.cache
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web\obj\Debug\net7.0\ref\Ecommerce.Web.dll
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web\bin\Debug\net7.0\appsettings.Production.json
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web\bin\Debug\net7.0\libman.json

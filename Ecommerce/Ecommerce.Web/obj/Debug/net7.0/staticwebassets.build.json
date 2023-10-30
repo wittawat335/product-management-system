@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "tJRFheuH15dVhsF8Zjiq8cxOL/ZNM98C22Vg8/3Dd0g=",
+  "Hash": "trFmDnDZeqjkF0x8mfM0STbdiWsjf0uY3LNt3yFCZwU=",
   "Source": "Ecommerce.Web",
   "BasePath": "_content/Ecommerce.Web",
   "Mode": "Default",
@@ -2446,6 +2446,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.js",
+      "SourceId": "Ecommerce.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\",
+      "BasePath": "_content/Ecommerce.Web",
+      "RelativePath": "lib/microsoft/signalr/dist/browser/signalr.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.js"
+    },
+    {
+      "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js",
+      "SourceId": "Ecommerce.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\",
+      "BasePath": "_content/Ecommerce.Web",
+      "RelativePath": "lib/microsoft/signalr/dist/browser/signalr.min.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\lib\\microsoft\\signalr\\dist\\browser\\signalr.min.js"
     },
     {
       "Identity": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\Login_v1\\css\\main.css",

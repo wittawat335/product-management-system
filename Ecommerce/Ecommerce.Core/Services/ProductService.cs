@@ -6,16 +6,20 @@ using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using TableDependency.SqlClient;
 
 namespace Ecommerce.Core.Services
 {
     public class ProductService : IProductService
     {
         private readonly IGenericRepository<Product> _repository;
+        private readonly ConnectionStringSettings _setting;
         private readonly IMapper _mapper;
 
-        public ProductService(IGenericRepository<Product> repository, IMapper mapper)
+        public ProductService(IGenericRepository<Product> repository, IOptions<ConnectionStringSettings> options, IMapper mapper)
         {
+            _setting = options.Value;
             _repository = repository;
             _mapper = mapper;
         }

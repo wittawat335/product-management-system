@@ -89,3 +89,8 @@ E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\MailKit.dll
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\MimeKit.dll
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\System.Security.Cryptography.Pkcs.dll
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Security.Cryptography.Pkcs.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\TableDependency.SqlClient.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\runtimes\win7-x64\native\sni.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\runtimes\win7-x86\native\sni.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\runtimes\unix\lib\netstandard1.3\System.Data.SqlClient.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\runtimes\win\lib\netstandard1.3\System.Data.SqlClient.dll

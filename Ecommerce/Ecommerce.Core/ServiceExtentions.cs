@@ -16,6 +16,7 @@ namespace Ecommerce.Core
         {
             services.Configure<EmailSettings>(configuration.GetSection("EmailSettings"));
             services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
+            services.Configure<ConnectionStringSettings>(configuration.GetSection("ConnectionStrings"));
         }
         public static void AddService(this IServiceCollection services)
         {   //Scoped : จะถูกสร้างใหม่ทุกครั้งที่ Client Request (1 Connection = 1 Client Request)
