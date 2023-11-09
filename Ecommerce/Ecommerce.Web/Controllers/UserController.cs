@@ -13,20 +13,17 @@ namespace Ecommerce.Web.Controllers
     {
         private readonly IBaseApiService<User> _service;
         private readonly IBaseApiService<Position> _positionService;
-        private readonly IHttpContextAccessor _contextAccessor;
         private readonly AppSetting _setting;
 
-        public UserController(IBaseApiService<User> service, IBaseApiService<Position> positionService, IHttpContextAccessor contextAccessor,
-         IOptions<AppSetting> options)
+        public UserController(IBaseApiService<User> service, IBaseApiService<Position> positionService, IOptions<AppSetting> options)
         {
             _service = service;
             _positionService = positionService;
-            _contextAccessor = contextAccessor;
             _setting = options.Value;
         }
         public IActionResult Index()
         {
-            var sessionLogin = _contextAccessor.HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
+            var sessionLogin = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
             if (sessionLogin == null)
                 return RedirectToAction("Login", "Authen");
 

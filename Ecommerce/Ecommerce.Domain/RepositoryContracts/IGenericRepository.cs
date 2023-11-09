@@ -19,6 +19,7 @@ namespace Ecommerce.Domain.RepositoryContracts
         Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null, int? skip = null, int? take = null);
         Task<T> GetAsync(Expression<Func<T, bool>> filter);
         Task<T> FindAsync(string code);
+        Task InsertAsync(T model);
         Task<T> InsertAsyncAndSave(T model);
         Task InsertListAsync(List<T> model);
         Task<T> UpdateAndSaveAsync(T model);

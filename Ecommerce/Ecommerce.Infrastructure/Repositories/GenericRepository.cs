@@ -33,52 +33,19 @@ namespace Ecommerce.Infrastructure.Repositories
                 throw;
             }
         }
-        public T Get(Expression<Func<T, bool>> filter)
-        {
-            return _context.Set<T>().FirstOrDefault(filter);
-        }
-        public T Find(string id)
-        {
-            return _context.Set<T>().Find(id);
-        }
-        public void Insert(T model)
-        {
-            _context.Set<T>().Add(model);
-        }
-        public void InsertList(List<T> model)
-        {
-            _context.Set<T>().AddRange(model);
-        }
-        public void Update(T model)
-        {
-            _context.Set<T>().Update(model);
-        }
-        public void UpdateList(List<T> model)
-        {
-            _context.Set<T>().UpdateRange(model);
-        }
-        public void Delete(T model)
-        {
-            _context.Set<T>().Remove(model);
-        }
-        public void DeleteList(List<T> model)
-        {
-            _context.Set<T>().RemoveRange(model);
-        }
-        public void SaveChanges()
-        {
-            _context.SaveChanges();
-        }
+        public T Get(Expression<Func<T, bool>> filter) => _context.Set<T>().FirstOrDefault(filter);
+        public T Find(string id) => _context.Set<T>().Find(id);
+        public void Insert(T model) => _context.Set<T>().Add(model);
+        public void InsertList(List<T> model) => _context.Set<T>().AddRange(model);
+        public void Update(T model) => _context.Set<T>().Update(model);
+        public void UpdateList(List<T> model) => _context.Set<T>().UpdateRange(model);
+        public void Delete(T model) => _context.Set<T>().Remove(model);
+        public void DeleteList(List<T> model) => _context.Set<T>().RemoveRange(model);
+        public void SaveChanges() => _context.SaveChanges();
 
         #region Async
-        public async Task SaveChangesAsync()
-        {
-            await _context.SaveChangesAsync();
-        }
-        public async Task<T> GetAsync(Expression<Func<T, bool>> filter)
-        {
-            return await _context.Set<T>().FirstOrDefaultAsync(filter);
-        }
+        public async Task SaveChangesAsync() => await _context.SaveChangesAsync();
+        public async Task<T> GetAsync(Expression<Func<T, bool>> filter) => await _context.Set<T>().FirstOrDefaultAsync(filter);
         public async Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null, int? skip = null, int? take = null)
         {
             try
@@ -98,23 +65,15 @@ namespace Ecommerce.Infrastructure.Repositories
                 throw;
             }
         }
-        public async Task<T> FindAsync(string code)
-        {
-            return await _context.Set<T>().FindAsync(code);
-        }
-
+        public async Task<T> FindAsync(string code) => await _context.Set<T>().FindAsync(code);
+        public async Task InsertAsync(T model) => await _context.Set<T>().AddAsync(model);
         public async Task<T> InsertAsyncAndSave(T model)
         {
             await _context.Set<T>().AddAsync(model);
             await SaveChangesAsync();
             return model;
         }
-
-        public async Task InsertListAsync(List<T> model)
-        {
-            await _context.Set<T>().AddRangeAsync(model);
-        }
-
+        public async Task InsertListAsync(List<T> model) => await _context.Set<T>().AddRangeAsync(model);
         public async Task<T> UpdateAndSaveAsync(T model)
         {
             _context.Set<T>().Update(model);

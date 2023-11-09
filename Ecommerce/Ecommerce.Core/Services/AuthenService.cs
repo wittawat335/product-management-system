@@ -47,12 +47,16 @@ namespace Ecommerce.Core.Services
                 }
                 else
                 {
-                    var positionResult = await _positionRepository.InsertAsyncAndSave(_mapper.Map<Position>(request));
-                    if (positionResult != null)
-                    {
-                        response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.AddSuccessfully;
-                    }
+                    await _positionRepository.InsertAsync(position);
+                    await _positionRepository.SaveChangesAsync();
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.AddSuccessfully;
+                    //var positionResult = await _positionRepository.InsertAsyncAndSave(_mapper.Map<Position>(request));
+                    //if (positionResult != null)
+                    //{
+                    //    response.isSuccess = Constants.Status.True;
+                    //    response.message = Constants.StatusMessage.AddSuccessfully;
+                    //}
                 }
             }
             catch (Exception ex)

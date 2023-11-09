@@ -13,19 +13,16 @@ namespace Ecommerce.Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IWebHostEnvironment _environment;
-        private readonly IHttpContextAccessor _contextAccessor;
         private readonly IPermissionService _permissionService;
         private readonly AppSetting _setting;
 
         public HomeController(ILogger<HomeController> logger,
             IWebHostEnvironment environment,
-            IHttpContextAccessor contextAccessor,
             IPermissionService permissionService,
             IOptions<AppSetting> options)
         {
             _logger = logger;
             _environment = environment;
-            _contextAccessor = contextAccessor;
             _permissionService = permissionService;
             _setting = options.Value;
         }
@@ -37,7 +34,7 @@ namespace Ecommerce.Web.Controllers
 
         public IActionResult Index()
         {
-            var sessionLogin = _contextAccessor.HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
+            var sessionLogin = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
             if (sessionLogin == null)
                 return RedirectToAction("Login", "Authen");
 

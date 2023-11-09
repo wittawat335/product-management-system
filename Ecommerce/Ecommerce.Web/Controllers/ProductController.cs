@@ -14,7 +14,6 @@ namespace Ecommerce.Web.Controllers
     {
         private readonly IBaseApiService<Product> _productService;
         private readonly IBaseApiService<Category> _categoryService;
-        private readonly IHttpContextAccessor _contextAccessor;
         private readonly IProductService _service;
         private readonly IWebHostEnvironment _environment;
         private readonly AppSetting _setting;
@@ -24,12 +23,10 @@ namespace Ecommerce.Web.Controllers
             IBaseApiService<Category> categoryService,
             IOptions<AppSetting> options,
             IWebHostEnvironment environment,
-            IHttpContextAccessor contextAccessor,
             IProductService service)
         {
             _productService = productService;
             _categoryService = categoryService;
-            _contextAccessor = contextAccessor;
             _setting = options.Value;
             _environment = environment;
             _service = service;
@@ -37,7 +34,7 @@ namespace Ecommerce.Web.Controllers
 
         public IActionResult Index()
         {
-            var sessionLogin = _contextAccessor.HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
+            var sessionLogin = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
             if (sessionLogin == null)
                 return RedirectToAction("Login", "Authen");
 

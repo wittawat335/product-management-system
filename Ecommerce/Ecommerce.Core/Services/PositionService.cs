@@ -74,11 +74,16 @@ namespace Ecommerce.Core.Services
             var response = new Response<Position>();
             try
             {
-                response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Position>(model));
-                if (response.value != null)
+                var position = await _repository.GetAsync(x => x.PositionName == model.PositionName);
+                if (position != null) response.message = Constants.StatusMessage.DuplicatePosition;
+                else
                 {
-                    response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.AddSuccessfully;
+                    response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Position>(model));
+                    if (response.value != null)
+                    {
+                        response.isSuccess = Constants.Status.True;
+                        response.message = Constants.StatusMessage.AddSuccessfully;
+                    }
                 }
             }
             catch (Exception ex)
@@ -106,7 +111,6 @@ namespace Ecommerce.Core.Services
             }
             catch (Exception ex)
             {
-                response.isSuccess = false;
                 response.message = "Exception Occurs : " + ex.Message;
             }
 
