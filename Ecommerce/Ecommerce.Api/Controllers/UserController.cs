@@ -20,37 +20,43 @@ namespace Ecommerce.Api.Controllers
         [HttpGet("GetList")]
         public async Task<IActionResult> GetList()
         {
-            return Ok(await _service.GetList());
+            var response = await _service.GetList();
+            return Ok(response);
         }
 
         [HttpGet("GetUser/{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
-            return Ok(await _service.Get(id));
+            var response = await _service.Get(id);
+            return Ok(response);
         }
 
         [HttpPost("GetList")]
         public async Task<IActionResult> GetList(UserDTO request)
         {
-            return Ok(await _service.GetList(request));
+            var response = await _service.GetList(request);
+            return Ok(response);
         }
 
         [HttpPost("Add")]
         public async Task<IActionResult> Add(UserDTO request)
         {
-            return Ok(await _service.Add(request));
+            var response = await _service.Add(request);
+            return Ok(response);
         }
 
         [HttpPut("Update")]
         public async Task<IActionResult> Update(UserDTO request)
         {
-            return Ok(await _service.Update(request));
+            var response = await _service.Update(request);
+            return Ok(response);
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            return Ok(await _service.Delete(id));
+            var response = await _service.Delete(id);
+            return Ok(response);
         }
     }
 }

@@ -7,22 +7,18 @@ using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
 using Microsoft.EntityFrameworkCore;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Ecommerce.Core.Services
 {
     public class UserService : IUserService
     {
         private readonly IGenericRepository<User> _repository;
-        private readonly IGenericRepository<Position> _positionRepository;
         private readonly ICommonService _commonService;
         private readonly IMapper _mapper;
 
-        public UserService(IGenericRepository<User> repository, IGenericRepository<Position> positionRepository,
-            ICommonService commonService, IMapper mapper)
+        public UserService(IGenericRepository<User> repository, ICommonService commonService, IMapper mapper)
         {
             _repository = repository;
-            _positionRepository = positionRepository;
             _commonService = commonService;
             _mapper = mapper;
         }
@@ -33,23 +29,18 @@ namespace Ecommerce.Core.Services
             try
             {
                 var user = await _repository.GetAsync(x => x.Username == model.Username);
-                if (user != null && user.Status == Constants.Status.Active)
+                model.Password = _commonService.Encrypt(model.Password);
+                if (user == null)
                 {
-                    response.isSuccess = Constants.Status.False;
-                    response.message = Constants.StatusMessage.DuplicateUser;
-                }
-                else
-                {
-                    if (model.Password != null)
-                        model.Password = _commonService.Encrypt(model.Password);
-                    var test = _mapper.Map<User>(model);
-                    var resultUser = await _repository.InsertAsyncAndSave(test);
-                    if (resultUser != null)
+                    var mapping = _mapper.Map<User>(model);
+                    var result = await _repository.InsertAsyncAndSave(mapping);
+                    if (result != null)
                     {
                         response.isSuccess = Constants.Status.True;
                         response.message = Constants.StatusMessage.AddSuccessfully;
                     }
                 }
+                else response.message = Constants.StatusMessage.DuplicateUser;
             }
             catch (Exception ex)
             {
@@ -110,16 +101,15 @@ namespace Ecommerce.Core.Services
                 var result = list.Include(x => x.Position).ToList();
                 if (filter != null)
                 {
-                    if (filter.UserId != null)
-                        result = result.Where(x => x.UserId == new Guid(filter.UserId)).ToList();
-                    if (filter.PositionId != null)
-                        result = result.Where(x => x.PositionId == filter.PositionId).ToList();
-                    if (filter.Status != null)
-                        result = result.Where(x => x.Status.Contains(filter.Status)).ToList();
+                    if (filter.UserId != null) result = result.Where(x => x.UserId == new Guid(filter.UserId)).ToList();
+                    if (filter.PositionId != null) result = result.Where(x => x.PositionId == filter.PositionId).ToList();
+                    if (filter.Status != null) result = result.Where(x => x.Status.Contains(filter.Status)).ToList();
                 }
-
-                response.value = _mapper.Map<List<UserDTO>>(result);
-                response.isSuccess = Constants.Status.True;
+                if (result != null)
+                {
+                    response.value = _mapper.Map<List<UserDTO>>(result);
+                    response.isSuccess = Constants.Status.True;
+                }
             }
             catch (Exception ex)
             {
@@ -133,24 +123,18 @@ namespace Ecommerce.Core.Services
             var response = new Response<User>();
             try
             {
-                if (model != null)
+                var data = _repository.Get(x => x.UserId == new Guid(model.UserId));
+                if (data != null)
                 {
-                    var data = _repository.Get(x => x.UserId == new Guid(model.UserId));
-                    if (data != null)
-                    {
-                        if (model.Password != null)
-                            model.Password = _commonService.Encrypt(model.Password);
-
-                        _repository.Update(_mapper.Map(model, data));
-                        await _repository.SaveChangesAsync();
-                        response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.UpdateSuccessfully;
-                    }
+                    if (model.Password != null) model.Password = _commonService.Encrypt(model.Password);
+                    _repository.Update(_mapper.Map(model, data));
+                    await _repository.SaveChangesAsync();
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.UpdateSuccessfully;
                 }
             }
             catch (Exception ex)
             {
-                response.isSuccess = false;
                 response.message = "Exception Occurs : " + ex.Message;
             }
 

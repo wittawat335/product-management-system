@@ -21,46 +21,52 @@ namespace Ecommerce.Api.Controllers
         [HttpGet("GetJsTree/{positionId}")]
         public async Task<IActionResult> GetJsTree(string positionId)
         {
-            return Ok(await _service.GetListPermissionData(positionId));
+            var response = await _service.GetListPermissionData(positionId);
+            return Ok(response);
         }
 
         [HttpGet("GetList")]
         public async Task<IActionResult> GetList()
         {
-            return Ok(await _service.GetList());
+            var response = await _service.GetList();
+            return Ok(response);
         }
 
         [HttpGet("GetListActive")]
         public async Task<IActionResult> GetListActive()
         {
-            var filter = new PositionDTO();
-            filter.Status = "A";
-            return Ok(await _service.GetList(filter));
+            var filter = new PositionDTO { Status = "A" };
+            var response = await _service.GetList(filter);
+            return Ok(response);
         }
 
         [HttpGet("Get/{id}")]
         public async Task<IActionResult> Get(string id)
         {
-            return Ok(await _service.Get(id));
+            var response = await _service.Get(id);
+            return Ok(response);
         }
 
         [HttpPost("Add")]
         public async Task<IActionResult> Add(PositionDTO request)
         {
-            return Ok(await _service.Add(request));
+            var response = await _service.Add(request);
+            return Ok(response);
         }
 
         [HttpPut("Update")]
         public async Task<IActionResult> Update(PositionDTO request)
         {
-            return Ok(await _service.Update(request));
+            var response = await _service.Update(request);
+            return Ok(response);
         }
 
         [Authorize(Roles = "Developer")]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            return Ok(await _service.Delete(id));
+            var response = await _service.Delete(id);
+            return Ok(response);
         }
     }
 }

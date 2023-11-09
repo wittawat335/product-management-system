@@ -96,7 +96,6 @@ namespace Ecommerce.Core.Services
             }
             catch (Exception ex)
             {
-                response.isSuccess = false;
                 response.message = "Exception Occurs : " + ex.Message;
             }
 

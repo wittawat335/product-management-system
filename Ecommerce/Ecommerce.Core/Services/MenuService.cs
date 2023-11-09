@@ -47,8 +47,7 @@ namespace Ecommerce.Core.Services
                     response.value = _mapper.Map<List<MenuDTO>>(listMenus);
                     response.isSuccess = Constants.Status.True;
                 }
-                else
-                    response.message = Constants.StatusMessage.No_Data;
+                else response.message = Constants.StatusMessage.No_Data;
             }
             catch (Exception ex)
             {
@@ -66,8 +65,7 @@ namespace Ecommerce.Core.Services
                 response.value = _mapper.Map<List<MenuDTO>>
                     (await _MenuRepository.GetListAsync(x => x.Url != null && x.Status == Constants.Status.Active));
 
-                if (response.value.Count() > 0)
-                    response.isSuccess = Constants.Status.True;
+                if (response.value.Count() > 0) response.isSuccess = Constants.Status.True;
             }
             catch (Exception ex)
             {
@@ -102,15 +100,13 @@ namespace Ecommerce.Core.Services
             var response = new Response<List<MenuDTO>>();
             try
             {
-                if (positionId == "P00")
+                if (positionId == "Dev01")
                     response.value = _mapper.Map<List<MenuDTO>>(await _MenuRepository.GetListAsync(x => x.Status == Constants.Status.Active));
                 else
                     response.value = _mapper.Map<List<MenuDTO>>(await _storedRespository.SP_GET_MENU_BY_POSITION(positionId));
 
-                if (response.value.Count() > 0)
-                    response.isSuccess = Constants.Status.True;
-                else
-                    response.message = Constants.StatusMessage.No_Data;
+                if (response.value.Count() > 0) response.isSuccess = Constants.Status.True;
+                else response.message = Constants.StatusMessage.No_Data;
             }
             catch (Exception ex)
             {

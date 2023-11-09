@@ -7,7 +7,6 @@ using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using TableDependency.SqlClient;
 
 namespace Ecommerce.Core.Services
 {
@@ -32,19 +31,17 @@ namespace Ecommerce.Core.Services
                 var result = productList.Include(x => x.Category).ToList();
                 if (request != null)
                 {
-                    if (request.ProductId != null)
-                        result = result.Where(x => x.ProductId == request.ProductId).ToList();
-                    if (request.ProductName != null)
-                        result = result.Where(x => x.ProductName.Contains(request.ProductName)).ToList();
-                    if (request.CategoryId != null)
-                        result = result.Where(x => x.CategoryId == request.CategoryId).ToList();
-                    if (request.CategoryName != null)
-                        result = result.Where(x => x.Category.CategoryName.Contains(request.CategoryName)).ToList();
-                    if (request.Status != null)
-                        result = result.Where(x => x.Status.Contains(request.Status)).ToList();
+                    if (request.ProductId != null) result = result.Where(x => x.ProductId == request.ProductId).ToList();
+                    if (request.ProductName != null) result = result.Where(x => x.ProductName.Contains(request.ProductName)).ToList();
+                    if (request.CategoryId != null) result = result.Where(x => x.CategoryId == request.CategoryId).ToList();
+                    if (request.CategoryName != null) result = result.Where(x => x.Category.CategoryName.Contains(request.CategoryName)).ToList();
+                    if (request.Status != null) result = result.Where(x => x.Status.Contains(request.Status)).ToList();
                 }
-                response.value = _mapper.Map<List<ProductDTO>>(result);
-                response.isSuccess = Constants.Status.True;
+                if (result.Count() > 0)
+                {
+                    response.value = _mapper.Map<List<ProductDTO>>(result);
+                    response.isSuccess = Constants.Status.True;
+                }
             }
             catch (Exception ex)
             {
@@ -108,7 +105,6 @@ namespace Ecommerce.Core.Services
             }
             catch (Exception ex)
             {
-                response.isSuccess = false;
                 response.message = "Exception Occurs : " + ex.Message;
             }
 

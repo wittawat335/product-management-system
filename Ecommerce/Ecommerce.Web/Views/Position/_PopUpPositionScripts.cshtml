@@ -26,8 +26,16 @@
                 saveForm('frmDetail', '@Url.Content(Constants.UrlAction.Position.Save)')
             }
         });
+        checkValidate();
+    }
+
+    function checkValidate() {
         $('#frmDetail').validate({
             rules: {
+                PositionId: {
+                    required: true,
+                    minlength: 3
+                },
                 PositionName: {
                     required: true,
                     minlength: 3
@@ -40,8 +48,11 @@
                 }
             },
             messages: {
+                PositionId: {
+                    required: "กรุณาระบุรหัสตำแหน่ง",
+                },
                 PositionName: {
-                    required: "กรุณาระบุตำแหน่ง",
+                    required: "กรุณาระบุชื่อตำแหน่ง",
                 },
                 MenuDefault: {
                     required: "กรุณาเลือกสถานะ",
@@ -59,7 +70,8 @@
                 $(element).addClass('is-invalid');
             },
             unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
+                //$(element).removeClass('is-invalid');
+                $(element).addClass('is-valid');
             }
         });
     }

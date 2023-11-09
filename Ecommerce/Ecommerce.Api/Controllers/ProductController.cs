@@ -12,48 +12,52 @@ namespace Ecommerce.Api.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _service;
-        private readonly IWebHostEnvironment _environment;
 
-        public ProductController(IProductService service, IWebHostEnvironment environment)
+        public ProductController(IProductService service)
         {
             _service = service;
-            _environment = environment;
         }
 
         [HttpGet("GetList")]
         public async Task<IActionResult> GetList()
         {
-            return Ok(await _service.GetList());
+            var response = await _service.GetList();
+            return Ok(response);
         }
 
         [HttpPost("GetList")]
         public async Task<IActionResult> GetList(ProductDTO filter)
         {
-            return Ok(await _service.GetList(filter));
+            var response = await _service.GetList(filter);
+            return Ok(response);
         }
 
         [HttpGet("GetProduct/{id}")]
         public async Task<IActionResult> GetProduct(string id)
         {
-            return Ok(await _service.Get(id));
+            var response = await _service.Get(id);
+            return Ok(response);
         }
 
         [HttpPost("Add")]
         public async Task<IActionResult> Add(ProductDTO request)
         {
-            return Ok(await _service.Add(request));
+            var response = await _service.Add(request);
+            return Ok(response);
         }
 
         [HttpPut("Update")]
         public async Task<IActionResult> Update(ProductDTO request)
         {
-            return Ok(await _service.Update(request));
+            var response = await _service.Update(request);
+            return Ok(response);
         }
 
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {
-            return Ok(await _service.Delete(id));
+            var response = await _service.Delete(id);
+            return Ok(response);
         }
 
         //[HttpPut("UploadImage")]

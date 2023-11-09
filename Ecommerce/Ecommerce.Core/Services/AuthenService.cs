@@ -47,22 +47,17 @@ namespace Ecommerce.Core.Services
                 }
                 else
                 {
-                    await _positionRepository.InsertAsync(position);
-                    await _positionRepository.SaveChangesAsync();
-                    response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.AddSuccessfully;
-                    //var positionResult = await _positionRepository.InsertAsyncAndSave(_mapper.Map<Position>(request));
-                    //if (positionResult != null)
-                    //{
-                    //    response.isSuccess = Constants.Status.True;
-                    //    response.message = Constants.StatusMessage.AddSuccessfully;
-                    //}
+                    var result = await _positionRepository.InsertAsyncAndSave(_mapper.Map<Position>(request));
+                    if (result != null)
+                    {
+                        response.isSuccess = Constants.Status.True;
+                        response.message = Constants.StatusMessage.AddSuccessfully;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 response.message = ex.Message;
-                response.isSuccess = Constants.Status.False;
             }
             return response;
         }
@@ -99,10 +94,13 @@ namespace Ecommerce.Core.Services
                 loginResponse.positionName = user.Position.PositionName;
                 loginResponse.email = user.Email;
 
-                response.message = Constants.StatusMessage.LoginSuccess;
-                response.isSuccess = Constants.Status.True;
-                response.value = loginResponse;
-                response.returnUrl = _common.GetMenuDefault(user.Position.MenuDefault);
+                if (loginResponse != null)
+                {
+                    response.message = Constants.StatusMessage.LoginSuccess;
+                    response.isSuccess = Constants.Status.True;
+                    response.value = loginResponse;
+                    response.returnUrl = _common.GetMenuDefault(user.Position.MenuDefault);
+                }
             }
             catch (Exception ex)
             {
@@ -140,17 +138,12 @@ namespace Ecommerce.Core.Services
             var response = new Response<string>();
             try
             {
+                var positionRegister = _positionRepository.Get(x => x.PositionName == Constants.Position.Customer).PositionId;
                 var userExists = await _repository.GetAsync(x => x.Username == request.userName);
-                if (userExists != null)
+                if (userExists == null)
                 {
-                    response.isSuccess = Constants.Status.False;
-                    response.message = Constants.StatusMessage.DuplicateUser;
-                }
-                else
-                {
-                    var positionId = _positionRepository.Get(x => x.PositionName == Constants.Position.Customer).PositionId;
                     request.password = _common.Encrypt(request.password);
-                    request.positionId = positionId;
+                    request.positionId = positionRegister;
                     var user = await _repository.InsertAsyncAndSave(_mapper.Map<User>(request)); // Insert Table User
                     if (user != null)
                     {
@@ -158,11 +151,11 @@ namespace Ecommerce.Core.Services
                         response.message = Constants.StatusMessage.RegisterSuccess;
                     }
                 }
+                else response.message = Constants.StatusMessage.DuplicateUser;
             }
             catch (Exception ex)
             {
                 response.message = ex.Message;
-                response.isSuccess = Constants.Status.False;
             }
 
             return response;

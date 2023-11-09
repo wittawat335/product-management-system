@@ -32,10 +32,7 @@ namespace Ecommerce.Core.Services
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;
                 }
-                else
-                {
-                    response.message = "ยังไม่มี";
-                }
+                else response.message = "ยังไม่มี";
             }
             catch (Exception ex)
             {

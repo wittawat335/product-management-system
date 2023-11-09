@@ -30,8 +30,7 @@ namespace Ecommerce.Web.Controllers
         public IActionResult Index()
         {
             var sessionLogin = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
-            if (sessionLogin == null)
-                return RedirectToAction("Login", "Authen");
+            if (sessionLogin == null) return RedirectToAction("Login", "Authen");
 
             return View();
         }
@@ -40,8 +39,7 @@ namespace Ecommerce.Web.Controllers
         public async Task<IActionResult> GetListPosition()
         {
             var response = await _PositionService.GetListAsync(_setting.BaseApiUrl + "Position/GetList");
-            if (response.returnUrl != null)
-                response.returnUrl = Url.Content(response.returnUrl);
+            response.returnUrl = Url.Content(response.returnUrl) ?? "";
 
             return Json(response);
         }
@@ -90,7 +88,7 @@ namespace Ecommerce.Web.Controllers
         public async Task<IActionResult> DeletePosition(string id)
         {
             var response = await _PositionService.DeleteAsync(_setting.BaseApiUrl + string.Format("Position/Delete/{0}", id));
-            if (response.returnUrl != null) response.returnUrl = Url.Content(response.returnUrl);
+            response.returnUrl = Url.Content(response.returnUrl) ?? "";
 
             return Json(response);
         }

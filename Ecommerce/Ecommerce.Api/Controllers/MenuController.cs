@@ -17,19 +17,22 @@ namespace Ecommerce.Api.Controllers
         [HttpGet("{PositionId}")]
         public async Task<IActionResult> GetList(string PositionId)
         {
-            return Ok(await _service.GetMenuByPositionId(PositionId));
+            var response = await _service.GetMenuByPositionId(PositionId);
+            return Ok(response);
         }
 
         [HttpGet("GetListActive")]
         public async Task<IActionResult> GetListActive()
         {
-            return Ok(await _service.GetListMenuActive());
+            var response = await _service.GetListMenuActive();
+            return Ok(response);
         }
 
         [HttpGet("GetListByPermission/{PositionId}")]
         public async Task<IActionResult> GetListByPermission(string PositionId)
         {
-            return Ok(await _service.GetListByPermission(PositionId));
+            var response = await _service.GetListByPermission(PositionId);
+            return Ok(response);
         }
     }
 }

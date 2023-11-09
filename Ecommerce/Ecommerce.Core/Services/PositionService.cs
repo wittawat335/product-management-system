@@ -32,9 +32,7 @@ namespace Ecommerce.Core.Services
                 var list = await _repository.AsQueryable();
                 list = list.Include(x => x.MenuDefaultNavigation);
                 if (filter != null)
-                {
                     if (filter.Status != null) list = list.Where(x => x.Status.Contains(filter.Status));
-                }
                 if (list.Count() > 0)
                 {
                     response.value = _mapper.Map<List<PositionDTO>>(list);
@@ -186,9 +184,8 @@ namespace Ecommerce.Core.Services
                         });
                     }
                 }
-                if (objReturn.Count() > 0)
-                    response.value = objReturn;
 
+                if (objReturn.Count() > 0) response.value = objReturn;
                 return response;
             }
             catch
