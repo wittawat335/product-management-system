@@ -31,8 +31,8 @@ namespace Ecommerce.Core.Services
             {
                 var list = await _repository.AsQueryable();
                 list = list.Include(x => x.MenuDefaultNavigation);
-                if (filter != null)
-                    if (filter.Status != null) list = list.Where(x => x.Status.Contains(filter.Status));
+
+                if (filter != null) list = list.Where(x => x.Status.Contains(filter.Status));
                 if (list.Count() > 0)
                 {
                     response.value = _mapper.Map<List<PositionDTO>>(list);
@@ -72,9 +72,9 @@ namespace Ecommerce.Core.Services
             var response = new Response<Position>();
             try
             {
-                var position = await _repository.GetAsync(x => x.PositionName == model.PositionName);
-                if (position != null) response.message = Constants.StatusMessage.DuplicatePosition;
-                else
+                var position = await _repository
+                    .GetAsync(x => x.PositionName == model.PositionName || x.PositionId == model.PositionId);
+                if (position == null)
                 {
                     response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Position>(model));
                     if (response.value != null)
@@ -83,6 +83,7 @@ namespace Ecommerce.Core.Services
                         response.message = Constants.StatusMessage.AddSuccessfully;
                     }
                 }
+                else response.message = Constants.StatusMessage.DuplicatePosition;
             }
             catch (Exception ex)
             {

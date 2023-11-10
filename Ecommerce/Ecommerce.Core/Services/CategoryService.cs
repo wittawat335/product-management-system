@@ -25,7 +25,7 @@ namespace Ecommerce.Core.Services
             var response = new Response<List<CategoryDTO>>();
             try
             {
-                var list = await _repository.AsQueryable();
+                var list = await _repository.GetListAsync();
                 if (list.Count() > 0)
                 {
                     response.value = _mapper.Map<List<CategoryDTO>>(list);
@@ -65,12 +65,17 @@ namespace Ecommerce.Core.Services
             var response = new Response<Category>();
             try
             {
-                response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Category>(model));
-                if (response.value != null)
+                var result = await CheckDupilcate(model);
+                if (result == string.Empty)
                 {
-                    response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.AddSuccessfully;
+                    response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Category>(model));
+                    if (response.value != null)
+                    {
+                        response.isSuccess = Constants.Status.True;
+                        response.message = Constants.StatusMessage.AddSuccessfully;
+                    }
                 }
+                else response.message = result;
             }
             catch (Exception ex)
             {
@@ -86,12 +91,17 @@ namespace Ecommerce.Core.Services
                 var data = _repository.Get(x => x.CategoryId == model.CategoryId);
                 if (data != null)
                 {
-                    response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
-                    if (response.value != null)
+                    var result = await CheckDupilcate(model);
+                    if (result == string.Empty)
                     {
-                        response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.UpdateSuccessfully;
+                        response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
+                        if (response.value != null)
+                        {
+                            response.isSuccess = Constants.Status.True;
+                            response.message = Constants.StatusMessage.UpdateSuccessfully;
+                        }
                     }
+                    else response.message = result;
                 }
             }
             catch (Exception ex)
@@ -120,6 +130,22 @@ namespace Ecommerce.Core.Services
                 response.message = ex.Message;
             }
             return response;
+        }
+        public async Task<string> CheckDupilcate(CategoryDTO model)
+        {
+            string message = string.Empty;
+            if (model.CategoryId != null)
+            {
+                var checkDup = await _repository.GetAsync(x => x.CategoryId == model.CategoryId);
+                if (checkDup != null) message = Constants.StatusMessage.DuplicateId;
+            }
+            if (model.CategoryName != null)
+            {
+                var checkDup = await _repository.GetAsync(x => x.CategoryName == model.CategoryName);
+                if (checkDup != null) message = Constants.StatusMessage.DuplicateName;
+            }
+
+            return message;
         }
     }
 }

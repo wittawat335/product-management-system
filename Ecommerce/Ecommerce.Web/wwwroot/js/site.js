@@ -44,7 +44,7 @@ function saveForm(formId, url) {
             closeModal();
             getList();
         }
-        else swalMessage('error', response.message);
+        else swalMessageError('error', response.message); 
     });
 }
 
@@ -192,6 +192,12 @@ function swalProgressBar(icon, message) {
         icon: icon,
         title: message
     })
+}
+function swalMessageError(icon, message) {
+    Swal.fire({
+        title: message,
+        icon: icon
+    });
 }
 function swalMessage(icon, message) {
     Swal.fire({

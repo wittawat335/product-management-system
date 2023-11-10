@@ -40,12 +40,7 @@ namespace Ecommerce.Core.Services
             try
             {
                 var position = await _positionRepository.GetAsync(x => x.PositionName == request.positionName);
-                if (position != null)
-                {
-                    response.isSuccess = Constants.Status.False;
-                    response.message = Constants.StatusMessage.DuplicatePosition;
-                }
-                else
+                if (position == null)
                 {
                     var result = await _positionRepository.InsertAsyncAndSave(_mapper.Map<Position>(request));
                     if (result != null)
@@ -54,6 +49,7 @@ namespace Ecommerce.Core.Services
                         response.message = Constants.StatusMessage.AddSuccessfully;
                     }
                 }
+                else response.message = Constants.StatusMessage.DuplicatePosition;
             }
             catch (Exception ex)
             {
