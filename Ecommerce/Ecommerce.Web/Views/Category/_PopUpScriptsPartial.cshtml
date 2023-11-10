@@ -26,6 +26,10 @@
                 saveForm('frmDetail', '@Url.Content(Constants.UrlAction.Category.Save)')
             }
         });
+        validate();
+    }
+
+    function validate() {
         $('#frmDetail').validate({
             rules: {
                 CategoryId: {
@@ -60,7 +64,8 @@
                 $(element).addClass('is-invalid');
             },
             unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
+                //$(element).removeClass('is-invalid');
+                $(element).addClass('is-valid');
             }
         });
     }

@@ -29,9 +29,9 @@ namespace Ecommerce.Core.Services
             try
             {
                 var user = await _repository.GetAsync(x => x.Username == model.Username);
-                model.Password = _commonService.Encrypt(model.Password);
                 if (user == null)
                 {
+                    model.Password = _commonService.Encrypt(model.Password);
                     var mapping = _mapper.Map<User>(model);
                     var result = await _repository.InsertAsyncAndSave(mapping);
                     if (result != null)

@@ -11,6 +11,6 @@ namespace Ecommerce.Core.Services.Interfaces
         Task<Response<Category>> Add(CategoryDTO model);
         Task<Response<Category>> Update(CategoryDTO model);
         Task<Response<Category>> Delete(string id);
-        Task<string> CheckDupilcate(CategoryDTO model);
+        Task<string> CheckDupilcate(string id, string name);
     }
 }

@@ -65,7 +65,7 @@ namespace Ecommerce.Core.Services
             var response = new Response<Category>();
             try
             {
-                var result = await CheckDupilcate(model);
+                var result = await CheckDupilcate(model.CategoryId, model.CategoryName);
                 if (result == string.Empty)
                 {
                     response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Category>(model));
@@ -91,7 +91,7 @@ namespace Ecommerce.Core.Services
                 var data = _repository.Get(x => x.CategoryId == model.CategoryId);
                 if (data != null)
                 {
-                    var result = await CheckDupilcate(model);
+                    var result = await CheckDupilcate(null, model.CategoryName);
                     if (result == string.Empty)
                     {
                         response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
@@ -131,18 +131,18 @@ namespace Ecommerce.Core.Services
             }
             return response;
         }
-        public async Task<string> CheckDupilcate(CategoryDTO model)
+        public async Task<string> CheckDupilcate(string id, string name)
         {
             string message = string.Empty;
-            if (model.CategoryId != null)
+            if (id != null)
             {
-                var checkDup = await _repository.GetAsync(x => x.CategoryId == model.CategoryId);
-                if (checkDup != null) message = Constants.StatusMessage.DuplicateId;
+                var checkId = await _repository.GetAsync(x => x.CategoryId == id);
+                if (checkId != null) message = string.Format(id + " " + Constants.StatusMessage.DuplicateId);
             }
-            if (model.CategoryName != null)
+            if (name != null)
             {
-                var checkDup = await _repository.GetAsync(x => x.CategoryName == model.CategoryName);
-                if (checkDup != null) message = Constants.StatusMessage.DuplicateName;
+                var checkName = await _repository.GetAsync(x => x.CategoryName == name);
+                if (checkName != null) message = string.Format(name + " " + Constants.StatusMessage.DuplicateName);
             }
 
             return message;

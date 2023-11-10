@@ -45,7 +45,6 @@ namespace Ecommerce.Core.Services
             }
             return response;
         }
-
         public async Task<Response<PositionDTO>> Get(string id)
         {
             var response = new Response<PositionDTO>();
@@ -66,15 +65,13 @@ namespace Ecommerce.Core.Services
 
             return response;
         }
-
         public async Task<Response<Position>> Add(PositionDTO model)
         {
             var response = new Response<Position>();
             try
             {
-                var position = await _repository
-                    .GetAsync(x => x.PositionName == model.PositionName || x.PositionId == model.PositionId);
-                if (position == null)
+                var result = await CheckDupilcate(model.PositionId, model.PositionName);
+                if (result == string.Empty)
                 {
                     response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Position>(model));
                     if (response.value != null)
@@ -83,7 +80,7 @@ namespace Ecommerce.Core.Services
                         response.message = Constants.StatusMessage.AddSuccessfully;
                     }
                 }
-                else response.message = Constants.StatusMessage.DuplicatePosition;
+                else response.message = result;
             }
             catch (Exception ex)
             {
@@ -91,7 +88,6 @@ namespace Ecommerce.Core.Services
             }
             return response;
         }
-
         public async Task<Response<Position>> Update(PositionDTO model)
         {
             var response = new Response<Position>();
@@ -100,12 +96,17 @@ namespace Ecommerce.Core.Services
                 var data = _repository.Get(x => x.PositionId == model.PositionId);
                 if (data != null)
                 {
-                    response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
-                    if (response.value != null)
+                    var result = await CheckDupilcate(null, model.PositionName);
+                    if (result == string.Empty)
                     {
-                        response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.UpdateSuccessfully;
+                        response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
+                        if (response.value != null)
+                        {
+                            response.isSuccess = Constants.Status.True;
+                            response.message = Constants.StatusMessage.UpdateSuccessfully;
+                        }
                     }
+                    else response.message = result;
                 }
             }
             catch (Exception ex)
@@ -115,7 +116,6 @@ namespace Ecommerce.Core.Services
 
             return response;
         }
-
         public async Task<Response<Position>> Delete(string id)
         {
             var response = new Response<Position>();
@@ -136,7 +136,6 @@ namespace Ecommerce.Core.Services
             }
             return response;
         }
-
         public async Task<Response<List<DataPermissionJsonList>>> GetListPermissionData(string positionId)
         {
             var response = new Response<List<DataPermissionJsonList>>();
@@ -193,6 +192,22 @@ namespace Ecommerce.Core.Services
             {
                 throw;
             }
+        }
+        public async Task<string> CheckDupilcate(string id, string name)
+        {
+            string message = string.Empty;
+            if (id != null)
+            {
+                var checkDup = await _repository.GetAsync(x => x.PositionId == id);
+                if (checkDup != null) message = string.Format(id + " " + Constants.StatusMessage.DuplicateId);
+            }
+            if (name != null)
+            {
+                var checkDup = await _repository.GetAsync(x => x.PositionName == name);
+                if (checkDup != null) message = string.Format(name + " " + Constants.StatusMessage.DuplicateName);
+            }
+
+            return message;
         }
     }
 }

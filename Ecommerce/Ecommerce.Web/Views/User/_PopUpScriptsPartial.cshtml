@@ -37,6 +37,10 @@
                 saveForm('frmDetail', '@Url.Content(Constants.UrlAction.User.Save)')
             }
         });
+        validate();
+    }
+
+    function validate() {
         $('#frmDetail').validate({
             rules: {
                 Username: {
@@ -91,7 +95,8 @@
                 $(element).addClass('is-invalid');
             },
             unhighlight: function (element, errorClass, validClass) {
-                $(element).removeClass('is-invalid');
+                //$(element).removeClass('is-invalid');
+                $(element).removeClass('is-valid');
             }
         });
     }

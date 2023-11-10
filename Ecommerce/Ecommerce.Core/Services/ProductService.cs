@@ -74,12 +74,17 @@ namespace Ecommerce.Core.Services
             var response = new Response<Product>();
             try
             {
-                response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Product>(model));
-                if (response.value != null)
+                var result = await CheckDupilcate(model.ProductId, model.ProductName, model.CategoryId);
+                if (result == string.Empty)
                 {
-                    response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.AddSuccessfully;
+                    response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Product>(model));
+                    if (response.value != null)
+                    {
+                        response.isSuccess = Constants.Status.True;
+                        response.message = Constants.StatusMessage.AddSuccessfully;
+                    }
                 }
+                else response.message = result;
             }
             catch (Exception ex)
             {
@@ -95,12 +100,17 @@ namespace Ecommerce.Core.Services
                 var data = _repository.Get(x => x.ProductId == model.ProductId);
                 if (data != null)
                 {
-                    response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
-                    if (response.value != null)
+                    var result = await CheckDupilcate(null, model.ProductName, model.CategoryId);
+                    if (result == string.Empty)
                     {
-                        response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.UpdateSuccessfully;
+                        response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
+                        if (response.value != null)
+                        {
+                            response.isSuccess = Constants.Status.True;
+                            response.message = Constants.StatusMessage.UpdateSuccessfully;
+                        }
                     }
+                    else response.message = result;
                 }
             }
             catch (Exception ex)
@@ -129,6 +139,22 @@ namespace Ecommerce.Core.Services
                 response.message = ex.Message;
             }
             return response;
+        }
+        public async Task<string> CheckDupilcate(string id, string name, string categoryId)
+        {
+            string message = string.Empty;
+            if (id != null)
+            {
+                var checkDup = await _repository.GetAsync(x => x.ProductId == id);
+                if (checkDup != null) message = string.Format(id + " " + Constants.StatusMessage.DuplicateId);
+            }
+            if (name != null)
+            {
+                var checkDup = await _repository.GetAsync(x => x.ProductName == name && x.CategoryId == categoryId);
+                if (checkDup != null) message = string.Format(name + " " + Constants.StatusMessage.DuplicateName);
+            }
+
+            return message;
         }
     }
 }
