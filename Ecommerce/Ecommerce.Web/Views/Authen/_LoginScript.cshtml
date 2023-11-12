@@ -25,6 +25,7 @@
         var data = { "userName": $('#txtUserName').val(), "password": $('#txtPassword').val() };
         $.post(url, data, function (response) {
             if (response.isSuccess) {
+                localStorage.setItem('token', response.value.token);
                 swalProgressBar('success', response.message);
                 window.location.href = response.returnUrl;
             }

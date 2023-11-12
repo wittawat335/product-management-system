@@ -757,6 +757,10 @@
       "PackagePath": "staticwebassets\\images\\product\\proudct01\\vivo-y50-blue.jpeg"
     },
     {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\test\\vivo-y50-blue.jpeg",
+      "PackagePath": "staticwebassets\\images\\product\\test\\vivo-y50-blue.jpeg"
+    },
+    {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },
