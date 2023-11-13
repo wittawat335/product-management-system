@@ -1,4 +1,5 @@
-﻿$(document).ready(function () {
+﻿let _token = localStorage.getItem('token');
+$(document).ready(function () {
     $.fn.serializeObjectTable = function () {
         var o = {};
 
@@ -36,6 +37,9 @@
     setNavActive();
     //NavActive();
 });
+$(document).on('select2:open', function (e) { //ทำให้ select2 autofocus หลังจากที่ click
+    document.querySelector(`[aria-controls="select2-${e.target.id}-results"]`).focus();
+});
 function saveForm(formId, url) {
     var data = $('#' + formId).serializeObject();
     $.post(url, data, function (response) {
@@ -44,8 +48,76 @@ function saveForm(formId, url) {
             closeModal();
             getList();
         }
-        else swalMessageError('error', response.message); 
+        else swalMessageError('error', response.message);
     });
+}
+
+function Insert(formId, url) {
+    var obj = $('#' + formId).serializeObject();
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: obj,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            if (response.isSuccess) {
+                swalMessage('success', response.message);
+                closeModal();
+                getList();
+            }
+            else Swal.fire(response.message);
+        },
+        failure: function (error) {
+
+        }
+    })
+}
+
+function Update(formId, url) {
+    var obj = $('#' + formId).serializeObject();
+    $.ajax({
+        type: 'PUT',
+        url: url,
+        data: obj,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            if (response.isSuccess) {
+                swalMessage('success', response.message);
+                closeModal();
+                getList();
+            }
+            else Swal.fire(response.message);
+        },
+        failure: function (error) {
+
+        }
+    })
+}
+
+function Delete(Id, url) {
+    $.ajax({
+        type: 'DELETE',
+        url: url + Id,
+        headers: { 'Authorization': 'bearer ' + _token },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            if (response.isSuccess) {
+                swalMessage('success', response.message);
+                closeModal();
+                getList();
+            }
+            else Swal.fire(response.message);
+        },
+        failure: function (error) {
+
+        }
+    })
 }
 
 //------------------------ Modal ---------------------------------
@@ -231,9 +303,8 @@ function confirmDelete(id, url, name) {
         cancelButtonColor: '#d33',
         cancelButtonText: 'ไม่ใช่',
     }).then((result) => {
-        if (result.isConfirmed) {
-            sendDelete(id, url);
-        }
+        if (result.isConfirmed) Delete(id, url);
+        //sendDelete(id, url);
     });
 }
 function confirmDeleteWithImage(id, url, imageUrl) {
@@ -325,8 +396,6 @@ function setNavActive() {
 
     }).parentsUntil(".nav-sidebar > .nav-treeview").addClass('menu-open').prev('a').addClass('active');
 }
-
-
 function NavActive() {
     var url = window.location;
     // for single sidebar menu

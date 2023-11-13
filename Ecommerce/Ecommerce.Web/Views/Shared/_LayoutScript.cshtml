@@ -40,14 +40,11 @@
 <!-- SweetAlert2 -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/js/site.js" asp-append-version="true"></script>
-<script> //ทำให้ select2 autofocus หลังจากที่ click
-    $(function () {
-        if (localStorage.getItem('token') == null) window.location.href = '/Authen/Login';
-    });
-    $(document).on('select2:open', function (e) {
-        document.querySelector(`[aria-controls="select2-${e.target.id}-results"]`).focus();
-    });
+<script>
+    if (_token == null) window.location.href = '/Authen/Login';
 </script>
+
+
 
 
 

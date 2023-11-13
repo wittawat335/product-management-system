@@ -32,14 +32,7 @@ namespace Ecommerce.Web.Controllers
             _service = service;
         }
 
-        public IActionResult Index()
-        {
-            var sessionLogin = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
-            if (sessionLogin == null)
-                return RedirectToAction("Login", "Authen");
-
-            return View();
-        }
+        public IActionResult Index() { return View(); }
 
         public async Task<IActionResult> GetList(Product search)
         {
@@ -57,14 +50,12 @@ namespace Ecommerce.Web.Controllers
             var model = new ProductViewModel();
 
             var listCategory = await _categoryService.GetListAsync(_setting.BaseApiUrl + "Category/GetListActive");
-            if (listCategory != null)
-                ViewBag.listCategory = listCategory.value;
+            if (listCategory != null) ViewBag.listCategory = listCategory.value;
 
             if (!string.IsNullOrEmpty(id))
                 response = await _productService.GetAsyncById(_setting.BaseApiUrl + string.Format("Product/GetProduct/{0}", id));
 
-            if (response.value != null)
-                model.Product = response.value;
+            if (response.value != null) model.Product = response.value;
 
             model.Action = action;
             return PartialView(model);

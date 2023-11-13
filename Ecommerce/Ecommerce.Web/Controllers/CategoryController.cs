@@ -11,39 +11,15 @@ namespace Ecommerce.Web.Controllers
     public class CategoryController : Controller
     {
         private readonly IBaseApiService<Category> _categoryService;
-        private readonly ICommonService _common;
-        private readonly IHttpContextAccessor _contextAccessor;
         private readonly AppSetting _setting;
 
-        public CategoryController(
-            IBaseApiService<Category> categoryService,
-            ICommonService common,
-            IHttpContextAccessor contextAccessor,
-            IOptions<AppSetting> options)
+        public CategoryController(IBaseApiService<Category> categoryService, IOptions<AppSetting> options)
         {
             _categoryService = categoryService;
-            _common = common;
-            _contextAccessor = contextAccessor;
             _setting = options.Value;
         }
 
-        public IActionResult Index()
-        {
-            var sessionLogin = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
-            if (sessionLogin == null)
-                return RedirectToAction("Login", "Authen");
-
-            return View();
-        }
-
-        public async Task<IActionResult> GetList()
-        {
-            var response = await _categoryService.GetListAsync(_setting.BaseApiUrl + "Category/GetList");
-            if (response.returnUrl != null)
-                response.returnUrl = Url.Content(response.returnUrl);
-
-            return Json(response);
-        }
+        public IActionResult Index() { return View(); }
 
         [HttpPost]
         public async Task<IActionResult> _PopUpDialog(string id, string action)
@@ -75,13 +51,6 @@ namespace Ecommerce.Web.Controllers
                     break;
             }
 
-            return Json(response);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var response = await _categoryService.DeleteAsync(_setting.BaseApiUrl + string.Format("Category/Delete/{0}", id));
             return Json(response);
         }
     }

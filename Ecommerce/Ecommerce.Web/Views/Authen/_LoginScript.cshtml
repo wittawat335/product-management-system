@@ -81,7 +81,6 @@
     function proceedLogin() {
         var isproceed = validate();
         var apiUrl = '@opts.BaseApiUrl' + 'Authen/Login';
-        var data = $('#registerform').serializeObject();
         if (isproceed) {
             var _obj = new Object();
             _obj.username = $('#txtUserName').val();

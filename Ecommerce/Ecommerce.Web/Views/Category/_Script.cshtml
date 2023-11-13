@@ -1,48 +1,41 @@
 ﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Extenions.Class;
 @using Ecommerce.Web.Models.Category;
 @using Ecommerce.Web.Services.Interfaces;
+@using Microsoft.Extensions.Options;
 @inject ICommonService common;
+@inject IOptions<AppSetting> options
 @model Category;
 @{
     bool permView = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.ActId.View);
     bool permUpdate = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.ActId.Update);
     bool permDelete = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.ActId.Delete);
+    var baseApiUrl = options.Value.BaseApiUrl;
 }
 <script>
-    let urlDelete = '@Url.Content(Constants.UrlAction.Category.Delete)';
+    let urlDelete = '@baseApiUrl' + 'Category/Delete/';
     let url = '@Url.Content(Constants.UrlAction.Category.PopUpDialog)';
-    let permDelete;
-    let permUpdate;
-    let permView;
-    if ('@permDelete' == 'True')
-        permDelete = true;
-    if ('@permUpdate' == 'True')
-        permUpdate = true;
-    if ('@permView' == 'True')
-        permView = true;
+    let permDelete = ('@permDelete' === 'True') ? true : false;
+    let permUpdate = ('@permUpdate' === 'True') ? true : false;
+    let permView = ('@permView' === 'True') ? true : false;
 
     $(function () {
-        getList();      
-        $('.btn[data-filter]').on('click', function () {
-            $('.btn[data-filter]').removeClass('active');
-            $(this).addClass('active');
-        });
+        getList();
     });
 
     function getList() {
         $.ajax({
-            type: "POST",
-            url: '@Url.Content(Constants.UrlAction.Category.GetList)',
+            type: "GET",
+            url: '@baseApiUrl' + 'Category/GetList',
+            headers: { 'Authorization': 'bearer ' + _token },
+            contentType: "application/json; charset=utf-8",
             dataType: "json",
-            data: {},
+            async: false,
             success: function (response) {
-                if (response.isSuccess) 
-                    onSuccess(response);
-                else
-                   window.location.href = response.returnUrl;
+                if (response.isSuccess) onSuccess(response);
             },
             error: function () {
-                alert('failure');
+                //alert('failure');
             }
         });
     }
@@ -60,7 +53,6 @@
             bSort: true,
             bPaginate: true,
             lengthChange: true, //ปุ่มจำนวนแสดงข้อมูล
-            //buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"], //แผงปุ่ม export
             data: response.value,
             columns: [
                 {
