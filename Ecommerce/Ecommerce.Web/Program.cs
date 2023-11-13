@@ -3,8 +3,7 @@ using Ecommerce.Web.Hubs;
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllersWithViews();
-//builder.Services.AddSignalR();
+builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 
 builder.Services.AddServices();
 builder.Services.SessionConfig(builder.Configuration);
@@ -32,7 +31,6 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthorization();
-//app.MapHub<NotificationHub>("/notificationHub");
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Authen}/{action=Login}/{id?}");

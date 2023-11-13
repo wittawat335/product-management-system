@@ -12,7 +12,7 @@ build_property.RootNamespace = Ecommerce.Web
 build_property.ProjectDir = E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web\
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web
 build_property._RazorSourceGeneratorDebug = 
 

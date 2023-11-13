@@ -10,5 +10,6 @@ namespace Ecommerce.Core.Services.Interfaces
         Task<Response<string>> Register(RegisterRequest request);
         Task<Response<string>> AddPosition(PositionRequest request);
         Task<Response<LoginResponse>> GenerateToken(User user);
+        void SetSessionValue(LoginResponse session);
     }
 }

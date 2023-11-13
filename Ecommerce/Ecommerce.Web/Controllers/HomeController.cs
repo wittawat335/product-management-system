@@ -34,10 +34,6 @@ namespace Ecommerce.Web.Controllers
 
         public IActionResult Index()
         {
-            var sessionLogin = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
-            if (sessionLogin == null)
-                return RedirectToAction("Login", "Authen");
-
             return View();
         }
 

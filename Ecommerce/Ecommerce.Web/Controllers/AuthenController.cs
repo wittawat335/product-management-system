@@ -14,24 +14,14 @@ namespace Ecommerce.Web.Controllers
             _service = service;
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            var sessionLogin = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
-            if (sessionLogin != null)
-                return RedirectToAction("Index", "Home");
+        public IActionResult Login() { return View(); }
 
-            return View();
-        }
         [HttpPost]
         public async Task<IActionResult> Login(Login req)
         {
             var result = await _service.Login(req);
-            if (result.isSuccess)
-            {
-                await _service.GetPermission(result.value.positionId);
-                result.returnUrl = Url.Content("~" + result.returnUrl);
-            }
+            if (result.isSuccess) await _service.GetPermission(result.value.positionId);
+            //result.returnUrl = Url.Content("~" + result.returnUrl);
 
             return Json(result);
         }

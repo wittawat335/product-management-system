@@ -7848,7 +7848,6 @@
       "Ecommerce.Infrastructure >= 1.0.0",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 6.0.12",
       "Microsoft.AspNetCore.OpenApi >= 7.0.11",
-      "Newtonsoft.Json >= 13.0.1",
       "Swashbuckle.AspNetCore >= 6.5.0"
     ]
   },
@@ -7905,10 +7904,6 @@
           "Microsoft.AspNetCore.OpenApi": {
             "target": "Package",
             "version": "[7.0.11, )"
-          },
-          "Newtonsoft.Json": {
-            "target": "Package",
-            "version": "[13.0.1, )"
           },
           "Swashbuckle.AspNetCore": {
             "target": "Package",

@@ -135,10 +135,10 @@
         <li class="nav-item dropdown mr-2">
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <img src="~/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" width="23px">
-                <span class="">@user.userName</span>
+                <span class="">@(user != null ? user.userName : "")</span>
             </a>
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <a class="dropdown-item" onclick="openPopup('@user.userId','cusUpdate','@url','แก้ไขข้อมูลส่วนตัว')">
+                <a class="dropdown-item" onclick="openPopup('@(user != null ? user.userId : "")','cusUpdate','@url','แก้ไขข้อมูลส่วนตัว')">
                     <i class="fas fa-user mr-2"></i>
                     <span>แก้ไขข้อมูลส่วนตัว</span>
                 </a>

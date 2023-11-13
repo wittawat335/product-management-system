@@ -32,8 +32,10 @@ namespace Ecommerce.Web.ViewComponents
         {
             var menu = new Response<List<Menu>>();
             var session = _commonService.GetSessionValue();
-            if (session.userId != "")
+            if (session != null)
                 menu = await _baseApiService.GetListAsync(_setting.BaseApiUrl + string.Format("Menu/{0}", session.positionId));
+            else
+                menu.value = new List<Menu>();
 
             return View(menu.value);
         }

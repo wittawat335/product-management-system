@@ -29,14 +29,16 @@ namespace Ecommerce.Api.Controllers
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            return Ok(await _service.Login(request));
+            var response = await _service.Login(request);
+            return Ok(response);
         }
 
         [HttpPost]
         [Route("Register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
-            return Ok(await _service.Register(request));
+            var response = await _service.Register(request);
+            return Ok(response);
         }
     }
 }

@@ -110,7 +110,7 @@ namespace Ecommerce.Core.Services
             var response = new Response<LoginResponse>();
             try
             {
-                var user = await _repository.GetAsync(x => x.Username == request.userName);
+                var user = await _repository.GetAsync(x => x.Username == request.username);
                 if (user != null && user.Status == Constants.Status.Active)
                 {
                     if (_common.Decrypt(user.Password) == request.password)
@@ -155,6 +155,10 @@ namespace Ecommerce.Core.Services
             }
 
             return response;
+        }
+        public void SetSessionValue(LoginResponse session)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -16,19 +16,16 @@ namespace Ecommerce.Web.Services
         private readonly AppSetting _setting;
         private readonly IHttpContextAccessor _contextAccessor;
         HttpClientHandler _httpClient = new HttpClientHandler();
-
         public AuthenService(IOptions<AppSetting> options, IHttpContextAccessor contextAccessor)
         {
             _setting = options.Value;
             _contextAccessor = contextAccessor;
             _httpClient.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         }
-
         public string GetIp()
         {
             throw new NotImplementedException();
         }
-
         public async Task GetPermission(string positionId)
         {
             var response = new Response<List<Permission>>();
@@ -45,13 +42,10 @@ namespace Ecommerce.Web.Services
                     {
                         string data = result.Content.ReadAsStringAsync().Result;
                         response = JsonConvert.DeserializeObject<Response<List<Permission>>>(data);
-                        if (response.isSuccess)
-                        {
-                            SetPermissionToSession(response.value);
-                        }
+
+                        if (response.isSuccess) SetPermissionToSession(response.value);
                     }
-                    else
-                        response.message = Constants.MessageError.CallAPI;
+                    else response.message = Constants.MessageError.CallAPI;
                 }
             }
             catch (Exception ex)
@@ -59,7 +53,6 @@ namespace Ecommerce.Web.Services
                 response.message = ex.Message;
             }
         }
-
         public async Task<Response<Session>> Login(Login request)
         {
             var response = new Response<Session>();
@@ -91,12 +84,10 @@ namespace Ecommerce.Web.Services
 
             return response;
         }
-
         public void LogOut()
         {
             throw new NotImplementedException();
         }
-
         public async Task<Response<Register>> Register(Register request)
         {
             var response = new Response<Register>();
@@ -126,7 +117,6 @@ namespace Ecommerce.Web.Services
 
             return response;
         }
-
         public void SetPermissionToSession(List<Permission> listPermission)
         {
             try
@@ -140,7 +130,6 @@ namespace Ecommerce.Web.Services
                 throw;
             }
         }
-
         public void SetSessionValue(Session session)
         {
             try
