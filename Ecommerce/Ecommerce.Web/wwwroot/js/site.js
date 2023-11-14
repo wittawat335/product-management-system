@@ -57,7 +57,8 @@ function Insert(formId, url) {
     $.ajax({
         type: 'POST',
         url: url,
-        data: obj,
+        headers: { 'Authorization': 'bearer ' + _token },
+        data: JSON.stringify(obj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: false,
@@ -80,7 +81,8 @@ function Update(formId, url) {
     $.ajax({
         type: 'PUT',
         url: url,
-        data: obj,
+        headers: { 'Authorization': 'bearer ' + _token },
+        data: JSON.stringify(obj),
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         async: false,
@@ -349,14 +351,11 @@ function setReadOnlyByDiv(div, x) {
         $('#' + div).find('input[name],select[name],textarea[name],input[type=file]').not('input[type=hidden]').removeAttr('disabled').removeAttr('readonly');
     }
 }
-function setReadOnly(div, x) {
-    if (!x) {
-        $('#' + div).removeAttr('disabled').removeAttr('readonly')
-            .attr('disabled', 'disabled').attr('readonly', 'readonly');
+function setReadOnly(id, x) {
+    if (x) {
+        $('#' + id).removeAttr('disabled').removeAttr('readonly').attr('disabled', 'disabled').attr('readonly', 'readonly');
     }
-    else {
-        $('#' + div).removeAttr('disabled').removeAttr('readonly');
-    }
+    else $('#' + id).removeAttr('disabled').removeAttr('readonly');
 }
 function setReqByDiv(div, x) {
     if (x) {

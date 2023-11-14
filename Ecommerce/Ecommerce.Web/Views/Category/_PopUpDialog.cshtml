@@ -4,12 +4,7 @@
 @model CategoryViewModel
 
 <form id="frmDetail" role="form">
-    @{
-        await Html.RenderPartialAsync("_FormDetail", Model.Category);
-    }
-    <div style="display: none">
-        <input type="text" name="action" value="@Model.Action" />
-    </div>
+    @{ await Html.RenderPartialAsync("_FormDetail", Model.Category); }
 </form>
 @{
     await Html.RenderPartialAsync("_PopUpScriptsPartial", Model);

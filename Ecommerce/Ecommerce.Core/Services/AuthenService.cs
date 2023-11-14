@@ -79,7 +79,7 @@ namespace Ecommerce.Core.Services
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
                 var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
                 var token = new JwtSecurityToken(_jwtSettings.Issuer, _jwtSettings.Audience, claims,
-                    expires: DateTime.UtcNow.AddMinutes(10),
+                    expires: DateTime.UtcNow.AddMinutes(_jwtSettings.Timeout),
                     signingCredentials: signIn);
 
                 loginResponse.token = new JwtSecurityTokenHandler().WriteToken(token);

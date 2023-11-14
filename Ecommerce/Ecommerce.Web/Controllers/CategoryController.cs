@@ -29,29 +29,10 @@ namespace Ecommerce.Web.Controllers
             if (!string.IsNullOrEmpty(id))
                 response = await _categoryService.GetAsyncById(_setting.BaseApiUrl + string.Format("Category/GetCategory/{0}", id));
 
-            if (response.value != null)
-                model.Category = response.value;
+            if (response.value != null) model.Category = response.value;
 
             model.Action = action;
             return PartialView(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Save(Category model, string action)
-        {
-            var response = new Response<Category>();
-            switch (action ?? String.Empty)
-            {
-                case Constants.Action.Add:
-                    response = await _categoryService.InsertAsync(_setting.BaseApiUrl + "Category/Add", model);
-                    break;
-
-                case Constants.Action.Update:
-                    response = await _categoryService.PutAsync(_setting.BaseApiUrl + "Category/Update", model);
-                    break;
-            }
-
-            return Json(response);
         }
     }
 }

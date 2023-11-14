@@ -1,8 +1,6 @@
-﻿using Ecommerce.Web.Extenions.Class;
-using Ecommerce.Web.Services.Interfaces;
+﻿using Ecommerce.Web.Services.Interfaces;
 using Ecommerce.Web.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.Extensions.Options;
 
 namespace Ecommerce.Web.Extenions
 {

@@ -1,5 +1,4 @@
 using Ecommerce.Web.Extenions;
-using Ecommerce.Web.Hubs;
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
