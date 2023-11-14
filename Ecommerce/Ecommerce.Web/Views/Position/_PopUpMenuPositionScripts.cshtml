@@ -8,23 +8,6 @@
         getPermissionData();
     });
 
-    // function getPermissionData() {
-    //     $.ajax({
-    //         async: true,
-    //         type: 'post',
-    //         dataType: "json",
-    //         url: '@Url.Content(Constants.UrlAction.Position.GetJsTree)',
-    //         data: { positionId: '@ViewBag.positionId' },
-    //         success: function (data) {
-    //             buildTree(data);
-    //         },
-    //         error: function (xhr, status, error) {
-    //             var err = eval("(" + xhr.responseText + ")");
-    //             alert(err.Message);
-    //         }
-    //     });
-    // };
-
     function getPermissionData() {
         $.ajax({
             type: 'GET',
@@ -63,11 +46,12 @@
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             data: JSON.stringify(treeData),
-            async: true,
+            async: true, //ถ้า error เปลี่ยนเป็น false
             success: function (response) {
                 if (response.isSuccess) {
                     swalMessage('success', response.message);
                     closeModal();
+                    getList();
                 }
                 else swalMessage('error', response.message);
             },
@@ -76,58 +60,6 @@
             }
         });
     });
-
-    // $("#btnSave").click(function () {
-    //     var treeData = $('#PermissionDetails').jstree(true).get_json('#', { flat: false });
-    //     $.ajax({
-    //         contentType: 'application/json; charset=utf-8',
-    //         dataType: 'json',
-    //         type: 'POST',
-    //         url: '@Url.Content(Constants.UrlAction.Position.SetPermission)',
-    //         data: JSON.stringify(treeData),
-    //         success: function (response) {
-    //             if (response.isSuccess) SaveListPermission();
-    //         },
-    //         failure: function (response) {
-               
-    //         }
-    //     });
-    // });
-
-    // function Save() {
-    //     let id = '@ViewBag.positionId';
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: saveUrl + id,
-    //         headers: { 'Authorization': 'bearer ' + _token },
-    //         contentType: 'application/json; charset=utf-8',
-    //         dataType: "json",
-    //         async: false,
-    //         success: function (response) {
-    //             if (response.isSuccess) {
-    //                 swalMessage('success', response.message);
-    //                 closeModal();
-    //             }
-    //             else swalMessage('error', response.message);
-    //         }
-    //     });
-    // }
-
-    function SaveListPermission() {
-        $.ajax({
-            type: 'POST',
-            dataType: "json",
-            url: '@Url.Content(Constants.UrlAction.Position.SavePermission)',
-            data: { "positionId": "@ViewBag.positionId" },
-            success: function (response) {
-                if (response.isSuccess) {
-                    swalMessage('success', response.message);
-                    closeModal();
-                }
-                else swalMessage('error', response.message);
-            }
-        });
-    }
 </script>
 
 

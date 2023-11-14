@@ -96,18 +96,14 @@ namespace Ecommerce.Core.Services
                 var data = _repository.Get(x => x.PositionId == model.PositionId);
                 if (data != null)
                 {
-                    var result = await CheckDupilcate(null, model.PositionName);
-                    if (result == string.Empty)
+                    response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
+                    if (response.value != null)
                     {
-                        response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
-                        if (response.value != null)
-                        {
-                            response.isSuccess = Constants.Status.True;
-                            response.message = Constants.StatusMessage.UpdateSuccessfully;
-                        }
+                        response.isSuccess = Constants.Status.True;
+                        response.message = Constants.StatusMessage.UpdateSuccessfully;
                     }
-                    else response.message = result;
                 }
+                else response.message = Constants.StatusMessage.No_Data;
             }
             catch (Exception ex)
             {

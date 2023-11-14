@@ -21,7 +21,7 @@ namespace Ecommerce.Core.Common
             public const string InvaildPassword = "รหัสผ่านไม่ถูกต้อง";
             public const string NotFoundUser = "ไม่มีบัญชีผู้ใช้นี้";
             public const string Success = "OK";
-            public const string No_Data = "No Data";
+            public const string No_Data = "ไม่มีข้อมูล";
             public const string Could_Not_Create = "Could not create";
             public const string No_Delete = "No Deleted";
             public const string DuplicateUser = "มีบัญชีนี้อยู่ในระบบแล้ว";

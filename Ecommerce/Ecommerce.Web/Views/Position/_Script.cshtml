@@ -17,13 +17,12 @@
     let urlPopUpMenuPosition = '@Url.Content(Constants.UrlAction.Position.PopUpMenuPosition)'; //jsTree
     //api
     let baseApiUrl = '@options.Value.BaseApiUrl';
+    let getListUrl = baseApiUrl + 'Position/GetList';
     let insertUrl = baseApiUrl + 'Position/Add';
     let updateUrl = baseApiUrl + 'Position/Update';
     let deleteUrl = baseApiUrl + 'Position/Delete/';
     let getJsTreeUrl = baseApiUrl + 'Position/GetJsTree/';
     let saveUrl = baseApiUrl + 'Permission/Save?id=';
-    //let saveUrl = baseApiUrl + 'Permission/Save?id=';
-     
     //permission
     let permDelete = ('@permDelete' === 'True') ? true : false;
     let permUpdate = ('@permUpdate' === 'True') ? true : false;
@@ -36,7 +35,7 @@
     function getList() {
         $.ajax({
             type: "GET",
-            url: baseApiUrl + 'Position/GetList',
+            url: getListUrl,
             headers: { 'Authorization': 'bearer ' + _token },
             contentType: "application/json; charset=utf-8",
             dataType: "json",

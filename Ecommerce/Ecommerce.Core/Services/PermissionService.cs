@@ -5,29 +5,21 @@ using Ecommerce.Core.Helper;
 using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using System.Net;
-using static Dapper.SqlMapper;
 
 namespace Ecommerce.Core.Services
 {
     public class PermissionService : IPermissionService
     {
         private readonly IGenericRepository<Permission> _repository;
-        private readonly IHttpContextAccessor _contextAccessor;
-        private readonly ICommonService _common;
+        private readonly IGenericRepository<Position> _postRepository;
         private readonly IMapper _mapper;
 
-        public PermissionService(
-            IGenericRepository<Permission> repository,
-            IHttpContextAccessor contextAccessor,
-            ICommonService common,
-            IMapper mapper)
+        public PermissionService(IGenericRepository<Permission> repository,
+            IGenericRepository<Position> postRepository, IMapper mapper)
         {
             _repository = repository;
-            _contextAccessor = contextAccessor;
-            _common = common;
+            _postRepository = postRepository;
             _mapper = mapper;
         }
 
@@ -38,6 +30,13 @@ namespace Ecommerce.Core.Services
             try
             {
                 var query = await _repository.GetListAsync(x => x.PositionId == positionId);
+                var queryPosition = await _postRepository.GetAsync(x => x.PositionId == positionId);
+
+                if (queryPosition != null)
+                {
+                    queryPosition.MenuDefault = null;
+                    await _postRepository.SaveChangesAsync();
+                }
                 if (query.Count() > 0)
                 {
                     _repository.DeleteList(query);
@@ -70,40 +69,6 @@ namespace Ecommerce.Core.Services
             return response;
         }
 
-        public async Task<Response<Permission>> SavePermission(PermissionDTO model)
-        {
-            var response = new Response<Permission>();
-            try
-            {
-                _repository.Insert(_mapper.Map<Permission>(model));
-                await _repository.SaveChangesAsync();
-                response.isSuccess = Constants.Status.True;
-                response.message = Constants.StatusMessage.AddSuccessfully;
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-            }
-            return response;
-        }
-
-        //public async Task<bool> IsPermission(string positionId)
-        //{
-        //    bool isPer = false;
-        //    try
-        //    {
-        //        var query = await _repository
-        //            .GetAsync(x => x.PositionId == positionId);
-        //        if (query != null)
-        //            isPer = true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-
-        //    }
-        //    return isPer;
-        //}
-
         public async Task<Response<List<PermissionDTO>>> GetList(string positionId)
         {
             var response = new Response<List<PermissionDTO>>();
@@ -123,23 +88,6 @@ namespace Ecommerce.Core.Services
             }
             return response;
         }
-
-        //public Response<string> SetPermissionToSession(List<DataPermissionJsonInsertList> permissionData)
-        //{
-        //    var response = new Response<string>();
-        //    try
-        //    {
-        //        if (permissionData.Count() > 0)
-        //        {
-        //            string session = JsonConvert.SerializeObject(permissionData);
-        //            _contextAccessor.HttpContext.Session.SetString("listPermission", session);
-        //            response.isSuccess = true;
-        //        }
-        //    }
-        //    catch (Exception ex) { response.message = ex.Message; }
-
-        //    return response;
-        //}
 
         public async Task<Response<string>> SaveList(string id, List<DataPermissionJsonInsertList> list)
         {

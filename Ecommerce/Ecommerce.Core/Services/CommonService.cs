@@ -4,7 +4,6 @@ using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
 using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -14,16 +13,11 @@ namespace Ecommerce.Core.Services
     {
         private readonly IGenericRepository<Position> _postRespository;
         private readonly IGenericRepository<Menu> _menuRespository;
-        private readonly IHttpContextAccessor _contextAccessor;
 
-        public CommonService(
-            IGenericRepository<Position> postRespository,
-            IGenericRepository<Menu> menuRespository,
-            IHttpContextAccessor contextAccessor)
+        public CommonService(IGenericRepository<Position> postRespository, IGenericRepository<Menu> menuRespository)
         {
             _postRespository = postRespository;
             _menuRespository = menuRespository;
-            _contextAccessor = contextAccessor;
         }
 
         public string Decrypt(string text) // ใช้ถอดรหัส
@@ -71,16 +65,6 @@ namespace Ecommerce.Core.Services
 
             return text;
         }
-
-        public List<DataPermissionJsonInsertList> GetListPermissionFromSession()
-        {
-            List<DataPermissionJsonInsertList> list = new List<DataPermissionJsonInsertList>();
-            string session = _contextAccessor.HttpContext.Session.GetString("listSelectedPermission");
-            if (session != null)
-                list = JsonConvert.DeserializeObject<List<DataPermissionJsonInsertList>>(session);
-            return list;
-        }
-
         public string GetMenuDefault(string menuId)
         {
             var menu = _menuRespository.Get(x => x.MenuId == menuId);

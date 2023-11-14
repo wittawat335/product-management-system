@@ -1,7 +1,4 @@
-﻿using Ecommerce.Core.DTOs;
-using Ecommerce.Core.Helper;
-
-namespace Ecommerce.Core.Services.Interfaces
+﻿namespace Ecommerce.Core.Services.Interfaces
 {
     public interface ICommonService
     {
@@ -10,6 +7,5 @@ namespace Ecommerce.Core.Services.Interfaces
         string GetPositionName(string id);
         string GetParameter(string code);
         string GetMenuDefault(string menuId);
-        List<DataPermissionJsonInsertList> GetListPermissionFromSession();
     }
 }
