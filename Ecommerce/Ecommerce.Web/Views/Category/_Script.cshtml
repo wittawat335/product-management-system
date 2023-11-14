@@ -10,11 +10,17 @@
     bool permView = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.ActId.View);
     bool permUpdate = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.ActId.Update);
     bool permDelete = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.ActId.Delete);
-    var baseApiUrl = options.Value.BaseApiUrl;
 }
 <script>
-    let urlDelete = '@baseApiUrl' + 'Category/Delete/';
+    //client
     let url = '@Url.Content(Constants.UrlAction.Category.PopUpDialog)';
+    //api
+    let baseApiUrl = '@options.Value.BaseApiUrl';
+    let getListUrl = baseApiUrl + 'Category/GetList';
+    let insertUrl = baseApiUrl + 'Category/Add';
+    let updateUrl = baseApiUrl + 'Category/Update';
+    let deleteUrl = baseApiUrl + 'Category/Delete/';
+    //permission
     let permDelete = ('@permDelete' === 'True') ? true : false;
     let permUpdate = ('@permUpdate' === 'True') ? true : false;
     let permView = ('@permView' === 'True') ? true : false;
@@ -26,7 +32,7 @@
     function getList() {
         $.ajax({
             type: "GET",
-            url: '@baseApiUrl' + 'Category/GetList',
+            url: getListUrl,
             headers: { 'Authorization': 'bearer ' + _token },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -35,7 +41,7 @@
                 if (response.isSuccess) onSuccess(response);
             },
             error: function () {
-                alert('failure');
+                window.location.href = '/Authen/Login';
             }
         });
     }
@@ -93,7 +99,7 @@
                                 + '<i class="fas fa-eye"></i></a> | '
                                 + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + row.categoryId + '","Update","' + url + '","แก้ไขสินค้า");>'
                                 + '<i class="fas fa-pen"></i></a> | '
-                                + '<a class="btn btn-danger" title="ลบ"  onclick=confirmDelete("' + row.categoryId + '","' + urlDelete + '","' + row.categoryName + '");>'
+                                + '<a class="btn btn-danger" title="ลบ"  onclick=confirmDelete("' + row.categoryId + '","' + deleteUrl + '","' + row.categoryName + '");>'
                                 + '<i class="fas fa-trash"></a>'
                         }
                         else if (permView && permUpdate) 

@@ -9,8 +9,6 @@
 }
 <script>
     var action = '@Model.Action';
-    var urlAdd = '@baseApiUrl' + 'Category/Add';
-    var urlUpdate = '@baseApiUrl' + 'Category/Update';
     $(document).ready(function () {
         checkAction();
         formValidate();
@@ -34,8 +32,8 @@
     function formValidate() {
         $.validator.setDefaults({
             submitHandler: function () {
-                if (action == '@Constants.Action.Add') Insert('frmDetail', urlAdd);
-                if (action == '@Constants.Action.Update') Update('frmDetail', urlUpdate);
+                if (action == '@Constants.Action.Add') Insert('frmDetail', insertUrl);
+                if (action == '@Constants.Action.Update') Update('frmDetail', updateUrl);
             }
         });
         validate();

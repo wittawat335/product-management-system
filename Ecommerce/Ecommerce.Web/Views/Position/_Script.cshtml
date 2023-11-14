@@ -44,7 +44,7 @@
                 if (response.isSuccess) onSuccess(response);
             },
             error: function () {
-                alert('failure');
+                window.location.href = '/Authen/Login';
             }
         });
     }
