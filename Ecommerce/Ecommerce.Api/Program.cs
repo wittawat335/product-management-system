@@ -13,6 +13,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddInfrastructure(builder.Configuration); //DBsettting
 builder.Services.AddAppSetting(builder.Configuration);
 builder.Services.AddService();
+builder.Services.SessionConfig(builder.Configuration);
 builder.Services.AuthenticationConfig(builder.Configuration);
 builder.Services.ConfigureCorsPolicy(builder.Configuration); // addCors
 
@@ -24,6 +25,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseStaticFiles();
 app.UseCors(cor);
+app.UseSession();
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();

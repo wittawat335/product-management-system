@@ -1,5 +1,4 @@
-﻿using Ecommerce.Web.Commons;
-using Ecommerce.Web.Extenions.Class;
+﻿using Ecommerce.Web.Extenions.Class;
 using Ecommerce.Web.Models;
 using Ecommerce.Web.Models.Menu;
 using Ecommerce.Web.Models.Permission;
@@ -27,23 +26,9 @@ namespace Ecommerce.Web.Controllers
             _MenuService = MenuService;
             _setting = options.Value;
         }
-        public IActionResult Index()
-        {
-            var sessionLogin = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
-            if (sessionLogin == null) return RedirectToAction("Login", "Authen");
-
-            return View();
-        }
+        public IActionResult Index() { return View(); }
 
         #region Position
-        public async Task<IActionResult> GetListPosition()
-        {
-            var response = await _PositionService.GetListAsync(_setting.BaseApiUrl + "Position/GetList");
-            response.returnUrl = Url.Content(response.returnUrl) ?? "";
-
-            return Json(response);
-        }
-
         [HttpPost]
         public async Task<IActionResult> _PopUpPosition(string id, string action)
         {
@@ -63,36 +48,6 @@ namespace Ecommerce.Web.Controllers
 
             return PartialView(model);
         }
-
-        [HttpPost]
-        public async Task<IActionResult> SavePosition(Position model, string action)
-        {
-            var response = new Response<Position>();
-            switch (action ?? String.Empty)
-            {
-                case Constants.Action.Add:
-                    response = await _PositionService.InsertAsync(_setting.BaseApiUrl + "Position/Add", model);
-                    break;
-
-                case Constants.Action.Update:
-                    response = await _PositionService.PutAsync(_setting.BaseApiUrl + "Position/Update", model);
-                    break;
-
-                default:
-                    break;
-            }
-            return Json(response);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> DeletePosition(string id)
-        {
-            var response = await _PositionService.DeleteAsync(_setting.BaseApiUrl + string.Format("Position/Delete/{0}", id));
-            response.returnUrl = Url.Content(response.returnUrl) ?? "";
-
-            return Json(response);
-        }
-
         #endregion
 
         #region Add Menu to position
@@ -111,12 +66,12 @@ namespace Ecommerce.Web.Controllers
             return PartialView();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> JsTree(string positionId)
-        {
-            var response = await _permissionService.GetJsTree(_setting.BaseApiUrl + string.Format("Position/GetJsTree/{0}", positionId));
-            return Json(response.value);
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> JsTree(string positionId)
+        //{
+        //    var response = await _permissionService.GetJsTree(_setting.BaseApiUrl + string.Format("Position/GetJsTree/{0}", positionId));
+        //    return Json(response.value);
+        //}
 
         [HttpPost]
         public IActionResult SetPermission([FromBody] List<DataPermissionJsonInsertList> permissionData)

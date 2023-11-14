@@ -185,7 +185,11 @@ namespace Ecommerce.Core.Services
                     }
                 }
 
-                if (objReturn.Count() > 0) response.value = objReturn;
+                if (objReturn.Count() > 0)
+                {
+                    response.value = objReturn;
+                    response.isSuccess = true;
+                }
                 return response;
             }
             catch

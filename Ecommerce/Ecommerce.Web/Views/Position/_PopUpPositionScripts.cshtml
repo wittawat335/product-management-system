@@ -1,13 +1,16 @@
 ﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Extenions.Class;
 @using Ecommerce.Web.Models.Position;
+@using Microsoft.Extensions.Options;
 @model PositionViewModel;
+
 <script>
+    var action = '@Model.Action';
     $(document).ready(function () {
         checkAction();
         formValidate();
     });
     function checkAction() {
-        let action = '@Model.Action';
         switch (action) {
             case '@Constants.Action.View': {
                 setReadOnlyByDiv('frmDetail', true);
@@ -17,13 +20,17 @@
             case '@Constants.Action.Add':
                 $('#Status').val('A');
                 break;
+            case '@Constants.Action.Update':
+                setReadOnly('PositionId', true);
+                break;
         }
     }
 
     function formValidate() {
         $.validator.setDefaults({
             submitHandler: function () {
-                saveForm('frmDetail', '@Url.Content(Constants.UrlAction.Position.Save)')
+                if (action == '@Constants.Action.Add') Insert('frmDetail', insertUrl);
+                if (action == '@Constants.Action.Update') Update('frmDetail', updateUrl);
             }
         });
         checkValidate();

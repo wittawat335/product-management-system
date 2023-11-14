@@ -1,4 +1,6 @@
 ﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Extenions.Class;
+@using Microsoft.Extensions.Options;
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 <script>
@@ -6,15 +8,33 @@
         getPermissionData();
     });
 
+    // function getPermissionData() {
+    //     $.ajax({
+    //         async: true,
+    //         type: 'post',
+    //         dataType: "json",
+    //         url: '@Url.Content(Constants.UrlAction.Position.GetJsTree)',
+    //         data: { positionId: '@ViewBag.positionId' },
+    //         success: function (data) {
+    //             buildTree(data);
+    //         },
+    //         error: function (xhr, status, error) {
+    //             var err = eval("(" + xhr.responseText + ")");
+    //             alert(err.Message);
+    //         }
+    //     });
+    // };
+
     function getPermissionData() {
         $.ajax({
-            async: true,
-            type: 'post',
+            type: 'GET',
+            url: getJsTreeUrl + '@ViewBag.positionId',
+            headers: { 'Authorization': 'bearer ' + _token },
+            contentType: "application/json; charset=utf-8",
             dataType: "json",
-            url: '@Url.Content(Constants.UrlAction.Position.GetJsTree)',
-            data: { positionId: '@ViewBag.positionId' },
-            success: function (data) {
-                buildTree(data);
+            async: true,
+            success: function (response) {
+                if (response.isSuccess) buildTree(response.value);
             },
             error: function (xhr, status, error) {
                 var err = eval("(" + xhr.responseText + ")");
@@ -34,21 +54,64 @@
     };
 
     $("#btnSave").click(function () {
+        let id = '@ViewBag.positionId';
         var treeData = $('#PermissionDetails').jstree(true).get_json('#', { flat: false });
         $.ajax({
+            type: 'POST',
+            url: saveUrl + id,
+            headers: { 'Authorization': 'bearer ' + _token },
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
-            type: 'POST',
-            url: '@Url.Content(Constants.UrlAction.Position.SetPermission)',
             data: JSON.stringify(treeData),
+            async: true,
             success: function (response) {
-                if (response.isSuccess) SaveListPermission();
+                if (response.isSuccess) {
+                    swalMessage('success', response.message);
+                    closeModal();
+                }
+                else swalMessage('error', response.message);
             },
             failure: function (response) {
-               
+
             }
         });
     });
+
+    // $("#btnSave").click(function () {
+    //     var treeData = $('#PermissionDetails').jstree(true).get_json('#', { flat: false });
+    //     $.ajax({
+    //         contentType: 'application/json; charset=utf-8',
+    //         dataType: 'json',
+    //         type: 'POST',
+    //         url: '@Url.Content(Constants.UrlAction.Position.SetPermission)',
+    //         data: JSON.stringify(treeData),
+    //         success: function (response) {
+    //             if (response.isSuccess) SaveListPermission();
+    //         },
+    //         failure: function (response) {
+               
+    //         }
+    //     });
+    // });
+
+    // function Save() {
+    //     let id = '@ViewBag.positionId';
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: saveUrl + id,
+    //         headers: { 'Authorization': 'bearer ' + _token },
+    //         contentType: 'application/json; charset=utf-8',
+    //         dataType: "json",
+    //         async: false,
+    //         success: function (response) {
+    //             if (response.isSuccess) {
+    //                 swalMessage('success', response.message);
+    //                 closeModal();
+    //             }
+    //             else swalMessage('error', response.message);
+    //         }
+    //     });
+    // }
 
     function SaveListPermission() {
         $.ajax({

@@ -121,6 +121,17 @@
 
         public struct Menu
         {
+            public struct Position
+            {
+                public const string Id = "MN09";
+                public struct ActId
+                {
+                    public const string New = "ACT013";
+                    public const string Update = "ACT014";
+                    public const string View = "ACT015";
+                    public const string Delete = "ACT016";
+                }
+            }
             public struct User
             {
                 public const string Id = "MN01";
