@@ -32,6 +32,22 @@ namespace Ecommerce.Api.Controllers
             return Ok(response);
         }
 
+        [HttpGet("select2Product")]
+        public async Task<IActionResult> select2Product(string query)
+        {
+            var response = await _service.GetList();
+            response.value = response.value.Where(x => x.ProductName.ToLower().Contains(query.ToLower())).ToList();
+            return Ok(response);
+        }
+
+        [HttpGet("select2Category")]
+        public async Task<IActionResult> select2Category(string query)
+        {
+            var response = await _service.GetList();
+            response.value = response.value.Where(x => x.CategoryName.ToLower().Contains(query.ToLower())).ToList();
+            return Ok(response);
+        }
+
         [HttpGet("GetProduct/{id}")]
         public async Task<IActionResult> GetProduct(string id)
         {

@@ -13,3 +13,4 @@ E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Cor
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\refint\Ecommerce.Core.dll
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.pdb
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\ref\Ecommerce.Core.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\obj\Debug\net7.0\Ecommerce.Core.sourcelink.json

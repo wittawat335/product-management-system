@@ -2,6 +2,7 @@
 @using Ecommerce.Web.Models.Product;
 @model ProductViewModel;
 <script>
+    var action = '@Model.Action';
     $(document).ready(function () {
         bsCustomFileInput.init();
         checkAction();
@@ -9,7 +10,6 @@
     });
 
     function checkAction() {
-        let action = '@Model.Action';
         switch (action) {
             case '@Constants.Action.View': {
                 $('#btnSave').hide();
@@ -22,7 +22,8 @@
     function formValidate() {
         $.validator.setDefaults({
             submitHandler: function () {
-                save();
+                if (action == '@Constants.Action.Add') InsertProduct('frmDetail', insertUrl);
+                if (action == '@Constants.Action.Update') UpdateProduct('frmDetail', updateUrl);
             }
         });
         validate();
@@ -81,7 +82,7 @@
                 $(element).addClass('is-invalid');
             },
             unhighlight: function (element, errorClass, validClass) {
-                //$(element).removeClass('is-invalid');
+                $(element).removeClass('is-invalid');
                 $(element).addClass('is-valid');
             }
         });
@@ -93,14 +94,56 @@
             $('#Image').val(fileName);
     }
 
-    function save() {
+    function InsertProduct(formId, url) {
         setValueImage();
-        let url = '@Url.Content(Constants.UrlAction.Product.Save)';
-        let data = $('#frmDetail').serializeObject();
-        $.post(url, data, function (response) {
-            if (response.isSuccess) uploadImage(response);
-            else swalMessage('error', response.message);
-        });
+        var obj = $('#' + formId).serializeObject();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            headers: { 'Authorization': 'bearer ' + _token },
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (response) {
+                if (response.isSuccess) {
+                    uploadImage(response);
+                    swalMessage('success', response.message);
+                    closeModal();
+                    getList();
+                }
+                else Swal.fire(response.message);
+            },
+            failure: function (error) {
+
+            }
+        })
+    }
+
+    function UpdateProduct(formId, url) {
+        setValueImage();
+        var obj = $('#' + formId).serializeObject();
+        $.ajax({
+            type: 'PUT',
+            url: url,
+            headers: { 'Authorization': 'bearer ' + _token },
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (response) {
+                if (response.isSuccess) {
+                    uploadImage(response);
+                    swalMessage('success', response.message);
+                    closeModal();
+                    getList();
+                }
+                else Swal.fire(response.message);
+            },
+            failure: function (error) {
+
+            }
+        })
     }
 
     function uploadImage(response) {

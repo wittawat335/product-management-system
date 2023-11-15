@@ -523,3 +523,4 @@ E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web\bin\Debug\net7.0\Microsoft.AspN
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web\bin\Debug\net7.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web\bin\Debug\net7.0\Microsoft.Extensions.DependencyModel.dll
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web\obj\Debug\net7.0\Ecommerce.Web.MvcApplicationPartsAssemblyInfo.cs
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Web\obj\Debug\net7.0\Ecommerce.Web.sourcelink.json

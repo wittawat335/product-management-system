@@ -26,11 +26,6 @@ namespace Ecommerce.Web.Services
             _httpClient.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
         }
 
-        public Task<Product> Detail(string id, string action)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Response<List<Product>>> GetListProduct(Product filter)
         {
             var response = new Response<List<Product>>();
@@ -71,23 +66,6 @@ namespace Ecommerce.Web.Services
             }
 
             return response;
-        }
-
-        public async Task<List<Product>> Select2Product(string query)
-        {
-            var filter = new Product();
-            var response = await GetListProduct(filter);
-            response.value = response.value.Where(x => x.ProductName.ToLower().Contains(query.ToLower())).ToList();
-
-            return response.value;
-        }
-
-        public async Task<List<Category>> Select2Category(string query)
-        {
-            var response = await GetListCategory();
-            response.value = response.value.Where(x => x.CategoryName.ToLower().Contains(query.ToLower())).ToList();
-
-            return response.value;
         }
 
         public async Task<Response<List<Product>>> GetListShopping(int pageSize, int p)

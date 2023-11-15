@@ -63,7 +63,8 @@ namespace Ecommerce.Core.Services
             var loginResponse = new LoginResponse();
             try
             {
-                var claims = new List<Claim> {
+                var claims = new List<Claim>
+                    {
                         new Claim(JwtRegisteredClaimNames.Sub, _jwtSettings.Subject),
                         new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
@@ -72,8 +73,7 @@ namespace Ecommerce.Core.Services
 
                 var roles = await _positionRepository
                     .GetListAsync(x => x.PositionId == user.PositionId && x.Status == Constants.Status.Active);
-                var roleClaims = roles
-                    .Select(x => new Claim(ClaimTypes.Role, x.PositionName));
+                var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x.PositionName));
                 claims.AddRange(roleClaims);
 
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));

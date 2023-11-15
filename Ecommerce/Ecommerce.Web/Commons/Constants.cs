@@ -29,6 +29,7 @@
                 public const string Save = "~/Product/Save";
                 public const string SaveImage = "~/Product/SaveImage";
                 public const string Delete = "~/Product/Delete";
+                public const string DeleteImageFolder = "~/Product/DeleteImageFolder";
                 public const string select2Product = "~/Product/select2Product";
                 public const string select2Category = "~/Product/select2Category";
             }

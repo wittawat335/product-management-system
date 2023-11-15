@@ -1,9 +1,24 @@
 ﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Extenions.Class
 @using Ecommerce.Web.Models.Product;
+@using Ecommerce.Web.Services.Interfaces
+@using Microsoft.Extensions.Options
+@inject ICommonService common;
+@inject IOptions<AppSetting> options
 @model Product;
 <script>
-    let urlDelete = '@Url.Content(Constants.UrlAction.Product.Delete)';
+    //client
     let url = '@Url.Content(Constants.UrlAction.Product.PopUpDialog)';
+    let deleteImageUrl = '@Url.Content(Constants.UrlAction.Product.DeleteImageFolder)';
+    //api
+    let baseApiUrl = '@options.Value.BaseApiUrl';
+    let getListUrl = baseApiUrl + 'Product/GetList';
+    let insertUrl = baseApiUrl + 'Product/Add';
+    let updateUrl = baseApiUrl + 'Product/Update';
+    let deleteUrl = baseApiUrl + 'Product/Delete/';
+    
+    let select2Product = baseApiUrl + 'Product/select2Product';
+    let select2Category = baseApiUrl + 'Product/select2Category';
 
     $(function () {
         getList();
@@ -22,15 +37,20 @@
     });
 
     function getList() {
+        var _obj = new Object();
+        _obj.ProductId = $('#@Html.IdFor(m => m.ProductId)').val();
+        _obj.CategoryId = $('#@Html.IdFor(m => m.CategoryId)').val();
+        _obj.Status = $('#@Html.IdFor(m => m.Status)').val();
         $.ajax({
             type: "POST",
-            url: '@Url.Content(Constants.UrlAction.Product.GetList)',
-            dataType: "json",
-            data: {
-                ProductId: $('#@Html.IdFor(m => m.ProductId)').val(),
-                CategoryId: $('#@Html.IdFor(m => m.CategoryId)').val(),
-                Status: $('#@Html.IdFor(m => m.Status)').val(),
+            url: getListUrl,
+            headers: {
+                'Authorization': 'bearer ' + _token
             },
+            data: JSON.stringify(_obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
             success: function (response) {
                 if (response.isSuccess) onSuccess(response);
                 else window.location.href = response.returnUrl;
@@ -135,7 +155,7 @@
                                 + '<i class="fas fa-eye"></i></a> | '
                                 + '<a class="btn btn-warning" onclick=openPopupLg("' + row.productId + '","Update","' + url + '","แก้ไขสินค้า");>'
                                 + '<i class="fas fa-pen"></i></a> | '
-                                + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + row.productId + '","' + urlDelete + '","' + imageUrl + '");>'
+                                + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + row.productId + '","' + deleteUrl + '","' + imageUrl + '","' + deleteImageUrl + '");>'
                                 + '<i class="fas fa-trash"></a>'
                         }
                         else {
@@ -144,7 +164,7 @@
                                 + '<i class="fas fa-eye"></i></a> | '
                                 + '<a class="btn btn-warning" onclick=openPopupLg("' + row.productId + '","Update","' + url + '","แก้ไขสินค้า");>'
                                 + '<i class="fas fa-pen"></i></a> | '
-                                + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + row.productId + '","' + urlDelete + '","' + imageUrl + '");>'
+                                + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + row.productId + '","' + deleteUrl + '","' + imageUrl + '","' + deleteImageUrl + '");>'
                                 + '<i class="fas fa-trash"></a>'
                         }
                     }
@@ -156,12 +176,14 @@
     function setSelect2() {
         $("#@Html.IdFor(m => m.ProductId)").select2({
             placeholder: "--- กรุณาเลือก ---",
-            minimumInputLength: 3,
+            minimumInputLength: 1,
             dropdownAutoWidth: 'true',
             width: '100%',
             allowClear: true,
             ajax: {
-                url: '@Url.Content(Constants.UrlAction.Product.select2Product)',
+                type: "GET",
+                url: select2Product,
+                headers: { 'Authorization': 'bearer ' + _token },
                 delay: 50,
                 dataType: 'json',
                 quietMillis: 1000,
@@ -169,9 +191,8 @@
                     return { query: params.term };
                 },
                 processResults: function (data) {
-                    console.log(data);
                     return {
-                        results: $.map(data, function (obj) {
+                        results: $.map(data.value, function (obj) {
                             return {
                                 id: obj.productId,
                                 text: obj.productName
@@ -184,12 +205,14 @@
 
         $("#@Html.IdFor(m => m.CategoryId)").select2({
             placeholder: "--- กรุณาเลือก ---",
-            minimumInputLength: 3,
+            minimumInputLength: 1,
             dropdownAutoWidth: 'true',
             width: '100%',
             allowClear: true,
             ajax: {
-                url: '@Url.Content(Constants.UrlAction.Product.select2Category)',
+                type: "GET",
+                url: select2Category,
+                headers: { 'Authorization': 'bearer ' + _token },
                 delay: 50,
                 dataType: 'json',
                 quietMillis: 1000,
@@ -197,9 +220,8 @@
                     return { query: params.term };
                 },
                 processResults: function (data) {
-                    console.log(data);
                     return {
-                        results: $.map(data, function (obj) {
+                        results: $.map(data.value, function (obj) {
                             return {
                                 id: obj.categoryId,
                                 text: obj.categoryName

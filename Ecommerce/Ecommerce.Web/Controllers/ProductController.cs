@@ -34,15 +34,6 @@ namespace Ecommerce.Web.Controllers
 
         public IActionResult Index() { return View(); }
 
-        public async Task<IActionResult> GetList(Product search)
-        {
-            var response = await _service.GetListProduct(search);
-            if (response.returnUrl != null)
-                response.returnUrl = Url.Content(response.returnUrl);
-
-            return Json(response);
-        }
-
         [HttpPost]
         public async Task<IActionResult> _PopUpDialog(string id, string action)
         {
@@ -79,16 +70,6 @@ namespace Ecommerce.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var response = await _productService.DeleteAsync(_setting.BaseApiUrl + string.Format("Product/Delete/{0}", id));
-            if (response.isSuccess)
-                DeleteImageFolder(id);
-
-            return Json(response);
-        }
-
-        [HttpPost]
         public IActionResult SaveImage(IFormFile file, string productId, string message)
         {
             var response = new Response<string>();
@@ -117,22 +98,11 @@ namespace Ecommerce.Web.Controllers
             }
         }
 
-        private void DeleteImageFolder(string productId)
+        [HttpPost]
+        public void DeleteImageFolder(string id)
         {
-            string path = Path.Combine(_environment.WebRootPath, "images\\product\\" + productId);
+            string path = Path.Combine(_environment.WebRootPath, "images\\product\\" + id);
             if (Directory.Exists(path)) Directory.Delete(path, true);
-        }
-
-        public async Task<IActionResult> select2Product(string query)
-        {
-            var response = await _service.Select2Product(query);
-            return Json(response);
-        }
-
-        public async Task<IActionResult> select2Category(string query)
-        {
-            var response = await _service.Select2Category(query);
-            return Json(response);
         }
     }
 }

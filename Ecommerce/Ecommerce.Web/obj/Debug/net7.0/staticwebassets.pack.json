@@ -705,38 +705,6 @@
       "PackagePath": "staticwebassets\\images\\no_photo.jpg"
     },
     {
-      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\01cb7135-0d87-4c40-86e6-f1bf4439d385\\vivo-y50-blue.jpeg",
-      "PackagePath": "staticwebassets\\images\\product\\01cb7135-0d87-4c40-86e6-f1bf4439d385\\vivo-y50-blue.jpeg"
-    },
-    {
-      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\098b99c4-5a94-4725-bdb5-d2318cdcb0bf\\memory01.jpg",
-      "PackagePath": "staticwebassets\\images\\product\\098b99c4-5a94-4725-bdb5-d2318cdcb0bf\\memory01.jpg"
-    },
-    {
-      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\17578ce0-adac-4179-96c1-ad2c5758f3bd\\keyboard01.webp",
-      "PackagePath": "staticwebassets\\images\\product\\17578ce0-adac-4179-96c1-ad2c5758f3bd\\keyboard01.webp"
-    },
-    {
-      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\17578ce0-adac-4179-96c1-ad2c5758f3bd\\vivo-y50-blue.jpeg",
-      "PackagePath": "staticwebassets\\images\\product\\17578ce0-adac-4179-96c1-ad2c5758f3bd\\vivo-y50-blue.jpeg"
-    },
-    {
-      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\2ed44ae6-b194-4c41-95ed-32d5100f6744\\keyboard01.webp",
-      "PackagePath": "staticwebassets\\images\\product\\2ed44ae6-b194-4c41-95ed-32d5100f6744\\keyboard01.webp"
-    },
-    {
-      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\55d0f4db-4271-4fdc-8dbf-98cdcc367a25\\keyboard01.webp",
-      "PackagePath": "staticwebassets\\images\\product\\55d0f4db-4271-4fdc-8dbf-98cdcc367a25\\keyboard01.webp"
-    },
-    {
-      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\a18b3432-ba66-4866-89a4-8934c2d652b6\\monitor01.jfif",
-      "PackagePath": "staticwebassets\\images\\product\\a18b3432-ba66-4866-89a4-8934c2d652b6\\monitor01.jfif"
-    },
-    {
-      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\ee8ea101-dbe6-4b2e-812c-e225af59b52f\\keyboard01.webp",
-      "PackagePath": "staticwebassets\\images\\product\\ee8ea101-dbe6-4b2e-812c-e225af59b52f\\keyboard01.webp"
-    },
-    {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\product02\\keyboard01.webp",
       "PackagePath": "staticwebassets\\images\\product\\product02\\keyboard01.webp"
     },
@@ -759,6 +727,14 @@
     {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\test\\vivo-y50-blue.jpeg",
       "PackagePath": "staticwebassets\\images\\product\\test\\vivo-y50-blue.jpeg"
+    },
+    {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\testfff\\book01.png",
+      "PackagePath": "staticwebassets\\images\\product\\testfff\\book01.png"
+    },
+    {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\testfff\\—Pngtree—beautiful hologram -color  _3643167.png",
+      "PackagePath": "staticwebassets\\images\\product\\testfff\\—Pngtree—beautiful hologram -color  _3643167.png"
     },
     {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\js\\site.js",

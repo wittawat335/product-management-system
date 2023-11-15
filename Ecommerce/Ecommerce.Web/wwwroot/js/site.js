@@ -51,7 +51,7 @@ function saveForm(formId, url) {
         else swalMessageError('error', response.message);
     });
 }
-
+//------------------------ Send Api ---------------------------------
 function Insert(formId, url) {
     var obj = $('#' + formId).serializeObject();
     $.ajax({
@@ -75,7 +75,6 @@ function Insert(formId, url) {
         }
     })
 }
-
 function Update(formId, url) {
     var obj = $('#' + formId).serializeObject();
     $.ajax({
@@ -99,7 +98,6 @@ function Update(formId, url) {
         }
     })
 }
-
 function Delete(Id, url) {
     $.ajax({
         type: 'DELETE',
@@ -112,6 +110,27 @@ function Delete(Id, url) {
             if (response.isSuccess) {
                 swalMessage('success', response.message);
                 closeModal();
+                getList();
+            }
+            else Swal.fire(response.message);
+        },
+        failure: function (error) {
+
+        }
+    })
+}
+function DeleteWithImage(id, apiUrl, clientUrl) {
+    $.ajax({
+        type: 'DELETE',
+        url: apiUrl + id,
+        headers: { 'Authorization': 'bearer ' + _token },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            if (response.isSuccess) {
+                deleteImage(id, clientUrl);
+                swalMessage('success', response.message);
                 getList();
             }
             else Swal.fire(response.message);
@@ -306,10 +325,9 @@ function confirmDelete(id, url, name) {
         cancelButtonText: 'ไม่ใช่',
     }).then((result) => {
         if (result.isConfirmed) Delete(id, url);
-        //sendDelete(id, url);
     });
 }
-function confirmDeleteWithImage(id, url, imageUrl) {
+function confirmDeleteWithImage(id, apiUrl, imageUrl, clientUrl) {
     Swal.fire({
         title: 'คุณต้องการลบ ?',
         imageUrl: imageUrl,
@@ -322,10 +340,13 @@ function confirmDeleteWithImage(id, url, imageUrl) {
         cancelButtonColor: '#d33',
         cancelButtonText: 'ไม่ใช่',
     }).then((result) => {
-        if (result.isConfirmed) {
-            sendDelete(id, url);
-        }
+        if (result.isConfirmed) DeleteWithImage(id, apiUrl, clientUrl);
     });
+}
+function deleteImage(id, url) {
+    var url = url;
+    var data = { "id": id };
+    $.post(url, data, function (result) { return result });
 }
 function sendDelete(id, url) {
     var url = url;

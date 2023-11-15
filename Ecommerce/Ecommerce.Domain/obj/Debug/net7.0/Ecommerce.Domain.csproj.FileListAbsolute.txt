@@ -12,3 +12,4 @@ E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Domain\obj\Debug\net7.0\ref\Ecommer
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Domain\bin\Debug\net7.0\Ecommerce.Domain.runtimeconfig.json
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Domain\obj\Debug\net7.0\Ecommerce.Domain.csproj.AssemblyReference.cache
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Domain\obj\Debug\net7.0\Ecommerce.Domain.genruntimeconfig.cache
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Domain\obj\Debug\net7.0\Ecommerce.Domain.sourcelink.json
