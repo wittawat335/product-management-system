@@ -22,54 +22,6 @@ namespace Ecommerce.Core.Services
             _commonService = commonService;
             _mapper = mapper;
         }
-
-        public async Task<Response<User>> Add(UserDTO model)
-        {
-            var response = new Response<User>();
-            try
-            {
-                var user = await _repository.GetAsync(x => x.Username == model.Username);
-                if (user == null)
-                {
-                    model.Password = _commonService.Encrypt(model.Password);
-                    var mapping = _mapper.Map<User>(model);
-                    var result = await _repository.InsertAsyncAndSave(mapping);
-                    if (result != null)
-                    {
-                        response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.AddSuccessfully;
-                    }
-                }
-                else response.message = Constants.StatusMessage.DuplicateUser;
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-            }
-            return response;
-        }
-
-        public async Task<Response<User>> Delete(string id)
-        {
-            var response = new Response<User>();
-            try
-            {
-                var userData = await _repository.GetAsync(x => x.UserId == new Guid(id));
-                if (userData != null)
-                {
-                    _repository.Delete(userData);
-                    await _repository.SaveChangesAsync();
-                    response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.DeleteSuccessfully;
-                }
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-            }
-            return response;
-        }
-
         public async Task<Response<UserDTO>> Get(string id)
         {
             var response = new Response<UserDTO>();
@@ -91,7 +43,6 @@ namespace Ecommerce.Core.Services
 
             return response;
         }
-
         public async Task<Response<List<UserDTO>>> GetList(UserDTO filter = null)
         {
             var response = new Response<List<UserDTO>>();
@@ -117,7 +68,32 @@ namespace Ecommerce.Core.Services
             }
             return response;
         }
-
+        public async Task<Response<User>> Add(UserDTO model)
+        {
+            var response = new Response<User>();
+            try
+            {
+                var user = await _repository.GetAsync(x => x.Username == model.Username);
+                if (user == null)
+                {
+                    model.UserId = null;
+                    model.Password = _commonService.Encrypt(model.Password);
+                    var mapping = _mapper.Map<User>(model);
+                    var result = await _repository.InsertAsyncAndSave(mapping);
+                    if (result != null)
+                    {
+                        response.isSuccess = Constants.Status.True;
+                        response.message = Constants.StatusMessage.AddSuccessfully;
+                    }
+                }
+                else response.message = Constants.StatusMessage.DuplicateUser;
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+            return response;
+        }
         public async Task<Response<User>> Update(UserDTO model)
         {
             var response = new Response<User>();
@@ -138,6 +114,26 @@ namespace Ecommerce.Core.Services
                 response.message = "Exception Occurs : " + ex.Message;
             }
 
+            return response;
+        }
+        public async Task<Response<User>> Delete(string id)
+        {
+            var response = new Response<User>();
+            try
+            {
+                var userData = await _repository.GetAsync(x => x.UserId == new Guid(id));
+                if (userData != null)
+                {
+                    _repository.Delete(userData);
+                    await _repository.SaveChangesAsync();
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.DeleteSuccessfully;
+                }
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
             return response;
         }
     }
