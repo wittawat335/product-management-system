@@ -3,10 +3,6 @@
 @using Ecommerce.Web.Models.Category;
 @using Microsoft.Extensions.Options;
 @model CategoryViewModel;
-@inject IOptions<AppSetting> options
-@{
-    var baseApiUrl = options.Value.BaseApiUrl;
-}
 <script>
     var action = '@Model.Action';
     $(document).ready(function () {
@@ -74,7 +70,7 @@
                 $(element).addClass('is-invalid');
             },
             unhighlight: function (element, errorClass, validClass) {
-                //$(element).removeClass('is-invalid');
+                $(element).removeClass('is-invalid');
                 $(element).addClass('is-valid');
             }
         });

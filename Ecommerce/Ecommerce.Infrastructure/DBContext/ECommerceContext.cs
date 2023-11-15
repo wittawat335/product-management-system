@@ -1,6 +1,5 @@
 ﻿using Ecommerce.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Action = Ecommerce.Domain.Entities.Action;
 
 namespace Ecommerce.Infrastructure.DBContext;
 
@@ -15,7 +14,7 @@ public partial class ECommerceContext : DbContext
     {
     }
 
-    public virtual DbSet<Action> Actions { get; set; }
+    public virtual DbSet<Domain.Entities.Action> Actions { get; set; }
 
     public virtual DbSet<Category> Categories { get; set; }
 
@@ -35,7 +34,7 @@ public partial class ECommerceContext : DbContext
     { }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Action>(entity =>
+        modelBuilder.Entity<Domain.Entities.Action>(entity =>
         {
             entity.HasKey(e => e.ActId);
 
@@ -227,7 +226,7 @@ public partial class ECommerceContext : DbContext
             entity.Property(e => e.CreateDate).HasColumnType("datetime");
             entity.Property(e => e.Email)
                 .IsRequired()
-                .HasMaxLength(20);
+                .HasMaxLength(50);
             entity.Property(e => e.FullName)
                 .HasMaxLength(20)
                 .IsUnicode(false);
