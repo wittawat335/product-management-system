@@ -40,8 +40,9 @@
             success: function (response) {
                 if (response.isSuccess) onSuccess(response);
             },
-            error: function () {
-                window.location.href = '/Authen/Login';
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+                window.location.href = '/ErrorPages/' + jqXHR.status;
             }
         });
     }

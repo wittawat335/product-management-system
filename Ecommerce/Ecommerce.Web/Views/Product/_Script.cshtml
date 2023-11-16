@@ -53,10 +53,10 @@
             async: false,
             success: function (response) {
                 if (response.isSuccess) onSuccess(response);
-                else window.location.href = response.returnUrl;
             },
-            error: function (textStatus, errorThrown) {
-                alert('test');
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+                window.location.href = '/ErrorPages/' + jqXHR.status;
             }
         })
     }
