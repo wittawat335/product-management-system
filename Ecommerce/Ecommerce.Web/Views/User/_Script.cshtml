@@ -44,7 +44,6 @@
             async: false,
             success: function (response) {
                 if (response.isSuccess) onSuccess(response);
-                else window.location.href = response.returnUrl;
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(errorThrown);
