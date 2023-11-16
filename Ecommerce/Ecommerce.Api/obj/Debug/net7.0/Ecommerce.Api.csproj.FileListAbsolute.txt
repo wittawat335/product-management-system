@@ -95,3 +95,4 @@ E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.genruntimeconfig.cache
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\ref\Ecommerce.Api.dll
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.sourcelink.json
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\appsettings.Production.json
