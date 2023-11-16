@@ -12,10 +12,12 @@ namespace Ecommerce.Api.Controllers
     public class ProductController : ControllerBase
     {
         private readonly IProductService _service;
+        private readonly ICategoryService _categoryService;
 
-        public ProductController(IProductService service)
+        public ProductController(IProductService service, ICategoryService categoryService)
         {
             _service = service;
+            _categoryService = categoryService;
         }
 
         [HttpGet("GetList")]
@@ -43,7 +45,7 @@ namespace Ecommerce.Api.Controllers
         [HttpGet("select2Category")]
         public async Task<IActionResult> select2Category(string query)
         {
-            var response = await _service.GetList();
+            var response = await _categoryService.GetList();
             response.value = response.value.Where(x => x.CategoryName.ToLower().Contains(query.ToLower())).ToList();
             return Ok(response);
         }
