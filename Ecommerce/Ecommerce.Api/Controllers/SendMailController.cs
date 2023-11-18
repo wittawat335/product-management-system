@@ -10,10 +10,7 @@ namespace Ecommerce.Api.Controllers
     {
         private readonly IEmailService _service;
 
-        public SendMailController(IEmailService service)
-        {
-            _service = service;
-        }
+        public SendMailController(IEmailService service) => _service = service;
 
         [HttpPost]
         public async Task<IActionResult> SendEmail([FromBody] MailRequest request)

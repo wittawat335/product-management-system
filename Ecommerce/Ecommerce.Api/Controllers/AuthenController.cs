@@ -18,7 +18,6 @@ namespace Ecommerce.Api.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Administrator")]
         [Route("CheckEnvironment")]
         public IActionResult CheckEnvironment()
         {

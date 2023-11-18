@@ -12,10 +12,7 @@ namespace Ecommerce.Api.Controllers
     {
         private readonly ICategoryService _service;
 
-        public CategoryController(ICategoryService service)
-        {
-            _service = service;
-        }
+        public CategoryController(ICategoryService service) => _service = service;
 
         [HttpGet("GetList")]
         public async Task<IActionResult> GetList()

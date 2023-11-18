@@ -9,10 +9,7 @@ namespace Ecommerce.Api.Controllers
     {
         private readonly IMenuService _service;
 
-        public MenuController(IMenuService service)
-        {
-            _service = service;
-        }
+        public MenuController(IMenuService service) => _service = service;
 
         [HttpGet("{PositionId}")]
         public async Task<IActionResult> GetList(string PositionId)

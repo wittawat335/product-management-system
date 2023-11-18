@@ -12,10 +12,8 @@ namespace Ecommerce.Api.Controllers
     {
         private readonly IPositionService _service;
 
-        public PositionController(IPositionService service)
-        {
-            _service = service;
-        }
+        public PositionController(IPositionService service) => _service = service;
+
 
         [Authorize(Roles = "Developer,Administrator")]
         [HttpGet("GetJsTree/{positionId}")]
