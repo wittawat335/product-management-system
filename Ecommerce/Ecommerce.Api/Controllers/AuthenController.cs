@@ -1,6 +1,5 @@
 ﻿using Ecommerce.Core.DTOs.Authen;
 using Ecommerce.Core.Services.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Api.Controllers
@@ -28,8 +27,7 @@ namespace Ecommerce.Api.Controllers
         [Route("Login")]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {
-            var response = await _service.Login(request);
-            return Ok(response);
+            return Ok(await _service.Login(request));
         }
 
         [HttpPost]

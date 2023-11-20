@@ -19,7 +19,6 @@ namespace Ecommerce.Core.Services
             _repository = repository;
             _mapper = mapper;
         }
-
         public async Task<Response<List<CategoryDTO>>> GetList(CategoryDTO filter = null)
         {
             var response = new Response<List<CategoryDTO>>();
@@ -59,7 +58,6 @@ namespace Ecommerce.Core.Services
 
             return response;
         }
-
         public async Task<Response<Category>> Add(CategoryDTO model)
         {
             var response = new Response<Category>();
