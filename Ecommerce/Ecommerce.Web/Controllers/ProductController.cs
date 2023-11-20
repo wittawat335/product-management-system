@@ -1,9 +1,7 @@
-﻿using Ecommerce.Web.Commons;
-using Ecommerce.Web.Extenions.Class;
+﻿using Ecommerce.Web.Extenions.Class;
 using Ecommerce.Web.Models;
 using Ecommerce.Web.Models.Category;
 using Ecommerce.Web.Models.Product;
-using Ecommerce.Web.Services;
 using Ecommerce.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -14,7 +12,6 @@ namespace Ecommerce.Web.Controllers
     {
         private readonly IBaseApiService<Product> _productService;
         private readonly IBaseApiService<Category> _categoryService;
-        private readonly IProductService _service;
         private readonly IWebHostEnvironment _environment;
         private readonly AppSetting _setting;
 
@@ -22,14 +19,12 @@ namespace Ecommerce.Web.Controllers
             IBaseApiService<Product> productService,
             IBaseApiService<Category> categoryService,
             IOptions<AppSetting> options,
-            IWebHostEnvironment environment,
-            IProductService service)
+            IWebHostEnvironment environment)
         {
             _productService = productService;
             _categoryService = categoryService;
             _setting = options.Value;
             _environment = environment;
-            _service = service;
         }
 
         public IActionResult Index() { return View(); }
@@ -50,23 +45,6 @@ namespace Ecommerce.Web.Controllers
 
             model.Action = action;
             return PartialView(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Save(Product model, string action)
-        {
-            var response = new Response<Product>();
-            switch (action ?? String.Empty)
-            {
-                case Constants.Action.Add:
-                    response = await _productService.InsertAsync(_setting.BaseApiUrl + "Product/Add", model);
-                    break;
-
-                case Constants.Action.Update:
-                    response = await _productService.PutAsync(_setting.BaseApiUrl + "Product/Update", model);
-                    break;
-            }
-            return Json(response);
         }
 
         [HttpPost]

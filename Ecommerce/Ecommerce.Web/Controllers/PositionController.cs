@@ -12,18 +12,15 @@ namespace Ecommerce.Web.Controllers
     {
         private readonly IBaseApiService<Position> _PositionService;
         private readonly IBaseApiService<Menu> _MenuService;
-        private readonly IPermissionService _permissionService;
         private readonly ICommonService _common;
         private readonly AppSetting _setting;
 
         public PositionController(IBaseApiService<Position> PositionService,
            IBaseApiService<Menu> MenuService,
-           IPermissionService permissionService,
            ICommonService common,
            IOptions<AppSetting> options)
         {
             _PositionService = PositionService;
-            _permissionService = permissionService;
             _MenuService = MenuService;
             _common = common;
             _setting = options.Value;
