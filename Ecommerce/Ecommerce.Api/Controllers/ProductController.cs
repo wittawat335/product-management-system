@@ -57,6 +57,13 @@ namespace Ecommerce.Api.Controllers
             return Ok(response);
         }
 
+        [HttpPost("UploadFile")]
+        public async Task<IActionResult> UploadFile(List<ProductDTO> request)
+        {
+            var response = await _service.Upload(request);
+            return Ok(response);
+        }
+
         [HttpPost("Add")]
         public async Task<IActionResult> Add(ProductDTO request)
         {

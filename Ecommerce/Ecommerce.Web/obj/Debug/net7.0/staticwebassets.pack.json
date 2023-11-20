@@ -705,6 +705,14 @@
       "PackagePath": "staticwebassets\\images\\no_photo.jpg"
     },
     {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\ang01\\Angular_full_color_logo.svg.png",
+      "PackagePath": "staticwebassets\\images\\product\\ang01\\Angular_full_color_logo.svg.png"
+    },
+    {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\net01\\NET_Core_Logo.svg.png",
+      "PackagePath": "staticwebassets\\images\\product\\net01\\NET_Core_Logo.svg.png"
+    },
+    {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\product02\\keyboard01.webp",
       "PackagePath": "staticwebassets\\images\\product\\product02\\keyboard01.webp"
     },
@@ -723,6 +731,10 @@
     {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\proudct01\\vivo-y50-blue.jpeg",
       "PackagePath": "staticwebassets\\images\\product\\proudct01\\vivo-y50-blue.jpeg"
+    },
+    {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\react01\\R.png",
+      "PackagePath": "staticwebassets\\images\\product\\react01\\R.png"
     },
     {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\test\\vivo-y50-blue.jpeg",

@@ -152,5 +152,30 @@ namespace Ecommerce.Core.Services
 
             return message;
         }
+        public async Task<Response<Product>> Upload(List<ProductDTO> request)
+        {
+            var response = new Response<Product>();
+            try
+            {
+                if (request.Count() > 0)
+                {
+                    foreach (var item in request)
+                    {
+                        var result = await CheckDupilcate(item.ProductId, item.ProductName, item.CategoryId);
+                        if (result == string.Empty)
+                            _repository.Insert(_mapper.Map<Product>(item));
+                    }
+                }
+
+                await _repository.SaveChangesAsync();
+                response.isSuccess = Constants.Status.True;
+                response.message = Constants.StatusMessage.AddSuccessfully;
+            }
+            catch (Exception ex)
+            {
+                response.message = ex.Message;
+            }
+            return response;
+        }
     }
 }

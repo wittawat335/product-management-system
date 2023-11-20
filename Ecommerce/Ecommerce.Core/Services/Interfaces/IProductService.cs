@@ -11,6 +11,7 @@ namespace Ecommerce.Core.Services.Interfaces
         Task<Response<Product>> Add(ProductDTO request);
         Task<Response<Product>> Update(ProductDTO request);
         Task<Response<Product>> Delete(string id);
+        Task<Response<Product>> Upload(List<ProductDTO> request);
         Task<string> CheckDupilcate(string id, string name, string categoryId);
     }
 }

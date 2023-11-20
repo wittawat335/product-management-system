@@ -21,7 +21,6 @@ namespace Ecommerce.Web.Controllers
         {
             var result = await _service.Login(req);
             if (result.isSuccess) await _service.GetPermission(result.value.positionId);
-            //result.returnUrl = Url.Content("~" + result.returnUrl);
 
             return Json(result);
         }
