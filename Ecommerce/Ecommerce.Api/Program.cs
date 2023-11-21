@@ -23,6 +23,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseSwagger();
+app.UseSwaggerUI();
+
 app.UseStaticFiles();
 app.UseCors(cor);
 app.UseHttpsRedirection();
