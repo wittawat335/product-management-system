@@ -21,10 +21,10 @@ namespace Ecommerce.Api.Controllers
         }
 
         [HttpGet("GetList")]
-        public async Task<IActionResult> GetList()
+        public async Task<IActionResult> GetList() 
         {
             var response = await _service.GetList();
-            return Ok(response);
+            return Ok(response); 
         }
 
         [HttpPost("GetList")]

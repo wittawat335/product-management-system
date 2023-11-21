@@ -1,4 +1,6 @@
-﻿using Ecommerce.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+using Ecommerce.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce.Infrastructure.DBContext;
@@ -40,16 +42,13 @@ public partial class ECommerceContext : DbContext
 
             entity.ToTable("Action");
 
-            entity.Property(e => e.ActId)
-                .HasMaxLength(10)
-                .IsUnicode(false);
+            entity.Property(e => e.ActId).HasMaxLength(50);
             entity.Property(e => e.ActName)
                 .IsRequired()
                 .HasMaxLength(20);
             entity.Property(e => e.MenuId)
                 .IsRequired()
-                .HasMaxLength(10)
-                .IsUnicode(false);
+                .HasMaxLength(50);
             entity.Property(e => e.Status)
                 .IsRequired()
                 .HasMaxLength(1)
@@ -63,13 +62,10 @@ public partial class ECommerceContext : DbContext
 
             entity.ToTable("Category");
 
-            entity.Property(e => e.CategoryId)
-                .HasMaxLength(10)
-                .IsUnicode(false);
+            entity.Property(e => e.CategoryId).HasMaxLength(50);
             entity.Property(e => e.CategoryName)
                 .IsRequired()
-                .HasMaxLength(20)
-                .IsUnicode(false);
+                .HasMaxLength(50);
             entity.Property(e => e.CreateDate).HasColumnType("datetime");
             entity.Property(e => e.Status)
                 .IsRequired()
@@ -82,26 +78,19 @@ public partial class ECommerceContext : DbContext
         {
             entity.ToTable("Menu");
 
-            entity.Property(e => e.MenuId)
-                .HasMaxLength(10)
-                .IsUnicode(false);
+            entity.Property(e => e.MenuId).HasMaxLength(50);
             entity.Property(e => e.CreateDate).HasColumnType("datetime");
             entity.Property(e => e.Icon).HasMaxLength(50);
             entity.Property(e => e.MenuName)
                 .IsRequired()
-                .HasMaxLength(20)
-                .IsUnicode(false);
-            entity.Property(e => e.ParentId)
-                .HasMaxLength(10)
-                .IsUnicode(false);
+                .HasMaxLength(50);
+            entity.Property(e => e.ParentId).HasMaxLength(50);
             entity.Property(e => e.Status)
                 .IsRequired()
                 .HasMaxLength(1)
                 .IsUnicode(false)
                 .IsFixedLength();
-            entity.Property(e => e.Url)
-                .HasMaxLength(50)
-                .IsUnicode(false);
+            entity.Property(e => e.Url).HasMaxLength(50);
         });
 
         modelBuilder.Entity<Permission>(entity =>
@@ -110,15 +99,9 @@ public partial class ECommerceContext : DbContext
 
             entity.ToTable("Permission");
 
-            entity.Property(e => e.PositionId)
-                .HasMaxLength(10)
-                .IsUnicode(false);
-            entity.Property(e => e.MenuId)
-                .HasMaxLength(10)
-                .IsUnicode(false);
-            entity.Property(e => e.ActId)
-                .HasMaxLength(10)
-                .IsUnicode(false);
+            entity.Property(e => e.PositionId).HasMaxLength(50);
+            entity.Property(e => e.MenuId).HasMaxLength(50);
+            entity.Property(e => e.ActId).HasMaxLength(50);
             entity.Property(e => e.Flag)
                 .HasMaxLength(1)
                 .IsUnicode(false)
@@ -134,17 +117,12 @@ public partial class ECommerceContext : DbContext
         {
             entity.ToTable("Position");
 
-            entity.Property(e => e.PositionId)
-                .HasMaxLength(10)
-                .IsUnicode(false);
+            entity.Property(e => e.PositionId).HasMaxLength(50);
             entity.Property(e => e.CreateDate).HasColumnType("datetime");
-            entity.Property(e => e.MenuDefault)
-                .HasMaxLength(10)
-                .IsUnicode(false);
+            entity.Property(e => e.MenuDefault).HasMaxLength(50);
             entity.Property(e => e.PositionName)
                 .IsRequired()
-                .HasMaxLength(20)
-                .IsUnicode(false);
+                .HasMaxLength(50);
             entity.Property(e => e.Status)
                 .IsRequired()
                 .HasMaxLength(1)
@@ -160,13 +138,10 @@ public partial class ECommerceContext : DbContext
         {
             entity.ToTable("Product");
 
-            entity.Property(e => e.ProductId)
-                .HasMaxLength(10)
-                .IsUnicode(false);
+            entity.Property(e => e.ProductId).HasMaxLength(50);
             entity.Property(e => e.CategoryId)
                 .IsRequired()
-                .HasMaxLength(10)
-                .IsUnicode(false);
+                .HasMaxLength(50);
             entity.Property(e => e.CreateDate).HasColumnType("datetime");
             entity.Property(e => e.Image).HasMaxLength(50);
             entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
@@ -227,19 +202,14 @@ public partial class ECommerceContext : DbContext
             entity.Property(e => e.Email)
                 .IsRequired()
                 .HasMaxLength(50);
-            entity.Property(e => e.FullName)
-                .HasMaxLength(20)
-                .IsUnicode(false);
+            entity.Property(e => e.FullName).HasMaxLength(50);
             entity.Property(e => e.Password)
                 .IsRequired()
                 .HasMaxLength(50);
-            entity.Property(e => e.PhoneNumber)
-                .HasMaxLength(15)
-                .IsUnicode(false);
+            entity.Property(e => e.PhoneNumber).HasMaxLength(50);
             entity.Property(e => e.PositionId)
                 .IsRequired()
-                .HasMaxLength(10)
-                .IsUnicode(false);
+                .HasMaxLength(50);
             entity.Property(e => e.Status)
                 .IsRequired()
                 .HasMaxLength(1)

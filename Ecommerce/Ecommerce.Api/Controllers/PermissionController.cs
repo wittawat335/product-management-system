@@ -14,7 +14,6 @@ namespace Ecommerce.Api.Controllers
 
         public PermissionController(IPermissionService service) => _service = service;
 
-
         [HttpGet("GetList/{positionId}")]
         public async Task<IActionResult> GetList(string positionId)
         {

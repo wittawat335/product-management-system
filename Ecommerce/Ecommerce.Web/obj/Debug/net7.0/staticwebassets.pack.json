@@ -709,6 +709,10 @@
       "PackagePath": "staticwebassets\\images\\product\\ang01\\Angular_full_color_logo.svg.png"
     },
     {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\course01\\nextjs.png",
+      "PackagePath": "staticwebassets\\images\\product\\course01\\nextjs.png"
+    },
+    {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\images\\product\\net01\\NET_Core_Logo.svg.png",
       "PackagePath": "staticwebassets\\images\\product\\net01\\NET_Core_Logo.svg.png"
     },

@@ -1,4 +1,7 @@
-﻿namespace Ecommerce.Domain.Entities;
+﻿using System;
+using System.Collections.Generic;
+
+namespace Ecommerce.Domain.Entities;
 
 public partial class Action
 {

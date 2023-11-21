@@ -1,5 +1,7 @@
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\appsettings.Development.json
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\appsettings.json
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\appsettings.Production.json
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\appsettings.Staging.json
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\Ecommerce.Api.staticwebassets.runtime.json
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\Ecommerce.Api.exe
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\Ecommerce.Api.deps.json
@@ -80,13 +82,14 @@ E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.csproj.CoreCompileInputs.cache
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.MvcApplicationPartsAssemblyInfo.cs
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.MvcApplicationPartsAssemblyInfo.cache
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.sourcelink.json
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\staticwebassets.build.json
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\staticwebassets.development.json
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\staticwebassets\msbuild.Ecommerce.Api.Microsoft.AspNetCore.StaticWebAssets.props
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\staticwebassets\msbuild.build.Ecommerce.Api.props
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\staticwebassets\msbuild.buildMultiTargeting.Ecommerce.Api.props
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\staticwebassets\msbuild.buildTransitive.Ecommerce.Api.props
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\staticwebassets.pack.json
-E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\staticwebassets.build.json
-E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\staticwebassets.development.json
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\scopedcss\bundle\Ecommerce.Api.styles.css
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.csproj.CopyComplete
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.dll
@@ -94,6 +97,3 @@ E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\refint\Ecommer
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.pdb
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.genruntimeconfig.cache
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\ref\Ecommerce.Api.dll
-E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Debug\net7.0\Ecommerce.Api.sourcelink.json
-E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\appsettings.Production.json
-E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Debug\net7.0\appsettings.Staging.json

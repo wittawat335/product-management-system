@@ -48,7 +48,6 @@ namespace Ecommerce.Core.Services
                 {
                     response.value = _mapper.Map<CategoryDTO>(query);
                     response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.AddSuccessfully;
                 }
             }
             catch (Exception ex)
