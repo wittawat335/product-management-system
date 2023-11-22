@@ -96,3 +96,4 @@ E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Release\net7.0\refint\Ecomm
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Release\net7.0\Ecommerce.Api.pdb
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Release\net7.0\Ecommerce.Api.genruntimeconfig.cache
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Release\net7.0\ref\Ecommerce.Api.dll
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\bin\Release\net7.0\appsettings.Staging.json

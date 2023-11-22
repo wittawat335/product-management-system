@@ -5,7 +5,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project>
   <PropertyGroup>
     <_PublishTargetUrl>D:\Publish\Ecommerce\backend</_PublishTargetUrl>
-    <History>True|2023-11-16T10:11:49.3697286Z;True|2023-11-16T15:54:26.3233384+07:00;</History>
+    <History>True|2023-11-22T02:05:57.2550875Z;True|2023-11-16T17:11:49.3697286+07:00;True|2023-11-16T15:54:26.3233384+07:00;</History>
     <LastFailureDetails />
   </PropertyGroup>
 </Project>

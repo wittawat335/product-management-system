@@ -1,40 +1,65 @@
-﻿
-@{
-    ViewData["Title"] = "Forbidden";
+﻿@{
     Layout = null;
 }
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Arvo">
 <style>
-    body {
-        background-color: black;
-        color: white;
+    .page_404 {
+        padding: 40px 0;
+        background: #fff;
+        font-family: 'Arvo', serif;
     }
 
-    h1 {
-        color: red;
+        .page_404 img {
+            width: 100%;
+        }
+
+    .four_zero_four_bg {
+        background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+        height: 400px;
+        background-position: center;
     }
 
-    h6 {
-        color: red;
-        text-decoration: underline;
+        .four_zero_four_bg h1 {
+            font-size: 80px;
+        }
+
+        .four_zero_four_bg h3 {
+            font-size: 80px;
+        }
+
+    .link_404 {
+        color: #fff !important;
+        padding: 10px 20px;
+        background: #39ac31;
+        margin: 20px 0;
+        display: inline-block;
+    }
+
+    .contant_box_404 {
+        margin-top: -50px;
     }
 </style>
+<section class="page_404">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 ">
+                <div class="col-sm-10 col-sm-offset-1  text-center">
+                    <div class="four_zero_four_bg">
+                        <h1 class="text-center ">403</h1>
+                    </div>
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Access Denied</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-</head>
-<body>
-    <div class="w3-display-middle">
-        <h1 class="w3-jumbo w3-animate-top w3-center"><code>Access Denied</code></h1>
-        <hr class="w3-border-white w3-animate-left" style="margin:auto;width:50%">
-        <h3 class="w3-center w3-animate-right">You dont have permission to view this site.</h3>
-        <h3 class="w3-center w3-animate-zoom">🚫🚫🚫🚫</h3>
-        <h6 class="w3-center w3-animate-zoom">error code:403 forbidden</h6>
+                    <div class="contant_box_404">
+                        <h3 class="h2">
+                            Forbidden
+                        </h3>
+                        <p>the page you are looking for not avaible!</p>
+                        <a class="link_404" asp-controller="Authen" asp-action="Login">
+                            กลับไปหน้าเข้าสู่ระบบ
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-</body>
-</html>
+</section>

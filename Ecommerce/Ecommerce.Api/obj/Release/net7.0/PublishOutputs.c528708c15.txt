@@ -2,6 +2,7 @@ E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Release\net7.0\PubTmp\Out\E
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Release\net7.0\PubTmp\Out\appsettings.Development.json
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Release\net7.0\PubTmp\Out\appsettings.json
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Release\net7.0\PubTmp\Out\appsettings.Production.json
+E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Release\net7.0\PubTmp\Out\appsettings.Staging.json
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Release\net7.0\PubTmp\Out\Ecommerce.Api.dll
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Release\net7.0\PubTmp\Out\Ecommerce.Api.deps.json
 E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Api\obj\Release\net7.0\PubTmp\Out\Ecommerce.Api.runtimeconfig.json
