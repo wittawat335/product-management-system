@@ -11,10 +11,7 @@ namespace Ecommerce.Infrastructure.Repositories
     {
         private readonly DapperContext _context;
 
-        public StoredRespository(DapperContext context)
-        {
-            _context = context;
-        }
+        public StoredRespository(DapperContext context) => _context = context;
 
         public async Task<List<Menu>> SP_GET_MENU_BY_POSITION(string positionId)
         {

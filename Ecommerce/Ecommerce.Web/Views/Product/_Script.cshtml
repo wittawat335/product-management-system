@@ -38,9 +38,9 @@
 
     function getList() {
         var _obj = new Object();
-        _obj.ProductId = $('#@Html.IdFor(m => m.ProductId)').val();
-        _obj.CategoryId = $('#@Html.IdFor(m => m.CategoryId)').val();
-        _obj.Status = $('#@Html.IdFor(m => m.Status)').val();
+        _obj.ProductId = $('#txtProduct').val();
+        _obj.CategoryId = $('#txtCategory').val();
+        _obj.Status = $('#txtStatus').val();
         $.ajax({
             type: "POST",
             url: getListUrl,
@@ -174,7 +174,7 @@
     }
 
     function setSelect2() {
-        $("#@Html.IdFor(m => m.ProductId)").select2({
+        $("#txtProduct").select2({
             placeholder: "--- กรุณาเลือก ---",
             minimumInputLength: 1,
             dropdownAutoWidth: 'true',
@@ -203,7 +203,7 @@
             }
         });
 
-        $("#@Html.IdFor(m => m.CategoryId)").select2({
+        $("#txtCategory").select2({
             placeholder: "--- กรุณาเลือก ---",
             minimumInputLength: 1,
             dropdownAutoWidth: 'true',
@@ -235,8 +235,8 @@
 
     function resetform() {
         $("#dtResult").dataTable().fnClearTable();
-        $("#@Html.IdFor(m => m.ProductId)").empty().trigger('change')
-        $("#@Html.IdFor(m => m.CategoryId)").empty().trigger('change')
-        $("#@Html.IdFor(m => m.Status)").val('');
+        $("#txtProduct").empty().trigger('change')
+        $("#txtCategory").empty().trigger('change')
+        $("#txtStatus").val('');
     }
 </script>

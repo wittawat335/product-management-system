@@ -39,19 +39,19 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label asp-for="ProductName"></label>
-                            <select asp-for="ProductId" class="form-control select2"></select>
+                            <select id="txtProduct" class="form-control select2"></select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label asp-for="CategoryName"></label>
-                            <select asp-for="CategoryId" class="form-control select2"></select>
+                            <select id="txtCategory" class="form-control select2"></select>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
                             <label asp-for="Status"></label>
-                            <select asp-for="Status" class="form-control select2" style="width: 100%;">
+                            <select id="txtStatus" class="form-control select2" style="width: 100%;">
                                 <option selected="selected" value="">--- กรุณาเลือก ---</option>
                                 <option value="A">ใช้งาน</option>
                                 <option value="I">ไม่ได้ใช้งาน</option>

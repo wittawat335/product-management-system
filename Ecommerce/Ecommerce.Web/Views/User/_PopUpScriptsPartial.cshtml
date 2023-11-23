@@ -27,6 +27,9 @@
             case '@Constants.Action.Add':
                 $('#Status').val('A');
                 break;
+            case '@Constants.Action.Update':
+                setReadOnly('Username', true);
+                break;
         }
     }
 

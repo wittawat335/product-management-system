@@ -29,7 +29,7 @@
 
     function getList() {
         var _obj = new Object();
-        _obj.userId = $('#@Html.IdFor(m => m.Username)').val();
+        _obj.userId = $('#txtUsername').val();
         _obj.positionId = $('#@Html.IdFor(m => m.PositionId)').val();
         _obj.status = $('#@Html.IdFor(m => m.Status)').val();
         $.ajax({
@@ -137,7 +137,7 @@
     }
 
     function setSelect2() {
-        $("#@Html.IdFor(m => m.Username)").select2({
+        $("#txtUsername").select2({
             placeholder: "--- กรุณาเลือก ---",
             minimumInputLength: 1,
             dropdownAutoWidth: 'true',
@@ -194,7 +194,7 @@
 
     function resetform() {
         $("#dtResult").dataTable().fnClearTable();
-        $("#@Html.IdFor(m => m.Username)").empty().trigger('change')
+        $("#txtUsername").empty().trigger('change')
         $("#@Html.IdFor(m => m.PositionId)").empty().trigger('change')
         $("#@Html.IdFor(m => m.Status)").val('');
     }
