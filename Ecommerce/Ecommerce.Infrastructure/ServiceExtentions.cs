@@ -23,8 +23,8 @@ namespace Ecommerce.Infrastructure
                     });
             });
             services.AddSingleton<DapperContext>(); // Singleton : ถูกสร้างแค่ครั้งแรกที่ถูกเรียก หลังจากนั้น Instance จะคงอยู่ตลอดไปจนกว่าเราจะปิดและเปิดระบบขึ้นมาใหม่
-            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>)); //Transient : ถูกสร้างใหม่ทุกครั้งที่มีการเรียกใช้งานภายในระบบ
-            services.AddScoped<IStoredRespository, StoredRespository>();
+            services.AddTransient(typeof(IGenericRepository<>), typeof(GenericRepository<>)); // Transient : ถูกสร้างใหม่ทุกครั้งที่มีการเรียกใช้งานภายในระบบ
+            services.AddScoped<IStoredRespository, StoredRespository>(); // Scoped : จะถูกสร้างใหม่ทุกครั้งที่ Client Request (1 Connection = 1 Client Request)
         }
     }
 }

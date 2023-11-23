@@ -102,7 +102,6 @@ namespace Ecommerce.Core.Services
                 var data = _repository.Get(x => x.UserId == new Guid(model.UserId));
                 if (data != null)
                 {
-                    if (model.Password != null) model.Password = _commonService.Encrypt(model.Password);
                     _repository.Update(_mapper.Map(model, data));
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;

@@ -21,11 +21,8 @@ namespace Ecommerce.Core.Services
         private readonly IMapper _mapper;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthenService(IGenericRepository<User> repository,
-            IGenericRepository<Position> positionRepository,
-            ICommonService common,
-            IMapper mapper,
-            IOptions<JwtSettings> options)
+        public AuthenService(IGenericRepository<User> repository, IGenericRepository<Position> positionRepository,
+            ICommonService common, IMapper mapper, IOptions<JwtSettings> options)
         {
             _repository = repository;
             _positionRepository = positionRepository;
@@ -34,29 +31,6 @@ namespace Ecommerce.Core.Services
             _jwtSettings = options.Value;
         }
 
-        public async Task<Response<string>> AddPosition(PositionRequest request)
-        {
-            var response = new Response<string>();
-            try
-            {
-                var position = await _positionRepository.GetAsync(x => x.PositionName == request.positionName);
-                if (position == null)
-                {
-                    var result = await _positionRepository.InsertAsyncAndSave(_mapper.Map<Position>(request));
-                    if (result != null)
-                    {
-                        response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.AddSuccessfully;
-                    }
-                }
-                else response.message = Constants.StatusMessage.DuplicatePosition;
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-            }
-            return response;
-        }
         public async Task<Response<LoginResponse>> GenerateToken(User user)
         {
             var response = new Response<LoginResponse>();
@@ -71,8 +45,7 @@ namespace Ecommerce.Core.Services
                         new Claim("UserId", user.UserId.ToString())
                     };
 
-                var roles = await _positionRepository
-                    .GetListAsync(x => x.PositionId == user.PositionId && x.Status == Constants.Status.Active);
+                var roles = await _positionRepository.GetListAsync(x => x.PositionId == user.PositionId && x.Status == Constants.Status.Active);
                 var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x.PositionName));
                 claims.AddRange(roleClaims);
 
@@ -113,7 +86,8 @@ namespace Ecommerce.Core.Services
                 var user = await _repository.GetAsync(x => x.Username == request.username);
                 if (user != null && user.Status == Constants.Status.Active)
                 {
-                    if (_common.Decrypt(user.Password) == request.password)
+                    var passwordDecrypt = _common.Decrypt(user.Password);
+                    if (passwordDecrypt == request.password) 
                         response = await GenerateToken(user);
                     else
                         response.message = Constants.StatusMessage.InvaildPassword;
@@ -155,10 +129,6 @@ namespace Ecommerce.Core.Services
             }
 
             return response;
-        }
-        public void SetSessionValue(LoginResponse session)
-        {
-            throw new NotImplementedException();
         }
     }
 }

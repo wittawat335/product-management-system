@@ -11,20 +11,14 @@ namespace Ecommerce.Core.Services
     public class MenuService : IMenuService
     {
         private readonly IGenericRepository<Menu> _MenuRepository;
-        private readonly IGenericRepository<User> _UserRepository;
         private readonly IGenericRepository<Permission> _PermissionRepository;
         private readonly IStoredRespository _storedRespository;
         private readonly IMapper _mapper;
 
-        public MenuService(
-            IGenericRepository<Menu> MenuRepository,
-            IGenericRepository<User> UserRepository,
-            IGenericRepository<Permission> PermissionRepository,
-            IStoredRespository storedRespository,
-            IMapper mapper)
+        public MenuService(IGenericRepository<Menu> MenuRepository, IGenericRepository<Permission> PermissionRepository,
+            IStoredRespository storedRespository, IMapper mapper)
         {
             _MenuRepository = MenuRepository;
-            _UserRepository = UserRepository;
             _PermissionRepository = PermissionRepository;
             _storedRespository = storedRespository;
             _mapper = mapper;
@@ -62,10 +56,12 @@ namespace Ecommerce.Core.Services
             var response = new Response<List<MenuDTO>>();
             try
             {
-                response.value = _mapper.Map<List<MenuDTO>>
-                    (await _MenuRepository.GetListAsync(x => x.Url != null && x.Status == Constants.Status.Active));
-
-                if (response.value.Count() > 0) response.isSuccess = Constants.Status.True;
+                var query = await _MenuRepository.GetListAsync(x => x.Url != null && x.Status == Constants.Status.Active);
+                if (query.Count() > 0)
+                {
+                    response.value = _mapper.Map<List<MenuDTO>>(query);
+                    response.isSuccess = Constants.Status.True;
+                }
             }
             catch (Exception ex)
             {
@@ -73,40 +69,24 @@ namespace Ecommerce.Core.Services
             }
 
             return response;
-        }
-
-        public async Task<Response<List<MenuDTO>>> GetListMenuByUserId(string userId)
-        {
-            var response = new Response<List<MenuDTO>>();
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-            }
-
-            return response;
-        }
-
-        public Task<Response<List<MenuDTO>>> GetListMenuExists(string positionId)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<Response<List<MenuDTO>>> GetMenuByPositionId(string positionId)
         {
             var response = new Response<List<MenuDTO>>();
+            var menu = new List<Menu>();
             try
             {
                 if (positionId == "Dev01")
-                    response.value = _mapper.Map<List<MenuDTO>>(await _MenuRepository.GetListAsync(x => x.Status == Constants.Status.Active));
+                    menu = await _MenuRepository.GetListAsync(x => x.Status == Constants.Status.Active);
                 else
-                    response.value = _mapper.Map<List<MenuDTO>>(await _storedRespository.SP_GET_MENU_BY_POSITION(positionId));
+                    menu = await _storedRespository.SP_GET_MENU_BY_POSITION(positionId);
 
-                if (response.value.Count() > 0) response.isSuccess = Constants.Status.True;
-                else response.message = Constants.StatusMessage.No_Data;
+                if (menu.Count() > 0)
+                {
+                    response.value = _mapper.Map<List<MenuDTO>>(menu);
+                    response.isSuccess = Constants.Status.True;
+                }
             }
             catch (Exception ex)
             {

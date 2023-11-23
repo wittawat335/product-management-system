@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Api.Controllers
 {
-    [Authorize(Roles = "Developer,Administrator,Manager,Employee")]
+    //[Authorize(Roles = "Developer,Administrator,Manager,Employee")]
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase

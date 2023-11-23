@@ -130,13 +130,13 @@ namespace Ecommerce.Core.Services
             if (id != null)
             {
                 var checkId = await _repository.GetAsync(x => x.CategoryId == id);
-                if (checkId != null) message = string.Format(id + " " + Constants.StatusMessage.DuplicateId);
+                message = (checkId != null) ? string.Format(id + " " + Constants.StatusMessage.DuplicateId) : string.Empty;
             }
-            if (name != null)
-            {
-                var checkName = await _repository.GetAsync(x => x.CategoryName == name);
-                if (checkName != null) message = string.Format(name + " " + Constants.StatusMessage.DuplicateName);
-            }
+            //if (name != null)
+            //{
+            //    var checkName = await _repository.GetAsync(x => x.CategoryName == name);
+            //    if (checkName != null) message = string.Format(name + " " + Constants.StatusMessage.DuplicateName);
+            //}
 
             return message;
         }

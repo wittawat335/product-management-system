@@ -16,8 +16,7 @@ namespace Ecommerce.Core.Services
         private readonly IStoredRespository _storedRespository;
         private readonly IMapper _mapper;
 
-        public PositionService(
-            IGenericRepository<Position> repository, IStoredRespository storedRespository, IMapper mapper)
+        public PositionService(IGenericRepository<Position> repository, IStoredRespository storedRespository, IMapper mapper)
         {
             _repository = repository;
             _storedRespository = storedRespository;
@@ -184,7 +183,7 @@ namespace Ecommerce.Core.Services
                 if (objReturn.Count() > 0)
                 {
                     response.value = objReturn;
-                    response.isSuccess = true;
+                    response.isSuccess = Constants.Status.True;
                 }
                 return response;
             }
@@ -199,13 +198,13 @@ namespace Ecommerce.Core.Services
             if (id != null)
             {
                 var checkDup = await _repository.GetAsync(x => x.PositionId == id);
-                if (checkDup != null) message = string.Format(id + " " + Constants.StatusMessage.DuplicateId);
+                message = checkDup != null ? string.Format(id + " " + Constants.StatusMessage.DuplicateId) : string.Empty;
             }
-            if (name != null)
-            {
-                var checkDup = await _repository.GetAsync(x => x.PositionName == name);
-                if (checkDup != null) message = string.Format(name + " " + Constants.StatusMessage.DuplicateName);
-            }
+            //if (name != null)
+            //{
+            //    var checkDup = await _repository.GetAsync(x => x.PositionName == name);
+            //    if (checkDup != null) message = string.Format(name + " " + Constants.StatusMessage.DuplicateName);
+            //}
 
             return message;
         }

@@ -2,6 +2,7 @@
 using Ecommerce.Infrastructure.DBContext;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Ecommerce.Infrastructure.Repositories
 {
@@ -17,18 +18,10 @@ namespace Ecommerce.Infrastructure.Repositories
 
         public async Task<IQueryable<T>> AsQueryable(Expression<Func<T, bool>> filter = null, int? skip = null, int? take = null)
         {
-            try
-            {
-                IQueryable<T> query = filter == null ? _db : _db.Where(filter);
-                if (skip != null) query = query.Skip(skip.Value);
-                if (take != null) query = query.Take(take.Value);
+            IQueryable<T> query = filter == null ? _db : _db.Where(filter);
+            query = (skip != null) ? query.Skip(skip.Value) : (take != null) ? query.Take(take.Value) : query;
 
-                return query;
-            }
-            catch
-            {
-                throw;
-            }
+            return query;
         }
         public T Get(Expression<Func<T, bool>> filter) => _db.FirstOrDefault(filter);
         public T Find(string id) => _db.Find(id);
@@ -45,18 +38,10 @@ namespace Ecommerce.Infrastructure.Repositories
         public async Task<T> GetAsync(Expression<Func<T, bool>> filter) => await _db.FirstOrDefaultAsync(filter);
         public async Task<List<T>> GetListAsync(Expression<Func<T, bool>> filter = null, int? skip = null, int? take = null)
         {
-            try
-            {
-                List<T> list = filter == null ? await _db.ToListAsync() : await _db.Where(filter).ToListAsync();
-                if (skip != null) list = list.Skip(skip.Value).ToList();
-                if (take != null) list = list.Take(take.Value).ToList();
+            List<T> list = filter == null ? await _db.ToListAsync() : await _db.Where(filter).ToListAsync();
+            list = (skip != null) ? list.Skip(skip.Value).ToList() : (take != null) ? list.Take(take.Value).ToList() : list.ToList();
 
-                return list;
-            }
-            catch
-            {
-                throw;
-            }
+            return list;
         }
         public async Task<T> FindAsync(string code) => await _db.FindAsync(code);
         public async Task InsertAsync(T model) => await _db.AddAsync(model);

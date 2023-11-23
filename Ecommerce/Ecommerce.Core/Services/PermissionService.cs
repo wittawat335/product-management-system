@@ -15,8 +15,7 @@ namespace Ecommerce.Core.Services
         private readonly IGenericRepository<Position> _postRepository;
         private readonly IMapper _mapper;
 
-        public PermissionService(IGenericRepository<Permission> repository,
-            IGenericRepository<Position> postRepository, IMapper mapper)
+        public PermissionService(IGenericRepository<Permission> repository, IGenericRepository<Position> postRepository, IMapper mapper)
         {
             _repository = repository;
             _postRepository = postRepository;
@@ -57,10 +56,12 @@ namespace Ecommerce.Core.Services
             var response = new Response<Permission>();
             try
             {
-                _repository.Insert(_mapper.Map<Permission>(model));
-                response.isSuccess = Constants.Status.True;
-                response.message = Constants.StatusMessage.AddSuccessfully;
-
+                if(model != null) 
+                {
+                    _repository.Insert(_mapper.Map<Permission>(model));
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.AddSuccessfully;
+                }
             }
             catch (Exception ex)
             {

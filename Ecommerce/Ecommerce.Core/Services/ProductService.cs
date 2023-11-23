@@ -142,13 +142,13 @@ namespace Ecommerce.Core.Services
             if (id != null)
             {
                 var checkDup = await _repository.GetAsync(x => x.ProductId == id);
-                if (checkDup != null) message = string.Format(id + " " + Constants.StatusMessage.DuplicateId);
+                message = (checkDup != null) ? string.Format(id + " " + Constants.StatusMessage.DuplicateId) : string.Empty;
             }
-            if (name != null)
-            {
-                var checkDup = await _repository.GetAsync(x => x.ProductName == name && x.CategoryId == categoryId);
-                if (checkDup != null) message = string.Format(name + " " + Constants.StatusMessage.DuplicateName);
-            }
+            //if (name != null)
+            //{
+            //    var checkDup = await _repository.GetAsync(x => x.ProductName == name && x.CategoryId == categoryId);
+            //    if (checkDup != null) message = string.Format(name + " " + Constants.StatusMessage.DuplicateName);
+            //}
 
             return message;
         }
