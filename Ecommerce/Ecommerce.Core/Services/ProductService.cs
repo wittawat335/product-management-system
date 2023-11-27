@@ -54,10 +54,10 @@ namespace Ecommerce.Core.Services
             var response = new Response<ProductDTO>();
             try
             {
-                var query = await _repository.GetAsync(x => x.ProductId == id);
-                if (query != null)
+                var product = await _repository.GetAsync(x => x.ProductId == id);
+                if (product != null)
                 {
-                    response.value = _mapper.Map<ProductDTO>(query);
+                    response.value = _mapper.Map<ProductDTO>(product);
                     response.isSuccess = Constants.Status.True;
                     response.message = Constants.StatusMessage.AddSuccessfully;
                 }
@@ -74,8 +74,8 @@ namespace Ecommerce.Core.Services
             var response = new Response<Product>();
             try
             {
-                var result = await CheckDupilcate(model.ProductId, model.ProductName, model.CategoryId);
-                if (result == string.Empty)
+                var checkMsg = await CheckDupilcate(model.ProductId, model.ProductName, model.CategoryId);
+                if (checkMsg == string.Empty)
                 {
                     response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Product>(model));
                     if (response.value != null)
@@ -84,7 +84,7 @@ namespace Ecommerce.Core.Services
                         response.message = Constants.StatusMessage.AddSuccessfully;
                     }
                 }
-                else response.message = result;
+                else response.message = checkMsg;
             }
             catch (Exception ex)
             {
@@ -97,10 +97,10 @@ namespace Ecommerce.Core.Services
             var response = new Response<Product>();
             try
             {
-                var data = _repository.Get(x => x.ProductId == model.ProductId);
-                if (data != null)
+                var product = _repository.Get(x => x.ProductId == model.ProductId);
+                if (product != null)
                 {
-                    response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
+                    response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, product));
                     if (response.value != null)
                     {
                         response.isSuccess = Constants.Status.True;
@@ -121,10 +121,10 @@ namespace Ecommerce.Core.Services
             var response = new Response<Product>();
             try
             {
-                var data = _repository.Find(id);
-                if (data != null)
+                var product = _repository.Find(id);
+                if (product != null)
                 {
-                    _repository.Delete(data);
+                    _repository.Delete(product);
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;
                     response.message = Constants.StatusMessage.DeleteSuccessfully;
@@ -144,11 +144,6 @@ namespace Ecommerce.Core.Services
                 var checkDup = await _repository.GetAsync(x => x.ProductId == id);
                 message = (checkDup != null) ? string.Format(id + " " + Constants.StatusMessage.DuplicateId) : string.Empty;
             }
-            //if (name != null)
-            //{
-            //    var checkDup = await _repository.GetAsync(x => x.ProductName == name && x.CategoryId == categoryId);
-            //    if (checkDup != null) message = string.Format(name + " " + Constants.StatusMessage.DuplicateName);
-            //}
 
             return message;
         }

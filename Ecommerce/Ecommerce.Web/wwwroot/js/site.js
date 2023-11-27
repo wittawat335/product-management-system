@@ -40,6 +40,30 @@ $(document).ready(function () {
 $(document).on('select2:open', function (e) { //ทำให้ select2 autofocus หลังจากที่ click
     document.querySelector(`[aria-controls="select2-${e.target.id}-results"]`).focus();
 });
+
+// #region setColumnDataTableHtml
+function htmlImage(row) {
+    var html;
+    if (row.image != null && row.image != '') {
+        let imageUrl = root + '/images/product/' + row.productId + "/" + row.image;
+        html = '<div class="filtr-item col-sm-2">'
+            + '<a href="' + imageUrl + '" data-toggle="lightbox" data-title="' + row.productName + '">'
+            + '<img src="' + imageUrl + '" alt="' + row.productName + '" width="50" height="50" />'
+            + '</a>'
+            + '</div>'
+    }
+    else {
+        let imageUrl = root + '/images/no_photo.jpg';
+        html = '<img src="' + imageUrl + '" width="50" height="50"/>'
+    }
+       
+    return html;
+}
+function htmlStatusBadge(row) {
+    let html = (row.status === 'A') ? '<span class="badge bg-success">ใช้งาน</span>' : '<span class="badge bg-dark">ไม่ได้ใช้งาน</span>';
+    return html;
+}
+// #endregion
 function saveForm(formId, url) {
     var data = $('#' + formId).serializeObject();
     $.post(url, data, function (response) {

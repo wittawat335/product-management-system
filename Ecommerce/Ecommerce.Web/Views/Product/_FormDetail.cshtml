@@ -2,9 +2,9 @@
 @using Ecommerce.Web.Models.Product;
 @model Product
 <div class="form-group">
-    @if (Model.Image == null)
+    @if (Model.Image == null || Model.Image == "")
     {
-        <img id="imagePrv" src="~/images/no_photo.jpg" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px;margin-bottom: 20px; margin-left:290px;" />
+        <img id="imagePrv" src="@Url.Content("~/images/no_photo.jpg")" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px;margin-bottom: 20px; margin-left:290px;" />
         <div class="input-group">
             <div class="custom-file">
                 <input id="fileName" type="file" class="custom-file-input"
@@ -15,7 +15,7 @@
     }
     else
     {
-        <img id="imagePrv" src="~/images/product/@Model.ProductId/@Model.Image" alt="Image" width="150" height="150" style="border:1px; margin-bottom: 20px; margin-left:290px;" />
+        <img id="imagePrv" src="@Url.Content("~/images/product/"+Model.ProductId+"/"+Model.Image)" alt="Image" width="150" height="150" style="border:1px; margin-bottom: 20px; margin-left:290px;" />
         <div class="input-group">
             <div class="custom-file">
                 <input id="fileName" type="file" class="custom-file-input"

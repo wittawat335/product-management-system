@@ -7,18 +7,15 @@
 @inject IOptions<AppSetting> options
 @model Product;
 <script>
-    //client
-    let url = '@Url.Content(Constants.UrlAction.Product.PopUpDialog)';
+    let urlPopup = '@Url.Content(Constants.UrlAction.Product.PopUpDialog)';
     let deleteImageUrl = '@Url.Content(Constants.UrlAction.Product.DeleteImageFolder)';
-    //api
     let baseApiUrl = '@options.Value.BaseApiUrl';
     let getListUrl = baseApiUrl + 'Product/GetList';
     let insertUrl = baseApiUrl + 'Product/Add';
     let updateUrl = baseApiUrl + 'Product/Update';
     let deleteUrl = baseApiUrl + 'Product/Delete/';
-    
-    let select2Product = baseApiUrl + 'Product/select2Product';
-    let select2Category = baseApiUrl + 'Product/select2Category';
+    let select2Product = baseApiUrl + 'Select2/GetProduct';
+    let select2Category = baseApiUrl + 'Select2/GetCategory';
 
     $(function () {
         getList();
@@ -74,7 +71,6 @@
             bSort: true,
             bPaginate: true,
             lengthChange: true, //ปุ่มจำนวนแสดงข้อมูล
-            //buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"], //แผงปุ่ม export
             data: response.value,
             columns: [
                 {
@@ -92,16 +88,7 @@
                 {
                     data: 'image',
                     render: function (data, type, row, meta) {
-                        if (row.image != null) {
-                            let imageUrl = '@Url.Content("~/images/product/")'+ row.productId + "/" + row.image;
-                            return '<div class="filtr-item col-sm-2">'
-                                + '<a href="' + imageUrl + '" data-toggle="lightbox" data-title="' + row.productName + '">'
-                                + '<img src="'+imageUrl+'" alt="' + row.productName + '" width="50" height="50" />'
-                                + '</a>'
-                                + '</div>'
-                        }
-                        else 
-                            return '<img src="@Url.Content("~/images/no_photo.jpg")" width="50" height="50"/>'
+                        return htmlImage(row);
                     }
                 },
                 {
@@ -125,19 +112,7 @@
                 {
                     data: 'status',
                     render: function (data, type, row, meta) {
-                        if (row.status === 'A') {
-                            return '<span class="badge bg-success">'
-                                + '' + 'ใช้งาน' + ''
-                                + '</span>'
-                        }
-                        else if (row.status === 'I') {
-                            return '<span class="badge bg-dark">'
-                                + '' + 'ไม่ได้ใช้งาน' + ''
-                                + '</span> '
-                        }
-                        else {
-                            return "";
-                        }
+                        return htmlStatusBadge(row);
                     }
                 },
                 {
@@ -149,28 +124,34 @@
                 {
                     data: 'productId',
                     render: function (data, type, row, meta) {
-                        if (row.image != null) {
-                            let imageUrl = '@Url.Content("~/images/product/")' + row.productId + "/" + row.image;
-                            return '<a class="btn btn-info" onclick=openPopupLg("' + row.productId + '","View","' + url + '","ดูรายละเอียดสินค้า");>'
-                                + '<i class="fas fa-eye"></i></a> | '
-                                + '<a class="btn btn-warning" onclick=openPopupLg("' + row.productId + '","Update","' + url + '","แก้ไขสินค้า");>'
-                                + '<i class="fas fa-pen"></i></a> | '
-                                + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + row.productId + '","' + deleteUrl + '","' + imageUrl + '","' + deleteImageUrl + '");>'
-                                + '<i class="fas fa-trash"></a>'
-                        }
-                        else {
-                            let imageUrl = '@Url.Content("~/images/no_photo.jpg")';
-                            return '<a class="btn btn-info" onclick=openPopupLg("' + row.productId + '","View","' + url + '","ดูรายละเอียดสินค้า");>'
-                                + '<i class="fas fa-eye"></i></a> | '
-                                + '<a class="btn btn-warning" onclick=openPopupLg("' + row.productId + '","Update","' + url + '","แก้ไขสินค้า");>'
-                                + '<i class="fas fa-pen"></i></a> | '
-                                + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + row.productId + '","' + deleteUrl + '","' + imageUrl + '","' + deleteImageUrl + '");>'
-                                + '<i class="fas fa-trash"></a>'
-                        }
+                        return htmlActionButton(row);
                     }
                 }
             ]
         })
+    }
+
+    function htmlActionButton(row) {
+        var html;
+        if (row.image != null) {
+            let imageUrl = '@Url.Content("~/images/product/")' + row.productId + "/" + row.image;
+                html = '<a class="btn btn-info" onclick=openPopupLg("' + row.productId + '","View","' + urlPopup + '","ดูรายละเอียดสินค้า");>'
+                + '<i class="fas fa-eye"></i></a> | '
+                + '<a class="btn btn-warning" onclick=openPopupLg("' + row.productId + '","Update","' + urlPopup + '","แก้ไขสินค้า");>'
+                + '<i class="fas fa-pen"></i></a> | '
+                + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + row.productId + '","' + deleteUrl + '","' + imageUrl + '","' + deleteImageUrl + '");>'
+                + '<i class="fas fa-trash"></a>'
+        }
+        else {
+            let imageUrl = '@Url.Content("~/images/no_photo.jpg")';
+                html = '<a class="btn btn-info" onclick=openPopupLg("' + row.productId + '","View","' + urlPopup + '","ดูรายละเอียดสินค้า");>'
+                + '<i class="fas fa-eye"></i></a> | '
+                + '<a class="btn btn-warning" onclick=openPopupLg("' + row.productId + '","Update","' + urlPopup + '","แก้ไขสินค้า");>'
+                + '<i class="fas fa-pen"></i></a> | '
+                + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + row.productId + '","' + deleteUrl + '","' + imageUrl + '","' + deleteImageUrl + '");>'
+                + '<i class="fas fa-trash"></a>'
+        }
+        return html;
     }
 
     function setSelect2() {
@@ -188,7 +169,7 @@
                 dataType: 'json',
                 quietMillis: 1000,
                 data: function (params) {
-                    return { query: params.term };
+                    return { request: params.term };
                 },
                 processResults: function (data) {
                     return {
@@ -217,7 +198,7 @@
                 dataType: 'json',
                 quietMillis: 1000,
                 data: function (params) {
-                    return { query: params.term };
+                    return { request: params.term };
                 },
                 processResults: function (data) {
                     return {
