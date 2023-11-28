@@ -28,22 +28,6 @@ namespace Ecommerce.Api.Controllers
             return Ok(response);
         }
 
-        [HttpGet("select2UserName")]
-        public async Task<IActionResult> select2UserName(string query)
-        {
-            var response = await _service.GetList();
-            response.value = response.value.Where(x => x.Username.ToLower().Contains(query.ToLower())).ToList();
-            return Ok(response);
-        }
-
-        [HttpGet("select2Position")]
-        public async Task<IActionResult> select2Position(string query)
-        {
-            var response = await _service.GetList();
-            response.value = response.value.Where(x => x.PositionName.ToLower().Contains(query.ToLower())).ToList();
-            return Ok(response);
-        }
-
         [HttpPost("GetList")]
         public async Task<IActionResult> GetList(UserDTO request)
         {
@@ -51,8 +35,8 @@ namespace Ecommerce.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPost("Add")]
-        public async Task<IActionResult> Add(UserDTO request)
+        [HttpPost("Insert")]
+        public async Task<IActionResult> Insert(UserDTO request)
         {
             var response = await _service.Add(request);
             return Ok(response);

@@ -27,13 +27,32 @@ namespace Ecommerce.Core.Services
             var response = new Response<UserDTO>();
             try
             {
-                var query = await _repository.GetAsync(x => x.UserId == new Guid(id));
-                if (query != null)
+                var user = await _repository.GetAsync(x => x.UserId == new Guid(id));
+                if (user != null)
                 {
-                    query.Password = _commonService.Decrypt(query.Password);
-                    response.value = _mapper.Map<UserDTO>(query);
-                    response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.AddSuccessfully;
+                    user.Password = _commonService.Decrypt(user.Password);
+                    if (user.Password != null)
+                    {
+                        var dataMapping = _mapper.Map<UserDTO>(user);
+                        if (dataMapping != null)
+                        {
+                            response.value = dataMapping;
+                            response.isSuccess = Constants.Status.True;
+                            response.message = Constants.StatusMessage.AddSuccessfully;
+                        }
+                        else
+                        {
+                            response.message = Constants.StatusMessage.MappingError;
+                        }
+                    }
+                    else
+                    {
+                        response.message = Constants.StatusMessage.PasswordDecryptError;
+                    }
+                }
+                else
+                {
+                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)
@@ -52,20 +71,38 @@ namespace Ecommerce.Core.Services
                 var result = list.Include(x => x.Position).ToList();
                 if (filter != null)
                 {
-                    if (filter.UserId != null) result = result.Where(x => x.UserId == new Guid(filter.UserId)).ToList();
-                    if (filter.PositionId != null) result = result.Where(x => x.PositionId == filter.PositionId).ToList();
-                    if (filter.Status != null) result = result.Where(x => x.Status.Contains(filter.Status)).ToList();
+                    if (filter.UserId != null) 
+                    {
+                        result = result.Where(x => x.UserId == new Guid(filter.UserId)).ToList();
+                    } 
+                    if (filter.PositionId != null)
+                    {
+                        result = result.Where(x => x.PositionId == filter.PositionId).ToList();
+                    }
+                    if (filter.Status != null)
+                    {
+                        result = result.Where(x => x.Status.Contains(filter.Status)).ToList();
+                    }
                 }
-                if (result != null)
+                if (result.Count > 0)
                 {
-                    response.value = _mapper.Map<List<UserDTO>>(result);
-                    response.isSuccess = Constants.Status.True;
+                    var dataMapping = _mapper.Map<List<UserDTO>>(result);
+                    if (dataMapping != null)
+                    {
+                        response.value = dataMapping;
+                        response.isSuccess = Constants.Status.True;
+                    }
+                    else
+                    {
+                        response.message = Constants.StatusMessage.MappingError;
+                    }
                 }
             }
             catch (Exception ex)
             {
                 response.message = ex.Message;
             }
+
             return response;
         }
         public async Task<Response<User>> Add(UserDTO model)
@@ -102,6 +139,7 @@ namespace Ecommerce.Core.Services
                 var data = _repository.Get(x => x.UserId == new Guid(model.UserId));
                 if (data != null)
                 {
+                    model.Password = _commonService.Encrypt(model.Password);
                     _repository.Update(_mapper.Map(model, data));
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;

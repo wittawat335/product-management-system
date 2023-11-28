@@ -7,16 +7,9 @@
 @inject IOptions<AppSetting> options
 @model User;
 <script>
-    //client
     let url = '@Url.Content(Constants.UrlAction.User.PopUpDialog)';
-    //api
     let baseApiUrl = '@options.Value.BaseApiUrl';
-    let getListUrl = baseApiUrl + 'User/GetList';
-    let insertUrl = baseApiUrl + 'User/Add';
-    let updateUrl = baseApiUrl + 'User/Update';
     let deleteUrl = baseApiUrl + 'User/Delete/';
-    let select2User = baseApiUrl + 'User/select2UserName';
-    let select2Position = baseApiUrl + 'User/select2Position';
 
     $(function () {
         setSelect2();
@@ -34,7 +27,7 @@
         _obj.status = $('#@Html.IdFor(m => m.Status)').val();
         $.ajax({
             type: "POST",
-            url: getListUrl,
+            url: baseApiUrl + 'User/GetList',
             headers: {
                 'Authorization': 'bearer ' + _token
             },
@@ -100,19 +93,7 @@
                 {
                     data: 'status',
                     render: function (data, type, row, meta) {
-                        if (row.status === 'A') {
-                            return '<span class="badge bg-success">'
-                                + '' + 'ใช้งาน' + ''
-                                + '</span>'
-                        }
-                        else if (row.status === 'I') {
-                            return '<span class="badge bg-dark">'
-                                + '' + 'ไม่ได้ใช้งาน' + ''
-                                + '</span> '
-                        }
-                        else {
-                            return "";
-                        }
+                        return htmlStatusBadge(row);
                     }
                 },
                 {
@@ -145,12 +126,12 @@
             allowClear: true,
             ajax: {
                 type: "GET",
-                url: select2User,
+                url: baseApiUrl + 'Select2/GetUsername',
                 headers: { 'Authorization': 'bearer ' + _token },
                 delay: 50,
                 dataType: 'json',
                 quietMillis: 1000,
-                data: function (params) { return { query: params.term }; },
+                data: function (params) { return { request: params.term }; },
                 processResults: function (data) {
                     return {
                        results: $.map(data.value, function (obj) {
@@ -172,12 +153,12 @@
             allowClear: true,
             ajax: {
                 type: "GET",
-                url: select2Position,
+                url: baseApiUrl + 'Select2/GetPosition',
                 headers: { 'Authorization': 'bearer ' + _token },
                 delay: 50,
                 dataType: 'json',
                 quietMillis: 1000,
-                data: function (params) { return { query: params.term }; },
+                data: function (params) { return { request: params.term }; },
                 processResults: function (data) {
                     return {
                         results: $.map(data.value, function (obj) {

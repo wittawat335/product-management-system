@@ -36,6 +36,8 @@ namespace Ecommerce.Core.Common
             public const string AddSuccessfully = "เพิ่มขัอมูลเรียบร้อย";
             public const string UpdateSuccessfully = "แก้ไขขัอมูลเรียบร้อย";
             public const string DeleteSuccessfully = "ลบขัอมูลเรียบร้อย";
+            public const string MappingError = "Data can't mapping";
+            public const string PasswordDecryptError = "Password can't decrypt";
         }
         public struct JsTreeConfig
         {
