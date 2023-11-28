@@ -42,13 +42,35 @@ $(document).on('select2:open', function (e) { //ทำให้ select2 autofocu
 });
 
 // #region setColumnDataTableHtml
-function htmlImage(row) {
+function htmlActionButton(id, image, popupUrl, deleteUrl, deleteImageUrl) {
     var html;
-    if (row.image != null && row.image != '') {
-        let imageUrl = root + '/images/product/' + row.productId + "/" + row.image;
+    if (image != null && image != '') {
+        let imageUrl = root + '/images/product/' + id + "/" + image;
+        html = '<a class="btn btn-info" onclick=openPopupLg("' + id + '","View","' + popupUrl + '","ดูรายละเอียดข้อมูล");>'
+            + '<i class="fas fa-eye"></i></a> | '
+            + '<a class="btn btn-warning" onclick=openPopupLg("' + id + '","Update","' + popupUrl + '","แก้ไขข้อมูล");>'
+            + '<i class="fas fa-pen"></i></a> | '
+            + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + id + '","' + deleteUrl + '","' + imageUrl + '","' + deleteImageUrl + '");>'
+            + '<i class="fas fa-trash"></a>'
+    }
+    else {
+        let imageUrl = root + '/images/no_photo.jpg';
+        html = '<a class="btn btn-info" onclick=openPopupLg("' + id + '","View","' + popupUrl + '","ดูรายละเอียดข้อมูล");>'
+            + '<i class="fas fa-eye"></i></a> | '
+            + '<a class="btn btn-warning" onclick=openPopupLg("' + id + '","Update","' + popupUrl + '","แก้ไขข้อมูล");>'
+            + '<i class="fas fa-pen"></i></a> | '
+            + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + id + '","' + deleteUrl + '","' + imageUrl + '","' + deleteImageUrl + '");>'
+            + '<i class="fas fa-trash"></a>'
+    }
+    return html;
+}
+function htmlImage(id, name, image) {
+    var html;
+    if (image != null && image != '') {
+        let imageUrl = root + '/images/product/' + id + "/" + image;
         html = '<div class="filtr-item col-sm-2">'
-            + '<a href="' + imageUrl + '" data-toggle="lightbox" data-title="' + row.productName + '">'
-            + '<img src="' + imageUrl + '" alt="' + row.productName + '" width="50" height="50" />'
+            + '<a href="' + imageUrl + '" data-toggle="lightbox" data-title="' + name + '">'
+            + '<img src="' + imageUrl + '" alt="' + name + '" width="50" height="50" />'
             + '</a>'
             + '</div>'
     }

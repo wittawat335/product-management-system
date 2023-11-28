@@ -88,7 +88,7 @@
                 {
                     data: 'image',
                     render: function (data, type, row, meta) {
-                        return htmlImage(row);
+                        return htmlImage(row.productId, row.productName, row.image);
                     }
                 },
                 {
@@ -124,14 +124,14 @@
                 {
                     data: 'productId',
                     render: function (data, type, row, meta) {
-                        return htmlActionButton(row);
+                        return htmlActionButtonWithImage(row);
                     }
                 }
             ]
         })
     }
 
-    function htmlActionButton(row) {
+    function htmlActionButtonWithImage(row) {
         var html;
         if (row.image != null) {
             let imageUrl = '@Url.Content("~/images/product/")' + row.productId + "/" + row.image;

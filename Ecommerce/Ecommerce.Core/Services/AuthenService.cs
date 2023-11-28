@@ -87,15 +87,23 @@ namespace Ecommerce.Core.Services
                 if (user != null && user.Status == Constants.Status.Active)
                 {
                     var passwordDecrypt = _common.Decrypt(user.Password);
-                    if (passwordDecrypt == request.password) 
+                    if (passwordDecrypt == request.password)
+                    {
                         response = await GenerateToken(user);
+                    }
                     else
+                    {
                         response.message = Constants.StatusMessage.InvaildPassword;
+                    }
                 }
                 else if (user != null && user.Status == Constants.Status.Inactive)
+                {
                     response.message = Constants.StatusMessage.UserInActive;
+                }
                 else
+                {
                     response.message = Constants.StatusMessage.NotFoundUser;
+                }
             }
             catch (Exception ex)
             {
@@ -110,18 +118,23 @@ namespace Ecommerce.Core.Services
             {
                 var positionRegister = _positionRepository.Get(x => x.PositionName == Constants.Position.Customer).PositionId;
                 var userExists = await _repository.GetAsync(x => x.Username == request.userName);
+
                 if (userExists == null)
                 {
                     request.password = _common.Encrypt(request.password);
                     request.positionId = positionRegister;
-                    var user = await _repository.InsertAsyncAndSave(_mapper.Map<User>(request)); // Insert Table User
+                    var user = await _repository.InsertAsyncAndSave(_mapper.Map<User>(request)); 
+
                     if (user != null)
                     {
                         response.isSuccess = Constants.Status.True;
                         response.message = Constants.StatusMessage.RegisterSuccess;
                     }
                 }
-                else response.message = Constants.StatusMessage.DuplicateUser;
+                else 
+                {
+                    response.message = Constants.StatusMessage.DuplicateUser;
+                } 
             }
             catch (Exception ex)
             {
