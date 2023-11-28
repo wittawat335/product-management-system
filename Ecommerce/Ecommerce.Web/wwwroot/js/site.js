@@ -35,35 +35,12 @@ $(document).ready(function () {
         return o;
     };
     setNavActive();
-    //NavActive();
 });
 $(document).on('select2:open', function (e) { //ทำให้ select2 autofocus หลังจากที่ click
     document.querySelector(`[aria-controls="select2-${e.target.id}-results"]`).focus();
 });
 
-// #region setColumnDataTableHtml
-function htmlActionButton(id, image, popupUrl, deleteUrl, deleteImageUrl) {
-    var html;
-    if (image != null && image != '') {
-        let imageUrl = root + '/images/product/' + id + "/" + image;
-        html = '<a class="btn btn-info" onclick=openPopupLg("' + id + '","View","' + popupUrl + '","ดูรายละเอียดข้อมูล");>'
-            + '<i class="fas fa-eye"></i></a> | '
-            + '<a class="btn btn-warning" onclick=openPopupLg("' + id + '","Update","' + popupUrl + '","แก้ไขข้อมูล");>'
-            + '<i class="fas fa-pen"></i></a> | '
-            + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + id + '","' + deleteUrl + '","' + imageUrl + '","' + deleteImageUrl + '");>'
-            + '<i class="fas fa-trash"></a>'
-    }
-    else {
-        let imageUrl = root + '/images/no_photo.jpg';
-        html = '<a class="btn btn-info" onclick=openPopupLg("' + id + '","View","' + popupUrl + '","ดูรายละเอียดข้อมูล");>'
-            + '<i class="fas fa-eye"></i></a> | '
-            + '<a class="btn btn-warning" onclick=openPopupLg("' + id + '","Update","' + popupUrl + '","แก้ไขข้อมูล");>'
-            + '<i class="fas fa-pen"></i></a> | '
-            + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + id + '","' + deleteUrl + '","' + imageUrl + '","' + deleteImageUrl + '");>'
-            + '<i class="fas fa-trash"></a>'
-    }
-    return html;
-}
+// #region function setColumnDataTableHtml
 function htmlImage(id, name, image) {
     var html;
     if (image != null && image != '') {
@@ -94,10 +71,13 @@ function saveForm(formId, url) {
             closeModal();
             getList();
         }
-        else swalMessageError('error', response.message);
+        else {
+            swalMessageError('error', response.message);
+        } 
     });
 }
-//------------------------ Send Api ---------------------------------
+
+// #region function sendApi
 function Insert(formId, url) {
     var obj = $('#' + formId).serializeObject();
     $.ajax({
@@ -186,8 +166,9 @@ function DeleteWithImage(id, apiUrl, clientUrl) {
         }
     })
 }
+// #endregion
 
-//------------------------ Modal ---------------------------------
+// #region function modal
 function openPopup(id, action, url, caption) {
     let data = { "id": id, "action": action };
     modalPOST(caption, url, data);
@@ -208,8 +189,6 @@ function closeModal() {
     $('#modal-dialog > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modal-dialog').modal('hide');
 }
-//-------------------------------------------------------------------
-//------------------------ Modal Lg ---------------------------------
 function openPopupLg(id, action, url, caption) {
     let data = { "id": id, "action": action };
     modalLgPOST(caption, url, data);
@@ -230,8 +209,6 @@ function closeModalLg() {
     $('#modal-lg > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modal-lg').modal('hide');
 }
-//-------------------------------------------------------------------
-//------------------------ Modal Xl ---------------------------------
 function openPopupXl(id, action, url, caption) {
     let data = { "id": id, "action": action };
     modalXlPOST(caption, url, data);
@@ -252,7 +229,6 @@ function closeModalLg() {
     $('#modal-lg > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modal-lg').modal('hide');
 }
-//-------------------------------------------------------------------
 function modalPOSTV2(caption, path, data, isFull) {
     var url = path;
     $.post(url, data, function (result) {
@@ -308,7 +284,7 @@ function clearModalLv2() {
     $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modalDialogLv2').modal('hide');
 }
-//-------------------------------------------------------------------------------------------------------
+// #endregion
 function clearValueByDiv(div) {
     $('#' + div + ' input').val("");
     $('#' + div + ' select').val("");

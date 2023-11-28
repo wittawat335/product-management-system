@@ -36,7 +36,7 @@
             dataType: "json",
             async: false,
             success: function (response) {
-                if (response.isSuccess) onSuccess(response);///////
+                if (response.isSuccess) onSuccess(response);
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(errorThrown);
@@ -105,16 +105,22 @@
                 {
                     data: 'userId',
                     render: function (data, type, row, meta) {
-                        return '<a class="btn btn-info" onclick=openPopup("' + row.userId + '","View","' + url + '","ดูข้อมูลผู้ใช้งาน");>'
-                            + '<i class="fas fa-eye"></i></a> | '
-                            + '<a class="btn btn-warning" onclick=openPopup("' + row.userId + '","Update","' + url + '","แก้ไขข้อมูลผู้ใช้งาน");>'
-                            + '<i class="fas fa-pen"></i></a> | '
-                            + '<a class="btn btn-danger" onclick=confirmDelete("' + row.userId + '","' + deleteUrl + '","' + row.username + '");>'
-                            + '<i class="fas fa-trash"></a>'
+                        return htmlActionButton(row);
                     }
                 }
             ]
         })
+    }
+
+    function htmlActionButton(row) {
+        var html = '<a class="btn btn-info" onclick=openPopup("' + row.userId + '","View","' + url + '","ดูข้อมูลผู้ใช้งาน");>'
+            + '<i class="fas fa-eye"></i></a> | '
+            + '<a class="btn btn-warning" onclick=openPopup("' + row.userId + '","Update","' + url + '","แก้ไขข้อมูลผู้ใช้งาน");>'
+            + '<i class="fas fa-pen"></i></a> | '
+            + '<a class="btn btn-danger" onclick=confirmDelete("' + row.userId + '","' + deleteUrl + '","' + row.username + '");>'
+            + '<i class="fas fa-trash"></a>'
+
+        return html;
     }
 
     function setSelect2() {

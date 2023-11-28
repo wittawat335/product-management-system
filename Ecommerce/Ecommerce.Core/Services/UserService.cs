@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Azure.Core;
 using Ecommerce.Core.Common;
 using Ecommerce.Core.DTOs;
 using Ecommerce.Core.Helper;
@@ -31,24 +30,9 @@ namespace Ecommerce.Core.Services
                 if (user != null)
                 {
                     user.Password = _commonService.Decrypt(user.Password);
-                    if (user.Password != null)
-                    {
-                        var dataMapping = _mapper.Map<UserDTO>(user);
-                        if (dataMapping != null)
-                        {
-                            response.value = dataMapping;
-                            response.isSuccess = Constants.Status.True;
-                            response.message = Constants.StatusMessage.AddSuccessfully;
-                        }
-                        else
-                        {
-                            response.message = Constants.StatusMessage.MappingError;
-                        }
-                    }
-                    else
-                    {
-                        response.message = Constants.StatusMessage.PasswordDecryptError;
-                    }
+                    response.value = _mapper.Map<UserDTO>(user);
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.AddSuccessfully;
                 }
                 else
                 {
@@ -86,16 +70,8 @@ namespace Ecommerce.Core.Services
                 }
                 if (result.Count > 0)
                 {
-                    var dataMapping = _mapper.Map<List<UserDTO>>(result);
-                    if (dataMapping != null)
-                    {
-                        response.value = dataMapping;
-                        response.isSuccess = Constants.Status.True;
-                    }
-                    else
-                    {
-                        response.message = Constants.StatusMessage.MappingError;
-                    }
+                    response.value = _mapper.Map<List<UserDTO>>(result);
+                    response.isSuccess = Constants.Status.True;
                 }
             }
             catch (Exception ex)
@@ -115,15 +91,17 @@ namespace Ecommerce.Core.Services
                 {
                     model.UserId = null;
                     model.Password = _commonService.Encrypt(model.Password);
-                    var mapping = _mapper.Map<User>(model);
-                    var result = await _repository.InsertAsyncAndSave(mapping);
+                    var result = await _repository.InsertAsyncAndSave(_mapper.Map<User>(model));
                     if (result != null)
                     {
                         response.isSuccess = Constants.Status.True;
                         response.message = Constants.StatusMessage.AddSuccessfully;
                     }
                 }
-                else response.message = Constants.StatusMessage.DuplicateUser;
+                else 
+                {
+                    response.message = Constants.StatusMessage.DuplicateUser;
+                } 
             }
             catch (Exception ex)
             {
