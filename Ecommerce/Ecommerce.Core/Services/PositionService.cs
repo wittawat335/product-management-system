@@ -23,26 +23,22 @@ namespace Ecommerce.Core.Services
             _mapper = mapper;
         }
 
-        public async Task<Response<List<PositionDTO>>> GetList(PositionDTO filter = null)
+        public async Task<Response<List<PositionDTO>>> GetList(PositionDTO request = null)
         {
             var response = new Response<List<PositionDTO>>();
             try
             {
                 var query = await _repository.AsQueryable();
                 query = query.Include(x => x.MenuDefaultNavigation);
-
-                if (filter != null)
+                if (request != null)
                 {
-                    query = query.Where(x => x.Status.Contains(filter.Status));
+                    query = (request.Status != null) ? query.Where(x => x.Status.Contains(request.Status)) : query;
                 }
+
                 if (query.Count() > 0)
                 {
                     response.value = _mapper.Map<List<PositionDTO>>(query);
                     response.isSuccess = Constants.Status.True;
-                }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)
@@ -62,10 +58,6 @@ namespace Ecommerce.Core.Services
                     response.value = _mapper.Map<PositionDTO>(query);
                     response.isSuccess = Constants.Status.True;
                     response.message = Constants.StatusMessage.InsertSuccessfully;
-                }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)
@@ -112,10 +104,6 @@ namespace Ecommerce.Core.Services
                     response.isSuccess = Constants.Status.True;
                     response.message = Constants.StatusMessage.UpdateSuccessfully;
                 }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
-                }
             }
             catch (Exception ex)
             {
@@ -136,10 +124,6 @@ namespace Ecommerce.Core.Services
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;
                     response.message = Constants.StatusMessage.DeleteSuccessfully;
-                }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)

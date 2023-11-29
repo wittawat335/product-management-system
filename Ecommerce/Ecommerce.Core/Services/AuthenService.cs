@@ -95,10 +95,6 @@ namespace Ecommerce.Core.Services
                 {
                     response.message = Constants.StatusMessage.UserInActive;
                 }
-                else
-                {
-                    response.message = Constants.StatusMessage.NotFoundUser;
-                }
             }
             catch (Exception ex)
             {
@@ -112,19 +108,17 @@ namespace Ecommerce.Core.Services
             try
             {
                 var positionRegister = _positionRepository.Get(x => x.PositionName == Constants.Position.Customer).PositionId;
-                var userExists = await _repository.GetAsync(x => x.Username == request.userName);
+                var query = await _repository.GetAsync(x => x.Username == request.userName);
 
-                if (userExists == null)
+                if (query == null)
                 {
                     request.password = _common.Encrypt(request.password);
                     request.positionId = positionRegister;
-                    var user = await _repository.InsertAsyncAndSave(_mapper.Map<User>(request));
 
-                    if (user != null)
-                    {
-                        response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.RegisterSuccess;
-                    }
+                    _repository.Insert(_mapper.Map<User>(request));
+                    await _repository.SaveChangesAsync();
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.RegisterSuccess;
                 }
                 else
                 {

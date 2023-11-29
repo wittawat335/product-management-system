@@ -29,10 +29,6 @@ namespace Ecommerce.Core.Services
                     response.value = _mapper.Map<List<CategoryDTO>>(query);
                     response.isSuccess = Constants.Status.True;
                 }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
-                }
             }
             catch (Exception ex)
             {
@@ -50,10 +46,6 @@ namespace Ecommerce.Core.Services
                 {
                     response.value = _mapper.Map<CategoryDTO>(query);
                     response.isSuccess = Constants.Status.True;
-                }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)
@@ -100,10 +92,6 @@ namespace Ecommerce.Core.Services
                     response.isSuccess = Constants.Status.True;
                     response.message = Constants.StatusMessage.UpdateSuccessfully;
                 }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
-                }
             }
             catch (Exception ex)
             {
@@ -124,10 +112,6 @@ namespace Ecommerce.Core.Services
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;
                     response.message = Constants.StatusMessage.DeleteSuccessfully;
-                }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)

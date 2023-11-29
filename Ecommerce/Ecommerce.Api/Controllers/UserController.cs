@@ -38,7 +38,7 @@ namespace Ecommerce.Api.Controllers
         [HttpPost("Insert")]
         public async Task<IActionResult> Insert(UserDTO request)
         {
-            var response = await _service.Add(request);
+            var response = await _service.Insert(request);
             return Ok(response);
         }
 

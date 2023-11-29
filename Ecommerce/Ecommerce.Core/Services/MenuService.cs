@@ -35,15 +35,11 @@ namespace Ecommerce.Core.Services
                                              join m in tbMenu on p.MenuId equals m.MenuId
                                              select m).AsQueryable();
 
-                var listMenus = tbResult.Distinct().ToList();
+                var listMenus = tbResult.Distinct();
                 if (listMenus.Count() > 0)
                 {
                     response.value = _mapper.Map<List<MenuDTO>>(listMenus);
                     response.isSuccess = Constants.Status.True;
-                }
-                else 
-                {
-                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)
@@ -64,10 +60,6 @@ namespace Ecommerce.Core.Services
                 {
                     response.value = _mapper.Map<List<MenuDTO>>(query);
                     response.isSuccess = Constants.Status.True;
-                }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)
@@ -96,10 +88,6 @@ namespace Ecommerce.Core.Services
                 {
                     response.value = _mapper.Map<List<MenuDTO>>(menu);
                     response.isSuccess = Constants.Status.True;
-                }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)

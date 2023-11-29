@@ -41,10 +41,6 @@ namespace Ecommerce.Core.Services
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;
                 }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
-                }
             }
             catch (Exception ex)
             {
@@ -80,10 +76,6 @@ namespace Ecommerce.Core.Services
                     response.value = _mapper.Map<List<PermissionDTO>>(query);
                     response.isSuccess = Constants.Status.True;
                 }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
-                }
             }
             catch (Exception ex)
             {
@@ -108,7 +100,10 @@ namespace Ecommerce.Core.Services
                     response.message = Constants.StatusMessage.SaveSuccessfully;
                 }
             }
-            catch (Exception ex) { response.message = ex.Message; }
+            catch (Exception ex) 
+            { 
+                response.message = ex.Message; 
+            }
 
             return response;
         }

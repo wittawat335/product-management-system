@@ -8,7 +8,7 @@ namespace Ecommerce.Core.Services.Interfaces
     {
         Task<Response<List<UserDTO>>> GetList(UserDTO filter = null);
         Task<Response<UserDTO>> Get(string id);
-        Task<Response<User>> Add(UserDTO model);
+        Task<Response<User>> Insert(UserDTO model);
         Task<Response<User>> Update(UserDTO model);
         Task<Response<User>> Delete(string id);
     }

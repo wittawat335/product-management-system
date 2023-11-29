@@ -25,8 +25,8 @@
     function formValidate() {
         $.validator.setDefaults({
             submitHandler: function () {
-                if (action == '@Constants.Action.Add') InsertProduct('frmDetail', insertUrl);
-                if (action == '@Constants.Action.Update') UpdateProduct('frmDetail', updateUrl);
+                if (action == '@Constants.Action.Add') InsertProduct('frmDetail', baseApiUrl + 'Product/Insert');
+                if (action == '@Constants.Action.Update') UpdateProduct('frmDetail', baseApiUrl + 'Product/Update');
             }
         });
         validate();

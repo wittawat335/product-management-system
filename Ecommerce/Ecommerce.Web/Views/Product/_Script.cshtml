@@ -7,15 +7,7 @@
 @inject IOptions<AppSetting> options
 @model Product;
 <script>
-    let urlPopup = '@Url.Content(Constants.UrlAction.Product.PopUpDialog)';
-    let deleteImageUrl = '@Url.Content(Constants.UrlAction.Product.DeleteImageFolder)';
     let baseApiUrl = '@options.Value.BaseApiUrl';
-    let getListUrl = baseApiUrl + 'Product/GetList';
-    let insertUrl = baseApiUrl + 'Product/Add';
-    let updateUrl = baseApiUrl + 'Product/Update';
-    let deleteUrl = baseApiUrl + 'Product/Delete/';
-    let select2Product = baseApiUrl + 'Select2/GetProduct';
-    let select2Category = baseApiUrl + 'Select2/GetCategory';
 
     $(function () {
         getList();
@@ -40,7 +32,7 @@
         _obj.Status = $('#txtStatus').val();
         $.ajax({
             type: "POST",
-            url: getListUrl,
+            url: baseApiUrl + 'Product/GetList',
             headers: {
                 'Authorization': 'bearer ' + _token
             },
@@ -50,6 +42,7 @@
             async: false,
             success: function (response) {
                 if (response.isSuccess) onSuccess(response);
+                else $("#dtResult").dataTable().fnClearTable();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(errorThrown);
@@ -88,7 +81,7 @@
                 {
                     data: 'image',
                     render: function (data, type, row, meta) {
-                        return htmlImage(row.productId, row.productName, row.image);
+                        return htmlImage(row);
                     }
                 },
                 {
@@ -131,8 +124,30 @@
         })
     }
 
+    function htmlImage(row) {
+        var html;
+        if (row.image != null && row.image != '') {
+            let imageUrl = '@Url.Content("~/images/product/")' + row.productId + "/" + row.image;
+            html = '<div class="filtr-item col-sm-2">'
+                + '<a href="' + imageUrl + '" data-toggle="lightbox" data-title="' + row.productName + '">'
+                + '<img src="' + imageUrl + '" alt="' + row.productName + '" width="50" height="50" />'
+                + '</a>'
+                + '</div>'
+        }
+        else {
+            let imageUrl = '@Url.Content("~/images/no_photo.jpg")';
+            html = '<img src="' + imageUrl + '" width="50" height="50"/>'
+        }
+
+        return html;
+    }
+
     function htmlActionButtonWithImage(row) {
         var html;
+        let urlPopup = '@Url.Content(Constants.UrlAction.Product.PopUpDialog)';
+        let deleteImageUrl = '@Url.Content(Constants.UrlAction.Product.DeleteImageFolder)';
+        let deleteUrl = baseApiUrl + 'Product/Delete/';
+
         if (row.image != null) {
             let imageUrl = '@Url.Content("~/images/product/")' + row.productId + "/" + row.image;
                 html = '<a class="btn btn-info" onclick=openPopupLg("' + row.productId + '","View","' + urlPopup + '","ดูรายละเอียดสินค้า");>'
@@ -163,7 +178,7 @@
             allowClear: true,
             ajax: {
                 type: "GET",
-                url: select2Product,
+                url: baseApiUrl + 'Select2/GetProduct',
                 headers: { 'Authorization': 'bearer ' + _token },
                 delay: 50,
                 dataType: 'json',
@@ -192,7 +207,7 @@
             allowClear: true,
             ajax: {
                 type: "GET",
-                url: select2Category,
+                url: baseApiUrl + 'Select2/GetCategory',
                 headers: { 'Authorization': 'bearer ' + _token },
                 delay: 50,
                 dataType: 'json',

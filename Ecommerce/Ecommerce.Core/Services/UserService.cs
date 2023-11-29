@@ -32,11 +32,6 @@ namespace Ecommerce.Core.Services
                     user.Password = _commonService.Decrypt(user.Password);
                     response.value = _mapper.Map<UserDTO>(user);
                     response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.InsertSuccessfully;
-                }
-                else
-                {
-                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)
@@ -46,31 +41,22 @@ namespace Ecommerce.Core.Services
 
             return response;
         }
-        public async Task<Response<List<UserDTO>>> GetList(UserDTO filter = null)
+        public async Task<Response<List<UserDTO>>> GetList(UserDTO request = null)
         {
             var response = new Response<List<UserDTO>>();
             try
             {
-                var list = await _repository.AsQueryable();
-                var result = list.Include(x => x.Position).ToList();
-                if (filter != null)
+                var query = await _repository.AsQueryable();
+                query = query.Include(x => x.Position);
+                if (request != null)
                 {
-                    if (filter.UserId != null) 
-                    {
-                        result = result.Where(x => x.UserId == new Guid(filter.UserId)).ToList();
-                    } 
-                    if (filter.PositionId != null)
-                    {
-                        result = result.Where(x => x.PositionId == filter.PositionId).ToList();
-                    }
-                    if (filter.Status != null)
-                    {
-                        result = result.Where(x => x.Status.Contains(filter.Status)).ToList();
-                    }
+                    query = (request.UserId != null) ? query.Where(x => x.UserId == new Guid(request.UserId)) : query;
+                    query = (request.PositionId != null) ? query.Where(x => x.PositionId == request.PositionId) : query;
+                    query = (request.Status != null) ? query.Where(x => x.Status.Contains(request.Status)) : query;
                 }
-                if (result.Count > 0)
+                if (query.Count() > 0)
                 {
-                    response.value = _mapper.Map<List<UserDTO>>(result);
+                    response.value = _mapper.Map<List<UserDTO>>(query);
                     response.isSuccess = Constants.Status.True;
                 }
             }
@@ -81,22 +67,21 @@ namespace Ecommerce.Core.Services
 
             return response;
         }
-        public async Task<Response<User>> Add(UserDTO model)
+        public async Task<Response<User>> Insert(UserDTO model)
         {
             var response = new Response<User>();
             try
             {
-                var user = await _repository.GetAsync(x => x.Username == model.Username);
-                if (user == null)
+                var query = await _repository.GetAsync(x => x.Username == model.Username);
+                if (query == null)
                 {
                     model.UserId = null;
                     model.Password = _commonService.Encrypt(model.Password);
-                    var result = await _repository.InsertAsyncAndSave(_mapper.Map<User>(model));
-                    if (result != null)
-                    {
-                        response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.InsertSuccessfully;
-                    }
+
+                    _repository.Insert(_mapper.Map<User>(model));
+                    await _repository.SaveChangesAsync();
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.InsertSuccessfully;
                 }
                 else 
                 {
