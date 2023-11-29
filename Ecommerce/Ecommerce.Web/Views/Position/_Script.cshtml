@@ -12,18 +12,7 @@
     bool permDelete = common.IsPermission(Constants.Menu.Position.Id, Constants.Menu.Position.ActId.Delete);
 }
 <script>
-    //client
-    let url = '@Url.Content(Constants.UrlAction.Position.PopUpDialog)'; 
-    let urlPopUpMenuPosition = '@Url.Content(Constants.UrlAction.Position.PopUpMenuPosition)'; //jsTree
-    //api
     let baseApiUrl = '@options.Value.BaseApiUrl';
-    let getListUrl = baseApiUrl + 'Position/GetList';
-    let insertUrl = baseApiUrl + 'Position/Add';
-    let updateUrl = baseApiUrl + 'Position/Update';
-    let deleteUrl = baseApiUrl + 'Position/Delete/';
-    let getJsTreeUrl = baseApiUrl + 'Position/GetJsTree/';
-    let saveUrl = baseApiUrl + 'Permission/Save?id=';
-    //permission
     let permDelete = ('@permDelete' === 'True') ? true : false;
     let permUpdate = ('@permUpdate' === 'True') ? true : false;
     let permView = ('@permView' === 'True') ? true : false;
@@ -35,7 +24,7 @@
     function getList() {
         $.ajax({
             type: "GET",
-            url: getListUrl,
+            url: baseApiUrl + 'Position/GetList',
             headers: { 'Authorization': 'bearer ' + _token },
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -80,19 +69,7 @@
                 {
                     data: 'status',
                     render: function (data, type, row, meta) {
-                        if (row.status === 'A') {
-                            return '<span class="badge bg-success">'
-                                + '' + 'ใช้งาน' + ''
-                                + '</span>'
-                        }
-                        else if (row.status === 'I') {
-                            return '<span class="badge bg-dark">'
-                                + '' + 'ไม่ได้ใช้งาน' + ''
-                                + '</span> '
-                        }
-                        else {
-                            return "";
-                        }
+                        return htmlStatusBadge(row);
                     }
                 },
                 {
@@ -104,22 +81,57 @@
                 {
                     data: 'positionId',
                     render: function (data, type, row, meta) {
-                        return '<a class="btn btn-info" onclick=openPopup("' + row.positionId + '","View","' + urlPopUpMenuPosition + '","เมนูที่ใช้");>'
-                            + '<i class="nav-icon fas fa-book"></i></a> '
+                        return htmlPermissionButton(row);
                     }
                 },
                 {
                     data: 'positionId',
                     render: function (data, type, row, meta) {
-                        return '<a class="btn btn-info" onclick=openPopup("' + row.positionId + '","View","' + url + '","ดูรายละเอียดตำแหน่งผู้ใช้งาน");>'
-                            + '<i class="fas fa-eye"></i></a> | '
-                            + '<a class="btn btn-warning" onclick=openPopup("' + row.positionId + '","Update","' + url + '","แก้ไขตำแหน่งผู้ใช้งาน");>'
-                            + '<i class="fas fa-pen"></i></a> | '
-                            + '<a class="btn btn-danger" onclick=confirmDelete("' + row.positionId + '","' + deleteUrl + '","' + row.positionName + '");>'
-                            + '<i class="fas fa-trash"></a>'
+                        return htmlActionButton(row);
                     }
                 }
             ]
         })
+    }
+
+    function htmlPermissionButton(row) {
+        let urlPopUpMenuPosition = '@Url.Content(Constants.UrlAction.Position.PopUpMenuPosition)'; //jsTree
+        let html;
+        if (permView && permUpdate && permDelete) {
+            html = '<a class="btn btn-info" onclick=openPopup("' + row.positionId + '","View","' + urlPopUpMenuPosition + '","เมนูที่ใช้");>'
+                + '<i class="nav-icon fas fa-book"></i></a> ';
+        }
+        else {
+            html = '<a class="btn btn-default" disabled="disabled">'
+                + '<i class="nav-icon fas fa-book"></i></a> ';
+        }
+
+        return html;
+    }
+
+    function htmlActionButton(row) {
+        let html;
+        let url = '@Url.Content(Constants.UrlAction.Position.PopUpDialog)';
+        let deleteUrl = baseApiUrl + 'Position/Delete/';
+
+        if (permView && permUpdate && permDelete) {
+            html = '<a class="btn btn-info" onclick=openPopup("' + row.positionId + '","View","' + url + '","ดูรายละเอียด");>'
+                + '<i class="fas fa-eye"></i></a> | '
+                + '<a class="btn btn-warning" onclick=openPopup("' + row.positionId + '","Update","' + url + '","แก้ไข");>'
+                + '<i class="fas fa-pen"></i></a> | '
+                + '<a class="btn btn-danger" onclick=confirmDelete("' + row.positionId + '","' + deleteUrl + '","' + row.positionName + '");>'
+                + '<i class="fas fa-trash"></a>'
+        }
+        else if (permView && permUpdate) {
+            html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + row.positionId + '","View","' + url + '","ดูรายละเอียดสินค้า");>'
+                + '<i class="fas fa-eye"></i></a> | '
+                + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + row.positionId + '","Update","' + url + '","แก้ไขสินค้า");>'
+                + '<i class="fas fa-pen"></i></a> '
+        }
+        else if (permView) {
+            html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + row.positionId + '","View","' + url + '","ดูรายละเอียด");>'
+                + '<i class="fas fa-eye"></i></a>'
+        }
+        return html;
     }
 </script>

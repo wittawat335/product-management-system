@@ -45,10 +45,10 @@ namespace Ecommerce.Api.Controllers
             return Ok(response);
         }
 
-        [HttpPost("Add")]
-        public async Task<IActionResult> Add(PositionDTO request)
+        [HttpPost("Insert")]
+        public async Task<IActionResult> Insert(PositionDTO request)
         {
-            var response = await _service.Add(request);
+            var response = await _service.Insert(request);
             return Ok(response);
         }
 
@@ -59,7 +59,6 @@ namespace Ecommerce.Api.Controllers
             return Ok(response);
         }
 
-        [Authorize(Roles = "Developer")]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> Delete(string id)
         {

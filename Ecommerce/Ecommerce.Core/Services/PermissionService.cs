@@ -5,7 +5,6 @@ using Ecommerce.Core.Helper;
 using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
-using System.Net;
 
 namespace Ecommerce.Core.Services
 {
@@ -42,7 +41,10 @@ namespace Ecommerce.Core.Services
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;
                 }
-                else response.message = "ยังไม่มี";
+                else
+                {
+                    response.message = Constants.StatusMessage.No_Data;
+                }
             }
             catch (Exception ex)
             {
@@ -56,12 +58,9 @@ namespace Ecommerce.Core.Services
             var response = new Response<Permission>();
             try
             {
-                if(model != null) 
-                {
-                    _repository.Insert(_mapper.Map<Permission>(model));
-                    response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.InsertSuccessfully;
-                }
+                _repository.Insert(_mapper.Map<Permission>(model));
+                response.isSuccess = Constants.Status.True;
+                response.message = Constants.StatusMessage.InsertSuccessfully;
             }
             catch (Exception ex)
             {
@@ -75,18 +74,22 @@ namespace Ecommerce.Core.Services
             var response = new Response<List<PermissionDTO>>();
             try
             {
-                var list = await _repository.GetListAsync(x => x.PositionId == positionId);
-                if (list.Count() > 0)
+                var query = await _repository.GetListAsync(x => x.PositionId == positionId);
+                if (query.Count() > 0)
                 {
-                    response.value = _mapper.Map<List<PermissionDTO>>(list);
+                    response.value = _mapper.Map<List<PermissionDTO>>(query);
                     response.isSuccess = Constants.Status.True;
+                }
+                else
+                {
+                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)
             {
-                response.statusCode = (int)HttpStatusCode.InternalServerError;
                 response.message = ex.Message;
             }
+
             return response;
         }
 

@@ -1,9 +1,6 @@
-﻿using Ecommerce.Core.DTOs;
-using Ecommerce.Core.Helper;
-using Ecommerce.Core.Services.Interfaces;
+﻿using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
 using Ecommerce.Domain.RepositoryContracts;
-using Microsoft.AspNetCore.Http;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -78,8 +75,10 @@ namespace Ecommerce.Core.Services
         }
         public string GetPositionName(string id)
         {
-            var position = _postRespository.Get(x => x.PositionId == id);
-            return position.PositionName;
+            var query = _postRespository.Get(x => x.PositionId == id);
+            string position = query != null ? query.PositionName : "";
+
+            return position;
         }
     }
 }

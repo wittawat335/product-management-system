@@ -8,10 +8,10 @@ namespace Ecommerce.Core.Services.Interfaces
     {
         Task<Response<List<PositionDTO>>> GetList(PositionDTO filter = null);
         Task<Response<PositionDTO>> Get(string id);
-        Task<Response<Position>> Add(PositionDTO model);
+        Task<Response<Position>> Insert(PositionDTO model);
         Task<Response<Position>> Update(PositionDTO model);
         Task<Response<Position>> Delete(string id);
-        Task<string> CheckDupilcate(string id, string name);
+        Task<string> CheckDupilcate(string id);
         Task<Response<List<DataPermissionJsonList>>> GetListPermissionData(string positionId);
     }
 }

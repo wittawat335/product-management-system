@@ -28,14 +28,21 @@ namespace Ecommerce.Core.Services
             var response = new Response<List<PositionDTO>>();
             try
             {
-                var list = await _repository.AsQueryable();
-                list = list.Include(x => x.MenuDefaultNavigation);
+                var query = await _repository.AsQueryable();
+                query = query.Include(x => x.MenuDefaultNavigation);
 
-                if (filter != null) list = list.Where(x => x.Status.Contains(filter.Status));
-                if (list.Count() > 0)
+                if (filter != null)
                 {
-                    response.value = _mapper.Map<List<PositionDTO>>(list);
+                    query = query.Where(x => x.Status.Contains(filter.Status));
+                }
+                if (query.Count() > 0)
+                {
+                    response.value = _mapper.Map<List<PositionDTO>>(query);
                     response.isSuccess = Constants.Status.True;
+                }
+                else
+                {
+                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)
@@ -56,6 +63,10 @@ namespace Ecommerce.Core.Services
                     response.isSuccess = Constants.Status.True;
                     response.message = Constants.StatusMessage.InsertSuccessfully;
                 }
+                else
+                {
+                    response.message = Constants.StatusMessage.No_Data;
+                }
             }
             catch (Exception ex)
             {
@@ -64,22 +75,23 @@ namespace Ecommerce.Core.Services
 
             return response;
         }
-        public async Task<Response<Position>> Add(PositionDTO model)
+        public async Task<Response<Position>> Insert(PositionDTO model)
         {
             var response = new Response<Position>();
             try
             {
-                var result = await CheckDupilcate(model.PositionId, model.PositionName);
-                if (result == string.Empty)
+                var validate = await CheckDupilcate(model.PositionId);
+                if (validate == string.Empty)
                 {
-                    response.value = await _repository.InsertAsyncAndSave(_mapper.Map<Position>(model));
-                    if (response.value != null)
-                    {
-                        response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.InsertSuccessfully;
-                    }
+                    _repository.Insert(_mapper.Map<Position>(model));
+                    await _repository.SaveChangesAsync();
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.InsertSuccessfully;
                 }
-                else response.message = result;
+                else
+                {
+                    response.message = validate;
+                }
             }
             catch (Exception ex)
             {
@@ -92,17 +104,18 @@ namespace Ecommerce.Core.Services
             var response = new Response<Position>();
             try
             {
-                var data = _repository.Get(x => x.PositionId == model.PositionId);
-                if (data != null)
+                var query = _repository.Get(x => x.PositionId == model.PositionId);
+                if (query != null)
                 {
-                    response.value = await _repository.UpdateAndSaveAsync(_mapper.Map(model, data));
-                    if (response.value != null)
-                    {
-                        response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.UpdateSuccessfully;
-                    }
+                    _repository.Update(_mapper.Map(model, query));
+                    await _repository.SaveChangesAsync();
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.UpdateSuccessfully;
                 }
-                else response.message = Constants.StatusMessage.No_Data;
+                else
+                {
+                    response.message = Constants.StatusMessage.No_Data;
+                }
             }
             catch (Exception ex)
             {
@@ -116,13 +129,17 @@ namespace Ecommerce.Core.Services
             var response = new Response<Position>();
             try
             {
-                var data = _repository.Find(id);
-                if (data != null)
+                var query = _repository.Find(id);
+                if (query != null)
                 {
-                    _repository.Delete(data);
+                    _repository.Delete(query);
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;
                     response.message = Constants.StatusMessage.DeleteSuccessfully;
+                }
+                else
+                {
+                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)
@@ -192,19 +209,11 @@ namespace Ecommerce.Core.Services
                 throw;
             }
         }
-        public async Task<string> CheckDupilcate(string id, string name)
+        public async Task<string> CheckDupilcate(string id)
         {
-            string message = string.Empty;
-            if (id != null)
-            {
-                var checkDup = await _repository.GetAsync(x => x.PositionId == id);
-                message = checkDup != null ? string.Format(id + " " + Constants.StatusMessage.DuplicateId) : string.Empty;
-            }
-            //if (name != null)
-            //{
-            //    var checkDup = await _repository.GetAsync(x => x.PositionName == name);
-            //    if (checkDup != null) message = string.Format(name + " " + Constants.StatusMessage.DuplicateName);
-            //}
+
+            var checkDup = await _repository.GetAsync(x => x.PositionId == id);
+            string message = checkDup != null ? string.Format(id + " " + Constants.StatusMessage.DuplicateId) : string.Empty;
 
             return message;
         }

@@ -41,7 +41,10 @@ namespace Ecommerce.Core.Services
                     response.value = _mapper.Map<List<MenuDTO>>(listMenus);
                     response.isSuccess = Constants.Status.True;
                 }
-                else response.message = Constants.StatusMessage.No_Data;
+                else 
+                {
+                    response.message = Constants.StatusMessage.No_Data;
+                }
             }
             catch (Exception ex)
             {
@@ -62,6 +65,10 @@ namespace Ecommerce.Core.Services
                     response.value = _mapper.Map<List<MenuDTO>>(query);
                     response.isSuccess = Constants.Status.True;
                 }
+                else
+                {
+                    response.message = Constants.StatusMessage.No_Data;
+                }
             }
             catch (Exception ex)
             {
@@ -78,14 +85,21 @@ namespace Ecommerce.Core.Services
             try
             {
                 if (positionId == "Dev01")
+                {
                     menu = await _MenuRepository.GetListAsync(x => x.Status == Constants.Status.Active);
+                }
                 else
+                {
                     menu = await _storedRespository.SP_GET_MENU_BY_POSITION(positionId);
-
+                }
                 if (menu.Count() > 0)
                 {
                     response.value = _mapper.Map<List<MenuDTO>>(menu);
                     response.isSuccess = Constants.Status.True;
+                }
+                else
+                {
+                    response.message = Constants.StatusMessage.No_Data;
                 }
             }
             catch (Exception ex)
