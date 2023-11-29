@@ -33,7 +33,7 @@ namespace Ecommerce.Core.Common
             public const string Cannot_Map_Data = "Cannot Map Data";
             public const string UserInActive = "บัญชีนี้ถูกระงับการใช้งาน";
             public const string SaveSuccessfully = "บันทึกขัอมูลเรียบร้อย";
-            public const string AddSuccessfully = "เพิ่มขัอมูลเรียบร้อย";
+            public const string InsertSuccessfully = "เพิ่มขัอมูลเรียบร้อย";
             public const string UpdateSuccessfully = "แก้ไขขัอมูลเรียบร้อย";
             public const string DeleteSuccessfully = "ลบขัอมูลเรียบร้อย";
             public const string MappingError = "Data can't mapping";

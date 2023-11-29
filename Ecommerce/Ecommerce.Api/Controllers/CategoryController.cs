@@ -27,10 +27,10 @@ namespace Ecommerce.Api.Controllers
             return Ok(response); 
         }
 
-        [HttpPost("Add")]
+        [HttpPost("Insert")]
         public async Task<IActionResult> Add(CategoryDTO request) 
         {
-            var response = await _service.Add(request);
+            var response = await _service.Insert(request);
             return Ok(response); 
         }
 

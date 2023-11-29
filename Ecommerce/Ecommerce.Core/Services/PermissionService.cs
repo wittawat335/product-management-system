@@ -60,7 +60,7 @@ namespace Ecommerce.Core.Services
                 {
                     _repository.Insert(_mapper.Map<Permission>(model));
                     response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.AddSuccessfully;
+                    response.message = Constants.StatusMessage.InsertSuccessfully;
                 }
             }
             catch (Exception ex)

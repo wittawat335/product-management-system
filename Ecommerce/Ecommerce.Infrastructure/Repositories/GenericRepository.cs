@@ -2,7 +2,6 @@
 using Ecommerce.Infrastructure.DBContext;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Ecommerce.Infrastructure.Repositories
 {

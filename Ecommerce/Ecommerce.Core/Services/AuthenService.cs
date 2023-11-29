@@ -45,30 +45,25 @@ namespace Ecommerce.Core.Services
                         new Claim("UserId", user.UserId.ToString())
                     };
 
-                var roles = await _positionRepository.GetListAsync(x => x.PositionId == user.PositionId && x.Status == Constants.Status.Active);
-                var roleClaims = roles.Select(x => new Claim(ClaimTypes.Role, x.PositionName));
+                var position = await _positionRepository.GetListAsync(x => x.PositionId == user.PositionId && x.Status == Constants.Status.Active);
+                var roleClaims = position.Select(x => new Claim(ClaimTypes.Role, x.PositionName));
                 claims.AddRange(roleClaims);
-
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
                 var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-                var token = new JwtSecurityToken(_jwtSettings.Issuer, _jwtSettings.Audience, claims,
+                var token = new JwtSecurityToken(
+                    _jwtSettings.Issuer,
+                    _jwtSettings.Audience,
+                    claims,
                     expires: DateTime.UtcNow.AddMinutes(_jwtSettings.Timeout),
                     signingCredentials: signIn);
 
-                loginResponse.token = new JwtSecurityTokenHandler().WriteToken(token);
-                loginResponse.userName = user.Username;
-                loginResponse.userId = user.UserId.ToString();
-                loginResponse.fullName = user.FullName;
-                loginResponse.positionId = user.PositionId;
-                loginResponse.positionName = user.Position.PositionName;
-                loginResponse.email = user.Email;
-
-                if (loginResponse != null)
+                response.value = _mapper.Map<LoginResponse>(user);
+                if (response.value != null)
                 {
-                    response.message = Constants.StatusMessage.LoginSuccess;
-                    response.isSuccess = Constants.Status.True;
-                    response.value = loginResponse;
+                    response.value.token = new JwtSecurityTokenHandler().WriteToken(token);
                     response.returnUrl = _common.GetMenuDefault(user.Position.MenuDefault);
+                    response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.LoginSuccess;
                 }
             }
             catch (Exception ex)
@@ -123,7 +118,7 @@ namespace Ecommerce.Core.Services
                 {
                     request.password = _common.Encrypt(request.password);
                     request.positionId = positionRegister;
-                    var user = await _repository.InsertAsyncAndSave(_mapper.Map<User>(request)); 
+                    var user = await _repository.InsertAsyncAndSave(_mapper.Map<User>(request));
 
                     if (user != null)
                     {
@@ -131,10 +126,10 @@ namespace Ecommerce.Core.Services
                         response.message = Constants.StatusMessage.RegisterSuccess;
                     }
                 }
-                else 
+                else
                 {
                     response.message = Constants.StatusMessage.DuplicateUser;
-                } 
+                }
             }
             catch (Exception ex)
             {

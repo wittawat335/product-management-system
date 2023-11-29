@@ -54,7 +54,7 @@ namespace Ecommerce.Core.Services
                 {
                     response.value = _mapper.Map<PositionDTO>(query);
                     response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.AddSuccessfully;
+                    response.message = Constants.StatusMessage.InsertSuccessfully;
                 }
             }
             catch (Exception ex)
@@ -76,7 +76,7 @@ namespace Ecommerce.Core.Services
                     if (response.value != null)
                     {
                         response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.AddSuccessfully;
+                        response.message = Constants.StatusMessage.InsertSuccessfully;
                     }
                 }
                 else response.message = result;

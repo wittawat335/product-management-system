@@ -32,7 +32,7 @@ namespace Ecommerce.Core.Services
                     user.Password = _commonService.Decrypt(user.Password);
                     response.value = _mapper.Map<UserDTO>(user);
                     response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.AddSuccessfully;
+                    response.message = Constants.StatusMessage.InsertSuccessfully;
                 }
                 else
                 {
@@ -95,7 +95,7 @@ namespace Ecommerce.Core.Services
                     if (result != null)
                     {
                         response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.AddSuccessfully;
+                        response.message = Constants.StatusMessage.InsertSuccessfully;
                     }
                 }
                 else 

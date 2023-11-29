@@ -67,8 +67,10 @@ namespace Ecommerce.Core.Services
         }
         public string GetMenuDefault(string menuId)
         {
-            var menu = _menuRespository.Get(x => x.MenuId == menuId);
-            return menu.Url;
+            var query = _menuRespository.Get(x => x.MenuId == menuId);
+            string url = query != null ? query.Url : "";
+
+            return url;
         }
         public string GetParameter(string code)
         {
