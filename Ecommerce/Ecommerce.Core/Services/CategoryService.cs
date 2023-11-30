@@ -60,8 +60,8 @@ namespace Ecommerce.Core.Services
             var response = new Response<Category>();
             try
             {
-                var messageCheck = await CheckDupilcate(model.CategoryId);
-                if (messageCheck == string.Empty)
+                var validate = await CheckDupilcate(model.CategoryId);
+                if (validate == string.Empty)
                 {
                     _repository.Insert(_mapper.Map<Category>(model));
                     await _repository.SaveChangesAsync();
@@ -70,7 +70,7 @@ namespace Ecommerce.Core.Services
                 }
                 else
                 {
-                    response.message = messageCheck;
+                    response.message = validate;
                 }
             }
             catch (Exception ex)

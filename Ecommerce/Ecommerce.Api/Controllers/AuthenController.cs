@@ -18,10 +18,7 @@ namespace Ecommerce.Api.Controllers
 
         [HttpGet]
         [Route("CheckEnvironment")]
-        public IActionResult CheckEnvironment()
-        {
-            return Content("Environment : " + _environment.EnvironmentName);
-        }
+        public IActionResult CheckEnvironment() { return Content("Environment : " + _environment.EnvironmentName); }
 
         [HttpPost]
         [Route("Login")]

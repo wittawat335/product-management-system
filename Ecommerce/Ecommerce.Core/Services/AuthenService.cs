@@ -21,8 +21,8 @@ namespace Ecommerce.Core.Services
         private readonly IMapper _mapper;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthenService(IGenericRepository<User> repository, IGenericRepository<Position> positionRepository,
-            ICommonService common, IMapper mapper, IOptions<JwtSettings> options)
+        public AuthenService(IGenericRepository<User> repository, IGenericRepository<Position> positionRepository, ICommonService common,
+            IMapper mapper, IOptions<JwtSettings> options)
         {
             _repository = repository;
             _positionRepository = positionRepository;
@@ -58,13 +58,11 @@ namespace Ecommerce.Core.Services
                     signingCredentials: signIn);
 
                 response.value = _mapper.Map<LoginResponse>(user);
-                if (response.value != null)
-                {
-                    response.value.token = new JwtSecurityTokenHandler().WriteToken(token);
-                    response.returnUrl = _common.GetMenuDefault(user.Position.MenuDefault);
-                    response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.LoginSuccess;
-                }
+                response.value.token = new JwtSecurityTokenHandler().WriteToken(token);
+                response.returnUrl = _common.GetMenuDefault(user.Position.MenuDefault);
+                response.isSuccess = Constants.Status.True;
+                response.message = Constants.StatusMessage.LoginSuccess;
+
             }
             catch (Exception ex)
             {

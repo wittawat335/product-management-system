@@ -13,7 +13,8 @@ namespace Ecommerce.Api.Controllers
         private readonly IUserService _userService;
         private readonly IPositionService _positionService;
 
-        public Select2Controller(IProductService productservice, ICategoryService categoryService, IUserService userService, IPositionService positionService)
+        public Select2Controller(IProductService productservice, ICategoryService categoryService, IUserService userService, 
+            IPositionService positionService)
         {
             _productservice = productservice;
             _categoryService = categoryService;
@@ -52,7 +53,7 @@ namespace Ecommerce.Api.Controllers
         }
 
         [HttpGet("GetPosition")]
-        public async Task<IActionResult> select2Position(string request)
+        public async Task<IActionResult> GetPosition(string request)
         {
             var response = await _positionService.GetList();
             if (response.isSuccess)

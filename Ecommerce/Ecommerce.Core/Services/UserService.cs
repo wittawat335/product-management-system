@@ -26,11 +26,11 @@ namespace Ecommerce.Core.Services
             var response = new Response<UserDTO>();
             try
             {
-                var user = await _repository.GetAsync(x => x.UserId == new Guid(id));
-                if (user != null)
+                var query = await _repository.GetAsync(x => x.UserId == new Guid(id));
+                if (query != null)
                 {
-                    user.Password = _commonService.Decrypt(user.Password);
-                    response.value = _mapper.Map<UserDTO>(user);
+                    query.Password = _commonService.Decrypt(query.Password);
+                    response.value = _mapper.Map<UserDTO>(query);
                     response.isSuccess = Constants.Status.True;
                 }
             }
