@@ -13,6 +13,8 @@
 }
 <script>
     let baseApiUrl = '@options.Value.BaseApiUrl';
+    let modalUrl = '@Url.Content(Constants.UrlAction.Category.PopUpDialog)';
+    let deleteUrl = baseApiUrl + 'Category/Delete/';
     let permDelete = ('@permDelete' === 'True') ? true : false;
     let permUpdate = ('@permUpdate' === 'True') ? true : false;
     let permView = ('@permView' === 'True') ? true : false;
@@ -69,41 +71,24 @@
                 {
                     data: 'createDate',
                     render: function (data, type, row, meta) {
-                        return row.createDate
+                        return htmlTextCenter(row.createDate);
                     }
                 },
                 {
                     data: 'categoryId',
                     render: function (data, type, row, meta) {
-                        return htmlActionButton(row);
+                        if (permView && permUpdate && permDelete) {
+                            return htmlAllActionButton(row.categoryId, row.categoryName, modalUrl, deleteUrl);
+                        }
+                        else if (permView && permUpdate) { 
+                            return htmlUpdateActionButton(row.categoryId, modalUrl)
+                        }
+                        else {
+                            return htmlViewActionButton(row.categoryId, modalUrl)
+                        }
                     }
                 }
             ]
         })
-    }
-
-    function htmlActionButton(row) {
-        var html;
-        let url = '@Url.Content(Constants.UrlAction.Category.PopUpDialog)';
-        let deleteUrl = baseApiUrl + 'Category/Delete/';
-        if (permView && permUpdate && permDelete) {
-                html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + row.categoryId + '","View","' + url + '","ดูรายละเอียดสินค้า");>'
-                + '<i class="fas fa-eye"></i></a> | '
-                + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + row.categoryId + '","Update","' + url + '","แก้ไขสินค้า");>'
-                + '<i class="fas fa-pen"></i></a> | '
-                + '<a class="btn btn-danger" title="ลบ"  onclick=confirmDelete("' + row.categoryId + '","' + deleteUrl + '","' + row.categoryName + '");>'
-                + '<i class="fas fa-trash"></a>'
-        }
-        else if (permView && permUpdate) {
-                html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + row.categoryId + '","View","' + url + '","ดูรายละเอียดสินค้า");>'
-                + '<i class="fas fa-eye"></i></a> | '
-                + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + row.categoryId + '","Update","' + url + '","แก้ไขสินค้า");>'
-                + '<i class="fas fa-pen"></i></a> '
-        }
-        else if (permView) {
-                html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + row.categoryId + '","View","' + url + '","ดูรายละเอียดสินค้า");>'
-                + '<i class="fas fa-eye"></i></a>'
-        }
-        return html;
     }
 </script>

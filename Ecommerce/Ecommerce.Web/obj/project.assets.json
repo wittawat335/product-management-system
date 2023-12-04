@@ -9793,7 +9793,8 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\witta\\.nuget\\packages\\": {}
+    "C:\\Users\\witta\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
@@ -9804,6 +9805,9 @@
       "packagesPath": "C:\\Users\\witta\\.nuget\\packages\\",
       "outputPath": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
         "C:\\Users\\witta\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -9813,6 +9817,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {

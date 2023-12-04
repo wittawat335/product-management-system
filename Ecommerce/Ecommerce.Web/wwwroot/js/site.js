@@ -42,9 +42,41 @@ $(document).on('select2:open', function (e) { //ทำให้ select2 autofocu
 
 // #region function setColumnDataTableHtml
 function htmlStatusBadge(row) {
-    let html = (row.status === 'A') ? '<span class="badge bg-success">ใช้งาน</span>' : '<span class="badge bg-dark">ไม่ได้ใช้งาน</span>';
+    let html = (row.status === 'A')
+        ? '<span class="badge bg-success" style="display: flex; justify-content: center;">ใช้งาน</span>'
+        : '<span class="badge bg-dark" style="display: flex; flex-flow: row nowrap; justify-content: center;">ไม่ได้ใช้งาน</span>';
     return html;
 }
+
+function htmlTextCenter(data) {
+    var html;
+    html = '<span style="display: flex; flex-flow: row nowrap; justify-content: center;">' + data + '</span>'
+    return html;
+}
+function htmlAllActionButton(id, name, url, url2) {
+    var html;
+    html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+        + '<i class="fas fa-eye"></i></a>  |  '
+        + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
+        + '<i class="fas fa-pen"></i></a>  |  '
+        + '<a class="btn btn-danger" title="ลบ"  onclick=confirmDelete("' + id + '","' + url2 + '","' + name + '");>'
+        + '<i class="fas fa-trash"></a>'
+    return html;
+}
+function htmlUpdateActionButton(id, url) {
+    var html;
+    html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+        + '<i class="fas fa-eye"></i></a>  |  '
+        + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
+        + '<i class="fas fa-pen"></i></a> '
+    return html;
+}
+function htmlViewActionButton(id, url) {
+    var html;
+    html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+        + '<i class="fas fa-eye"></i></a>'
+    return html;
+} 
 // #endregion
 function saveForm(formId, url) {
     var data = $('#' + formId).serializeObject();
