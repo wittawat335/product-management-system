@@ -6,6 +6,11 @@
 @inject ICommonService common;
 @inject IOptions<AppSetting> options
 @model Product;
+@{
+    // bool permView = common.IsPermission(Constants.Menu.pr.Id, Constants.Menu.Category.ActId.View);
+    // bool permUpdate = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.ActId.Update);
+    // bool permDelete = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.ActId.Delete);
+}
 <script>
     let baseApiUrl = '@options.Value.BaseApiUrl';
 

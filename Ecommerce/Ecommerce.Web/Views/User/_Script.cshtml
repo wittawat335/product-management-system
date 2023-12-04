@@ -6,8 +6,18 @@
 @inject ICommonService common;
 @inject IOptions<AppSetting> options
 @model User;
+@{
+    bool permView = common.IsPermission(Constants.Menu.User.Id, Constants.Menu.User.ActId.View);
+    bool permUpdate = common.IsPermission(Constants.Menu.User.Id, Constants.Menu.User.ActId.Update);
+    bool permDelete = common.IsPermission(Constants.Menu.User.Id, Constants.Menu.User.ActId.Delete);
+}
 <script>
     let baseApiUrl = '@options.Value.BaseApiUrl';
+    let deleteUrl = baseApiUrl + 'User/Delete/';
+    let modalUrl = '@Url.Content(Constants.UrlAction.User.PopUpDialog)';
+    let permDelete = ('@permDelete' === 'True') ? true : false;
+    let permUpdate = ('@permUpdate' === 'True') ? true : false;
+    let permView = ('@permView' === 'True') ? true : false;
 
     $(function () {
         setSelect2();
@@ -98,30 +108,25 @@
                 {
                     data: 'createDate',
                     render: function (data, type, row, meta) {
-                        return row.createDate
+                        return htmlTextCenter(row.createDate);
                     }
                 },
                 {
                     data: 'userId',
                     render: function (data, type, row, meta) {
-                        return htmlActionButton(row);
+                        if (permView && permUpdate && permDelete) {
+                            return htmlAllActionButton(row.userId, row.username, modalUrl, deleteUrl);
+                        }
+                        else if (permView && permUpdate) {
+                            return htmlUpdateActionButton(row.userId, modalUrl)
+                        }
+                        else {
+                            return htmlViewActionButton(row.userId, modalUrl)
+                        }
                     }
                 }
             ]
         })
-    }
-
-    function htmlActionButton(row) {
-        let deleteUrl = baseApiUrl + 'User/Delete/';
-        let url = '@Url.Content(Constants.UrlAction.User.PopUpDialog)';
-        var html = '<a class="btn btn-info" onclick=openPopup("' + row.userId + '","View","' + url + '","ดูข้อมูลผู้ใช้งาน");>'
-            + '<i class="fas fa-eye"></i></a> | '
-            + '<a class="btn btn-warning" onclick=openPopup("' + row.userId + '","Update","' + url + '","แก้ไขข้อมูลผู้ใช้งาน");>'
-            + '<i class="fas fa-pen"></i></a> | '
-            + '<a class="btn btn-danger" onclick=confirmDelete("' + row.userId + '","' + deleteUrl + '","' + row.username + '");>'
-            + '<i class="fas fa-trash"></a>'
-
-        return html;
     }
 
     function setSelect2() {

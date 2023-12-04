@@ -13,6 +13,8 @@
 }
 <script>
     let baseApiUrl = '@options.Value.BaseApiUrl';
+    let modalUrl = '@Url.Content(Constants.UrlAction.Position.PopUpDialog)';
+    let deleteUrl = baseApiUrl + 'Position/Delete/';
     let permDelete = ('@permDelete' === 'True') ? true : false;
     let permUpdate = ('@permUpdate' === 'True') ? true : false;
     let permView = ('@permView' === 'True') ? true : false;
@@ -87,7 +89,15 @@
                 {
                     data: 'positionId',
                     render: function (data, type, row, meta) {
-                        return htmlActionButton(row);
+                        if (permDelete) {
+                            return htmlAllActionButton(row.positionId, row.positionName, modalUrl, deleteUrl);
+                        }
+                        else if (permUpdate) {
+                            return htmlUpdateActionButton(row.positionId, modalUrl)
+                        }
+                        else {
+                            return htmlViewActionButton(row.positionId, modalUrl)
+                        }
                     }
                 }
             ]
@@ -106,32 +116,6 @@
                 + '<i class="nav-icon fas fa-book"></i></a> ';
         }
 
-        return html;
-    }
-
-    function htmlActionButton(row) {
-        let html;
-        let url = '@Url.Content(Constants.UrlAction.Position.PopUpDialog)';
-        let deleteUrl = baseApiUrl + 'Position/Delete/';
-
-        if (permView && permUpdate && permDelete) {
-            html = '<a class="btn btn-info" onclick=openPopup("' + row.positionId + '","View","' + url + '","ดูรายละเอียด");>'
-                + '<i class="fas fa-eye"></i></a> | '
-                + '<a class="btn btn-warning" onclick=openPopup("' + row.positionId + '","Update","' + url + '","แก้ไข");>'
-                + '<i class="fas fa-pen"></i></a> | '
-                + '<a class="btn btn-danger" onclick=confirmDelete("' + row.positionId + '","' + deleteUrl + '","' + row.positionName + '");>'
-                + '<i class="fas fa-trash"></a>'
-        }
-        else if (permView && permUpdate) {
-            html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + row.positionId + '","View","' + url + '","ดูรายละเอียดสินค้า");>'
-                + '<i class="fas fa-eye"></i></a> | '
-                + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + row.positionId + '","Update","' + url + '","แก้ไขสินค้า");>'
-                + '<i class="fas fa-pen"></i></a> '
-        }
-        else if (permView) {
-            html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + row.positionId + '","View","' + url + '","ดูรายละเอียด");>'
-                + '<i class="fas fa-eye"></i></a>'
-        }
         return html;
     }
 </script>

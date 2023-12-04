@@ -140,7 +140,7 @@
                 {
                     public const string New = "ACT001";
                     public const string Update = "ACT002";
-                    public const string View = "ACT002";
+                    public const string View = "ACT003";
                     public const string Delete = "ACT004";
                 }
             }
@@ -156,6 +156,7 @@
                     public const string Delete = "ACT012";
                 }
             }
+
         }
     }
 }
