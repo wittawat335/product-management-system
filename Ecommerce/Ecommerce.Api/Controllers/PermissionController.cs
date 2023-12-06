@@ -14,22 +14,15 @@ namespace Ecommerce.Api.Controllers
 
         public PermissionController(IPermissionService service) => _service = service;
 
-        [HttpGet("GetList/{positionId}")]
+        [HttpGet("{positionId}")]
         public async Task<IActionResult> GetList(string positionId)
         {
             var response = await _service.GetList(positionId);
             return Ok(response);
         }
 
-        [HttpPost("Add")]
-        public async Task<IActionResult> Add(PermissionDTO request)
-        {
-            var response = await _service.Add(request);
-            return Ok(response);
-        }
-
-        [HttpPost("Save")]
-        public async Task<IActionResult> SaveAsync(string id, List<DataPermissionJsonInsertList> request)
+        [HttpPost]
+        public async Task<IActionResult> Insert(string id, List<DataPermissionJsonInsertList> request)
         {
             var response = await _service.SaveList(id, request);
             return Ok(response);

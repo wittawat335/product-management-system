@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Ecommerce.Core.DTOs;
 using Ecommerce.Core.DTOs.Authen;
+using Ecommerce.Core.DTOs.Product;
 using Ecommerce.Domain.Entities;
 using System.Globalization;
 

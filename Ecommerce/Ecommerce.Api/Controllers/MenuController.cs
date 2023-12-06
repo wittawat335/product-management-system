@@ -14,7 +14,7 @@ namespace Ecommerce.Api.Controllers
         public MenuController(IMenuService service) => _service = service;
 
         [HttpGet("{PositionId}")]
-        public async Task<IActionResult> GetList(string PositionId)
+        public async Task<IActionResult> Get(string PositionId)
         {
             var response = await _service.GetMenuByPositionId(PositionId);
             return Ok(response);

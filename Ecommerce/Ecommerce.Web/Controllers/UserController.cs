@@ -29,11 +29,11 @@ namespace Ecommerce.Web.Controllers
             var model = new UserViewModel();
             var response = new Response<User>();
             model.Action = action;
-            var listPosition = await _positionService.GetListAsync(_setting.BaseApiUrl + "Position/GetListActive");
-            if (listPosition.value.Count() > 0) ViewBag.listPosition = listPosition.value;
+            var listPosition = await _positionService.GetListAsync(_setting.BaseApiUrl + "Position");
+            if (listPosition.value.Count() > 0) ViewBag.listPosition = listPosition.value.Where(x => x.Status == "A");
 
             if (!string.IsNullOrEmpty(id))
-                response = await _service.GetAsyncById(_setting.BaseApiUrl + string.Format("User/GetUser/{0}", id));
+                response = await _service.GetAsyncById(_setting.BaseApiUrl + string.Format("User/{0}", id));
 
             if (response.value != null) model.User = response.value;
 

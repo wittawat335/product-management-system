@@ -1,4 +1,4 @@
-﻿using Ecommerce.Core.DTOs;
+﻿using Ecommerce.Core.DTOs.Product;
 using Ecommerce.Core.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -14,49 +14,42 @@ namespace Ecommerce.Api.Controllers
 
         public ProductController(IProductService service) => _service = service;
 
-        [HttpGet("GetList")]
-        public async Task<IActionResult> GetList() 
+        [HttpGet]
+        public async Task<IActionResult> Get() 
         {
             var response = await _service.GetList();
             return Ok(response); 
         }
 
-        [HttpPost("GetList")]
-        public async Task<IActionResult> GetList(ProductDTO filter)
-        {
-            var response = await _service.GetList(filter);
-            return Ok(response);
-        }
-
-        [HttpGet("GetProduct/{id}")]
-        public async Task<IActionResult> GetProduct(string id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id)
         {
             var response = await _service.Get(id);
             return Ok(response);
         }
 
-        [HttpPost("UploadFile")]
-        public async Task<IActionResult> UploadFile(List<ProductDTO> request)
+        [HttpPost("Search")]
+        public async Task<IActionResult> Search(ProductDTO filter)
         {
-            var response = await _service.Upload(request);
+            var response = await _service.GetList(filter);
             return Ok(response);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost]
         public async Task<IActionResult> Insert(ProductDTO request)
         {
             var response = await _service.Insert(request);
             return Ok(response);
         }
 
-        [HttpPut("Update")]
+        [HttpPut]
         public async Task<IActionResult> Update(ProductDTO request)
         {
             var response = await _service.Update(request);
             return Ok(response);
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             var response = await _service.Delete(id);

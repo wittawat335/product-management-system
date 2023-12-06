@@ -29,7 +29,7 @@ namespace Ecommerce.Web.Services
         public async Task GetPermission(string positionId)
         {
             var response = new Response<List<Permission>>();
-            var path = string.Format(_setting.BaseApiUrl + "Permission/GetList/{0}", positionId);
+            var path = string.Format(_setting.BaseApiUrl + "Permission/{0}", positionId);
             try
             {
                 using (var client = new HttpClient(_httpClient))

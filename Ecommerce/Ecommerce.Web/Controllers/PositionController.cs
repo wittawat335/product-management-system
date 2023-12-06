@@ -37,8 +37,8 @@ namespace Ecommerce.Web.Controllers
 
             if (!string.IsNullOrEmpty(id) && session != null)
             {
-                position = await _PositionService.GetAsyncById(_setting.BaseApiUrl + string.Format("Position/Get/{0}", id));
-                listMenu = await _MenuService.GetListAsync(_setting.BaseApiUrl + string.Format("Menu/GetListByPermission/{0}", id));
+                position = await _PositionService.GetAsyncById(_setting.BaseApiUrl + string.Format("Position/{0}", id));
+                listMenu = await _MenuService.GetListAsync(_setting.BaseApiUrl + string.Format("Menu/{0}", id));
             }
 
             if (position.isSuccess) model.Position = position.value;

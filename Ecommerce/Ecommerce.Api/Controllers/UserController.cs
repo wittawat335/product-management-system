@@ -14,42 +14,42 @@ namespace Ecommerce.Api.Controllers
 
         public UserController(IUserService service) => _service = service;
 
-        [HttpGet("GetList")]
-        public async Task<IActionResult> GetList()
+        [HttpGet]
+        public async Task<IActionResult> Get()
         {
             var response = await _service.GetList();
             return Ok(response);
         }
 
-        [HttpGet("GetUser/{id}")]
-        public async Task<IActionResult> GetUser(string id)
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id)
         {
             var response = await _service.Get(id);
             return Ok(response);
         }
 
-        [HttpPost("GetList")]
-        public async Task<IActionResult> GetList(UserDTO request)
+        [HttpPost("Search")]
+        public async Task<IActionResult> Search(UserDTO request)
         {
             var response = await _service.GetList(request);
             return Ok(response);
         }
 
-        [HttpPost("Insert")]
+        [HttpPost]
         public async Task<IActionResult> Insert(UserDTO request)
         {
             var response = await _service.Insert(request);
             return Ok(response);
         }
 
-        [HttpPut("Update")]
+        [HttpPut]
         public async Task<IActionResult> Update(UserDTO request)
         {
             var response = await _service.Update(request);
             return Ok(response);
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id)
         {
             var response = await _service.Delete(id);

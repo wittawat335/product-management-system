@@ -13,7 +13,7 @@
 }
 <script>
     let baseApiUrl = '@options.Value.BaseApiUrl';
-    let deleteUrl = baseApiUrl + 'User/Delete/';
+    let deleteUrl = baseApiUrl + 'User/';
     let modalUrl = '@Url.Content(Constants.UrlAction.User.PopUpDialog)';
     let permDelete = ('@permDelete' === 'True') ? true : false;
     let permUpdate = ('@permUpdate' === 'True') ? true : false;
@@ -35,7 +35,7 @@
         _obj.status = $('#ddlStatus').val();
         $.ajax({
             type: "POST",
-            url: baseApiUrl + 'User/GetList',
+            url: baseApiUrl + 'User/Search',
             headers: {
                 'Authorization': 'bearer ' + _token
             },
