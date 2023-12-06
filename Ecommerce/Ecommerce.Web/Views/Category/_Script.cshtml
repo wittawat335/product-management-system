@@ -14,7 +14,7 @@
 <script>
     let baseApiUrl = '@options.Value.BaseApiUrl';
     let modalUrl = '@Url.Content(Constants.UrlAction.Category.PopUpDialog)';
-    let deleteUrl = baseApiUrl + 'Category/Delete/';
+    let deleteUrl = baseApiUrl + 'Category/';
     let permDelete = ('@permDelete' === 'True') ? true : false;
     let permUpdate = ('@permUpdate' === 'True') ? true : false;
     let permView = ('@permView' === 'True') ? true : false;
@@ -26,7 +26,7 @@
     function getList() {
         $.ajax({
             type: "GET",
-            url: baseApiUrl + 'Category/GetList',
+            url: baseApiUrl + 'Category',
             headers: { 'Authorization': 'bearer ' + _token },
             contentType: "application/json; charset=utf-8",
             dataType: "json",

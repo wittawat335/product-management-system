@@ -26,7 +26,7 @@ namespace Ecommerce.Web.Controllers
             var model = new CategoryViewModel();
             var response = new Response<Category>();
             if (!string.IsNullOrEmpty(id))
-                response = await _categoryService.GetAsyncById(_setting.BaseApiUrl + string.Format("Category/GetCategory/{0}", id));
+                response = await _categoryService.GetAsyncById(_setting.BaseApiUrl + string.Format("Category/{0}", id));
 
             if (response.value != null) model.Category = response.value;
 

@@ -114,7 +114,7 @@
                 {
                     data: 'userId',
                     render: function (data, type, row, meta) {
-                        if (permView && permUpdate && permDelete) {
+                        if (permView && permUpdate && permDelete) { 
                             return htmlAllActionButton(row.userId, row.username, modalUrl, deleteUrl);
                         }
                         else if (permView && permUpdate) {

@@ -28,6 +28,7 @@ namespace Ecommerce.Core.Services
                 {
                     response.value = _mapper.Map<List<CategoryDTO>>(query);
                     response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.Success;
                 }
             }
             catch (Exception ex)
@@ -46,6 +47,7 @@ namespace Ecommerce.Core.Services
                 {
                     response.value = _mapper.Map<CategoryDTO>(query);
                     response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.Success;
                 }
             }
             catch (Exception ex)

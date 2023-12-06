@@ -35,8 +35,8 @@ namespace Ecommerce.Web.Controllers
             var response = new Response<Product>();
             var model = new ProductViewModel();
 
-            var listCategory = await _categoryService.GetListAsync(_setting.BaseApiUrl + "Category/GetListActive");
-            if (listCategory != null) ViewBag.listCategory = listCategory.value;
+            var listCategory = await _categoryService.GetListAsync(_setting.BaseApiUrl + "Category");
+            if (listCategory != null) ViewBag.listCategory = listCategory.value.Where(x => x.Status == "A");
 
             if (!string.IsNullOrEmpty(id))
                 response = await _productService.GetAsyncById(_setting.BaseApiUrl + string.Format("Product/GetProduct/{0}", id));

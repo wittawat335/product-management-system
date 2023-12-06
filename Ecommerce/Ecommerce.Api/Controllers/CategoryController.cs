@@ -13,47 +13,39 @@ namespace Ecommerce.Api.Controllers
         private readonly ICategoryService _service;
         public CategoryController(ICategoryService service) => _service = service;
 
-        [HttpGet("GetList")]
-        public async Task<IActionResult> GetList() 
+        [HttpGet]
+        public async Task<IActionResult> Get() 
         {
             var response = await _service.GetList();
             return Ok(response); 
         }
 
-        [HttpGet("GetCategory/{id}")]
-        public async Task<IActionResult> GetCategory(string id) 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id) 
         {
             var response = await _service.Get(id);
             return Ok(response); 
         }
 
-        [HttpPost("Insert")]
-        public async Task<IActionResult> Add(CategoryDTO request) 
+        [HttpPost]
+        public async Task<IActionResult> Insert(CategoryDTO request) 
         {
             var response = await _service.Insert(request);
             return Ok(response); 
         }
 
-        [HttpPut("Update")]
+        [HttpPut]
         public async Task<IActionResult> Update(CategoryDTO request) 
         {
             var response = await _service.Update(request);
             return Ok(response); 
         }
 
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(string id) 
         {
             var response = await _service.Delete(id);
             return Ok(response); 
-        }
-
-        [HttpGet("GetListActive")]
-        public async Task<IActionResult> GetListActive()
-        {
-            var filter = new CategoryDTO { Status = "A" };
-            var response = await _service.GetList(filter);
-            return Ok(response);
         }
     }
 }

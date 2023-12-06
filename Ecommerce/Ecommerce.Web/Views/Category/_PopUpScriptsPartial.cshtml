@@ -28,8 +28,8 @@
     function formValidate() {
         $.validator.setDefaults({
             submitHandler: function () {
-                if (action == '@Constants.Action.Add') Insert('frmDetail', baseApiUrl + 'Category/Insert');
-                if (action == '@Constants.Action.Update') Update('frmDetail', baseApiUrl + 'Category/Update');
+                if (action == '@Constants.Action.Add') Insert('frmDetail', baseApiUrl + 'Category');
+                if (action == '@Constants.Action.Update') Update('frmDetail', baseApiUrl + 'Category');
             }
         });
         validate();
