@@ -157,6 +157,15 @@
                 }
             }
 
+            public struct Product
+            {
+                public const string Id = "MN02";
+                public const string New = "ACT005";
+                public const string Update = "ACT006";
+                public const string View = "ACT007";
+                public const string Delete = "ACT008";
+            }
+
         }
     }
 }

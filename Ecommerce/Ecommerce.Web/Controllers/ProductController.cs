@@ -1,4 +1,5 @@
-﻿using Ecommerce.Web.Extenions.Class;
+﻿using Ecommerce.Web.Commons;
+using Ecommerce.Web.Extenions.Class;
 using Ecommerce.Web.Models;
 using Ecommerce.Web.Models.Category;
 using Ecommerce.Web.Models.Product;
@@ -23,11 +24,14 @@ namespace Ecommerce.Web.Controllers
         {
             _productService = productService;
             _categoryService = categoryService;
-            _setting = options.Value;
             _environment = environment;
+            _setting = options.Value;
         }
 
-        public IActionResult Index() { return View(); }
+        public IActionResult Index() 
+        {
+            return View(); 
+        }
 
         [HttpPost]
         public async Task<IActionResult> _PopUpDialog(string id, string action)

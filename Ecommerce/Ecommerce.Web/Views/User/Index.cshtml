@@ -61,17 +61,8 @@
                     </div>
                 </div>
                 <div class="text-center mt-3">
-                    <button type="button"
-                            id="btnSearch"
-                            onclick="getList()"
-                            class="btn btn-primary">
-                        ค้นหา
-                    </button>
-                    <button type="reset"
-                            class="btn btn-secondary"
-                            onclick="resetform()">
-                        ล้างขัอมูล
-                    </button>
+                    <button type="button" class="btn btn-primary" id="btnSearch" onclick="getList()">ค้นหา</button>
+                    <button type="reset" class="btn btn-secondary" onclick="resetform()">ล้างขัอมูล</button>
                 </div>
             </div>
         </div>
@@ -80,15 +71,13 @@
             <div class="card-header">
                 <h3 class="card-title">ผลการค้นหา</h3>
                 <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                        <i class="fas fa-minus"></i>
-                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
                 </div>
             </div>
             <div class="card-body">
                 <table id="dtResult" class="table table-bordered table-striped">
                     <thead>
-                        <tr style="text-align:center">
+                        <tr>
                             <th>@Html.DisplayNameFor(m => m.Username)</th>
                             <th>@Html.DisplayNameFor(m => m.FullName)</th>
                             <th>@Html.DisplayNameFor(m => m.Email)</th>
@@ -96,9 +85,9 @@
                             <th>@Html.DisplayNameFor(m => m.Address)</th>
                             <th>@Html.DisplayNameFor(m => m.Status)</th>
                             <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
-                            <th>
+                            <th style="text-align:center">
                                 <a class="btn btn-info" onclick="openPopup('','@action','@urlPopUp','เพิ่มบัญชีผู้ใช้')">
-                                    เพิ่มบัญชีผู้ใช้
+                                    เพิ่ม
                                 </a>
                             </th>
                         </tr>

@@ -37,17 +37,17 @@
                 </div>
             </div>
             <div class="card-body">
-                <table id="dtResult" class="table table-bordered table-striped">
+                <table id="dtResult" class="table table-bordered table-striped table-hover">
                     <thead>
-                        <tr style="text-align:center">
+                        <tr>
                             <th>@Html.DisplayNameFor(m => m.PositionName)</th>
                             <th>@Html.DisplayNameFor(m => m.MenuDefaultName)</th>
-                            <th style="width:9%">@Html.DisplayNameFor(m => m.Status)</th>
-                            <th style="width:8%">@Html.DisplayNameFor(m => m.CreateDate)</th>
-                            <th style="width:7%">เมนูที่ใช้</th>
-                            <th style="width:15%">
+                            <th>@Html.DisplayNameFor(m => m.Status)</th>
+                            <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
+                            <th>เมนูที่ใช้</th>
+                            <th style="text-align:center">
                                 <a class="btn btn-info" onclick="openPopup('','@action','@urlPopUp','เพิ่มตำแหน่งผู้ใช้งาน')">
-                                    เพิ่มตำแหน่งผู้ใช้งาน
+                                    เพิ่ม
                                 </a>
                             </th>
                         </tr>

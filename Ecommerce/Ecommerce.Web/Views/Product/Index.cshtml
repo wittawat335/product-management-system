@@ -1,9 +1,12 @@
 ﻿@using Ecommerce.Web.Models;
 @using Ecommerce.Web.Commons;
 @using Ecommerce.Web.Models.Product;
+@using Ecommerce.Web.Services.Interfaces
+@inject ICommonService common;
 @model Product
 @{
     ViewData["Title"] = "หน้าหลัก";
+    bool permAdd = common.IsPermission(Constants.Menu.Product.Id, Constants.Menu.Product.New);
     var urlPopUp = Url.Content(Constants.UrlAction.Product.PopUpDialog);
     var action = Constants.Action.Add;
 }
@@ -51,7 +54,7 @@
                     <div class="col-md-4">
                         <div class="form-group">
                             <label asp-for="Status"></label>
-                            <select id="txtStatus" class="form-control select2" style="width: 100%;">
+                            <select id="txtStatus" class="form-control select2">
                                 <option selected="selected" value="">--- กรุณาเลือก ---</option>
                                 <option value="A">ใช้งาน</option>
                                 <option value="I">ไม่ได้ใช้งาน</option>
@@ -87,7 +90,7 @@
             <div class="card-body">
                 <table id="dtResult" class="table table-bordered table-striped">
                     <thead>
-                        <tr style="text-align:center">
+                        <tr style="white-space:nowrap">
                             <th>@Html.DisplayNameFor(m => m.ProductName)</th>
                             <th>@Html.DisplayNameFor(m => m.CategoryName)</th>
                             <th>@Html.DisplayNameFor(m => m.Image)</th>
@@ -96,10 +99,13 @@
                             <th>@Html.DisplayNameFor(m => m.Description)</th>
                             <th>@Html.DisplayNameFor(m => m.Status)</th>
                             <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
-                            <th>
-                                <a class="btn btn-info" onclick="openPopupLg('','@action','@urlPopUp','เพื่มสินค้า')">
-                                    เพิ่มสินค้า
-                                </a>
+                            <th style="text-align:center">
+                                @if (permAdd)
+                                {
+                                    <a class="btn btn-info" onclick="openPopupLg('','@action','@urlPopUp','เพื่มสินค้า')">
+                                        เพิ่ม
+                                    </a>
+                                }
                             </th>
                         </tr>
                     </thead>

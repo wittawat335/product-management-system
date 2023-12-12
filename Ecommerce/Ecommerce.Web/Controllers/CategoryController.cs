@@ -18,7 +18,10 @@ namespace Ecommerce.Web.Controllers
             _setting = options.Value;
         }
 
-        public IActionResult Index() { return View(); }
+        public IActionResult Index() 
+        { 
+            return View(); 
+        }
 
         [HttpPost]
         public async Task<IActionResult> _PopUpDialog(string id, string action)

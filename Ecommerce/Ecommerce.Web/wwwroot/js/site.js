@@ -43,11 +43,10 @@ $(document).on('select2:open', function (e) { //ทำให้ select2 autofocu
 // #region function setColumnDataTableHtml
 function htmlStatusBadge(row) {
     let html = (row.status === 'A')
-        ? '<span class="badge bg-success" style="display: flex; justify-content: center;">ใช้งาน</span>'
-        : '<span class="badge bg-dark" style="display: flex; flex-flow: row nowrap; justify-content: center;">ไม่ได้ใช้งาน</span>';
+        ? '<span class="badge bg-success" justify-content: center;">ใช้งาน</span>'
+        : '<span class="badge bg-dark" style="flex-flow: row nowrap; justify-content: center;">ไม่ได้ใช้งาน</span>';
     return html;
 }
-
 function htmlTextCenter(data) {
     var html;
     html = '<span style="display: flex; flex-flow: row nowrap; justify-content: center;">' + data + '</span>'
@@ -55,7 +54,7 @@ function htmlTextCenter(data) {
 }
 function htmlAllActionButton(id, name, url, url2) {
     var html;
-    html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+    html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>  |  '
         + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
         + '<i class="fas fa-pen"></i></a>  |  '
@@ -63,9 +62,28 @@ function htmlAllActionButton(id, name, url, url2) {
         + '<i class="fas fa-trash"></a>'
     return html;
 }
+function showUpdateButton(id, url) {
+    var html;
+    html = '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
+        + '<i class="fas fa-pen"></i></a>'
+    return html;
+}
+
+function showViewButton(id, url) {
+    var html;
+    html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+        + '<i class="fas fa-eye"></i></a>'
+    return html;
+}
+function showDeleteButton(id, name, url) {
+    var html;
+    html = '<a class="btn btn-danger" title="ลบ"  onclick=confirmDelete("' + id + '","' + url + '","' + name + '");>'
+        + '<i class="fas fa-trash"></a>'
+    return html;
+}
 function htmlUpdateActionButton(id, url) {
     var html;
-    html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+    html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>  |  '
         + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
         + '<i class="fas fa-pen"></i></a> '
@@ -73,7 +91,21 @@ function htmlUpdateActionButton(id, url) {
 }
 function htmlViewActionButton(id, url) {
     var html;
-    html = '<a class="btn btn-info" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+    html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+        + '<i class="fas fa-eye"></i></a>'
+    return html;
+} 
+function htmlUpdateActionButtonLg(id, url) {
+    var html;
+    html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopupLg("' + id + '","View","' + url + '","รายละเอียด");>'
+        + '<i class="fas fa-eye"></i></a>  |  '
+        + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopupLg("' + id + '","Update","' + url + '","แก้ไข");>'
+        + '<i class="fas fa-pen"></i></a> '
+    return html;
+}
+function htmlViewActionButtonLg(id, url) {
+    var html;
+    html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopupLg("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>'
     return html;
 } 

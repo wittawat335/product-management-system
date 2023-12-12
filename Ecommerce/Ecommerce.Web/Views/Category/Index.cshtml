@@ -42,11 +42,11 @@
             <div class="card-body">
                 <table id="dtResult" class="table table-bordered table-striped">
                     <thead>
-                        <tr style="text-align:center">
+                        <tr>
                             <th>@Html.DisplayNameFor(m => m.CategoryName)</th>
                             <th>@Html.DisplayNameFor(m => m.Status)</th>
                             <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
-                            <th>
+                            <th style="text-align:center">
                                 @if (permAdd)
                                 {
                                     <a class="btn btn-info" title="เพิ่ม" onclick="openPopup('','@action','@urlPopUp','เพิ่ม')">
