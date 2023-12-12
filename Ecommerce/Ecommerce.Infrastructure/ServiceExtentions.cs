@@ -13,7 +13,8 @@ namespace Ecommerce.Infrastructure
         {
             services.AddDbContext<ECommerceContext>(opt =>
             {
-                opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection"),
+                opt.UseSqlServer(configuration.GetConnectionString("DefaultConnection") 
+                    ?? throw new InvalidOperationException("Connection string not found"),
                     sqlServerOptionsAction: options =>
                     {
                         options.EnableRetryOnFailure(

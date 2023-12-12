@@ -39,7 +39,7 @@ namespace Ecommerce.Web.Controllers
             if (listCategory != null) ViewBag.listCategory = listCategory.value.Where(x => x.Status == "A");
 
             if (!string.IsNullOrEmpty(id))
-                response = await _productService.GetAsyncById(_setting.BaseApiUrl + string.Format("Product/GetProduct/{0}", id));
+                response = await _productService.GetAsyncById(_setting.BaseApiUrl + string.Format("Product/{0}", id));
 
             if (response.value != null) model.Product = response.value;
 

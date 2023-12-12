@@ -1,11 +1,11 @@
 ﻿using Ecommerce.Core.DTOs;
 using Ecommerce.Core.Services.Interfaces;
-using Ecommerce.Domain.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce.Api.Controllers
 {
-    //[Authorize(Roles = "Developer,Administrator")]
+    [Authorize(Roles = "Developer,Administrator")]
     [Route("api/[controller]")]
     [ApiController]
     public class PermissionController : ControllerBase
@@ -18,6 +18,14 @@ namespace Ecommerce.Api.Controllers
         public async Task<IActionResult> GetList(string positionId)
         {
             var response = await _service.GetList(positionId);
+            return Ok(response);
+        }
+
+
+        [HttpGet("GetJsTree/{positionId}")]
+        public async Task<IActionResult> GetJsTree(string positionId)
+        {
+            var response = await _service.GetListJsTree(positionId);
             return Ok(response);
         }
 

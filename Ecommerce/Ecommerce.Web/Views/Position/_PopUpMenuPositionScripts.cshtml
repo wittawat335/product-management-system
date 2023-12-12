@@ -11,7 +11,7 @@
     function getPermissionData() {
         $.ajax({
             type: 'GET',
-            url: baseApiUrl + 'Position/' + '@ViewBag.positionId',
+            url: baseApiUrl + 'Permission/GetJsTree/' + '@ViewBag.positionId',
             headers: { 'Authorization': 'bearer ' + _token },
             contentType: "application/json; charset=utf-8",
             dataType: "json",

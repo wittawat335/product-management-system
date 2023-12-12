@@ -4,6 +4,7 @@ using Ecommerce.Core.DTOs;
 using Ecommerce.Core.Helper;
 using Ecommerce.Core.Services.Interfaces;
 using Ecommerce.Domain.Entities;
+using Ecommerce.Domain.Models;
 using Ecommerce.Domain.RepositoryContracts;
 
 namespace Ecommerce.Core.Services
@@ -12,12 +13,15 @@ namespace Ecommerce.Core.Services
     {
         private readonly IGenericRepository<Permission> _repository;
         private readonly IGenericRepository<Position> _postRepository;
+        private readonly IStoredRespository _storedRespository;
         private readonly IMapper _mapper;
 
-        public PermissionService(IGenericRepository<Permission> repository, IGenericRepository<Position> postRepository, IMapper mapper)
+        public PermissionService(IGenericRepository<Permission> repository, IGenericRepository<Position> postRepository,
+            IStoredRespository storedRespository, IMapper mapper)
         {
             _repository = repository;
             _postRepository = postRepository;
+            _storedRespository = storedRespository;
             _mapper = mapper;
         }
 
@@ -133,6 +137,68 @@ namespace Ecommerce.Core.Services
                         }
                     }
                 }
+            }
+            catch
+            {
+                throw;
+            }
+        }
+
+        public async Task<Response<List<DataPermissionJsonList>>> GetListJsTree(string positionId)
+        {
+            var response = new Response<List<DataPermissionJsonList>>();
+            List<DataPermissionJsonList> objReturn = new List<DataPermissionJsonList>();
+            try
+            {
+                List<SP_GET_PERMISSION_BY_POSITION_RESULT> objData = await _storedRespository.SP_GET_PERMISSION_BY_POSITION(positionId);
+                if (objData != null && objData.Count > 0)
+                {
+                    int? iCountTopLevel = objData.Count;
+                    for (int i = 0; i < iCountTopLevel; i++)
+                    {
+                        bool varSelect = false;
+                        if (objData[i].PERM_SELECT == "1")
+                            varSelect = true;
+
+                        string strIcon;
+                        switch (objData[i].PERM_TEXT)
+                        {
+                            case Constants.JsTreeConfig.TextAdd:
+                                strIcon = Constants.JsTreeConfig.IconAdd;
+                                break;
+                            case Constants.JsTreeConfig.TextEdit:
+                                strIcon = Constants.JsTreeConfig.IconEdit;
+                                break;
+                            case Constants.JsTreeConfig.TextView:
+                                strIcon = Constants.JsTreeConfig.IconView;
+                                break;
+                            default:
+                                {
+                                    strIcon = Constants.JsTreeConfig.IconDefault;
+                                    break;
+                                }
+                        }
+
+                        string strParent = (string.IsNullOrEmpty(objData[i].PERM_PARENT)) ? "#" : objData[i].PERM_PARENT;
+                        bool booParentOpen = false;
+                        OptionState objStates = new OptionState { opened = booParentOpen, selected = varSelect };
+                        objReturn.Add(new DataPermissionJsonList()
+                        {
+                            id = objData[i].PERM_ID.ToString(),
+                            parent = strParent.ToString(),
+                            text = objData[i].PERM_TEXT,
+                            icon = strIcon,
+                            state = objStates
+                        });
+                    }
+                }
+
+                if (objReturn.Count() > 0)
+                {
+                    response.value = objReturn;
+                    response.isSuccess = Constants.Status.True;
+                }
+                return response;
             }
             catch
             {

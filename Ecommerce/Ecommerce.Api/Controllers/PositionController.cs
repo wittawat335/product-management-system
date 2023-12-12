@@ -14,15 +14,6 @@ namespace Ecommerce.Api.Controllers
 
         public PositionController(IPositionService service) => _service = service;
 
-
-        [Authorize(Roles = "Developer,Administrator")]
-        [HttpGet("{positionId}")]
-        public async Task<IActionResult> GetJsTree(string positionId)
-        {
-            var response = await _service.GetListPermissionData(positionId);
-            return Ok(response);
-        }
-
         [HttpGet]
         public async Task<IActionResult> Get()
         {

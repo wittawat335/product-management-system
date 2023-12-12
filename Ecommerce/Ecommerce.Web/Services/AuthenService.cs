@@ -15,12 +15,14 @@ namespace Ecommerce.Web.Services
     {
         private readonly AppSetting _setting;
         private readonly IHttpContextAccessor _contextAccessor;
+        private readonly ICommonService _commonService;
         HttpClientHandler _httpClient = new HttpClientHandler();
-        public AuthenService(IOptions<AppSetting> options, IHttpContextAccessor contextAccessor)
+        public AuthenService(IOptions<AppSetting> options, IHttpContextAccessor contextAccessor, ICommonService commonService)
         {
             _setting = options.Value;
             _contextAccessor = contextAccessor;
             _httpClient.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            _commonService = commonService;
         }
         public string GetIp()
         {
@@ -29,6 +31,7 @@ namespace Ecommerce.Web.Services
         public async Task GetPermission(string positionId)
         {
             var response = new Response<List<Permission>>();
+            var session = _commonService.GetSessionValue();
             var path = string.Format(_setting.BaseApiUrl + "Permission/{0}", positionId);
             try
             {
@@ -37,6 +40,7 @@ namespace Ecommerce.Web.Services
                     client.BaseAddress = new Uri(path);
                     client.DefaultRequestHeaders.Accept.Clear();
                     client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", session.token);
                     HttpResponseMessage result = await client.GetAsync(path);
                     if (result.IsSuccessStatusCode)
                     {
