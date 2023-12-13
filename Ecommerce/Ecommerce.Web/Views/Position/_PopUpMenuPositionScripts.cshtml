@@ -49,9 +49,7 @@
             async: true, //ถ้า error เปลี่ยนเป็น false
             success: function (response) {
                 if (response.isSuccess) {
-                    swalMessage('success', response.message);
                     closeModal();
-                    getList();
                     setDefaultMenu('@ViewBag.positionId', modalUrl);
                 }
                 else swalMessage('error', response.message);

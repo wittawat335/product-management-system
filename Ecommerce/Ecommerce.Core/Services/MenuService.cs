@@ -40,6 +40,7 @@ namespace Ecommerce.Core.Services
                 {
                     response.value = _mapper.Map<List<MenuDTO>>(listMenus);
                     response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.Success;
                 }
             }
             catch (Exception ex)
@@ -88,6 +89,7 @@ namespace Ecommerce.Core.Services
                 {
                     response.value = _mapper.Map<List<MenuDTO>>(menu);
                     response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.Success;
                 }
             }
             catch (Exception ex)

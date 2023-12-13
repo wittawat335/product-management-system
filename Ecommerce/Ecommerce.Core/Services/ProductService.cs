@@ -39,6 +39,7 @@ namespace Ecommerce.Core.Services
                 {
                     response.value = _mapper.Map<List<ProductDTO>>(query);
                     response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.Success;
                 }
             }
             catch (Exception ex)
@@ -57,6 +58,7 @@ namespace Ecommerce.Core.Services
                 {
                     response.value = _mapper.Map<ProductDTO>(query);
                     response.isSuccess = Constants.Status.True;
+                    response.message = Constants.StatusMessage.Success;
                 }
             }
             catch (Exception ex)
@@ -79,7 +81,7 @@ namespace Ecommerce.Core.Services
                     {
                         response.value = returnValue;
                         response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.InsertSuccessfully;
+                        response.message = Constants.StatusMessage.SaveSuccessfully;
                     }
                 }
                 else
@@ -106,7 +108,7 @@ namespace Ecommerce.Core.Services
                     {
                         response.value = returnValue;
                         response.isSuccess = Constants.Status.True;
-                        response.message = Constants.StatusMessage.UpdateSuccessfully;
+                        response.message = Constants.StatusMessage.SaveSuccessfully;
                     }
                 }
             }

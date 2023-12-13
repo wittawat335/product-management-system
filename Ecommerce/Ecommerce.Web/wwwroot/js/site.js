@@ -369,6 +369,14 @@ function swalMessage(icon, message) {
         timer: 1000
     });
 }
+function swalModal(icon, message) {
+    Swal.fire({
+        icon: icon,
+        title: message,
+        showConfirmButton: false,
+        timer: 1000
+    });
+}
 function confirmMessage() {
     Swal.fire({
         title: "System error - Do you want error message?",
@@ -384,13 +392,13 @@ function confirmMessage() {
         }
     });
 }
-function setDefaultMenu(id,url) {
+function setDefaultMenu(id, url) {
     Swal.fire({
-        title: 'กรุณาตั้งค่าหน้าแรกใหม่อีกครั้ง!',
+        title: "กรุณาตั้งค่าหน้าแรกใหม่อีกครั้ง",
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'ตกลง',
     }).then((result) => {
-        if (result.isConfirmed) openPopup(id, "Update", url,"แก้ไข");
+        if (result.isConfirmed) openPopup(id, "Update", url,"");
     });
 }
 function confirmDelete(id, url, name) {

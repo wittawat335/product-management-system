@@ -68,7 +68,7 @@ namespace Ecommerce.Core.Services
                     _repository.Insert(_mapper.Map<Category>(model));
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.InsertSuccessfully;
+                    response.message = Constants.StatusMessage.SaveSuccessfully;
                 }
                 else
                 {
@@ -92,7 +92,7 @@ namespace Ecommerce.Core.Services
                     _repository.Update(_mapper.Map(model, query));
                     await _repository.SaveChangesAsync();
                     response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.UpdateSuccessfully;
+                    response.message = Constants.StatusMessage.SaveSuccessfully;
                 }
             }
             catch (Exception ex)
