@@ -6,7 +6,7 @@
 @model Category
 @{
     ViewData["Title"] = "หน้าหลัก";
-    bool permAdd = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.ActId.New);
+    bool permAdd = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.New);
     var urlPopUp = Url.Content(Constants.UrlAction.Category.PopUpDialog);
     var action = Constants.Action.Add;
 }

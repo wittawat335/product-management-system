@@ -384,6 +384,15 @@ function confirmMessage() {
         }
     });
 }
+function setDefaultMenu(id,url) {
+    Swal.fire({
+        title: 'กรุณาตั้งค่าหน้าแรกใหม่อีกครั้ง!',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'ตกลง',
+    }).then((result) => {
+        if (result.isConfirmed) openPopup(id, "Update", url,"แก้ไข");
+    });
+}
 function confirmDelete(id, url, name) {
     Swal.fire({
         title: 'คุณต้องการลบ ' + name + " ?",

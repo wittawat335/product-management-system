@@ -52,6 +52,7 @@
                     swalMessage('success', response.message);
                     closeModal();
                     getList();
+                    setDefaultMenu('@ViewBag.positionId', modalUrl);
                 }
                 else swalMessage('error', response.message);
             },

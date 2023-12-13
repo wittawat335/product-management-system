@@ -42,7 +42,7 @@ namespace Ecommerce.Web.Controllers
             }
 
             if (position.isSuccess) model.Position = position.value;
-            if (listMenu.isSuccess) ViewBag.listMenu = listMenu.value;
+            if (listMenu.isSuccess) ViewBag.listMenu = listMenu.value.Where(x => x.MenuLevel != 0);
             model.Action = action;
 
             return PartialView(model);

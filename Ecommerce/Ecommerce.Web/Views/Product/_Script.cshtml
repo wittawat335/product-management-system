@@ -127,12 +127,15 @@
                 {
                     data: 'productId',
                     render: function (data, type, row, meta) {
-                        if (permView && permUpdate && permDelete)
+                        if (permView && permUpdate && permDelete) {
                             return htmlActionButtonWithImage(row);
-                        else if (permView && permUpdate)
+                        }
+                        else if (permView && permUpdate) {
                             return htmlUpdateActionButtonLg(row.productId, modalUrl)
-                        else
+                        }
+                        else {
                             return htmlViewActionButtonLg(row.productId, modalUrl)
+                        }
                     }
                 }
             ]

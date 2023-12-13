@@ -7,9 +7,10 @@
 @inject IOptions<AppSetting> options
 @model Position;
 @{
-    bool permView = common.IsPermission(Constants.Menu.Position.Id, Constants.Menu.Position.ActId.View);
-    bool permUpdate = common.IsPermission(Constants.Menu.Position.Id, Constants.Menu.Position.ActId.Update);
-    bool permDelete = common.IsPermission(Constants.Menu.Position.Id, Constants.Menu.Position.ActId.Delete);
+    bool permAddMenu = common.IsPermission(Constants.Menu.Position.Id, Constants.Menu.Position.AddMenu);
+    bool permView = common.IsPermission(Constants.Menu.Position.Id, Constants.Menu.Position.View);
+    bool permUpdate = common.IsPermission(Constants.Menu.Position.Id, Constants.Menu.Position.Update);
+    bool permDelete = common.IsPermission(Constants.Menu.Position.Id, Constants.Menu.Position.Delete);
 }
 <script>
     let baseApiUrl = '@options.Value.BaseApiUrl';
@@ -18,6 +19,7 @@
     let permDelete = ('@permDelete' === 'True') ? true : false;
     let permUpdate = ('@permUpdate' === 'True') ? true : false;
     let permView = ('@permView' === 'True') ? true : false;
+    let permAddMenu = ('@permAddMenu' === 'True') ? true : false;
 
     $(function () {
         getList();
@@ -108,7 +110,7 @@
     function htmlPermissionButton(row) {
         let urlPopUpMenuPosition = '@Url.Content(Constants.UrlAction.Position.PopUpMenuPosition)'; //jsTree
         let html;
-        if (permView && permUpdate && permDelete) {
+        if (permAddMenu) {
             html = '<a class="btn btn-info" onclick=openPopup("' + row.positionId + '","View","' + urlPopUpMenuPosition + '","เมนูที่ใช้");>'
                 + '<i class="nav-icon fas fa-book"></i></a> ';
         }

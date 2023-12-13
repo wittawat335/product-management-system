@@ -125,36 +125,28 @@
             public struct Position
             {
                 public const string Id = "MN09";
-                public struct ActId
-                {
-                    public const string New = "ACT013";
-                    public const string Update = "ACT014";
-                    public const string View = "ACT015";
-                    public const string Delete = "ACT016";
-                }
+                public const string AddMenu = "ACT019";
+                public const string New = "ACT013";
+                public const string Update = "ACT014";
+                public const string View = "ACT015";
+                public const string Delete = "ACT016";
             }
             public struct User
             {
                 public const string Id = "MN01";
-                public struct ActId
-                {
-                    public const string New = "ACT001";
-                    public const string Update = "ACT002";
-                    public const string View = "ACT003";
-                    public const string Delete = "ACT004";
-                }
+                public const string New = "ACT001";
+                public const string Update = "ACT002";
+                public const string View = "ACT003";
+                public const string Delete = "ACT004";
             }
 
             public struct Category
             {
                 public const string Id = "MN04";
-                public struct ActId
-                {
-                    public const string New = "ACT009";
-                    public const string Update = "ACT010";
-                    public const string View = "ACT011";
-                    public const string Delete = "ACT012";
-                }
+                public const string New = "ACT009";
+                public const string Update = "ACT010";
+                public const string View = "ACT011";
+                public const string Delete = "ACT012";
             }
 
             public struct Product

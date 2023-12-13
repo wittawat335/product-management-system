@@ -1,10 +1,13 @@
 ﻿@using Ecommerce.Web.Models;
 @using Ecommerce.Web.Commons;
 @using Ecommerce.Web.Models.Position;
+@using Ecommerce.Web.Services.Interfaces
+@inject ICommonService common;
 @model Position
 @{
     ViewData["Title"] = "หน้าหลัก";
     var urlPopUp = Url.Content(Constants.UrlAction.Position.PopUpDialog);
+    bool permNew = common.IsPermission(Constants.Menu.Position.Id, Constants.Menu.Position.New);
     var action = Constants.Action.Add;
 }
 
@@ -44,11 +47,12 @@
                             <th>@Html.DisplayNameFor(m => m.MenuDefaultName)</th>
                             <th>@Html.DisplayNameFor(m => m.Status)</th>
                             <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
-                            <th>เมนูที่ใช้</th>
+                            <th style="text-align:center">เมนูที่ใช้</th>
                             <th style="text-align:center">
-                                <a class="btn btn-info" onclick="openPopup('','@action','@urlPopUp','เพิ่มตำแหน่งผู้ใช้งาน')">
-                                    เพิ่ม
-                                </a>
+                                @if (permNew)
+                                {
+                                    <a class="btn btn-info" onclick="openPopup('','@action','@urlPopUp','เพิ่มตำแหน่งผู้ใช้งาน')">เพิ่ม</a>
+                                }
                             </th>
                         </tr>
                     </thead>

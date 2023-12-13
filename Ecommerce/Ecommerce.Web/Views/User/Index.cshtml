@@ -1,10 +1,13 @@
 ﻿@using Ecommerce.Web.Models;
 @using Ecommerce.Web.Commons;
 @using Ecommerce.Web.Models.User;
+@using Ecommerce.Web.Services.Interfaces
+@inject ICommonService common;
 @model User
 @{
     ViewData["Title"] = "หน้าหลัก";
     var urlPopUp = Url.Content(Constants.UrlAction.User.PopUpDialog);
+    bool permAdd = common.IsPermission(Constants.Menu.User.Id, Constants.Menu.User.New);
     var action = Constants.Action.Add;
 }
 

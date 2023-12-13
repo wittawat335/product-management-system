@@ -7,9 +7,9 @@
 @inject IOptions<AppSetting> options
 @model User;
 @{
-    bool permView = common.IsPermission(Constants.Menu.User.Id, Constants.Menu.User.ActId.View);
-    bool permUpdate = common.IsPermission(Constants.Menu.User.Id, Constants.Menu.User.ActId.Update);
-    bool permDelete = common.IsPermission(Constants.Menu.User.Id, Constants.Menu.User.ActId.Delete);
+    bool permView = common.IsPermission(Constants.Menu.User.Id, Constants.Menu.User.View);
+    bool permUpdate = common.IsPermission(Constants.Menu.User.Id, Constants.Menu.User.Update);
+    bool permDelete = common.IsPermission(Constants.Menu.User.Id, Constants.Menu.User.Delete);
 }
 <script>
     let baseApiUrl = '@options.Value.BaseApiUrl';
