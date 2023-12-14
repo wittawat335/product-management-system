@@ -36,7 +36,7 @@
     });
 
     function getList() {
-        var _obj = new Object();
+        let _obj = new Object();
         _obj.ProductId = $('#txtProduct').val();
         _obj.CategoryId = $('#txtCategory').val();
         _obj.Status = $('#txtStatus').val();
@@ -143,11 +143,10 @@
     }
 
     function htmlImage(row) {
-        var html;
         let imageUrl = (row.image != null && row.image != '') ?
             '@Url.Content("~/images/product/")' + row.productId + "/" + row.image : '@Url.Content("~/images/no_photo.jpg")';
 
-        html = '<div class="filtr-item col-sm-2">'
+        let html = '<div class="filtr-item col-sm-2">'
             + '<a href="' + imageUrl + '" data-toggle="lightbox" data-title="' + row.productName + '">'
             + '<img src="' + imageUrl + '" alt="' + row.productName + '" width="50" height="50" />'
             + '</a>'
@@ -157,12 +156,11 @@
     }
 
     function htmlActionButtonWithImage(row) {
-        var html;
         let deleteImageUrl = '@Url.Content(Constants.UrlAction.Product.DeleteImageFolder)';
         let imageUrl = (row.image != null && row.image != '') ?
             '@Url.Content("~/images/product/")' + row.productId + "/" + row.image : '@Url.Content("~/images/no_photo.jpg")';
 
-        html = '<a class="btn btn-success" onclick=openPopupLg("' + row.productId + '","View","' + modalUrl + '","ดูรายละเอียดสินค้า");>'
+        let html = '<a class="btn btn-success" onclick=openPopupLg("' + row.productId + '","View","' + modalUrl + '","ดูรายละเอียดสินค้า");>'
             + '<i class="fas fa-eye"></i></a> | '
             + '<a class="btn btn-warning" onclick=openPopupLg("' + row.productId + '","Update","' + modalUrl + '","แก้ไขสินค้า");>'
             + '<i class="fas fa-pen"></i></a> | '

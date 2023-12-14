@@ -34,7 +34,6 @@ namespace Ecommerce.Core.Services
                 {
                     query = (request.Status != null) ? query.Where(x => x.Status.Contains(request.Status)) : query;
                 }
-
                 if (query.Count() > 0)
                 {
                     response.value = _mapper.Map<List<PositionDTO>>(query);

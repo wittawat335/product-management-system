@@ -47,7 +47,7 @@ namespace Ecommerce.Core.Services
             try
             {
                 var query = await _repository.AsQueryable();
-                query = query.Include(x => x.Position);
+                query = query.Include(x => x.Position).Where(x => x.Position.Status == Constants.Status.Active);
                 if (request != null)
                 {
                     query = (request.UserId != null) ? query.Where(x => x.UserId == new Guid(request.UserId)) : query;

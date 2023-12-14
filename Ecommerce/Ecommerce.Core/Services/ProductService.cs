@@ -28,7 +28,7 @@ namespace Ecommerce.Core.Services
             try
             {
                 var query = await _repository.AsQueryable();
-                query = query.Include(x => x.Category);
+                query = query.Include(x => x.Category).Where(x => x.Status == Constants.Status.Active);
                 if (request != null)
                 {
                     query = (request.ProductId != null) ? query.Where(x => x.ProductId == request.ProductId) : query;

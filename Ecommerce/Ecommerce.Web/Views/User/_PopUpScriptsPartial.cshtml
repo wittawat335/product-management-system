@@ -21,11 +21,14 @@
         switch (action) {
             case '@Constants.Action.View': {
                 $('#btnSave').hide();
-                setReadOnlyByDiv('frmDetail', true);
+                setReadOnlyByDiv(true);
                 break;
             } 
             case '@Constants.Action.Add':
                 $('#Status').val('A');
+                break;
+            case 'cusUpdate':
+                setReadOnly('Username', true);
                 break;
             case '@Constants.Action.Update':
                 setReadOnly('Username', true);
@@ -36,8 +39,8 @@
     function formValidate() {
         $.validator.setDefaults({
             submitHandler: function () {
-                if (action == '@Constants.Action.Add') Insert('frmDetail', baseApiUrl + 'User');
-                if (action == '@Constants.Action.Update' || action == 'cusUpdate') Update('frmDetail', baseApiUrl + 'User');
+                if (action == '@Constants.Action.Add') Insert(baseApiUrl + 'User');
+                if (action == '@Constants.Action.Update' || action == 'cusUpdate') Update(baseApiUrl + 'User');
             }
         });
         validate();

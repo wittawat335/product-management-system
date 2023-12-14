@@ -48,13 +48,12 @@ function htmlStatusBadge(row) {
     return html;
 }
 function htmlTextCenter(data) {
-    var html;
+    let html;
     html = '<span style="display: flex; flex-flow: row nowrap; justify-content: center;">' + data + '</span>'
     return html;
 }
 function htmlAllActionButton(id, name, url, url2) {
-    var html;
-    html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+    let html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>  |  '
         + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
         + '<i class="fas fa-pen"></i></a>  |  '
@@ -63,70 +62,51 @@ function htmlAllActionButton(id, name, url, url2) {
     return html;
 }
 function showUpdateButton(id, url) {
-    var html;
-    html = '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
+    let html = '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
         + '<i class="fas fa-pen"></i></a>'
     return html;
 }
 
 function showViewButton(id, url) {
-    var html;
-    html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+    let html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>'
     return html;
 }
 function showDeleteButton(id, name, url) {
-    var html;
+    let html;
     html = '<a class="btn btn-danger" title="ลบ"  onclick=confirmDelete("' + id + '","' + url + '","' + name + '");>'
         + '<i class="fas fa-trash"></a>'
     return html;
 }
 function htmlUpdateActionButton(id, url) {
-    var html;
-    html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+    let html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>  |  '
         + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
         + '<i class="fas fa-pen"></i></a> '
     return html;
 }
 function htmlViewActionButton(id, url) {
-    var html;
-    html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+    let html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>'
     return html;
 } 
 function htmlUpdateActionButtonLg(id, url) {
-    var html;
-    html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopupLg("' + id + '","View","' + url + '","รายละเอียด");>'
+    let html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopupLg("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>  |  '
         + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopupLg("' + id + '","Update","' + url + '","แก้ไข");>'
         + '<i class="fas fa-pen"></i></a> '
     return html;
 }
 function htmlViewActionButtonLg(id, url) {
-    var html;
-    html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopupLg("' + id + '","View","' + url + '","รายละเอียด");>'
+    let html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopupLg("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>'
     return html;
 } 
 // #endregion
-function saveForm(formId, url) {
-    var data = $('#' + formId).serializeObject();
-    $.post(url, data, function (response) {
-        if (response.isSuccess) {
-            swalMessage('success', response.message);
-            closeModal();
-            getList();
-        }
-        else {
-            swalMessageError('error', response.message);
-        } 
-    });
-}
 
 // #region function sendApi
-function Insert(formId, url) {
-    var obj = $('#' + formId).serializeObject();
+function Insert(url, formId = "frmDetail") {
+    let obj = $('#' + formId).serializeObject();
     $.ajax({
         type: 'POST',
         url: url,
@@ -148,8 +128,8 @@ function Insert(formId, url) {
         }
     })
 }
-function Update(formId, url) {
-    var obj = $('#' + formId).serializeObject();
+function Update(url, formId = "frmDetail") {
+    let obj = $('#' + formId).serializeObject();
     $.ajax({
         type: 'PUT',
         url: url,
@@ -221,7 +201,7 @@ function openPopup(id, action, url, caption) {
     modalPOST(caption, url, data);
 };
 function modalPOST(caption, path, data) {
-    var url = path;
+    let url = path;
     $.post(url, data, function (result) {
         $('#modal-dialog > .modal-dialog > .modal-content > .modal-body').html(result);
         showModal(caption);
@@ -332,10 +312,36 @@ function clearModalLv2() {
     $('#modalDialogLv2').modal('hide');
 }
 // #endregion
-function clearValueByDiv(div) {
-    $('#' + div + ' input').val("");
-    $('#' + div + ' select').val("");
-    $('#' + div + ' textarea').val("");
+
+// #region function sweetAlert
+function confirmDelete(id, url, name) {
+    Swal.fire({
+        title: 'คุณต้องการลบ ' + name + " ?",
+        icon: 'warning',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'ใช่',
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'ไม่ใช่',
+    }).then((result) => {
+        if (result.isConfirmed) Delete(id, url);
+    });
+}
+function confirmDeleteWithImage(id, apiUrl, imageUrl, clientUrl) {
+    Swal.fire({
+        title: 'คุณต้องการลบ ?',
+        imageUrl: imageUrl,
+        imageWidth: 200,
+        imageHeight: 200,
+        imageAlt: 'Custom image',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'ใช่',
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'ไม่ใช่',
+    }).then((result) => {
+        if (result.isConfirmed) DeleteWithImage(id, apiUrl, clientUrl);
+    });
 }
 function swalProgressBar(icon, message) {
     const Toast = Swal.mixin({
@@ -356,10 +362,7 @@ function swalProgressBar(icon, message) {
     })
 }
 function swalMessageError(icon, message) {
-    Swal.fire({
-        title: message,
-        icon: icon
-    });
+    Swal.fire({ title: message, icon: icon });
 }
 function swalMessage(icon, message) {
     Swal.fire({
@@ -398,58 +401,13 @@ function setDefaultMenu(id, url) {
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'ตกลง',
     }).then((result) => {
-        if (result.isConfirmed) openPopup(id, "Update", url,"");
+        if (result.isConfirmed) openPopup(id, "Update", url, "");
     });
 }
-function confirmDelete(id, url, name) {
-    Swal.fire({
-        title: 'คุณต้องการลบ ' + name + " ?",
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'ใช่',
-        showCancelButton: true,
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'ไม่ใช่',
-    }).then((result) => {
-        if (result.isConfirmed) Delete(id, url);
-    });
-}
-function confirmDeleteWithImage(id, apiUrl, imageUrl, clientUrl) {
-    Swal.fire({
-        title: 'คุณต้องการลบ ?',
-        imageUrl: imageUrl,
-        imageWidth: 200,
-        imageHeight: 200,
-        imageAlt: 'Custom image',
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'ใช่',
-        showCancelButton: true,
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'ไม่ใช่',
-    }).then((result) => {
-        if (result.isConfirmed) DeleteWithImage(id, apiUrl, clientUrl);
-    });
-}
-function deleteImage(id, url) {
-    var url = url;
-    var data = { "id": id };
-    $.post(url, data, function (result) { return result });
-}
-function sendDelete(id, url) {
-    var url = url;
-    var data = { "id": id };
-    $.post(url, data, function (result) {
-        if (result.isSuccess) {
-            swalMessage('success', result.message);
-            closeModal();
-            getList();
-        }
-        else {
-            swalMessage('error', result.message);
-            window.location.href = result.returnUrl;
-        }
-    });
-}
-function setReadOnlyByDiv(div, x) {
+// #endregion
+
+// #region function set attribute
+function setReadOnlyByDiv(x, div = "frmDetail") {
     if (x) {
         $('#' + div).find('input[name],select[name],textarea[name],input[type=file]').not('input[type=hidden]').removeAttr('disabled').removeAttr('readonly')
             .attr('disabled', 'disabled').attr('readonly', 'readonly');
@@ -516,5 +474,44 @@ function NavActive() {
         .css({ 'display': 'block' })
         .addClass('menu-open').prev('a')
         .addClass('active');
+}
+// #endregion
+function deleteImage(id, url) {
+    var url = url;
+    var data = { "id": id };
+    $.post(url, data, function (result) { return result });
+}
+function sendDelete(id, url) {
+    var url = url;
+    var data = { "id": id };
+    $.post(url, data, function (result) {
+        if (result.isSuccess) {
+            swalMessage('success', result.message);
+            closeModal();
+            getList();
+        }
+        else {
+            swalMessage('error', result.message);
+            window.location.href = result.returnUrl;
+        }
+    });
+}
+function saveForm(formId, url) {
+    let data = $('#' + formId).serializeObject();
+    $.post(url, data, function (response) {
+        if (response.isSuccess) {
+            swalMessage('success', response.message);
+            closeModal();
+            getList();
+        }
+        else {
+            swalMessageError('error', response.message);
+        }
+    });
+}
+function clearValueByDiv(div) {
+    $('#' + div + ' input').val("");
+    $('#' + div + ' select').val("");
+    $('#' + div + ' textarea').val("");
 }
 
