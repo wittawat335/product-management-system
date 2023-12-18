@@ -1,4 +1,4 @@
-﻿using Ecommerce.Core.DTOs;
+﻿using Ecommerce.Core.DTOs.Category;
 using Ecommerce.Core.Helper;
 using Ecommerce.Domain.Entities;
 

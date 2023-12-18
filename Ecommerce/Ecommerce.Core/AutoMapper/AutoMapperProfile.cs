@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
-using Ecommerce.Core.DTOs;
+using Ecommerce.Core.DTOs.Category;
 using Ecommerce.Core.DTOs.Authen;
 using Ecommerce.Core.DTOs.Product;
 using Ecommerce.Domain.Entities;
 using System.Globalization;
+using Ecommerce.Core.DTOs;
 
 namespace Ecommerce.Core.AutoMapper
 {
@@ -44,8 +45,7 @@ namespace Ecommerce.Core.AutoMapper
             #region Category
             CreateMap<Category, CategoryDTO>()
             .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
-            CreateMap<CategoryDTO, Category>()
-               .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
+            CreateMap<CategoryDTO, Category>().ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now));
             #endregion
 
             #region Position
