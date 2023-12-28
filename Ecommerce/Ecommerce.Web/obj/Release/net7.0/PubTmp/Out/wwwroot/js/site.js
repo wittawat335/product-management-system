@@ -35,25 +35,78 @@ $(document).ready(function () {
         return o;
     };
     setNavActive();
-    //NavActive();
 });
 $(document).on('select2:open', function (e) { //ทำให้ select2 autofocus หลังจากที่ click
     document.querySelector(`[aria-controls="select2-${e.target.id}-results"]`).focus();
 });
-function saveForm(formId, url) {
-    var data = $('#' + formId).serializeObject();
-    $.post(url, data, function (response) {
-        if (response.isSuccess) {
-            swalMessage('success', response.message);
-            closeModal();
-            getList();
-        }
-        else swalMessageError('error', response.message);
-    });
+
+// #region function setColumnDataTableHtml
+function htmlStatusBadge(row) {
+    let html = (row.status === 'A')
+        ? '<span class="badge bg-success" justify-content: center;">ใช้งาน</span>'
+        : '<span class="badge bg-dark" style="flex-flow: row nowrap; justify-content: center;">ไม่ได้ใช้งาน</span>';
+    return html;
 }
-//------------------------ Send Api ---------------------------------
-function Insert(formId, url) {
-    var obj = $('#' + formId).serializeObject();
+function htmlTextCenter(data) {
+    let html;
+    html = '<span style="display: flex; flex-flow: row nowrap; justify-content: center;">' + data + '</span>'
+    return html;
+}
+function htmlAllActionButton(id, name, url, url2) {
+    let html = '<a class="btn btn-secondary" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+        + '<i class="fas fa-eye"></i></a>  |  '
+        + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
+        + '<i class="fas fa-pen"></i></a>  |  '
+        + '<a class="btn btn-danger" title="ลบ"  onclick=confirmDelete("' + id + '","' + url2 + '","' + name + '");>'
+        + '<i class="fas fa-trash"></a>'
+    return html;
+}
+function showUpdateButton(id, url) {
+    let html = '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
+        + '<i class="fas fa-pen"></i></a>'
+    return html;
+}
+
+function showViewButton(id, url) {
+    let html = '<a class="btn btn-secondary" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+        + '<i class="fas fa-eye"></i></a>'
+    return html;
+}
+function showDeleteButton(id, name, url) {
+    let html;
+    html = '<a class="btn btn-danger" title="ลบ"  onclick=confirmDelete("' + id + '","' + url + '","' + name + '");>'
+        + '<i class="fas fa-trash"></a>'
+    return html;
+}
+function htmlUpdateActionButton(id, url) {
+    let html = '<a class="btn btn-secondary" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+        + '<i class="fas fa-eye"></i></a>  |  '
+        + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
+        + '<i class="fas fa-pen"></i></a> '
+    return html;
+}
+function htmlViewActionButton(id, url) {
+    let html = '<a class="btn btn-secondary" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+        + '<i class="fas fa-eye"></i></a>'
+    return html;
+} 
+function htmlUpdateActionButtonLg(id, url) {
+    let html = '<a class="btn btn-secondary" title="ดูรายละเอียด" onclick=openPopupLg("' + id + '","View","' + url + '","รายละเอียด");>'
+        + '<i class="fas fa-eye"></i></a>  |  '
+        + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopupLg("' + id + '","Update","' + url + '","แก้ไข");>'
+        + '<i class="fas fa-pen"></i></a> '
+    return html;
+}
+function htmlViewActionButtonLg(id, url) {
+    let html = '<a class="btn btn-secondary" title="ดูรายละเอียด" onclick=openPopupLg("' + id + '","View","' + url + '","รายละเอียด");>'
+        + '<i class="fas fa-eye"></i></a>'
+    return html;
+} 
+// #endregion
+
+// #region function sendApi
+function Insert(url, formId = "frmDetail") {
+    let obj = $('#' + formId).serializeObject();
     $.ajax({
         type: 'POST',
         url: url,
@@ -75,8 +128,8 @@ function Insert(formId, url) {
         }
     })
 }
-function Update(formId, url) {
-    var obj = $('#' + formId).serializeObject();
+function Update(url, formId = "frmDetail") {
+    let obj = $('#' + formId).serializeObject();
     $.ajax({
         type: 'PUT',
         url: url,
@@ -140,14 +193,15 @@ function DeleteWithImage(id, apiUrl, clientUrl) {
         }
     })
 }
+// #endregion
 
-//------------------------ Modal ---------------------------------
+// #region function modal
 function openPopup(id, action, url, caption) {
     let data = { "id": id, "action": action };
     modalPOST(caption, url, data);
 };
 function modalPOST(caption, path, data) {
-    var url = path;
+    let url = path;
     $.post(url, data, function (result) {
         $('#modal-dialog > .modal-dialog > .modal-content > .modal-body').html(result);
         showModal(caption);
@@ -162,8 +216,6 @@ function closeModal() {
     $('#modal-dialog > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modal-dialog').modal('hide');
 }
-//-------------------------------------------------------------------
-//------------------------ Modal Lg ---------------------------------
 function openPopupLg(id, action, url, caption) {
     let data = { "id": id, "action": action };
     modalLgPOST(caption, url, data);
@@ -184,8 +236,6 @@ function closeModalLg() {
     $('#modal-lg > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modal-lg').modal('hide');
 }
-//-------------------------------------------------------------------
-//------------------------ Modal Xl ---------------------------------
 function openPopupXl(id, action, url, caption) {
     let data = { "id": id, "action": action };
     modalXlPOST(caption, url, data);
@@ -206,7 +256,6 @@ function closeModalLg() {
     $('#modal-lg > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modal-lg').modal('hide');
 }
-//-------------------------------------------------------------------
 function modalPOSTV2(caption, path, data, isFull) {
     var url = path;
     $.post(url, data, function (result) {
@@ -262,62 +311,13 @@ function clearModalLv2() {
     $('#modalDialogLv2 > .modal-dialog > .modal-content > .modal-header > .modal-title').text('');
     $('#modalDialogLv2').modal('hide');
 }
-//-------------------------------------------------------------------------------------------------------
-function clearValueByDiv(div) {
-    $('#' + div + ' input').val("");
-    $('#' + div + ' select').val("");
-    $('#' + div + ' textarea').val("");
-}
-function swalProgressBar(icon, message) {
-    const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer)
-            toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-    })
+// #endregion
 
-    Toast.fire({
-        icon: icon,
-        title: message
-    })
-}
-function swalMessageError(icon, message) {
-    Swal.fire({
-        title: message,
-        icon: icon
-    });
-}
-function swalMessage(icon, message) {
-    Swal.fire({
-        icon: icon,
-        title: message,
-        showConfirmButton: false,
-        timer: 1000
-    });
-}
-function confirmMessage() {
-    Swal.fire({
-        title: "System error - Do you want error message?",
-        icon: 'info',
-        confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Yes',
-        showCancelButton: true,
-        cancelButtonColor: '#d33',
-        cancelButtonText: 'No',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = "../Error/Index";
-        }
-    });
-}
+// #region function sweetAlert
 function confirmDelete(id, url, name) {
     Swal.fire({
         title: 'คุณต้องการลบ ' + name + " ?",
+        icon: 'warning',
         confirmButtonColor: '#3085d6',
         confirmButtonText: 'ใช่',
         showCancelButton: true,
@@ -343,27 +343,71 @@ function confirmDeleteWithImage(id, apiUrl, imageUrl, clientUrl) {
         if (result.isConfirmed) DeleteWithImage(id, apiUrl, clientUrl);
     });
 }
-function deleteImage(id, url) {
-    var url = url;
-    var data = { "id": id };
-    $.post(url, data, function (result) { return result });
-}
-function sendDelete(id, url) {
-    var url = url;
-    var data = { "id": id };
-    $.post(url, data, function (result) {
-        if (result.isSuccess) {
-            swalMessage('success', result.message);
-            closeModal();
-            getList();
+function swalProgressBar(icon, message) {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
         }
-        else {
-            swalMessage('error', result.message);
-            window.location.href = result.returnUrl;
+    })
+
+    Toast.fire({
+        icon: icon,
+        title: message
+    })
+}
+function swalMessageError(icon, message) {
+    Swal.fire({ title: message, icon: icon });
+}
+function swalMessage(icon, message) {
+    Swal.fire({
+        icon: icon,
+        title: message,
+        showConfirmButton: false,
+        timer: 1000
+    });
+}
+function swalModal(icon, message) {
+    Swal.fire({
+        icon: icon,
+        title: message,
+        showConfirmButton: false,
+        timer: 1000
+    });
+}
+function confirmMessage() {
+    Swal.fire({
+        title: "System error - Do you want error message?",
+        icon: 'info',
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'Yes',
+        showCancelButton: true,
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            window.location.href = "../Error/Index";
         }
     });
 }
-function setReadOnlyByDiv(div, x) {
+function setDefaultMenu(id, url) {
+    Swal.fire({
+        title: "กรุณาตั้งค่าหน้าแรกใหม่อีกครั้ง",
+        confirmButtonColor: '#3085d6',
+        confirmButtonText: 'ตกลง',
+    }).then((result) => {
+        if (result.isConfirmed) openPopup(id, "Update", url, "");
+    });
+}
+// #endregion
+
+// #region function set attribute
+function setReadOnlyByDiv(x, div = "frmDetail") {
     if (x) {
         $('#' + div).find('input[name],select[name],textarea[name],input[type=file]').not('input[type=hidden]').removeAttr('disabled').removeAttr('readonly')
             .attr('disabled', 'disabled').attr('readonly', 'readonly');
@@ -430,5 +474,44 @@ function NavActive() {
         .css({ 'display': 'block' })
         .addClass('menu-open').prev('a')
         .addClass('active');
+}
+// #endregion
+function deleteImage(id, url) {
+    var url = url;
+    var data = { "id": id };
+    $.post(url, data, function (result) { return result });
+}
+function sendDelete(id, url) {
+    var url = url;
+    var data = { "id": id };
+    $.post(url, data, function (result) {
+        if (result.isSuccess) {
+            swalMessage('success', result.message);
+            closeModal();
+            getList();
+        }
+        else {
+            swalMessage('error', result.message);
+            window.location.href = result.returnUrl;
+        }
+    });
+}
+function saveForm(formId, url) {
+    let data = $('#' + formId).serializeObject();
+    $.post(url, data, function (response) {
+        if (response.isSuccess) {
+            swalMessage('success', response.message);
+            closeModal();
+            getList();
+        }
+        else {
+            swalMessageError('error', response.message);
+        }
+    });
+}
+function clearValueByDiv(div) {
+    $('#' + div + ' input').val("");
+    $('#' + div + ' select').val("");
+    $('#' + div + ' textarea').val("");
 }
 

@@ -629,6 +629,10 @@
       "PackagePath": "staticwebassets\\dist\\img\\prod-5.jpg"
     },
     {
+      "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\dist\\img\\user.png",
+      "PackagePath": "staticwebassets\\dist\\img\\user.png"
+    },
+    {
       "Id": "E:\\GitHub\\.net-Ecommerce\\Ecommerce\\Ecommerce.Web\\wwwroot\\dist\\img\\user1-128x128.jpg",
       "PackagePath": "staticwebassets\\dist\\img\\user1-128x128.jpg"
     },

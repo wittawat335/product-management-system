@@ -53,7 +53,7 @@ function htmlTextCenter(data) {
     return html;
 }
 function htmlAllActionButton(id, name, url, url2) {
-    let html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+    let html = '<a class="btn btn-secondary" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>  |  '
         + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
         + '<i class="fas fa-pen"></i></a>  |  '
@@ -68,7 +68,7 @@ function showUpdateButton(id, url) {
 }
 
 function showViewButton(id, url) {
-    let html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+    let html = '<a class="btn btn-secondary" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>'
     return html;
 }
@@ -79,26 +79,26 @@ function showDeleteButton(id, name, url) {
     return html;
 }
 function htmlUpdateActionButton(id, url) {
-    let html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+    let html = '<a class="btn btn-secondary" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>  |  '
         + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopup("' + id + '","Update","' + url + '","แก้ไข");>'
         + '<i class="fas fa-pen"></i></a> '
     return html;
 }
 function htmlViewActionButton(id, url) {
-    let html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
+    let html = '<a class="btn btn-secondary" title="ดูรายละเอียด" onclick=openPopup("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>'
     return html;
 } 
 function htmlUpdateActionButtonLg(id, url) {
-    let html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopupLg("' + id + '","View","' + url + '","รายละเอียด");>'
+    let html = '<a class="btn btn-secondary" title="ดูรายละเอียด" onclick=openPopupLg("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>  |  '
         + '<a class="btn btn-warning" title="แก้ไข" onclick=openPopupLg("' + id + '","Update","' + url + '","แก้ไข");>'
         + '<i class="fas fa-pen"></i></a> '
     return html;
 }
 function htmlViewActionButtonLg(id, url) {
-    let html = '<a class="btn btn-success" title="ดูรายละเอียด" onclick=openPopupLg("' + id + '","View","' + url + '","รายละเอียด");>'
+    let html = '<a class="btn btn-secondary" title="ดูรายละเอียด" onclick=openPopupLg("' + id + '","View","' + url + '","รายละเอียด");>'
         + '<i class="fas fa-eye"></i></a>'
     return html;
 } 

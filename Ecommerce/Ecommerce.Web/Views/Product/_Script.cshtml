@@ -160,7 +160,7 @@
         let imageUrl = (row.image != null && row.image != '') ?
             '@Url.Content("~/images/product/")' + row.productId + "/" + row.image : '@Url.Content("~/images/no_photo.jpg")';
 
-        let html = '<a class="btn btn-success" onclick=openPopupLg("' + row.productId + '","View","' + modalUrl + '","ดูรายละเอียดสินค้า");>'
+        let html = '<a class="btn btn-secondary" onclick=openPopupLg("' + row.productId + '","View","' + modalUrl + '","ดูรายละเอียดสินค้า");>'
             + '<i class="fas fa-eye"></i></a> | '
             + '<a class="btn btn-warning" onclick=openPopupLg("' + row.productId + '","Update","' + modalUrl + '","แก้ไขสินค้า");>'
             + '<i class="fas fa-pen"></i></a> | '
