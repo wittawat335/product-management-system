@@ -9,5 +9,6 @@ namespace Ecommerce.Core.Services.Interfaces
         void SendEmail(EmailDTO request, string host, string username, string password);
         Task<Response<MailRequest>> SendEmailAsync(MailRequest request);
         string GetHtmlContent();
+        string SendEmail(string jobType, string starttime);
     }
 }

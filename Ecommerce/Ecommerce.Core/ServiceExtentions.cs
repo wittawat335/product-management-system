@@ -29,6 +29,7 @@ namespace Ecommerce.Core
             services.AddScoped<IPositionService, PositionService>();
             services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<ICommonService, CommonService>();
+            services.AddSingleton<IJobService, JobSevice>();
             services.AddTransient<IEmailService, EmailService>();
         }
 

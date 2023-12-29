@@ -44,6 +44,13 @@ namespace Ecommerce.Core.Services
             smtp.Disconnect(true);
         }
 
+        public string SendEmail(string jobType, string starttime)
+        {
+            Console.Write(jobType + "-" + starttime + "- Email Successfully Sent -" + DateTime.Now.ToLongTimeString());
+            var id = Guid.NewGuid();
+            return id.ToString();
+        }
+
         //public async Task<Response<bool>> SendEmailAsync(MailRequest request)
         //{
         //    var response = new Response<bool>();
