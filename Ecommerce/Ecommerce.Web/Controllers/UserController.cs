@@ -21,7 +21,12 @@ namespace Ecommerce.Web.Controllers
             _positionService = positionService;
             _setting = options.Value;
         }
-        public IActionResult Index() { return View(); }
+        public IActionResult Index()
+        {
+            var session = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
+            if (string.IsNullOrEmpty(session)) return RedirectToAction("Login", "Authen");
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> _PopUpDialog(string id, string action)

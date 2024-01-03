@@ -26,9 +26,8 @@ namespace Ecommerce.Core.Services
         }
 
         private string menuId;
-        public async Task<Response<Permission>> DeleteListByPositionId(string positionId)
+        public async Task DeleteListByPositionId(string positionId)
         {
-            var response = new Response<Permission>();
             try
             {
                 var query = await _repository.GetListAsync(x => x.PositionId == positionId);
@@ -43,14 +42,13 @@ namespace Ecommerce.Core.Services
                 {
                     _repository.DeleteList(query);
                     await _repository.SaveChangesAsync();
-                    response.isSuccess = Constants.Status.True;
                 }
+               
             }
             catch (Exception ex)
             {
-                response.message = ex.Message;
+                throw;
             }
-            return response;
         }
 
         public async Task<Response<Permission>> Add(PermissionDTO model)
@@ -101,8 +99,10 @@ namespace Ecommerce.Core.Services
                     await childrenList(id, list);
                     await _repository.SaveChangesAsync();
 
+                    var query = await _repository.GetListAsync(x => x.PositionId == id);
+                    if (query.Count() == 0) response.message = "ยังไม่ได้กำหนดสิทธิ์";
+
                     response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.SaveSuccessfully;
                 }
             }
             catch (Exception ex) 
