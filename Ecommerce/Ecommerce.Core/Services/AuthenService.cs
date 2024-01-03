@@ -114,7 +114,7 @@ namespace Ecommerce.Core.Services
                     request.positionId = positionRegister;
 
                     _repository.Insert(_mapper.Map<User>(request));
-                    await _repository.SaveChangesAsync();
+                    await _repository.SaveChangesAsync();//
                     response.isSuccess = Constants.Status.True;
                     response.message = Constants.StatusMessage.RegisterSuccess;
                 }
