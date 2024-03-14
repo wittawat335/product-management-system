@@ -32,15 +32,6 @@ namespace Ecommerce.Api.Extentions
                     builder.WithOrigins(blazorUrl).AllowAnyHeader().AllowAnyMethod();
                 });
             });
-
-            ////blazor
-            //services.AddCors(opt =>
-            //{
-            //    opt.AddPolicy(blazorCors, builder =>
-            //    {
-            //        builder.WithOrigins(blazorUrl).AllowAnyHeader().AllowAnyMethod();
-            //    });
-            //});
         }
     }
 }

@@ -21,8 +21,11 @@ namespace Ecommerce.Core.Services
         private readonly IMapper _mapper;
         private readonly JwtSettings _jwtSettings;
 
-        public AuthenService(IGenericRepository<User> repository, IGenericRepository<Position> positionRepository, ICommonService common,
-            IMapper mapper, IOptions<JwtSettings> options)
+        public AuthenService(IGenericRepository<User> repository, 
+            IGenericRepository<Position> positionRepository, 
+            ICommonService common,
+            IMapper mapper, 
+            IOptions<JwtSettings> options)
         {
             _repository = repository;
             _positionRepository = positionRepository;
@@ -37,6 +40,13 @@ namespace Ecommerce.Core.Services
             var loginResponse = new LoginResponse();
             try
             {
+                var findPosition = await
+                   _positionRepository
+                   .GetListAsync(_ =>
+                   _.PositionId == user.PositionId && _.Status == Constants.Status.Active);
+                var roleClaims = findPosition
+                    .Select(x => new Claim(ClaimTypes.Role, x.PositionName));
+
                 var claims = new List<Claim>
                     {
                         new Claim(JwtRegisteredClaimNames.Sub, _jwtSettings.Subject),
@@ -44,10 +54,8 @@ namespace Ecommerce.Core.Services
                         new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
                         new Claim("UserId", user.UserId.ToString())
                     };
-
-                var position = await _positionRepository.GetListAsync(x => x.PositionId == user.PositionId && x.Status == Constants.Status.Active);
-                var roleClaims = position.Select(x => new Claim(ClaimTypes.Role, x.PositionName));
                 claims.AddRange(roleClaims);
+
                 var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
                 var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
                 var token = new JwtSecurityToken(

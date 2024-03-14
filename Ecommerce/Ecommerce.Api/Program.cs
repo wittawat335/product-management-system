@@ -30,13 +30,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 app.UseStaticFiles();
-//app.UseCors(cor);
-app.UseCors("reactPolicy");
+app.UseCors(cor);
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
-
 app.UseHangfireDashboard("/HangFire/Dashboard", new DashboardOptions
 {
     DashboardTitle = "Hangfire Job",

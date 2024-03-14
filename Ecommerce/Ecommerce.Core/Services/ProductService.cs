@@ -32,9 +32,12 @@ namespace Ecommerce.Core.Services
                 query = query.Where(x => x.Category.Status == Constants.Status.Active);
                 if (request != null)
                 {
-                    query = (request.ProductId != null) ? query.Where(x => x.ProductId == request.ProductId) : query;
-                    query = (request.CategoryId != null) ? query.Where(x => x.CategoryId == request.CategoryId) : query;
-                    query = (request.Status != null) ? query.Where(x => x.Status.Contains(request.Status)) : query;
+                    query = (request.ProductId != null) ? 
+                        query.Where(x => x.ProductId == request.ProductId) : query;
+                    query = (request.CategoryId != null) ? 
+                        query.Where(x => x.CategoryId == request.CategoryId) : query;
+                    query = (request.Status != null) ? 
+                        query.Where(x => x.Status.Contains(request.Status)) : query;
                 }
                 if (query.Count() > 0)
                 {
@@ -77,7 +80,8 @@ namespace Ecommerce.Core.Services
                 var validate = await CheckDupilcate(model.ProductId);
                 if (validate == string.Empty)
                 {
-                    var returnValue = await _repository.InsertAsyncAndSave(_mapper.Map<Product>(model));
+                    var returnValue = await 
+                        _repository.InsertAsyncAndSave(_mapper.Map<Product>(model));
                     if(returnValue != null)
                     {
                         response.value = returnValue;
@@ -104,7 +108,8 @@ namespace Ecommerce.Core.Services
                 var query = _repository.Get(x => x.ProductId == model.ProductId);
                 if (query != null)
                 {
-                    var returnValue = await _repository.UpdateAndSaveAsync(_mapper.Map(model, query));
+                    var returnValue = await 
+                        _repository.UpdateAndSaveAsync(_mapper.Map(model, query));
                     if (returnValue != null)
                     {
                         response.value = returnValue;
@@ -143,8 +148,10 @@ namespace Ecommerce.Core.Services
         public async Task<string> CheckDupilcate(string id)
         {
 
-            var query = await _repository.GetAsync(x => x.ProductId == id);
-            string message = (query != null) ? string.Format(id + " " + Constants.StatusMessage.DuplicateId) : string.Empty;
+            var query = await 
+                _repository.GetAsync(x => x.ProductId == id);
+            string message = (query != null) ? 
+                string.Format(id + " " + Constants.StatusMessage.DuplicateId) : string.Empty;
 
             return message;
         }
