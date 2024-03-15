@@ -1,0 +1,75 @@
+﻿@using Ecommerce.Web.Commons;
+
+@{
+    ViewData["Title"] = "TestJsTree";
+}
+@{
+    Layout = null;
+}
+
+
+
+<div>
+    <div class="row mx-auto">
+        <div id="PermissionDetails"></div>
+    </div>
+
+    <div class="row">
+        <hr />
+        <div class="col-md-12">
+            <div class="float-end">
+                <button id="btnClose"
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Close
+                </button>
+               
+                
+                 
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script>
+    $(function () {
+        getPermissionData();
+    });
+    function getPermissionData() {
+        $.ajax({
+            async: true,
+            type: 'post',
+            dataType: "json",
+            url: '@Url.Content("~/Home/JsTree")',
+            data: { positionId: 'P01' },
+            success: function (data) {
+                buildTree(data);
+            },
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+            }
+        });
+    };
+
+    function buildTree(data) {
+        $('#PermissionDetails').jstree({
+            'core': {
+                "themes": { "responsive": false },
+                'data': data
+            },
+            'plugins': ["checkbox", "types"]
+        });
+    };
+
+
+</script>
+
+
+
+

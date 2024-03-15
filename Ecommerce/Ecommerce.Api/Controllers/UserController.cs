@@ -1,0 +1,59 @@
+﻿using Ecommerce.Core.DTOs;
+using Ecommerce.Core.Services.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Ecommerce.Api.Controllers
+{
+    [Authorize(Roles = "Developer,Administrator,Manager,Employee")]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UserController : ControllerBase
+    {
+        private readonly IUserService _service;
+
+        public UserController(IUserService service) => _service = service;
+
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var response = await _service.GetList();
+            return Ok(response);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(string id)
+        {
+            var response = await _service.Get(id);
+            return Ok(response);
+        }
+
+        [HttpPost("Search")]
+        public async Task<IActionResult> Search(UserDTO request)
+        {
+            var response = await _service.GetList(request);
+            return Ok(response);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Insert(UserDTO request)
+        {
+            var response = await _service.Insert(request);
+            return Ok(response);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(UserDTO request)
+        {
+            var response = await _service.Update(request);
+            return Ok(response);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var response = await _service.Delete(id);
+            return Ok(response);
+        }
+    }
+}

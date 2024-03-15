@@ -1,0 +1,55 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Models;
+@using Ecommerce.Web.Models.Position;
+@model Position
+
+<label asp-for="PositionId" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-key"></i></span>
+    </div>
+    <input asp-for="PositionId" class="form-control" type="text" />
+</div>
+
+<label asp-for="PositionName" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+    </div>
+    <input asp-for="PositionName" class="form-control" type="text" />
+</div>
+@if (ViewBag.listMenu != null)
+{
+    <label asp-for="MenuDefault" class="form-label"></label>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text"><i class="fas fa-vector-square"></i></span>
+        </div>
+        <select asp-for="MenuDefault" class="form-control"
+                asp-items="@(new SelectList (ViewBag.listMenu, "MenuId", "MenuName"))">
+            <option disabled selected>@Constants.SelectOption.SelectOne</option>
+        </select>
+    </div>
+}
+<label asp-for="Status" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
+    </div>
+    <select asp-for="Status" class="form-control">
+        <option value="" selected="selected">กรุณาเลือก</option>
+        <option value="A">ใช้งาน</option>
+        <option value="I">ไม่ได้ใช้งาน</option>
+    </select>
+</div>
+<div class="modal-footer">
+    <button id="btnSavePosition"
+            type="submit"
+            class="btn btn-info"
+            onclick="">
+        บันทึก
+    </button>
+</div>
+
+
+

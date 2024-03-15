@@ -1,0 +1,174 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Models.Product;
+@model ProductViewModel;
+<script>
+    var action = '@Model.Action';
+    $(document).ready(function () {
+        bsCustomFileInput.init();
+        checkAction();
+        formValidate();
+    });
+
+    function checkAction() {
+        switch (action) {
+            case '@Constants.Action.View': {
+                $('#btnSave').hide();
+                setReadOnlyByDiv(true);
+                break;
+            }
+            case '@Constants.Action.Update':
+                setReadOnly('ProductId', true);
+                break;
+        }
+    }
+
+    function formValidate() {
+        $.validator.setDefaults({
+            submitHandler: function () {
+                if (action == '@Constants.Action.Add') InsertProduct(baseApiUrl + 'Product');
+                if (action == '@Constants.Action.Update') UpdateProduct(baseApiUrl + 'Product');
+            }
+        });
+        validate();
+    }
+
+    function validate() {
+        $('#frmDetail').validate({
+            rules: {
+                ProductId: {
+                    required: true,
+                    minlength: 3
+                },
+                ProductName: {
+                    required: true,
+                    minlength: 3
+                },
+                CategoryId: {
+                    required: true,
+                },
+                Stock: {
+                    required: true,
+                },
+                Price: {
+                    required: true,
+                },
+                Status: {
+                    required: true
+                }
+            },
+            messages: {
+                ProductId: {
+                    required: "กรุณาระบุรหัสสินค้า",
+                },
+                ProductName: {
+                    required: "กรุณาระบุชื่อสินค้า",
+                },
+                CategoryId: {
+                    required: "กรุณาระบุประเภทสินค้า",
+                },
+                Stock: {
+                    required: "กรุณาระบุจำนวนสินค้า",
+                },
+                Price: {
+                    required: "กรุณาระบุราคาสินค้า",
+                },
+                Status: {
+                    required: "กรุณาเลือกสถานะ",
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+                $(element).addClass('is-valid');
+            }
+        });
+    }
+
+    function setValueImage() {
+        let fileName = $('#fileName').val().replace(/C:\\fakepath\\/i, '');
+        if (fileName != null && fileName != '')
+            $('#Image').val(fileName);
+    }
+
+    function InsertProduct(url, formId = "frmDetail") {
+        setValueImage();
+        var obj = $('#' + formId).serializeObject();
+        $.ajax({
+            type: 'POST',
+            url: url,
+            headers: { 'Authorization': 'bearer ' + _token },
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (response) {
+                if (response.isSuccess) {
+                    uploadImage(response);
+                    swalMessage('success', response.message);
+                    closeModal();
+                    getList();
+                }
+                else Swal.fire(response.message);
+            },
+            failure: function (error) {
+
+            }
+        })
+    }
+
+    function UpdateProduct(url, formId = "frmDetail") {
+        setValueImage();
+        var obj = $('#' + formId).serializeObject();
+        $.ajax({
+            type: 'PUT',
+            url: url,
+            headers: { 'Authorization': 'bearer ' + _token },
+            data: JSON.stringify(obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (response) {
+                if (response.isSuccess) {
+                    uploadImage(response);
+                    swalMessage('success', response.message);
+                    closeModal();
+                    getList();
+                }
+                else Swal.fire(response.message);
+            },
+            failure: function (error) {
+
+            }
+        })
+    }
+
+    function uploadImage(response) {
+        const formData = new FormData(document.forms.item(0));
+        let file = $('#fileName').prop("files")[0];
+        formData.append('file', file);
+        formData.append('productId', response.value.productId);
+        formData.append('message', response.message);
+        $.ajax({
+            url: '@Url.Content(Constants.UrlAction.Product.SaveImage)',
+            type: 'POST',
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: (response) => {
+                if (response.isSuccess) {
+                    swalMessage('success', response.message);
+                    closeModalLg();
+                    getList();
+                }
+            }
+        });
+    }
+</script>

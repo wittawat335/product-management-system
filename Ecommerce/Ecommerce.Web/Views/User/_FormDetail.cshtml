@@ -1,0 +1,87 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Models;
+@using Ecommerce.Web.Models.User;
+@model User
+
+<label asp-for="Username" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-user-circle"></i></span>
+    </div>
+    <input asp-for="Username" class="form-control" type="text" maxlength="10" />
+</div>
+
+<label asp-for="Password" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-key"></i></span>
+    </div>
+    <input asp-for="Password" class="form-control" type="text" maxlength="10" />
+</div>
+
+<label asp-for="PositionId" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-address-card"></i></span>
+    </div>
+    <select asp-for="PositionId" class="form-control"
+            asp-items="@(new SelectList (ViewBag.listPosition, "PositionId", "PositionName"))">
+        <option disabled selected>@Constants.SelectOption.SelectOne</option>
+    </select>
+</div>
+
+<label asp-for="FullName" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-edit"></i></span>
+    </div>
+    <input asp-for="FullName" class="form-control" type="text" maxlength="20" />
+</div>
+
+<label asp-for="Email" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+    </div>
+    <input asp-for="Email" class="form-control" type="email">
+</div>
+
+<label asp-for="PhoneNumber" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-phone"></i></span>
+    </div>
+    <input asp-for="PhoneNumber" class="form-control" type="text" />
+</div>
+
+<div class="form-group">
+    <label asp-for="Address" class="form-label"></label>
+    <textarea asp-for="Address" class="form-control" rows="3" placeholder="..."></textarea>
+</div>
+
+
+<label asp-for="Status" class="form-label"></label>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text"><i class="fas fa-toggle-on"></i></span>
+    </div>
+    <select asp-for="Status" class="form-control">
+        <option value="" selected="selected">กรุณาเลือก</option>
+        <option value="A">ใช้งาน</option>
+        <option value="I">ไม่ได้ใช้งาน</option>
+    </select>
+</div>
+
+<div class="modal-footer">
+    <button id="btnSave"
+            type="submit"
+            class="btn btn-info">
+        บันทึก
+    </button>
+</div>
+
+<div style="display: none">
+    @{
+        await Html.RenderPartialAsync("_HiddenValue", Model);
+    }
+</div>

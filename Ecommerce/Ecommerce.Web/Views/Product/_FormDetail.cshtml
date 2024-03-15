@@ -1,0 +1,90 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Models.Product;
+@model Product
+<div class="form-group">
+    @if (Model.Image == null || Model.Image == "")
+    {
+        <img id="imagePrv" src="@Url.Content("~/images/no_photo.jpg")" alt="Image" width="150" height="150" style="border:1px; margin-top: 20px;margin-bottom: 20px; margin-left:290px;" />
+        <div class="input-group">
+            <div class="custom-file">
+                <input id="fileName" type="file" class="custom-file-input"
+                       onchange="document.getElementById('imagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                <label class="custom-file-label">เลือกไฟล์</label>
+            </div>
+        </div>
+    }
+    else
+    {
+        <img id="imagePrv" src="@Url.Content("~/images/product/"+Model.ProductId+"/"+Model.Image)" alt="Image" width="150" height="150" style="border:1px; margin-bottom: 20px; margin-left:290px;" />
+        <div class="input-group">
+            <div class="custom-file">
+                <input id="fileName" type="file" class="custom-file-input"
+                       onchange="document.getElementById('imagePrv').src = window.URL.createObjectURL(this.files[0])" />
+                <label class="custom-file-label">@Model.Image</label>
+            </div>
+        </div>
+    }
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label asp-for="ProductId" class="form-label"></label>
+            <input asp-for="ProductId" class="form-control" type="text" maxlength="30" />
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label asp-for="ProductName" class="form-label"></label>
+            <input asp-for="ProductName" class="form-control" type="text" maxlength="30" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label asp-for="CategoryId" class="form-label"></label>
+            <select asp-for="CategoryId" class="form-control"
+                    asp-items="@(new SelectList (ViewBag.listCategory, "CategoryId", "CategoryName"))">
+                <option disabled selected>@Constants.SelectOption.SelectOne</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label asp-for="Price" class="form-label"></label>
+            <input asp-for="Price" class="form-control" type="text" oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label asp-for="Stock" class="form-label"></label>
+            <input asp-for="Stock" class="form-control" type="text" oninput="this.value=this.value.replace(/[^0-9]/g,'');" />
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label asp-for="Status" class="form-label"></label>
+            <select asp-for="Status" class="form-control" style="width: 100%;">
+                <option value="" selected="selected">@Constants.SelectOption.SelectOne</option>
+                <option value="A">ใช้งาน</option>
+                <option value="I">ไม่ได้ใช้งาน</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="form-group">
+    <label asp-for="Description" class="form-label"></label>
+    <textarea asp-for="Description" class="form-control" rows="3" placeholder="ใส่รายละเอียดเพิ่มเติม ..."></textarea>
+</div>
+<div class="modal-footer">
+    <button id="btnSave" type="submit" class="btn btn-info">บันทึก</button>
+</div>
+
+<div style="display: none">
+    @{
+        await Html.RenderPartialAsync("_HiddenValue", Model);
+    }
+</div>
+

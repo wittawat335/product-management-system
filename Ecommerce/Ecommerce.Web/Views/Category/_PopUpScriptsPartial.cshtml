@@ -1,0 +1,80 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Extenions.Class;
+@using Ecommerce.Web.Models.Category;
+@using Microsoft.Extensions.Options;
+@model CategoryViewModel;
+<script>
+    var action = '@Model.Action';
+    $(document).ready(function () {
+        checkAction();
+        formValidate();
+    });
+
+    function checkAction() {
+        switch (action) {
+            case '@Constants.Action.View': {
+                $('#btnSave').hide();
+                setReadOnlyByDiv(true);
+                break;
+            }
+            case '@Constants.Action.Add':
+                $('#Status').val('A');
+                break;
+            case '@Constants.Action.Update':
+                setReadOnly('CategoryId', true);
+                break;
+        }
+    }
+
+    function formValidate() {
+        $.validator.setDefaults({
+            submitHandler: function () {
+                if (action == '@Constants.Action.Add') Insert(baseApiUrl + 'Category');
+                if (action == '@Constants.Action.Update') Update(baseApiUrl + 'Category');
+            }
+        });
+        validate();
+    }
+
+    function validate() {
+        $('#frmDetail').validate({
+            rules: {
+                CategoryId: {
+                    required: true,
+                    minlength: 3
+                },
+                CategoryName: {
+                    required: true,
+                    minlength: 3
+                },
+                Status: {
+                    required: true
+                }
+            },
+            messages: {
+                CategoryId: {
+                    required: "กรุณาระบุรหัสประเภทสินค้า",
+                },
+                CategoryName: {
+                    required: "กรุณาระบุประเภทสินค้า",
+                },
+                Status: {
+                    required: "กรุณาเลือกสถานะสินค้า",
+                }
+            },
+            errorElement: 'span',
+            errorPlacement: function (error, element) {
+                error.addClass('invalid-feedback');
+                element.closest('.form-group').append(error);
+            },
+            highlight: function (element, errorClass, validClass) {
+                $(element).addClass('is-invalid');
+            },
+            unhighlight: function (element, errorClass, validClass) {
+                $(element).removeClass('is-invalid');
+                $(element).addClass('is-valid');
+            }
+        });
+    }
+</script>
+

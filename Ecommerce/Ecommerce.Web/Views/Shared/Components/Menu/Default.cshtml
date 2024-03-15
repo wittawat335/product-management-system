@@ -1,0 +1,69 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Services.Interfaces;
+@using Ecommerce.Web.Models.Menu;
+@model List<Menu>
+@inject ICommonService common;
+@{
+    var user = common.GetSessionValue();
+    var menuLv0 = ((List<Menu>)Model).Where(x => x.MenuLevel == 0);
+    var menuLv1 = ((List<Menu>)Model).Where(x => x.MenuLevel == 1);
+    var menuLv2 = ((List<Menu>)Model).Where(x => x.MenuLevel == 2);
+    var currnetUrl = Context.Request.Path;
+}
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <a href="index3.html" class="brand-link">
+        <img src="~/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Demo</span>
+    </a>
+    <div class="sidebar">
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                @if (Model.Count > 0) 
+                {
+                    @foreach (var lv0 in menuLv0.OrderBy(x => x.MenuOrder))
+                    {
+                        <li class="nav-header">@lv0.MenuName</li>
+                        //header
+                        @foreach (var lv1 in menuLv1.Where(x => x.ParentId == lv0.MenuId).OrderBy(x => x.MenuOrder))
+                        {
+                            @if (menuLv2.Where(x => x.ParentId == lv1.MenuId).Count() == 0)
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Content("~" + lv1.Url ?? "#")" class="@(currnetUrl.Value == Url.Content("~" + lv1.Url) ? "nav-link active" : "nav-link")">
+                                        <i class="@lv1.Icon"></i>
+                                        <p>
+                                            @lv1.MenuName
+                                        </p>
+                                    </a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="nav-item">
+                                    <a href="@Url.Content("~" + lv1.Url ?? "#")" class="nav-link">
+                                        <i class="@lv1.Icon"></i>
+                                        <p>
+                                            @lv1.MenuName
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    @foreach (var lv2 in menuLv2.Where(x => x.ParentId == lv1.MenuId).OrderBy(x => x.MenuOrder))
+                                    {
+                                        <ul class="nav nav-treeview">
+                                            <li class="nav-item">
+                                                <a href="@Url.Content("~" + lv2.Url ?? "#")" class="@(currnetUrl.Value == Url.Content("~" + lv2.Url) ? "nav-link active" : "nav-link")">
+                                                    <i class="@lv2.Icon"></i>
+                                                    <p>@lv2.MenuName</p>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    }
+                                </li>
+                            }
+                        }
+                    }
+                }
+            </ul>
+        </nav>
+    </div>
+</aside>

@@ -1,0 +1,66 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Extenions.Class;
+@using Microsoft.Extensions.Options;
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+<script>
+    $(function () {
+        getPermissionData();
+    });
+
+    function getPermissionData() {
+        $.ajax({
+            type: 'GET',
+            url: baseApiUrl + 'Permission/GetJsTree/' + '@ViewBag.positionId',
+            headers: { 'Authorization': 'bearer ' + _token },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (response) {
+                if (response.isSuccess) buildTree(response.value);
+            },
+            error: function (xhr, status, error) {
+                var err = eval("(" + xhr.responseText + ")");
+                alert(err.Message);
+            }
+        });
+    };
+
+    function buildTree(data) {
+        $('#PermissionDetails').jstree({
+            'core': {
+                "themes": { "responsive": false },
+                'data': data
+            },
+            'plugins': ["checkbox", "types"]
+        });
+    };
+
+    $("#btnSave").click(function () {
+        let id = '@ViewBag.positionId';
+        var treeData = $('#PermissionDetails').jstree(true).get_json('#', { flat: false });
+        $.ajax({
+            type: 'POST',
+            url: baseApiUrl + 'Permission?id=' + id,
+            headers: { 'Authorization': 'bearer ' + _token },
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            data: JSON.stringify(treeData),
+            async: true, //ถ้า error เปลี่ยนเป็น false
+            success: function (response) {
+                console.log(response)
+                if (response.isSuccess) {
+                    closeModal();
+                    if (response.message != "ยังไม่ได้กำหนดสิทธิ์") setDefaultMenu('@ViewBag.positionId', modalUrl);
+                }
+                else swalMessage('error', response.message);
+            },
+            failure: function (response) {
+
+            }
+        });
+    });
+</script>
+
+
+

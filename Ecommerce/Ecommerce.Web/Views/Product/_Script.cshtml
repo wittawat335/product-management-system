@@ -1,0 +1,239 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Extenions.Class
+@using Ecommerce.Web.Models.Product;
+@using Ecommerce.Web.Services.Interfaces
+@using Microsoft.Extensions.Options
+@inject ICommonService common;
+@inject IOptions<AppSetting> options
+@model Product;
+@{
+    bool permView = common.IsPermission(Constants.Menu.Product.Id, Constants.Menu.Product.View);
+    bool permUpdate = common.IsPermission(Constants.Menu.Product.Id, Constants.Menu.Product.Update);
+    bool permDelete = common.IsPermission(Constants.Menu.Product.Id, Constants.Menu.Product.Delete);
+}
+<script>
+    let baseApiUrl = '@options.Value.BaseApiUrl';
+    let modalUrl = '@Url.Content(Constants.UrlAction.Product.PopUpDialog)';
+    let deleteUrl = baseApiUrl + 'Product/';
+    let permDelete = ('@permDelete' === 'True') ? true : false;
+    let permUpdate = ('@permUpdate' === 'True') ? true : false;
+    let permView = ('@permView' === 'True') ? true : false;
+
+    $(function () {
+        getList();
+        setSelect2();
+        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+            event.preventDefault();
+            $(this).ekkoLightbox({
+                alwaysShowClose: true
+            });
+        });
+
+        $('.btn[data-filter]').on('click', function () {
+            $('.btn[data-filter]').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+
+    function getList() {
+        let _obj = new Object();
+        _obj.ProductId = $('#txtProduct').val();
+        _obj.CategoryId = $('#txtCategory').val();
+        _obj.Status = $('#txtStatus').val();
+        $.ajax({
+            type: "POST",
+            url: baseApiUrl + 'Product/Search',
+            headers: {
+                'Authorization': 'bearer ' + _token
+            },
+            data: JSON.stringify(_obj),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (response) {
+                if (response.isSuccess) onSuccess(response);
+                else $("#dtResult").dataTable().fnClearTable();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+                window.location.href = '/ErrorPages/' + jqXHR.status;
+            }
+        })
+    }
+
+    function onSuccess(response) {
+        $('#dtResult').DataTable({
+            bDestroy: true,
+            bProcessing: true,
+            bLenghtChange: true,
+            lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
+            searching: false, //ช่อง search
+            responsive: true,
+            autoWidth: false,
+            bfilter: true,
+            bSort: true,
+            bPaginate: true,
+            lengthChange: true, //ปุ่มจำนวนแสดงข้อมูล
+            data: response.value,
+            columns: [
+                {
+                    data: 'productName',
+                    render: function (data, type, row, meta) {
+                        return row.productName
+                    }
+                },
+                {
+                    data: 'categoryName',
+                    render: function (data, type, row, meta) {
+                        return row.categoryName
+                    }
+                },
+                {
+                    data: 'image',
+                    render: function (data, type, row, meta) {
+                        return htmlImage(row);
+                    }
+                },
+                {
+                    data: 'stock',
+                    render: function (data, type, row, meta) {
+                        return row.stock
+                    }
+                },
+                {
+                    data: 'price',
+                    render: function (data, type, row, meta) {
+                        return row.price
+                    }
+                },
+                {
+                    data: 'description',
+                    render: function (data, type, row, meta) {
+                        return row.description
+                    }
+                },
+                {
+                    data: 'status',
+                    render: function (data, type, row, meta) {
+                        return htmlStatusBadge(row);
+                    }
+                },
+                {
+                    data: 'createDate',
+                    render: function (data, type, row, meta) {
+                        return row.createDate;
+                    }
+                },
+                {
+                    data: 'productId',
+                    render: function (data, type, row, meta) {
+                        if (permView && permUpdate && permDelete) {
+                            return htmlActionButtonWithImage(row);
+                        }
+                        else if (permView && permUpdate) {
+                            return htmlUpdateActionButtonLg(row.productId, modalUrl)
+                        }
+                        else {
+                            return htmlViewActionButtonLg(row.productId, modalUrl)
+                        }
+                    }
+                }
+            ]
+        })
+    }
+
+    function htmlImage(row) {
+        let imageUrl = (row.image != null && row.image != '') ?
+            '@Url.Content("~/images/product/")' + row.productId + "/" + row.image : '@Url.Content("~/images/no_photo.jpg")';
+
+        let html = '<div class="filtr-item col-sm-2">'
+            + '<a href="' + imageUrl + '" data-toggle="lightbox" data-title="' + row.productName + '">'
+            + '<img src="' + imageUrl + '" alt="' + row.productName + '" width="50" height="50" />'
+            + '</a>'
+            + '</div>'
+
+        return html;
+    }
+
+    function htmlActionButtonWithImage(row) {
+        let deleteImageUrl = '@Url.Content(Constants.UrlAction.Product.DeleteImageFolder)';
+        let imageUrl = (row.image != null && row.image != '') ?
+            '@Url.Content("~/images/product/")' + row.productId + "/" + row.image : '@Url.Content("~/images/no_photo.jpg")';
+
+        let html = '<a class="btn btn-secondary" onclick=openPopupLg("' + row.productId + '","View","' + modalUrl + '","ดูรายละเอียดสินค้า");>'
+            + '<i class="fas fa-eye"></i></a> | '
+            + '<a class="btn btn-warning" onclick=openPopupLg("' + row.productId + '","Update","' + modalUrl + '","แก้ไขสินค้า");>'
+            + '<i class="fas fa-pen"></i></a> | '
+            + '<a class="btn btn-danger" onclick=confirmDeleteWithImage("' + row.productId + '","' + deleteUrl + '","' + imageUrl + '","' + deleteImageUrl + '");>'
+            + '<i class="fas fa-trash"></a>'
+
+        return html;
+    }
+
+    function setSelect2() {
+        $("#txtProduct").select2({
+            placeholder: "--- กรุณาเลือก ---",
+            minimumInputLength: 1,
+            dropdownAutoWidth: 'true',
+            width: '100%',
+            allowClear: true,
+            ajax: {
+                type: "GET",
+                url: baseApiUrl + 'Select2/GetProduct',
+                headers: { 'Authorization': 'bearer ' + _token },
+                delay: 50,
+                dataType: 'json',
+                quietMillis: 1000,
+                data: function (params) {
+                    return { request: params.term };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data.value, function (obj) {
+                            return {
+                                id: obj.productId,
+                                text: obj.productName
+                            };
+                        })
+                    };
+                }
+            }
+        });
+
+        $("#txtCategory").select2({
+            placeholder: "--- กรุณาเลือก ---",
+            minimumInputLength: 1,
+            dropdownAutoWidth: 'true',
+            width: '100%',
+            allowClear: true,
+            ajax: {
+                type: "GET",
+                url: baseApiUrl + 'Select2/GetCategory',
+                headers: { 'Authorization': 'bearer ' + _token },
+                delay: 50,
+                dataType: 'json',
+                quietMillis: 1000,
+                data: function (params) {
+                    return { request: params.term };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data.value, function (obj) {
+                            return {
+                                id: obj.categoryId,
+                                text: obj.categoryName
+                            };
+                        })
+                    };
+                }
+            }
+        });
+    }
+
+    function resetform() {
+        $("#dtResult").dataTable().fnClearTable();
+        $("#txtProduct").empty().trigger('change')
+        $("#txtCategory").empty().trigger('change')
+        $("#txtStatus").val('');
+    }
+</script>

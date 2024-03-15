@@ -1,0 +1,123 @@
+﻿@using Ecommerce.Web.Models;
+@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Models.Product;
+@using Ecommerce.Web.Services.Interfaces
+@inject ICommonService common;
+@model Product
+@{
+    ViewData["Title"] = "หน้าหลัก";
+    bool permAdd = common.IsPermission(Constants.Menu.Product.Id, Constants.Menu.Product.New);
+    var urlPopUp = Url.Content(Constants.UrlAction.Product.PopUpDialog);
+    var action = Constants.Action.Add;
+}
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>รายการสินค้า</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">รายการสินค้า</a></li>
+                    <li class="breadcrumb-item active">หน้าหลัก</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content">
+    <div class="container-fluid">
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">ค้นหา</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="ProductName"></label>
+                            <select id="txtProduct" class="form-control select2"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="CategoryName"></label>
+                            <select id="txtCategory" class="form-control select2"></select>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label asp-for="Status"></label>
+                            <select id="txtStatus" class="form-control select2">
+                                <option selected="selected" value="">--- กรุณาเลือก ---</option>
+                                <option value="A">ใช้งาน</option>
+                                <option value="I">ไม่ได้ใช้งาน</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center mt-3">
+                    <button type="button"
+                            id="btnSearch"
+                            onclick="getList()"
+                            class="btn btn-primary">
+                        ค้นหา
+                    </button>
+                    <button type="reset"
+                            class="btn btn-secondary"
+                            onclick="resetform()">
+                        ล้างขัอมูล
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-------------------------------------------- DataTable --------------------------------------------------->
+        <div class="card card-default">
+            <div class="card-header">
+                <h3 class="card-title">ผลการค้นหา</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <table id="dtResult" class="table table-bordered table-striped">
+                    <thead>
+                        <tr style="white-space:nowrap">
+                            <th>@Html.DisplayNameFor(m => m.ProductName)</th>
+                            <th>@Html.DisplayNameFor(m => m.CategoryName)</th>
+                            <th>@Html.DisplayNameFor(m => m.Image)</th>
+                            <th>@Html.DisplayNameFor(m => m.Stock)</th>
+                            <th>@Html.DisplayNameFor(m => m.Price)</th>
+                            <th>@Html.DisplayNameFor(m => m.Description)</th>
+                            <th>@Html.DisplayNameFor(m => m.Status)</th>
+                            <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
+                            <th style="text-align:center">
+                                @if (permAdd)
+                                {
+                                    <a class="btn btn-info" onclick="openPopupLg('','@action','@urlPopUp','เพื่มสินค้า')">
+                                        เพิ่ม
+                                    </a>
+                                }
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+    @{
+        await Html.RenderPartialAsync("_Script");
+    }
+}

@@ -1,0 +1,100 @@
+﻿@using Ecommerce.Web.Commons;
+@using Ecommerce.Web.Extenions.Class;
+@using Ecommerce.Web.Models.Category;
+@using Ecommerce.Web.Services.Interfaces;
+@using Microsoft.Extensions.Options;
+@inject ICommonService common;
+@inject IOptions<AppSetting> options
+@model Category;
+@{
+    bool permView = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.View);
+    bool permUpdate = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.Update);
+    bool permDelete = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.Delete);
+}
+<script>
+    const baseApiUrl = '@options.Value.BaseApiUrl';
+    const modalUrl = '@Url.Content(Constants.UrlAction.Category.PopUpDialog)';
+    const deleteUrl = baseApiUrl + 'Category/';
+    const permDelete = ('@permDelete' === 'True') ? true : false;
+    const permUpdate = ('@permUpdate' === 'True') ? true : false;
+    const permView = ('@permView' === 'True') ? true : false;
+
+    $(function () {
+        getList();
+    });
+
+    function getList() {
+        $.ajax({
+            type: "GET",
+            url: baseApiUrl + 'Category',
+            headers: { 'Authorization': 'bearer ' + _token },
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            async: false,
+            success: function (response) {
+                if (response.isSuccess) onSuccess(response);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(errorThrown);
+                window.location.href = '/ErrorPages/' + jqXHR.status;
+            }
+        });
+    }
+
+    function onSuccess(response) {
+        $('#dtResult').DataTable({
+            bDestroy: true,
+            bProcessing: true,
+            bLenghtChange: true,
+            lengthMenu: [[5, 10, 25, -1], [5, 10, 25, "All"]],
+            searching: false, //ช่อง search
+            responsive: true,
+            autoWidth: false,
+            bfilter: true,
+            bSort: true,
+            bPaginate: true,
+            lengthChange: true, //ปุ่มจำนวนแสดงข้อมูล
+            data: response.value,
+            columns: [
+                // {
+                //     data: 'categoryId',
+                //     render: function (data, type, row, meta) {
+                //         return row.categoryName
+                //     }
+                // },
+                {
+                    data: 'categoryName',
+                    render: function (data, type, row, meta) {
+                        return row.categoryName
+                    }
+                },
+                {
+                    data: 'status',
+                    render: function (data, type, row, meta) {
+                        return htmlStatusBadge(row);
+                    }
+                },
+                {
+                    data: 'createDate',
+                    render: function (data, type, row, meta) {
+                        return row.createDate;
+                    }
+                },
+                {
+                    data: 'categoryId',
+                    render: function (data, type, row, meta) {
+                        if (permView && permUpdate && permDelete) {
+                            return htmlAllActionButton(row.categoryId, row.categoryName, modalUrl, deleteUrl);
+                        }
+                        else if (permView && permUpdate) { 
+                            return htmlUpdateActionButton(row.categoryId, modalUrl)
+                        }
+                        else {
+                            return htmlViewActionButton(row.categoryId, modalUrl)
+                        }
+                    }
+                }
+            ]
+        })
+    }
+</script>

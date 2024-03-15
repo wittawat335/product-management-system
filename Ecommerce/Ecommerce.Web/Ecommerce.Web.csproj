@@ -1,0 +1,46 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\images\product\1d3be8cc-e025-4218-b5cc-61c1de5d8dd9\**" />
+    <Compile Remove="wwwroot\images\product\39db6fec-d2a0-48a0-aeb7-6126ff9f1701\**" />
+    <Compile Remove="wwwroot\images\product\55ccceda-19c3-41b5-8471-3f60604ab525\**" />
+    <Compile Remove="wwwroot\images\product\c1e1e6c1-f20d-4d92-aaa6-10cc88ad1135\**" />
+    <Compile Remove="wwwroot\images\product\c40457b9-37e9-4233-a473-65d04ad21cd7\**" />
+    <Compile Remove="wwwroot\images\product\df16ab66-54fa-4879-b1e3-e27b3bb7bd66\**" />
+    <Content Remove="wwwroot\images\product\1d3be8cc-e025-4218-b5cc-61c1de5d8dd9\**" />
+    <Content Remove="wwwroot\images\product\39db6fec-d2a0-48a0-aeb7-6126ff9f1701\**" />
+    <Content Remove="wwwroot\images\product\55ccceda-19c3-41b5-8471-3f60604ab525\**" />
+    <Content Remove="wwwroot\images\product\c1e1e6c1-f20d-4d92-aaa6-10cc88ad1135\**" />
+    <Content Remove="wwwroot\images\product\c40457b9-37e9-4233-a473-65d04ad21cd7\**" />
+    <Content Remove="wwwroot\images\product\df16ab66-54fa-4879-b1e3-e27b3bb7bd66\**" />
+    <EmbeddedResource Remove="wwwroot\images\product\1d3be8cc-e025-4218-b5cc-61c1de5d8dd9\**" />
+    <EmbeddedResource Remove="wwwroot\images\product\39db6fec-d2a0-48a0-aeb7-6126ff9f1701\**" />
+    <EmbeddedResource Remove="wwwroot\images\product\55ccceda-19c3-41b5-8471-3f60604ab525\**" />
+    <EmbeddedResource Remove="wwwroot\images\product\c1e1e6c1-f20d-4d92-aaa6-10cc88ad1135\**" />
+    <EmbeddedResource Remove="wwwroot\images\product\c40457b9-37e9-4233-a473-65d04ad21cd7\**" />
+    <EmbeddedResource Remove="wwwroot\images\product\df16ab66-54fa-4879-b1e3-e27b3bb7bd66\**" />
+    <None Remove="wwwroot\images\product\1d3be8cc-e025-4218-b5cc-61c1de5d8dd9\**" />
+    <None Remove="wwwroot\images\product\39db6fec-d2a0-48a0-aeb7-6126ff9f1701\**" />
+    <None Remove="wwwroot\images\product\55ccceda-19c3-41b5-8471-3f60604ab525\**" />
+    <None Remove="wwwroot\images\product\c1e1e6c1-f20d-4d92-aaa6-10cc88ad1135\**" />
+    <None Remove="wwwroot\images\product\c40457b9-37e9-4233-a473-65d04ad21cd7\**" />
+    <None Remove="wwwroot\images\product\df16ab66-54fa-4879-b1e3-e27b3bb7bd66\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="7.0.13" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="7.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Notification\" />
+    <Folder Include="wwwroot\images\product\" />
+  </ItemGroup>
+
+</Project>
