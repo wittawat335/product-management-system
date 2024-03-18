@@ -97,29 +97,23 @@ namespace Ecommerce.Core.Services
         public async Task<Response<string>> Register(RegisterRequest request)
         {
             var response = new Response<string>();
-            try
+            var positionRegister = _positionRepository
+                .Get(x => x.PositionName == Constants.Position.Customer).PositionId;
+            var query = await _repository.GetAsync(x => x.Username == request.userName);
+
+            if (query == null)
             {
-                var positionRegister = _positionRepository.Get(x => x.PositionName == Constants.Position.Customer).PositionId;
-                var query = await _repository.GetAsync(x => x.Username == request.userName);
+                request.password = _common.Encrypt(request.password);
+                request.positionId = positionRegister;
 
-                if (query == null)
-                {
-                    request.password = _common.Encrypt(request.password);
-                    request.positionId = positionRegister;
-
-                    _repository.Insert(_mapper.Map<User>(request));
-                    await _repository.SaveChangesAsync();//
-                    response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.RegisterSuccess;
-                }
-                else
-                {
-                    response.message = Constants.StatusMessage.DuplicateUser;
-                }
+                _repository.Insert(_mapper.Map<User>(request));
+                await _repository.SaveChangesAsync();
+                response.isSuccess = Constants.Status.True;
+                response.message = Constants.StatusMessage.RegisterSuccess;
             }
-            catch (Exception ex)
+            else
             {
-                response.message = ex.Message;
+                response.message = Constants.StatusMessage.DuplicateUser;
             }
 
             return response;

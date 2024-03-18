@@ -29,23 +29,16 @@ namespace Ecommerce.Core.Services
             var response = new Response<List<MenuDTO>>();
             IQueryable<Permission> tbPermission = await _PermissionRepository.AsQueryable(x => x.PositionId == positionId);
             IQueryable<Menu> tbMenu = await _MenuRepository.AsQueryable();
-            try
-            {
-                IQueryable<Menu> tbResult = (from p in tbPermission
-                                             join m in tbMenu on p.MenuId equals m.MenuId
-                                             select m).AsQueryable();
+            IQueryable<Menu> tbResult = (from p in tbPermission
+                                         join m in tbMenu on p.MenuId equals m.MenuId
+                                         select m).AsQueryable();
 
-                var listMenus = tbResult.Distinct();
-                if (listMenus.Count() > 0)
-                {
-                    response.value = _mapper.Map<List<MenuDTO>>(listMenus);
-                    response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.Success;
-                }
-            }
-            catch (Exception ex)
+            var listMenus = tbResult.Distinct();
+            if (listMenus.Count() > 0)
             {
-                response.message = ex.Message;
+                response.value = _mapper.Map<List<MenuDTO>>(listMenus);
+                response.isSuccess = Constants.Status.True;
+                response.message = Constants.StatusMessage.Success;
             }
 
             return response;
@@ -54,18 +47,11 @@ namespace Ecommerce.Core.Services
         public async Task<Response<List<MenuDTO>>> GetListMenuActive()
         {
             var response = new Response<List<MenuDTO>>();
-            try
+            var query = await _MenuRepository.GetListAsync(x => x.Url != null && x.Status == Constants.Status.Active);
+            if (query.Count() > 0)
             {
-                var query = await _MenuRepository.GetListAsync(x => x.Url != null && x.Status == Constants.Status.Active);
-                if (query.Count() > 0)
-                {
-                    response.value = _mapper.Map<List<MenuDTO>>(query);
-                    response.isSuccess = Constants.Status.True;
-                }
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
+                response.value = _mapper.Map<List<MenuDTO>>(query);
+                response.isSuccess = Constants.Status.True;
             }
 
             return response;
@@ -75,26 +61,19 @@ namespace Ecommerce.Core.Services
         {
             var response = new Response<List<MenuDTO>>();
             var menu = new List<Menu>();
-            try
+            if (positionId == "Dev01")
             {
-                if (positionId == "Dev01")
-                {
-                    menu = await _MenuRepository.GetListAsync(x => x.Status == Constants.Status.Active);
-                }
-                else
-                {
-                    menu = await _storedRespository.SP_GET_MENU_BY_POSITION(positionId);
-                }
-                if (menu.Count() > 0)
-                {
-                    response.value = _mapper.Map<List<MenuDTO>>(menu);
-                    response.isSuccess = Constants.Status.True;
-                    response.message = Constants.StatusMessage.Success;
-                }
+                menu = await _MenuRepository.GetListAsync(x => x.Status == Constants.Status.Active);
             }
-            catch (Exception ex)
+            else
             {
-                response.message = ex.Message;
+                menu = await _storedRespository.SP_GET_MENU_BY_POSITION(positionId);
+            }
+            if (menu.Count() > 0)
+            {
+                response.value = _mapper.Map<List<MenuDTO>>(menu);
+                response.isSuccess = Constants.Status.True;
+                response.message = Constants.StatusMessage.Success;
             }
 
             return response;

@@ -117,49 +117,43 @@ namespace Ecommerce.Core.Services
         public async Task<Response<MailRequest>> SendEmailAsync(MailRequest request)
         {
             var response = new Response<MailRequest>();
-            try
-            {
-                request.ToEmail = "wittawat335@gmail.com";
-                if (request.Body == null)
-                    request.Body = GetHtmlContent();
 
-                var email = new MimeMessage();
-                email.Sender = MailboxAddress.Parse(_settings.Email);
-                email.To.Add(MailboxAddress.Parse(request.ToEmail));
-                email.Subject = request.Subject;
-                var builder = new BodyBuilder();
+            request.ToEmail = "wittawat335@gmail.com";
+            if (request.Body == null)
+                request.Body = GetHtmlContent();
 
-                //byte[] fileBytes;
-                //string fileTarget = @"E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\Attachment\dummy.pdf";
+            var email = new MimeMessage();
+            email.Sender = MailboxAddress.Parse(_settings.Email);
+            email.To.Add(MailboxAddress.Parse(request.ToEmail));
+            email.Subject = request.Subject;
+            var builder = new BodyBuilder();
 
-                //if (File.Exists(fileTarget))
-                //{
-                //    FileStream file = new FileStream(fileTarget, FileMode.Open, FileAccess.Read);
-                //    using (var ms = new MemoryStream())
-                //    {
-                //        file.CopyTo(ms);
-                //        fileBytes = ms.ToArray();
-                //    }
-                //    builder.Attachments.Add("attachment.pdf", fileBytes, ContentType.Parse("application/octet-stream"));
-                //    builder.Attachments.Add("attachment2.pdf", fileBytes, ContentType.Parse("application/octet-stream"));
-                //}
+            //byte[] fileBytes;
+            //string fileTarget = @"E:\GitHub\.net-Ecommerce\Ecommerce\Ecommerce.Core\Attachment\dummy.pdf";
 
-                builder.HtmlBody = request.Body;
-                email.Body = builder.ToMessageBody();
+            //if (File.Exists(fileTarget))
+            //{
+            //    FileStream file = new FileStream(fileTarget, FileMode.Open, FileAccess.Read);
+            //    using (var ms = new MemoryStream())
+            //    {
+            //        file.CopyTo(ms);
+            //        fileBytes = ms.ToArray();
+            //    }
+            //    builder.Attachments.Add("attachment.pdf", fileBytes, ContentType.Parse("application/octet-stream"));
+            //    builder.Attachments.Add("attachment2.pdf", fileBytes, ContentType.Parse("application/octet-stream"));
+            //}
 
-                using var smtp = new SmtpClient();
-                smtp.Connect(_settings.Host, _settings.Port, SecureSocketOptions.StartTls);
-                smtp.Authenticate(_settings.Email, _settings.Password);
-                await smtp.SendAsync(email);
-                smtp.Disconnect(true);
+            builder.HtmlBody = request.Body;
+            email.Body = builder.ToMessageBody();
 
-                response.isSuccess = true;
-                response.message = "Send E-Mail Successfully";
-            }
-            catch (Exception ex)
-            {
-                response.message = ex.Message;
-            }
+            using var smtp = new SmtpClient();
+            smtp.Connect(_settings.Host, _settings.Port, SecureSocketOptions.StartTls);
+            smtp.Authenticate(_settings.Email, _settings.Password);
+            await smtp.SendAsync(email);
+            smtp.Disconnect(true);
+
+            response.isSuccess = true;
+            response.message = "Send E-Mail Successfully";
 
             return response;
         }
