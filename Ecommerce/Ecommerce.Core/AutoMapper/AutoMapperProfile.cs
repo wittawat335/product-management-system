@@ -13,8 +13,9 @@ namespace Ecommerce.Core.AutoMapper
         public AutoMapperProfile()
         {
             #region Auth
-            CreateMap<User, LoginResponse>()
-               .ForMember(x => x.positionName, opt => opt.MapFrom(origin => origin.Position.PositionName));
+            //CreateMap<User, LoginResponse>()
+            //   .ForMember(x => x.positionName, opt => opt
+            //   .MapFrom(origin => origin.Position.PositionName));
             CreateMap<PositionRequest, Position>();
             CreateMap<RegisterRequest, User>();
             #endregion
