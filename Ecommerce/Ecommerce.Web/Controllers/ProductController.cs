@@ -30,6 +30,8 @@ namespace Ecommerce.Web.Controllers
 
         public IActionResult Index() 
         {
+            var session = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
+            if (string.IsNullOrEmpty(session)) return RedirectToAction("Login", "Authen");
             return View(); 
         }
 
@@ -39,11 +41,15 @@ namespace Ecommerce.Web.Controllers
             var response = new Response<Product>();
             var model = new ProductViewModel();
 
-            var listCategory = await _categoryService.GetListAsync(_setting.BaseApiUrl + "Category");
-            if (listCategory != null) ViewBag.listCategory = listCategory.value.Where(x => x.Status == "A");
+            var listCategory = await 
+                _categoryService.GetListAsync(_setting.BaseApiUrl + "Category");
+            if (listCategory != null) 
+                ViewBag.listCategory = listCategory.value.Where(x => x.Status == "A");
 
             if (!string.IsNullOrEmpty(id))
-                response = await _productService.GetAsyncById(_setting.BaseApiUrl + string.Format("Product/{0}", id));
+                response = await 
+                    _productService
+                    .GetAsyncById(_setting.BaseApiUrl + string.Format("Product/{0}", id));
 
             if (response.value != null) model.Product = response.value;
 
@@ -66,7 +72,8 @@ namespace Ecommerce.Web.Controllers
 
         private void UploadFile(IFormFile image, string productId)
         {
-            string uploadFolder = Path.Combine(_environment.WebRootPath, "images\\product\\" + productId);
+            string uploadFolder = 
+                Path.Combine(_environment.WebRootPath, "images\\product\\" + productId);
             if (!Directory.Exists(uploadFolder))
                 Directory.CreateDirectory(uploadFolder);
 

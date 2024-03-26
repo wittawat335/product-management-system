@@ -48,9 +48,10 @@
             data: JSON.stringify(treeData),
             async: true, //ถ้า error เปลี่ยนเป็น false
             success: function (response) {
+                console.log(response)
                 if (response.isSuccess) {
                     closeModal();
-                    setDefaultMenu('@ViewBag.positionId', modalUrl);
+                    if (response.message != "ยังไม่ได้กำหนดสิทธิ์") setDefaultMenu('@ViewBag.positionId', modalUrl);
                 }
                 else swalMessage('error', response.message);
             },

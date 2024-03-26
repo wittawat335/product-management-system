@@ -1,4 +1,5 @@
-﻿using Ecommerce.Web.Extenions.Class;
+﻿using Ecommerce.Web.Commons;
+using Ecommerce.Web.Extenions.Class;
 using Ecommerce.Web.Models;
 using Ecommerce.Web.Models.Menu;
 using Ecommerce.Web.Models.Position;
@@ -25,7 +26,12 @@ namespace Ecommerce.Web.Controllers
             _common = common;
             _setting = options.Value;
         }
-        public IActionResult Index() { return View(); }
+        public IActionResult Index() 
+        {
+            var session = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
+            if (string.IsNullOrEmpty(session)) return RedirectToAction("Login", "Authen");
+            return View(); 
+        }
 
         [HttpPost]
         public async Task<IActionResult> _PopUpPosition(string id, string action)
@@ -42,7 +48,7 @@ namespace Ecommerce.Web.Controllers
             }
 
             if (position.isSuccess) model.Position = position.value;
-            if (listMenu.isSuccess) ViewBag.listMenu = listMenu.value.Where(x => x.MenuLevel != 0);
+            if (listMenu.isSuccess) ViewBag.listMenu = listMenu.value.Where(x => x.Url != null);
             model.Action = action;
 
             return PartialView(model);

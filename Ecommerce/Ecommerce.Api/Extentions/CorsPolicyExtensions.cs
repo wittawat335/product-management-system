@@ -11,6 +11,9 @@ namespace Ecommerce.Api.Extentions
 
             var blazorUrl = configuration["AppSettings:Blazor_URL"].ToString();
             var blazorCors = configuration["AppSettings:BlazorCors"].ToString();
+
+            var reactUrl = configuration["AppSettings:React_URL"].ToString();
+            var reactCors = configuration["AppSettings:BlazorCors"].ToString();
             services.AddCors(opt =>
             {
                 opt.AddPolicy(CorsPolicy, builder =>
@@ -18,20 +21,17 @@ namespace Ecommerce.Api.Extentions
                     builder.WithOrigins(url).AllowAnyHeader().AllowAnyMethod();
                 });
 
+                opt.AddPolicy("reactPolicy", builder =>
+                {
+                    builder.WithOrigins(reactUrl).AllowAnyHeader().AllowAnyMethod();
+                });
+
+
                 opt.AddPolicy(blazorCors, builder =>
                 {
                     builder.WithOrigins(blazorUrl).AllowAnyHeader().AllowAnyMethod();
                 });
             });
-
-            ////blazor
-            //services.AddCors(opt =>
-            //{
-            //    opt.AddPolicy(blazorCors, builder =>
-            //    {
-            //        builder.WithOrigins(blazorUrl).AllowAnyHeader().AllowAnyMethod();
-            //    });
-            //});
         }
     }
 }

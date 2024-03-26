@@ -12,12 +12,12 @@
     bool permDelete = common.IsPermission(Constants.Menu.Category.Id, Constants.Menu.Category.Delete);
 }
 <script>
-    let baseApiUrl = '@options.Value.BaseApiUrl';
-    let modalUrl = '@Url.Content(Constants.UrlAction.Category.PopUpDialog)';
-    let deleteUrl = baseApiUrl + 'Category/';
-    let permDelete = ('@permDelete' === 'True') ? true : false;
-    let permUpdate = ('@permUpdate' === 'True') ? true : false;
-    let permView = ('@permView' === 'True') ? true : false;
+    const baseApiUrl = '@options.Value.BaseApiUrl';
+    const modalUrl = '@Url.Content(Constants.UrlAction.Category.PopUpDialog)';
+    const deleteUrl = baseApiUrl + 'Category/';
+    const permDelete = ('@permDelete' === 'True') ? true : false;
+    const permUpdate = ('@permUpdate' === 'True') ? true : false;
+    const permView = ('@permView' === 'True') ? true : false;
 
     $(function () {
         getList();

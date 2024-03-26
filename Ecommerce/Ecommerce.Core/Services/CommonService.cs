@@ -19,67 +19,58 @@ namespace Ecommerce.Core.Services
 
         public string Decrypt(string text) // ใช้ถอดรหัส
         {
-            try
-            {
-                string encryptionKey = "MAKV2SPBNI99212";
-                byte[] cipherBytes = Convert.FromBase64String(text);
-                using (Aes encryptor = Aes.Create())
-                {
-                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
-                    encryptor.Key = pdb.GetBytes(32);
-                    encryptor.IV = pdb.GetBytes(16);
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
-                        {
-                            cs.Write(cipherBytes, 0, cipherBytes.Length);
-                            cs.Close();
-                        }
-                        text = Encoding.Unicode.GetString(ms.ToArray());
-                    }
-                }
 
-                return text;
+            string encryptionKey = "MAKV2SPBNI99212";
+            byte[] cipherBytes = Convert.FromBase64String(text);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(cipherBytes, 0, cipherBytes.Length);
+                        cs.Close();
+                    }
+                    text = Encoding.Unicode.GetString(ms.ToArray());
+                }
             }
-            catch { throw; }
+
+            return text;
         }
         public string Encrypt(string text) // ใช้แปลงรหัส
         {
-            try
+
+            string encryptionKey = "MAKV2SPBNI99212";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(text);
+            using (Aes encryptor = Aes.Create())
             {
-                string encryptionKey = "MAKV2SPBNI99212";
-                byte[] clearBytes = Encoding.Unicode.GetBytes(text);
-                using (Aes encryptor = Aes.Create())
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
                 {
-                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
-                    encryptor.Key = pdb.GetBytes(32);
-                    encryptor.IV = pdb.GetBytes(16);
-                    using (MemoryStream ms = new MemoryStream())
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
                     {
-                        using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
-                        {
-                            cs.Write(clearBytes, 0, clearBytes.Length);
-                            cs.Close();
-                        }
-                        text = Convert.ToBase64String(ms.ToArray());
-
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
                     }
-                }
+                    text = Convert.ToBase64String(ms.ToArray());
 
-                return text;
+                }
             }
-            catch { throw; }
+
+            return text;
         }
         public string GetMenuDefault(string menuId)
         {
-            try
-            {
-                var query = _menuRespository.Get(x => x.MenuId == menuId);
-                string url = query != null ? query.Url : "";
 
-                return url;
-            }
-            catch {throw; }
+            var query = _menuRespository.Get(x => x.MenuId == menuId);
+            string url = query != null ? query.Url : "";
+
+            return url;
         }
         public string GetParameter(string code)
         {
@@ -87,14 +78,10 @@ namespace Ecommerce.Core.Services
         }
         public string GetPositionName(string id)
         {
-            try
-            {
-                var query = _postRespository.Get(x => x.PositionId == id);
-                string position = query != null ? query.PositionName : "";
+            var query = _postRespository.Get(x => x.PositionId == id);
+            string position = query != null ? query.PositionName : "";
 
-                return position;
-            }
-            catch { throw; }
+            return position;
         }
     }
 }

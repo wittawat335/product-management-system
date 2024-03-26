@@ -1,6 +1,7 @@
 using Ecommerce.Api.Extentions;
 using Ecommerce.Core;
 using Ecommerce.Core.Common;
+using Ecommerce.Core.Middlewares;
 using Ecommerce.Infrastructure;
 using Hangfire;
 using Hangfire.MemoryStorage;
@@ -19,7 +20,8 @@ builder.Services.AddService();
 builder.Services.AuthenticationConfig(builder.Configuration);
 builder.Services.ConfigureCorsPolicy(builder.Configuration); // addCors
 
-//builder.Services.AddHangfire(x => x.UseSqlServerStorage(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddTransient<ExceptionMiddleware>();
+
 builder.Services.AddHangfire(x => x.UseMemoryStorage());
 builder.Services.AddHangfireServer();
 
@@ -35,6 +37,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+app.CongigureExceptionMiddleware();
 app.UseHangfireDashboard("/HangFire/Dashboard", new DashboardOptions
 {
     DashboardTitle = "Hangfire Job",

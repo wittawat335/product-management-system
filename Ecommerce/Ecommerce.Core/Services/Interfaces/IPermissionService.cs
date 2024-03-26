@@ -6,7 +6,7 @@ namespace Ecommerce.Core.Services.Interfaces
 {
     public interface IPermissionService
     {
-        Task<Response<Permission>> DeleteListByPositionId(string positionId);
+        Task DeleteListByPositionId(string positionId);
         Task<Response<Permission>> Add(PermissionDTO model);
         Task<Response<string>> SaveList(string id, List<DataPermissionJsonInsertList> permissionData);
         Task<Response<List<PermissionDTO>>> GetList(string positionId);

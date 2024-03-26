@@ -1,4 +1,5 @@
-﻿using Ecommerce.Web.Extenions.Class;
+﻿using Ecommerce.Web.Commons;
+using Ecommerce.Web.Extenions.Class;
 using Ecommerce.Web.Models;
 using Ecommerce.Web.Models.Category;
 using Ecommerce.Web.Services.Interfaces;
@@ -19,7 +20,9 @@ namespace Ecommerce.Web.Controllers
         }
 
         public IActionResult Index() 
-        { 
+        {
+            var session = HttpContext.Session.GetString(Constants.SessionKey.sessionLogin);
+            if (string.IsNullOrEmpty(session)) return RedirectToAction("Login", "Authen");
             return View(); 
         }
 
