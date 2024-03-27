@@ -17,10 +17,12 @@ namespace Ecommerce.Web.Extenions
             });
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>(); //Session
             services.AddDistributedMemoryCache();
-            services.AddSession(option =>
+            services.AddSession(options =>
             {
-                option.IdleTimeout = TimeSpan.FromMinutes(sessionTimeOut);
-                option.Cookie.Name = cookieName;
+                options.IdleTimeout = TimeSpan.FromMinutes(sessionTimeOut);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+                options.Cookie.Name = cookieName;
             });
         }
 

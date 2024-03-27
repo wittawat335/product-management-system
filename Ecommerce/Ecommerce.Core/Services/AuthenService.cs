@@ -74,7 +74,10 @@ namespace Ecommerce.Core.Services
         public async Task<Response<LoginResponse>> Login(LoginRequest request)
         {
             var response = new Response<LoginResponse>();
-            var user = await _repository.GetAsync(x => x.Username == request.username);
+            var user = request.username != null ? 
+                await _repository.GetAsync(_ => _.Username == request.username) : 
+                await _repository.GetAsync(_ => _.Email == request.email);
+
             if (user != null && user.Status == Constants.Status.Active)
             {
                 var passwordDecrypt = _common.Decrypt(user.Password);

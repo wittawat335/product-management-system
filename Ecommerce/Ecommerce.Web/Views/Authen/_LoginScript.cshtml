@@ -31,7 +31,11 @@
 
     function Login() {
         var url = '@Url.Content(Constants.UrlAction.Login)';
-        var data = { "username": $('#txtUserName').val(), "password": $('#txtPassword').val() };
+        var data = { 
+            "username": $('#txtUserName').val(),
+            "email": $('#txtEmail').val(),
+            "password": $('#txtPassword').val(), 
+         };
         $.post(url, data, function (response) {
             if (response.isSuccess) {
                 localStorage.setItem('token', response.value.token);
@@ -58,16 +62,23 @@
         var isproceed = true;
 
         var _user = $('#txtUserName');
+        var _email = $('#txtEmail');
         var _pwd = $('#txtPassword');
 
         var user = _user.val();
+        var email = _email.val();
         var pwd = _pwd.val();
 
-        if (user == null || user == '') {
-            _user.css('border-color', 'red');
+        // if (user == null || user == '') {
+        //     _user.css('border-color', 'red');
+        //     isproceed = false;
+        // } else
+        //     _user.css('border-color', '#ccc');
+        if (email == null || email == '') {
+            _email.css('border-color', 'red');
             isproceed = false;
         } else
-            _user.css('border-color', '#ccc');
+            _email.css('border-color', '#ccc');
 
         if (pwd == null || pwd == '') {
             _pwd.css('border-color', 'red');
@@ -77,7 +88,7 @@
 
         return isproceed;
     }
-     // ยิงเข้า api โดยตรงไม่ต้องผ่าน controller
+    // ยิงเข้า api โดยตรงไม่ต้องผ่าน controller
     function proceedLogin() {
         var isproceed = validate();
         var apiUrl = '@opts.BaseApiUrl' + 'Authen/Login';
