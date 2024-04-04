@@ -104,7 +104,24 @@ function htmlViewActionButtonLg(id, url) {
 } 
 // #endregion
 
-// #region function sendApi
+// #region function ConnectApi
+function fetchData(type, url) {
+    $.ajax({
+        type: type,
+        url: url,
+        headers: { 'Authorization': 'bearer ' + _token },
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            if (response.isSuccess) showDataTable(response);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Internal error: ' + jqXHR.responseText);
+            window.location.href = '/ErrorPages/' + jqXHR.status;
+        }
+    });
+}
 function Insert(url, formId = "frmDetail") {
     let obj = $('#' + formId).serializeObject();
     $.ajax({
@@ -119,7 +136,7 @@ function Insert(url, formId = "frmDetail") {
             if (response.isSuccess) {
                 swalMessage('success', response.message);
                 closeModal();
-                getList();
+                fetchingData();
             }
             else Swal.fire(response.message);
         },
@@ -142,7 +159,7 @@ function Update(url, formId = "frmDetail") {
             if (response.isSuccess) {
                 swalMessage('success', response.message);
                 closeModal();
-                getList();
+                fetchingData();
             }
             else Swal.fire(response.message);
         },
@@ -163,7 +180,7 @@ function Delete(Id, url) {
             if (response.isSuccess) {
                 swalMessage('success', response.message);
                 closeModal();
-                getList();
+                fetchingData();
             }
             else Swal.fire(response.message);
         },

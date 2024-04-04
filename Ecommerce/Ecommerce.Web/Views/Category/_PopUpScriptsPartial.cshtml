@@ -29,8 +29,9 @@
     function formValidate() {
         $.validator.setDefaults({
             submitHandler: function () {
-                if (action == '@Constants.Action.Add') Insert(baseApiUrl + 'Category');
-                if (action == '@Constants.Action.Update') Update(baseApiUrl + 'Category');
+                action == '@Constants.Action.Add' 
+                ? Insert(baseApiUrl + 'Category')
+                : Update(baseApiUrl + 'Category');
             }
         });
         validate();

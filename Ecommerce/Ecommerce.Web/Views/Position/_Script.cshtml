@@ -22,28 +22,14 @@
     let permAddMenu = ('@permAddMenu' === 'True') ? true : false;
 
     $(function () {
-        getList();
+        fetchingData();
     });
 
-    function getList() {
-        $.ajax({
-            type: "GET",
-            url: baseApiUrl + 'Position',
-            headers: { 'Authorization': 'bearer ' + _token },
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (response) {
-                if (response.isSuccess) onSuccess(response);
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(errorThrown);
-                window.location.href = '/ErrorPages/' + jqXHR.status;
-            }
-        });
+    function fetchingData() {
+        fetchData("GET", baseApiUrl + 'Position');
     }
 
-    function onSuccess(response) {
+    function showDataTable(response) {
         $('#dtResult').DataTable({
             bDestroy: true,
             bProcessing: true,

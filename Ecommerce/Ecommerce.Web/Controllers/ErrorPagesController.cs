@@ -7,7 +7,7 @@ namespace Ecommerce.Web.Controllers
     {
         public IActionResult Index(int statuscode)
         {
-            string action = string.Empty;
+            string action = "OtherError";
             switch (statuscode)
             {
                 case 401:
