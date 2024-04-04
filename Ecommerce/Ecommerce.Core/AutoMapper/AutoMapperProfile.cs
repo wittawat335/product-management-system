@@ -32,15 +32,24 @@ namespace Ecommerce.Core.AutoMapper
 
             #region Product
             CreateMap<Product, ProductDTO>() //output
-             .ForMember(x => x.CategoryName, opt => opt.MapFrom(origin => origin.Category.CategoryName))
-             .ForMember(x => x.Stock, opt => opt.MapFrom(origin => String.Format($"{origin.Stock:n}")))
-             .ForMember(x => x.Price, opt => opt.MapFrom(origin => String.Format($"{origin.Price:n}")))
-             .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
+             .ForMember(x => x.CategoryName, 
+             opt => opt.MapFrom(origin => origin.Category.CategoryName))
+             .ForMember(x => x.Stock, 
+             opt => opt.MapFrom(origin => String.Format($"{origin.Stock:n}")))
+             .ForMember(x => x.Price, 
+             opt => opt.MapFrom(origin => String.Format($"{origin.Price:n}")))
+             .ForMember(x => x.CreateDate, 
+             opt => opt.MapFrom(origin => String.Format("{0:dd-MM-yyyy}", origin.CreateDate)));
+            
             CreateMap<ProductDTO, Product>() //input
-               .ForMember(x => x.Category, opt => opt.Ignore())
-               .ForMember(x => x.CreateDate, opt => opt.MapFrom(origin => DateTime.Now))
-               .ForMember(x => x.Stock, opt => opt.MapFrom(origin => Convert.ToDecimal(origin.Stock, new CultureInfo("en-US"))))
-               .ForMember(x => x.Price, opt => opt.MapFrom(origin => Convert.ToDecimal(origin.Price, new CultureInfo("en-US"))));
+               .ForMember(x => x.Category, 
+               opt => opt.Ignore())
+               .ForMember(x => x.CreateDate, 
+               opt => opt.MapFrom(origin => DateTime.Now))
+               .ForMember(x => x.Stock, 
+               opt => opt.MapFrom(origin => Convert.ToDecimal(origin.Stock, new CultureInfo("en-US"))))
+               .ForMember(x => x.Price, 
+               opt => opt.MapFrom(origin => Convert.ToDecimal(origin.Price, new CultureInfo("en-US"))));
             #endregion
 
             #region Category
