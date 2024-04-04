@@ -64,7 +64,7 @@
                     </div>
                 </div>
                 <div class="text-center mt-3">
-                    <button type="button" class="btn btn-primary" id="btnSearch" onclick="getList()">ค้นหา</button>
+                    <button type="button" class="btn btn-primary" id="btnSearch" onclick="fetchingData()">ค้นหา</button>
                     <button type="reset" class="btn btn-secondary" onclick="resetform()">ล้างขัอมูล</button>
                 </div>
             </div>
@@ -85,7 +85,6 @@
                             <th>@Html.DisplayNameFor(m => m.FullName)</th>
                             <th>@Html.DisplayNameFor(m => m.Email)</th>
                             <th>@Html.DisplayNameFor(m => m.PositionName)</th>
-                            <th>@Html.DisplayNameFor(m => m.Address)</th>
                             <th>@Html.DisplayNameFor(m => m.Status)</th>
                             <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
                             <th style="text-align:center">

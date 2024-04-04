@@ -20,36 +20,20 @@
     let permView = ('@permView' === 'True') ? true : false;
 
     $(function () {
-        fetchData();
         setSelect2();
+        fetchingData();
     });
 
-    function fetchData() {
+    function fetchingData() {
         let _obj = new Object();
         _obj.ProductId = $('#txtProduct').val();
         _obj.CategoryId = $('#txtCategory').val();
         _obj.Status = $('#txtStatus').val();
-        $.ajax({
-            type: "POST",
-            url: baseApiUrl + 'Product/Search',
-            headers: {
-                'Authorization': 'bearer ' + _token
-            },
-            data: JSON.stringify(_obj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (response) {
-                response.isSuccess ? onSuccess(response) : $("#dtResult").dataTable().fnClearTable();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert('Internal error: ' + jqXHR.responseText);
-                window.location.href = '/ErrorPages/' + jqXHR.status;
-            }
-        })
+
+        searchData(_obj, baseApiUrl + 'Product/Search');
     }
 
-    function onSuccess(response) {
+    function showDataTable(response) {
         $('#dtResult').DataTable({
             bDestroy: true,
             bProcessing: true,

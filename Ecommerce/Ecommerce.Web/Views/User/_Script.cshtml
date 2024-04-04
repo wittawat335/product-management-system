@@ -21,40 +21,19 @@
 
     $(function () {
         setSelect2();
-        getList();
-        $('.btn[data-filter]').on('click', function () {
-            $('.btn[data-filter]').removeClass('active');
-            $(this).addClass('active');
-        });
+        fetchingData();
     });
 
-    function getList() {
+    function fetchingData() {
         let _obj = new Object();
         _obj.userId = $('#txtUsername').val();
         _obj.positionId = $('#@Html.IdFor(m => m.PositionId)').val();
         _obj.status = $('#ddlStatus').val();
-        $.ajax({
-            type: "POST",
-            url: baseApiUrl + 'User/Search',
-            headers: {
-                'Authorization': 'bearer ' + _token
-            },
-            data: JSON.stringify(_obj),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            async: false,
-            success: function (response) {
-                if (response.isSuccess) onSuccess(response);
-                else $("#dtResult").dataTable().fnClearTable();
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(errorThrown);
-                window.location.href = '/ErrorPages/' + jqXHR.status;
-            }
-        })
+
+        searchData(_obj, baseApiUrl + 'User/Search');
     }
 
-    function onSuccess(response) {
+    function showDataTable(response) {
         $('#dtResult').DataTable({
             bDestroy: true,
             bProcessing: true,
@@ -93,12 +72,7 @@
                         return row.positionName
                     }
                 },
-                {
-                    data: 'address',
-                    render: function (data, type, row, meta) {
-                        return row.address
-                    }
-                },
+                
                 {
                     data: 'status',
                     render: function (data, type, row, meta) {

@@ -119,7 +119,7 @@
                     uploadImage(response);
                     swalMessage('success', response.message);
                     closeModal();
-                    fetchData();
+                    fetchingData();
                 }
                 else Swal.fire(response.message);
             },
@@ -145,7 +145,7 @@
                     uploadImage(response);
                     swalMessage('success', response.message);
                     closeModal();
-                    fetchData();
+                    fetchingData();
                 }
                 else Swal.fire(response.message);
             },
@@ -172,7 +172,7 @@
                 if (response.isSuccess) {
                     swalMessage('success', response.message);
                     closeModalLg();
-                    fetchData();
+                    fetchingData();
                 }
             }
         });

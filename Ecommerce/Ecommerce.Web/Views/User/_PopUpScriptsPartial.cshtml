@@ -39,8 +39,9 @@
     function formValidate() {
         $.validator.setDefaults({
             submitHandler: function () {
-                if (action == '@Constants.Action.Add') Insert(baseApiUrl + 'User');
-                if (action == '@Constants.Action.Update' || action == 'cusUpdate') Update(baseApiUrl + 'User');
+                action == '@Constants.Action.Add' 
+                ? Insert(baseApiUrl + 'User') 
+                : Update(baseApiUrl + 'User');
             }
         });
         validate();

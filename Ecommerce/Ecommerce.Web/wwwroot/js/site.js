@@ -122,6 +122,27 @@ function fetchData(type, url) {
         }
     });
 }
+
+function searchData(filterObj, url) {
+    $.ajax({
+        type: "POST",
+        url: url,
+        headers: {
+            'Authorization': 'bearer ' + _token
+        },
+        data: JSON.stringify(filterObj),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: false,
+        success: function (response) {
+            response.isSuccess ? showDataTable(response) : $("#dtResult").dataTable().fnClearTable();
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('Internal error: ' + jqXHR.responseText);
+            window.location.href = '/ErrorPages/' + jqXHR.status;
+        }
+    })
+}
 function Insert(url, formId = "frmDetail") {
     let obj = $('#' + formId).serializeObject();
     $.ajax({
@@ -201,7 +222,7 @@ function DeleteWithImage(id, apiUrl, clientUrl) {
             if (response.isSuccess) {
                 deleteImage(id, clientUrl);
                 swalMessage('success', response.message);
-                fetchData();
+                fetchingData();
             }
             else Swal.fire(response.message);
         },
