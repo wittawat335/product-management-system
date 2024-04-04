@@ -65,7 +65,7 @@
                 <div class="text-center mt-3">
                     <button type="button"
                             id="btnSearch"
-                            onclick="getList()"
+                            onclick="fetchData()"
                             class="btn btn-primary">
                         ค้นหา
                     </button>
@@ -96,7 +96,6 @@
                             <th>@Html.DisplayNameFor(m => m.Image)</th>
                             <th>@Html.DisplayNameFor(m => m.Stock)</th>
                             <th>@Html.DisplayNameFor(m => m.Price)</th>
-                            <th>@Html.DisplayNameFor(m => m.Description)</th>
                             <th>@Html.DisplayNameFor(m => m.Status)</th>
                             <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
                             <th style="text-align:center">

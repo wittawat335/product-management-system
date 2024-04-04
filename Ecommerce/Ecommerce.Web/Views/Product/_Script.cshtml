@@ -20,22 +20,11 @@
     let permView = ('@permView' === 'True') ? true : false;
 
     $(function () {
-        getList();
+        fetchData();
         setSelect2();
-        $(document).on('click', '[data-toggle="lightbox"]', function (event) {
-            event.preventDefault();
-            $(this).ekkoLightbox({
-                alwaysShowClose: true
-            });
-        });
-
-        $('.btn[data-filter]').on('click', function () {
-            $('.btn[data-filter]').removeClass('active');
-            $(this).addClass('active');
-        });
     });
 
-    function getList() {
+    function fetchData() {
         let _obj = new Object();
         _obj.ProductId = $('#txtProduct').val();
         _obj.CategoryId = $('#txtCategory').val();
@@ -51,11 +40,10 @@
             dataType: "json",
             async: false,
             success: function (response) {
-                if (response.isSuccess) onSuccess(response);
-                else $("#dtResult").dataTable().fnClearTable();
+                response.isSuccess ? onSuccess(response) : $("#dtResult").dataTable().fnClearTable();
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                console.log(errorThrown);
+                alert('Internal error: ' + jqXHR.responseText);
                 window.location.href = '/ErrorPages/' + jqXHR.status;
             }
         })
@@ -104,12 +92,6 @@
                     data: 'price',
                     render: function (data, type, row, meta) {
                         return row.price
-                    }
-                },
-                {
-                    data: 'description',
-                    render: function (data, type, row, meta) {
-                        return row.description
                     }
                 },
                 {

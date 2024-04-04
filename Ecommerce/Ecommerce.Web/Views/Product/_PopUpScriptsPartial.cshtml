@@ -16,17 +16,23 @@
                 setReadOnlyByDiv(true);
                 break;
             }
-            case '@Constants.Action.Update':
+            case '@Constants.Action.Update': { 
                 setReadOnly('ProductId', true);
                 break;
+            }
+            case '@Constants.Action.Add': {
+                $('#@Html.Id("Status")').val('A');
+                break;
+            }
         }
     }
 
     function formValidate() {
         $.validator.setDefaults({
             submitHandler: function () {
-                if (action == '@Constants.Action.Add') InsertProduct(baseApiUrl + 'Product');
-                if (action == '@Constants.Action.Update') UpdateProduct(baseApiUrl + 'Product');
+                action == '@Constants.Action.Add' 
+                ? InsertProduct(baseApiUrl + 'Product') 
+                : UpdateProduct(baseApiUrl + 'Product');
             }
         });
         validate();
@@ -113,7 +119,7 @@
                     uploadImage(response);
                     swalMessage('success', response.message);
                     closeModal();
-                    getList();
+                    fetchData();
                 }
                 else Swal.fire(response.message);
             },
@@ -139,7 +145,7 @@
                     uploadImage(response);
                     swalMessage('success', response.message);
                     closeModal();
-                    getList();
+                    fetchData();
                 }
                 else Swal.fire(response.message);
             },
@@ -166,7 +172,7 @@
                 if (response.isSuccess) {
                     swalMessage('success', response.message);
                     closeModalLg();
-                    getList();
+                    fetchData();
                 }
             }
         });

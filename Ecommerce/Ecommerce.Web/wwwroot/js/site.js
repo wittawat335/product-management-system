@@ -184,7 +184,7 @@ function DeleteWithImage(id, apiUrl, clientUrl) {
             if (response.isSuccess) {
                 deleteImage(id, clientUrl);
                 swalMessage('success', response.message);
-                getList();
+                fetchData();
             }
             else Swal.fire(response.message);
         },

@@ -35,7 +35,7 @@ namespace Ecommerce.Core.AutoMapper
              .ForMember(x => x.CategoryName, 
              opt => opt.MapFrom(origin => origin.Category.CategoryName))
              .ForMember(x => x.Stock, 
-             opt => opt.MapFrom(origin => String.Format($"{origin.Stock:n}")))
+             opt => opt.MapFrom(origin => String.Format($"{origin.Stock:n0}")))
              .ForMember(x => x.Price, 
              opt => opt.MapFrom(origin => String.Format($"{origin.Price:n}")))
              .ForMember(x => x.CreateDate, 
