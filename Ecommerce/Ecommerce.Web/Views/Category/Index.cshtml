@@ -43,14 +43,16 @@
                 <table id="dtResult" class="table table-bordered table-striped">
                     <thead>
                         <tr>
-                          @*   <th><input type="checkbox" id="selected_All"/></th> *@
                             <th>@Html.DisplayNameFor(m => m.CategoryName)</th>
                             <th>@Html.DisplayNameFor(m => m.Status)</th>
                             <th>@Html.DisplayNameFor(m => m.CreateDate)</th>
                             <th style="text-align:center">
                                 @if (permAdd)
                                 {
-                                    <a class="btn btn-info" title="เพิ่ม" onclick="openPopup('','@action','@urlPopUp','เพิ่ม')">
+                                    <a 
+                                        class="btn btn-info" 
+                                        title="เพิ่ม" 
+                                        onclick="openPopup('','@action','@urlPopUp','เพิ่ม')">
                                         เพิ่ม
                                     </a>
                                 }
