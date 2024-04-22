@@ -93,7 +93,9 @@ namespace Ecommerce.Core.Services
         public async Task<string> CheckDupilcate(string id)
         {
             var query = await _repository.GetAsync(x => x.CategoryId == id);
-            string message = (query != null) ? string.Format(id + " " + Constants.StatusMessage.DuplicateId) : string.Empty;
+            string message = (query != null) 
+                ? string.Format(id + " " + Constants.StatusMessage.DuplicateId) 
+                : string.Empty;
 
             return message;
         }

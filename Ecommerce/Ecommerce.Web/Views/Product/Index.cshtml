@@ -77,7 +77,7 @@
                 </div>
             </div>
         </div>
-        <!-------------------------------------------- DataTable --------------------------------------------------->
+        <!------------------- DataTable ------------------------------>
         <div class="card card-default">
             <div class="card-header">
                 <h3 class="card-title">ผลการค้นหา</h3>
@@ -101,7 +101,8 @@
                             <th style="text-align:center">
                                 @if (permAdd)
                                 {
-                                    <a class="btn btn-info" onclick="openPopupLg('','@action','@urlPopUp','เพื่มสินค้า')">
+                                    <a class="btn btn-info"
+                                       onclick="openPopupLg('','@action','@urlPopUp','เพื่มสินค้า')">
                                         เพิ่ม
                                     </a>
                                 }
@@ -115,7 +116,7 @@
     </div>
 </section>
 
-@section Scripts{
+@section Scripts {
     @{
         await Html.RenderPartialAsync("_Script");
     }

@@ -29,7 +29,7 @@
 
 <section class="content">
     <div class="container-fluid">
-        <!-------------------------------------------- DataTable --------------------------------------------------->
+        <!-------------------------- DataTable --------------------------------------->
         <div class="card card-default">
             <div class="card-header">
                 <h3 class="card-title">ผลการค้นหา</h3>
@@ -51,7 +51,10 @@
                             <th style="text-align:center">
                                 @if (permNew)
                                 {
-                                    <a class="btn btn-info" onclick="openPopup('','@action','@urlPopUp','เพิ่มตำแหน่งผู้ใช้งาน')">เพิ่ม</a>
+                                    <a class="btn btn-info"
+                                       onclick="openPopup('','@action','@urlPopUp','เพิ่มตำแหน่งผู้ใช้งาน')">
+                                        เพิ่ม
+                                    </a>
                                 }
                             </th>
                         </tr>
@@ -63,7 +66,7 @@
     </div>
 </section>
 
-@section Scripts{
+@section Scripts {
     @{
         await Html.RenderPartialAsync("_Script");
     }
